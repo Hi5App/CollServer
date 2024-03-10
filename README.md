@@ -1,2 +1,2 @@
 # CollServer
-one of the CAR servers 
+CAR server for collaboration
