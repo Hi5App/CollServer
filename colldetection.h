@@ -63,6 +63,7 @@ public:
 
 signals:
     void removeErrorSegsDone();
+    void tuneErrorSegsDone();
 
 public slots:
     void detectWholeAtStart();
@@ -74,7 +75,7 @@ public slots:
     void detectCrossings();
     void detectOthersWhole();
     void removeErrorSegs(bool);
-
+    void tuneErrorSegs(bool);
 };
 
 #endif // COLLDETECTION_H

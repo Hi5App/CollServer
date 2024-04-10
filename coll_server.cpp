@@ -72,14 +72,13 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
         notification.mutable_metainfo()->set_apiversion(RpcCall::ApiVersion);
         auto* userInfo = notification.mutable_userverifyinfo();
         userInfo->set_username(cachedUserData.UserName);
-        userInfo->set_usertoken(cachedUserData.UserToken);
+        userInfo->set_userpassword(cachedUserData.Password);
         notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
         proto::UserOnlineHeartBeatResponse response;
         grpc::ClientContext context;
         auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
         if(status.ok()) {
             cachedUserData.UserName = response.userverifyinfo().username();
-            cachedUserData.UserToken = response.userverifyinfo().usertoken();
             cachedUserData.OnlineStatus = true;
         }else {
             qDebug()<<"Error" + QString::fromStdString(status.error_message());
@@ -182,7 +181,6 @@ CollServer* CollServer::getInstance(){
 }
 
 void CollServer::incomingConnection(qintptr handle){
-
     setredis(Port.toInt(),AnoName.toStdString().c_str());
     list_thread.append(new CollThread(this));
     list_thread[list_thread.size()-1]->setServer(curServer);
@@ -204,6 +202,7 @@ void CollServer::incomingConnection(qintptr handle){
     connect(client,&CollClient::serverStartTimerForDetectBranching,this,&CollServer::startTimerForDetectBranching);
     connect(client,&CollClient::serverStartTimerForDetectCrossing,this,&CollServer::startTimerForDetectCrossing);
     connect(client,&CollClient::detectUtilRemoveErrorSegs,detectUtil,&CollDetection::removeErrorSegs);
+    connect(client,&CollClient::detectUtilTuneErrorSegs,detectUtil,&CollDetection::tuneErrorSegs);
 
 //    connect(this,&CollServer::clientAddMarker,client,&CollClient::addmarkers);
     connect(this,&CollServer::clientSendMsgs,client,&CollClient::sendmsgs);
@@ -487,7 +486,7 @@ bool CollServer::connectToDBMS(){
 
             cachedUserData.CachedUserMetaInfo = response.userinfo();
             cachedUserData.UserName = response.userverifyinfo().username();
-            cachedUserData.UserToken = response.userverifyinfo().usertoken();
+            cachedUserData.Password = password.toStdString();
             cachedUserData.OnlineStatus = true;
 
             return true;

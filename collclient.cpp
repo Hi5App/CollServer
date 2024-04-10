@@ -2008,9 +2008,9 @@ void CollClient::analyzeSomaNearBy(const QString msg){
         QEventLoop loop;
 
         // 连接信号和事件循环的退出槽
-        connect(myServer->detectUtil, &CollDetection::removeErrorSegsDone, &loop, &QEventLoop::quit);
+        connect(myServer->detectUtil, &CollDetection::tuneErrorSegsDone, &loop, &QEventLoop::quit);
 
-        emit detectUtilRemoveErrorSegs(true);
+        emit detectUtilTuneErrorSegs(true);
 
         // 等待事件循环退出
         loop.exec();
@@ -2272,7 +2272,9 @@ void CollClient::analyzeAngles(const QString msg){
         return;
     }
     else{
-        set<string> angleErrPoints=getAngleErrPoints(8, myServer->somaCoordinate, myServer->segments, false);
+        myServer->mutex.lock();
+        set<string> angleErrPoints=getAngleErrPoints(8, myServer->isSomaExists, myServer->somaCoordinate, myServer->segments, false);
+        myServer->mutex.unlock();
 
         QString tobeSendMsg="/FEEDBACK_ANALYZE_Angle:";
         if(angleErrPoints.size()==0){
@@ -2335,9 +2337,9 @@ void CollClient::defineSoma(const QString msg){
         QEventLoop loop;
 
         // 连接信号和事件循环的退出槽
-        connect(myServer->detectUtil, &CollDetection::removeErrorSegsDone, &loop, &QEventLoop::quit);
+        connect(myServer->detectUtil, &CollDetection::tuneErrorSegsDone, &loop, &QEventLoop::quit);
 
-        emit detectUtilRemoveErrorSegs(true);
+        emit detectUtilTuneErrorSegs(true);
 
         // 等待事件循环退出
         loop.exec();
@@ -2460,6 +2462,7 @@ bool CollClient::connectToDBMS(){
             cachedUserData.CachedUserMetaInfo = response.userinfo();
             cachedUserData.UserName = response.userverifyinfo().username();
             cachedUserData.UserToken = response.userverifyinfo().usertoken();
+            cachedUserData.Password = password.toStdString();
             cachedUserData.OnlineStatus = true;
 
             return true;

@@ -119,6 +119,7 @@ signals:
     void serverStartTimerForDetectBranching();
     void serverStartTimerForDetectCrossing();
     void detectUtilRemoveErrorSegs(bool);
+    void detectUtilTuneErrorSegs(bool);
 
 };
 
