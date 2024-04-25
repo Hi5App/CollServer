@@ -79,8 +79,8 @@ XYZ CollDetection::getSomaCoordinate(QString apoPath){
 
 void CollDetection::detectWholeAtStart(){
 //    detectOthersWhole();
-    detectTipsWhole();
-    detectBranchingPoints();
+//    detectTipsWhole();
+//    detectBranchingPoints();
 }
 
 void CollDetection::detectTips(){

@@ -52,7 +52,7 @@ void setredis(const int port,const char *ano);
 void setexpire(const int port,const char *ano,const int expiretime);
 void recoverPort(const int port);
 
-vector<V_NeuronSWC>::iterator findseg(vector<V_NeuronSWC>::iterator begin,vector<V_NeuronSWC>::iterator end,const V_NeuronSWC seg);
+vector<V_NeuronSWC>::iterator findseg(vector<V_NeuronSWC>::iterator begin,vector<V_NeuronSWC>::iterator end, V_NeuronSWC seg);
 NeuronTree convertMsg2NT(QStringList pointlist,int client,int user, int isMany, int mode=0);
 
 double distance(const CellAPO &m1,const CellAPO &m2);
@@ -75,5 +75,6 @@ QStringList V_NeuronSWCToSendMSG(V_NeuronSWC seg);
 RGB8 getColorFromType(int type);
 std::vector<std::string> stringSplit(const std::string&str, char delim);
 set<int> getQCMarkerNearBy(vector<V_NeuronSWC> &segs, const QList<CellAPO> &markers);
+QString getCurrentDateTime();
 
 #endif // UTILS_H

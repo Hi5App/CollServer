@@ -204,7 +204,7 @@ struct V_NeuronSWC
 
 	void append(V_NeuronSWC_unit & new_node) {row.push_back(new_node);}
 	void clear() {row.clear();}
-	vector <V_NeuronSWC> decompose();
+    vector<V_NeuronSWC> decompose(bool& isSuccess);
 	bool reverse();
 
 	bool isLineGraph() {return b_linegraph;} //just return the "claimed" property is a line graph
@@ -270,7 +270,7 @@ bool verifyIsLineGraph(const V_NeuronSWC & in_swc); //this will use graph algori
 //////////////////////////////
 
 Link_Map get_link_map(const V_NeuronSWC & in_swc);
-vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc);
+vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess);
 V_NeuronSWC join_V_NeuronSWC_vec(vector <V_NeuronSWC> & in_swc_vec);
 
 bool reverse_V_NeuronSWC_inplace(V_NeuronSWC & in_swc);

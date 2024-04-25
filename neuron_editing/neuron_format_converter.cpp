@@ -136,7 +136,8 @@ V_NeuronSWC_list NeuronTree__2__V_NeuronSWC_list(NeuronTree * nt)           //co
 	
 	V_NeuronSWC_list editableNeuron;
 
-	editableNeuron.seg = cur_seg.decompose(); //////////////
+    bool isSuccess = true;
+    editableNeuron.seg = cur_seg.decompose(isSuccess); //////////////
 //        qDebug("	editableNeuron.seg.size = %d", editableNeuron.seg.size());
 	
 	editableNeuron.name = qPrintable(nt->name);
@@ -186,8 +187,13 @@ V_NeuronSWC_list NeuronTree__2__V_NeuronSWC_list(NeuronTree * nt, vector<string>
 
     V_NeuronSWC_list editableNeuron;
 
-    editableNeuron.seg = cur_seg.decompose(); //////////////
+    bool isSuccess = true;
+    editableNeuron.seg = cur_seg.decompose(isSuccess); //////////////
     //        qDebug("	editableNeuron.seg.size = %d", editableNeuron.seg.size());
+    if(!isSuccess){
+        editableNeuron.name = "invalid_swc";
+        return editableNeuron;
+    }
 
     editableNeuron.name = qPrintable(nt->name);
     editableNeuron.file = qPrintable(nt->file);

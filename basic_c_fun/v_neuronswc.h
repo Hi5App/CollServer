@@ -201,7 +201,7 @@ struct V_NeuronSWC
 
 	void append(V_NeuronSWC_unit & new_node) {row.push_back(new_node);}
 	void clear() {row.clear();}
-	vector <V_NeuronSWC> decompose();
+    vector <V_NeuronSWC> decompose(bool& isSuccess);
 	bool reverse();
 
 	bool isLineGraph() {return b_linegraph;} //just return the "claimed" property is a line graph

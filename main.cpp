@@ -5,11 +5,16 @@
 #include <signal.h>
 #include <unistd.h>
 QFile *logfile=nullptr;
+QString global_port="";
+QString global_anoname="";
 
 void sighandle(int sig){
     logfile->flush();
     //fsync的功能是确保文件fd所有已修改的内容已经正确同步到硬盘上，该调用会阻塞等待直到设备报告IO完成。
     fsync(1);fsync(2);
+    setexpire(global_port.toInt(),global_anoname.toStdString().c_str(),0);
+    // recover port
+    recoverPort(global_port.toInt());
     exit(0);
 }
 
@@ -29,6 +34,8 @@ int main(int argc, char *argv[])
     QString maxUserNums=argv[6];
     QString modelDetectIntervals=argv[7];
 
+    global_port = port;
+    global_anoname = anoname;
     //将标准输出和标准错误流中的内容追加到日志文件中
     freopen((prefix+"/log/"+anoname+".txt").toStdString().c_str(),"a",stdout);
     freopen((prefix+"/log/"+anoname+".txt").toStdString().c_str(),"a",stderr);
