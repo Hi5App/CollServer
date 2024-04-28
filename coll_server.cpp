@@ -72,14 +72,13 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
         notification.mutable_metainfo()->set_apiversion(RpcCall::ApiVersion);
         auto* userInfo = notification.mutable_userverifyinfo();
         userInfo->set_username(cachedUserData.UserName);
-        userInfo->set_usertoken(cachedUserData.UserToken);
+        userInfo->set_userpassword(cachedUserData.Password);
         notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
         proto::UserOnlineHeartBeatResponse response;
         grpc::ClientContext context;
         auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
         if(status.ok()) {
             cachedUserData.UserName = response.userverifyinfo().username();
-            cachedUserData.UserToken = response.userverifyinfo().usertoken();
             cachedUserData.OnlineStatus = true;
         }else {
             qDebug()<<"Error" + QString::fromStdString(status.error_message());
@@ -116,18 +115,18 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
 
 //    somaCoordinate=detectUtil->getSomaCoordinate(apopath);
 //    detectUtil->getImageRES();
-    // 3分钟执行一次
-    timerForAutoSave->start(3*60*1000);
+    // 30s执行一次
+    timerForAutoSave->start(30*1000);
 //    timerForDetectTip->setSingleShot(true);
-    timerForAutoExit->start(20*60*60*1000);
-    CollClient::timerforupdatemsg.start(1*1000);
+    timerForAutoExit->start(24*60*60*1000);
+    CollClient::timerforupdatemsg.start(0.5*1000);
     // 为msglist这个列表分配内存
     msglist.reserve(5000);
 
     // If address is QHostAddress::Any, the server will listen on all network interfaces.
     if(!this->listen(QHostAddress::Any,Port.toInt())){
         std::cerr<<"Can not init server with port "<<Port.toInt()<<std::endl;
-        setexpire(Port.toInt(),AnoName.toStdString().c_str(),5);
+        setexpire(Port.toInt(),AnoName.toStdString().c_str(),0);
         recoverPort(Port.toInt());
         std::cerr<<AnoName.toStdString()+" server is released\n";
         exit(-1);
@@ -154,17 +153,27 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
             emit curServer->clientSendmsgs2client(10);
     });
     startTimerForDetectWhole();
-    m_HeartBeatTimer->start();
-    m_OnlineStatusTimer->start();
+
+    QString dbmsLogPath = prefix+"/log/"+anoname+"_dbms.log";
+//    additionalLogFile=new QFile(dbmsLogPath);
+//    if(!additionalLogFile->open(QIODevice::Append | QIODevice::Text)){
+//        qDebug() << "cannot open additionalLogFile";
+//    }
+//    additionalLogOut.setDevice(additionalLogFile);
+
+//    m_HeartBeatTimer->start();
+//    m_OnlineStatusTimer->start();
 }
 
 CollServer::~CollServer(){
     // change set expire time 60 -> 10
-    setexpire(Port.toInt(),AnoName.toStdString().c_str(),5);
+    setexpire(Port.toInt(),AnoName.toStdString().c_str(),0);
     // recover port
     recoverPort(Port.toInt());
     std::cerr<<AnoName.toStdString()+" server is released\n";
     logfile->flush();
+    logfile->close();
+    delete logfile;
 
     while(list_thread.count()>0)
     {
@@ -173,6 +182,9 @@ CollServer::~CollServer(){
         list_thread[0]->deleteLater();//释放
         list_thread.removeAt(0);
     }
+//    additionalLogFile->flush();
+//    additionalLogFile->close();
+//    delete additionalLogFile;
 
     exit(0);
 }
@@ -182,8 +194,7 @@ CollServer* CollServer::getInstance(){
 }
 
 void CollServer::incomingConnection(qintptr handle){
-
-    setredis(Port.toInt(),AnoName.toStdString().c_str());
+    setexpire(Port.toInt(),AnoName.toStdString().c_str(), 60);
     list_thread.append(new CollThread(this));
     list_thread[list_thread.size()-1]->setServer(curServer);
     list_thread[list_thread.size()-1]->start();
@@ -204,6 +215,7 @@ void CollServer::incomingConnection(qintptr handle){
     connect(client,&CollClient::serverStartTimerForDetectBranching,this,&CollServer::startTimerForDetectBranching);
     connect(client,&CollClient::serverStartTimerForDetectCrossing,this,&CollServer::startTimerForDetectCrossing);
     connect(client,&CollClient::detectUtilRemoveErrorSegs,detectUtil,&CollDetection::removeErrorSegs);
+    connect(client,&CollClient::detectUtilTuneErrorSegs,detectUtil,&CollDetection::tuneErrorSegs);
 
 //    connect(this,&CollServer::clientAddMarker,client,&CollClient::addmarkers);
     connect(this,&CollServer::clientSendMsgs,client,&CollClient::sendmsgs);
@@ -211,6 +223,7 @@ void CollServer::incomingConnection(qintptr handle){
     connect(this,&CollServer::clientUpdatesendmsgcnt,client,&CollClient::updatesendmsgcnt2processed);
     connect(this,&CollServer::clientDeleteLater,client,&CollClient::quit);
     connect(this,&CollServer::clientDisconnectFromHost,client,&CollClient::disconnectByServer);
+
     client->moveToThread(list_thread[list_thread.size()-1]);
 //    new CollClient(handle,this);
 }
@@ -218,8 +231,8 @@ void CollServer::incomingConnection(qintptr handle){
 void CollServer::imediateSave(bool flag){
     qDebug()<<"imediateSave";
     savedmsgcnt=processedmsgcnt;
-    writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
-    writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
+//    writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
+//    writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
     if(flag)
         emit imediateSaveDone();
 }
@@ -227,8 +240,10 @@ void CollServer::imediateSave(bool flag){
 void CollServer::autoSave()
 {
     std::cout<<"auto save\n"<<std::endl;
+//    additionalLogFile->flush();
     logfile->flush();
     fsync(1);fsync(2);
+    setexpire(Port.toInt(), AnoName.toStdString().c_str(), 60);
     if(hashmap.size()==0){
         std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
         std::for_each(markers.begin(), markers.end(), [&](CellAPO&val) {
@@ -255,19 +270,13 @@ void CollServer::autoSave()
         WrappedCall::updateSwcAttachmentApo(swcName, attachmentUuid, swcAttachmentApoData, response, cachedUserData);
 
         this->close();
-        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
-        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
+//        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
+//        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
         // 延迟析构对象
         deleteLater();
     }else{
-        for (auto iter=hashmap.begin();iter!=hashmap.end();iter++){
-            qDebug()<<"user:"<<iter.key()<<" state:"<<iter.value()->state();
-        }
-//        for(auto &socket:sockets){
-//            socket->updatesendmsgcnt2processed();
-//        }
-        if(hashmap.size()!=0)
-            emit clientUpdatesendmsgcnt();
+//        if(hashmap.size()!=0)
+//            emit clientUpdatesendmsgcnt();
 
         //        msglist.erase(msglist.begin(),msglist.begin()+processedmsgcnt);
         //        msglist.reserve(5000);
@@ -278,10 +287,10 @@ void CollServer::autoSave()
         //        savedmsgcnt+=processedmsgcnt;
         //        processedmsgcnt=0;
         mutex.lock();
-        savedmsgcnt= processedmsgcnt;
+        savedmsgcnt = processedmsgcnt;
         mutex.unlock();
-        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
-        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
+//        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
+//        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
 
     }
 }
@@ -329,11 +338,11 @@ void CollServer::startTimerForDetectWhole(){
 }
 
 void CollServer::startTimerForDetectTip(){
-    timerForDetectTip->start(ModelDetectIntervals*1000);
+    timerForDetectTip->start(24*60*60*1000);
 }
 
 void CollServer::startTimerForDetectBranching(){
-    timerForDetectBranching->start(ModelDetectIntervals*1000);
+    timerForDetectBranching->start(24*60*60*1000);
 }
 
 void CollServer::startTimerForDetectCrossing(){
@@ -487,7 +496,7 @@ bool CollServer::connectToDBMS(){
 
             cachedUserData.CachedUserMetaInfo = response.userinfo();
             cachedUserData.UserName = response.userverifyinfo().username();
-            cachedUserData.UserToken = response.userverifyinfo().usertoken();
+            cachedUserData.Password = password.toStdString();
             cachedUserData.OnlineStatus = true;
 
             return true;

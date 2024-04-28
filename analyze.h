@@ -16,7 +16,7 @@ set<string> getDissociativeSegEndPoints(V_NeuronSWC_list segments);
 //获取背景中的漂浮分支标记点
 set<string> getDissociativeSegMarkerPoints(QList<NeuronSWC> neuron);
 //获取角度错误的树突分叉点
-set<string> getAngleErrPoints(float dist_thre, XYZ somaCoordinate, V_NeuronSWC_list segments, bool needConsiderType);
+set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordinate, V_NeuronSWC_list& segments, bool needConsiderType);
 //计算两个向量的夹角
 float calculateAngleofVecs(QVector3D vector1, QVector3D vector2);
 //将soma点的半径设置为1.234

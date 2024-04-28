@@ -79,8 +79,8 @@ XYZ CollDetection::getSomaCoordinate(QString apoPath){
 
 void CollDetection::detectWholeAtStart(){
 //    detectOthersWhole();
-    detectTipsWhole();
-    detectBranchingPoints();
+//    detectTipsWhole();
+//    detectBranchingPoints();
 }
 
 void CollDetection::detectTips(){
@@ -171,7 +171,7 @@ void CollDetection::detectOthersWhole(){
     myServer->mutex.lock();
     myServer->mutexForDetectOthers.lock();
     myServer->mutexForDetectMissing.lock();
-    removeErrorSegs(false);
+    tuneErrorSegs(false);
     removeShortSegs(myServer->segments);
     removeOverlapSegs(myServer->segments);
     vector<NeuronSWC> outputSpecialPoints = specStructsDetection(myServer->segments);
@@ -198,7 +198,7 @@ void CollDetection::detectLoops(){
     myServer->mutex.lock();
     myServer->mutexForDetectOthers.lock();
     myServer->mutexForDetectMissing.lock();
-    removeErrorSegs(false);
+    tuneErrorSegs(false);
     vector<NeuronSWC> outputSpecialPoints = loopDetection(myServer->segments);
     myServer->mutexForDetectMissing.unlock();
     myServer->mutexForDetectOthers.unlock();
@@ -2346,6 +2346,139 @@ void CollDetection::removeErrorSegs(bool flag){
         emit removeErrorSegsDone();
 }
 
+void CollDetection::tuneErrorSegs(bool flag){
+    vector<pair<V_NeuronSWC, V_NeuronSWC>> errorSegPairVec;
+    for(size_t i=0; i<myServer->segments.seg.size(); ++i){
+        V_NeuronSWC& seg = myServer->segments.seg[i];
+        if(seg.row.size()==1){
+            myServer->segments.seg[i].to_be_deleted = true;
+            auto seg_it = findseg(myServer->last1MinSegments.seg.begin(), myServer->last1MinSegments.seg.end(), myServer->segments.seg[i]);
+            if(seg_it != myServer->last1MinSegments.seg.end()){
+                seg_it->to_be_deleted = true;
+            }
+
+            seg_it = findseg(myServer->last3MinSegments.seg.begin(), myServer->last3MinSegments.seg.end(), myServer->segments.seg[i]);
+            if(seg_it != myServer->last3MinSegments.seg.end()){
+                seg_it->to_be_deleted = true;
+            }
+            continue;
+        }
+
+        set<string> coors;
+        for(size_t j=0; j<seg.row.size(); j++){
+            float xLabel = seg.row[j].x;
+            float yLabel = seg.row[j].y;
+            float zLabel = seg.row[j].z;
+            QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
+            string gridKey = gridKeyQ.toStdString();
+            coors.insert(gridKey);
+        }
+
+        if(coors.size() < seg.row.size() || seg.row[0].type == 5)
+        {
+            myServer->removedErrSegNum++;
+            pair<V_NeuronSWC, V_NeuronSWC> segPair;
+            segPair.first = seg;
+            for (auto it = seg.row.begin(); it!=seg.row.end() - 1 && it!=seg.row.end();)
+            {
+                V_NeuronSWC_unit v1 = *it;
+                V_NeuronSWC_unit v2 = *(it+1);
+                if(!(fabs(v1.x - v2.x) < 1e-5) || !(fabs(v1.y - v2.y) < 1e-5) || !(fabs(v1.z - v2.z) < 1e-5)){
+                    it++;
+                }
+                else{
+                    it = seg.row.erase(it);
+                }
+            }
+
+//            if(seg.row.size()==1){
+//                myServer->segments.seg[i].to_be_deleted = true;
+//                continue;
+//            }
+
+            int count = 1;
+            for (V3DLONG p=0;p<seg.row.size();p++)
+            {
+                V_NeuronSWC_unit& v = seg.row.at(p);
+                v.n = count++;
+                v.parent = count;
+            }
+            seg.row[seg.row.size() - 1].parent = -1;
+            segPair.second = seg;
+            errorSegPairVec.push_back(segPair);
+        }
+    }
+
+    QStringList result;
+    int count = 0;
+    for(auto it = errorSegPairVec.begin(); it != errorSegPairVec.end(); it++){
+        auto seg_it = findseg(myServer->last1MinSegments.seg.begin(), myServer->last1MinSegments.seg.end(), it->first);
+        if(seg_it != myServer->last1MinSegments.seg.end()){
+            seg_it->to_be_deleted = true;
+        }
+
+        seg_it = findseg(myServer->last3MinSegments.seg.begin(), myServer->last3MinSegments.seg.end(), it->first);
+        if(seg_it != myServer->last3MinSegments.seg.end()){
+            seg_it->to_be_deleted = true;
+        }
+
+        result+=V_NeuronSWCToSendMSG(it->first);
+        result.push_back("$");
+        count++;
+    }
+    std::vector<V_NeuronSWC>::iterator iter = myServer->last1MinSegments.seg.begin();
+
+    iter = myServer->segments.seg.begin();
+    while (iter != myServer->segments.seg.end())
+        if (iter->to_be_deleted){
+            myServer->removedErrSegNum++;
+            count++;
+            result+=V_NeuronSWCToSendMSG(*iter);
+            result.push_back("$");
+            iter = myServer->segments.seg.erase(iter);
+        }
+        else
+            ++iter;
+    //最后的1表示多条线
+    result.insert(0, QString("%1 server error %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
+    if(count != 0){
+        QString msg=QString("/delline_norm:"+result.join(","));
+        qDebug()<<"removeErrorSegs: "<<msg;
+        emit myServer->clientSendMsgs({msg});
+    }
+
+    while (iter != myServer->last1MinSegments.seg.end())
+        if (iter->to_be_deleted){
+            iter = myServer->last1MinSegments.seg.erase(iter);
+        }
+        else
+            ++iter;
+
+    iter = myServer->last3MinSegments.seg.begin();
+    while (iter != myServer->last3MinSegments.seg.end())
+        if (iter->to_be_deleted){
+            iter = myServer->last3MinSegments.seg.erase(iter);
+        }
+        else
+            ++iter;
+
+    for(auto it = errorSegPairVec.begin(); it != errorSegPairVec.end(); it++){
+        if(it->second.row.size() != 1){
+            myServer->last1MinSegments.append(it->second);
+            myServer->last3MinSegments.append(it->second);
+            QStringList addMsgList;
+            addMsgList.append(QString("0 server %1 %2 %3 %4").arg(0).arg(123).arg(123).arg(123));
+            addMsgList += V_NeuronSWCToSendMSG(it->second);
+            QString msg=QString("/drawline_norm:"+addMsgList.join(","));
+            qDebug()<<"drawline for correcting error seg: "<<msg;
+            emit myServer->clientSendMsgs({msg});
+        }
+    }
+
+    if(flag)
+        emit tuneErrorSegsDone();
+}
+
 void CollDetection::removeShortSegs(V_NeuronSWC_list inputSegList, double dist_thre){
     map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(inputSegList);
     for(auto it=wholeGrid2SegIDMap.begin(); it!=wholeGrid2SegIDMap.end(); it++)
@@ -2450,9 +2583,37 @@ void CollDetection::removeShortSegs(V_NeuronSWC_list inputSegList, double dist_t
 
 void CollDetection::removeOverlapSegs(V_NeuronSWC_list inputSegList){
     set<size_t> overlapSegIds;
+
     //检测overlap线段
     for(size_t i=0; i<inputSegList.seg.size(); ++i){
-        for(size_t j=i+1; j<inputSegList.seg.size(); j++){
+        float xLabel1 = inputSegList.seg[i].row[0].x;
+        float yLabel1 = inputSegList.seg[i].row[0].y;
+        float zLabel1 = inputSegList.seg[i].row[0].z;
+        float xLabel2 = inputSegList.seg[i].row[inputSegList.seg[i].row.size()-1].x;
+        float yLabel2 = inputSegList.seg[i].row[inputSegList.seg[i].row.size()-1].y;
+        float zLabel2 = inputSegList.seg[i].row[inputSegList.seg[i].row.size()-1].z;
+
+        if(myServer->isSomaExists){
+            if(distance(xLabel1, myServer->somaCoordinate.x, yLabel1, myServer->somaCoordinate.y, zLabel1, myServer->somaCoordinate.z) < 1)
+                continue;
+            if(distance(xLabel2, myServer->somaCoordinate.x, yLabel2, myServer->somaCoordinate.y, zLabel2, myServer->somaCoordinate.z) < 1)
+                continue;
+        }
+
+        for(size_t j=i+1; j<inputSegList.seg.size(); j++){            
+            float xLabel3 = inputSegList.seg[j].row[0].x;
+            float yLabel3 = inputSegList.seg[j].row[0].y;
+            float zLabel3 = inputSegList.seg[j].row[0].z;
+            float xLabel4 = inputSegList.seg[j].row[inputSegList.seg[j].row.size()-1].x;
+            float yLabel4 = inputSegList.seg[j].row[inputSegList.seg[j].row.size()-1].y;
+            float zLabel4 = inputSegList.seg[j].row[inputSegList.seg[j].row.size()-1].z;
+
+            if(myServer->isSomaExists){
+                if(distance(xLabel3, myServer->somaCoordinate.x, yLabel3, myServer->somaCoordinate.y, zLabel3, myServer->somaCoordinate.z) < 1)
+                    continue;
+                if(distance(xLabel4, myServer->somaCoordinate.x, yLabel4, myServer->somaCoordinate.y, zLabel4, myServer->somaCoordinate.z) < 1)
+                    continue;
+            }
             int result = isOverlapOfTwoSegs(inputSegList.seg[i], inputSegList.seg[j]);
             if(result == 1)
                 overlapSegIds.insert(i);

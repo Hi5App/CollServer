@@ -264,10 +264,18 @@ NeuronTree convertMsg2NT(QStringList pointlist,int client,int user, int isMany, 
     return newTempNT;
 }
 
-vector<V_NeuronSWC>::iterator findseg(vector<V_NeuronSWC>::iterator begin,vector<V_NeuronSWC>::iterator end,const V_NeuronSWC seg)
+vector<V_NeuronSWC>::iterator findseg(vector<V_NeuronSWC>::iterator begin,vector<V_NeuronSWC>::iterator end, V_NeuronSWC seg)
 {
     vector<V_NeuronSWC>::iterator result=end;
-    double mindist=1.5;
+    double mindist = 1;
+    double length = getSegLength(seg);
+
+    mindist = 1 + 1 * length/((length + 1) * (length + 1));
+
+    if(seg.row.size() <= 2){
+        mindist = 1;
+    }
+
     const std::vector<V_NeuronSWC_unit>::size_type cnt=seg.row.size();
 
     while(begin!=end)
@@ -543,15 +551,22 @@ map<string, set<size_t>> getWholeGrid2SegIDMap(V_NeuronSWC_list inputSegments){
 }
 
 int isOverlapOfTwoSegs(V_NeuronSWC& seg1, V_NeuronSWC& seg2){
+    if(seg1.row.size() == 1 || seg2.row.size() == 1){
+        return 0;
+    }
+
     double length1 = getSegLength(seg1);
     double length2 = getSegLength(seg2);
     double minDensity = min(length1/seg1.row.size(), length2/seg2.row.size());
-    double mindist = 4;
-    double mindist_thres = 4;
+    double minLength = min(length1, length2);
+    //    double mindist = 3.5 - 3.5 * 1.0 / minLength;
+    double mindist = 2 + 1.5 * minLength/((minLength + 1) * (minLength + 1));
+    //    double mindist_thres = 3.5 - 3.5 * 1.0 / minLength;
+    double mindist_thres = 2 + 1.5 * minLength/((minLength + 1) * (minLength + 1));
 
     if(minDensity < 5){
-        mindist = 0.4;
-        mindist_thres = 0.4;
+        mindist = 0.4 + 0.2 * minLength/((minLength + 1) * (minLength + 1));
+        mindist_thres = 0.4 + 0.2 * minLength/((minLength + 1) * (minLength + 1));
     }
 
     if(seg1.row.size() == seg2.row.size()){
@@ -788,4 +803,19 @@ set<int> getQCMarkerNearBy(vector<V_NeuronSWC> &segs, const QList<CellAPO> &mark
     return indexs;
 }
 
+QString getCurrentDateTime()
+{
+    // 获取当前时间戳
+    std::time_t currentTime = std::time(nullptr);
+
+    // 使用本地时间
+    std::tm localTime = *std::localtime(&currentTime);
+
+    // 定义格式化字符串的模板
+    char buffer[80]; // 容纳格式化后的字符串
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &localTime);
+
+    // 返回格式化后的字符串
+    return QString::fromStdString(std::string(buffer));
+}
 

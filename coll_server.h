@@ -21,6 +21,9 @@ public:
     bool addmarkers(const QString msg, QString comment);
     void delmarkers(const QString msg);
     CollDetection* detectUtil;
+//    QFile* additionalLogFile;
+//    QTextStream additionalLogOut;
+
     static CollServer* getInstance();
 
     QStringList msglist;
@@ -93,6 +96,7 @@ public slots:
     void startTimerForDetectBranching();
     void startTimerForDetectCrossing();
     void startTimerForDetectWhole();
+
 
 private:
 //    qsizetype idxforprocessed=0;
