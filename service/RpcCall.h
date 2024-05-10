@@ -39,7 +39,7 @@ public:
         return m_Stub;
     }
 
-    inline static std::string ApiVersion = "2024.01.19";
+    inline static std::string ApiVersion = "2024.05.06";
 
 private:
     RpcCall() {
