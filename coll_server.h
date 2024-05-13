@@ -72,7 +72,10 @@ public:
     string serverIP;
     string dbmsServerPort;
     string brainServerPort;
+    string superuserServerPort;
     string apiVersion;
+
+    CachedProtoData cachedUserData;
 
 signals:
 //    void clientAddMarker(QString);
@@ -117,7 +120,7 @@ private:
 
     static CollServer* curServer;
     QList<CollThread*> list_thread;
-    CachedProtoData cachedUserData;
+
     QTimer* m_HeartBeatTimer;
     QTimer* m_OnlineStatusTimer;
     QString username="server";

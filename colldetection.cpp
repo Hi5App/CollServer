@@ -9,17 +9,20 @@
 #include <filesystem>
 #include "detect_crossing/CrossingDetect.h"
 #include "detect_crossing/ResultWriter.h"
+#include "service/RpcCall.h"
+#include "service/WrappedCall.h"
+#include "grpcpp/grpcpp.h"
 
 XYZ CollDetection::maxRes = XYZ(0, 0, 0);
 XYZ CollDetection::subMaxRes;
 
-CollDetection::CollDetection(CollServer* curServer, string serverIp, string brainServerPort, QObject* parent):myServer(static_cast<CollServer*>(parent)){
+CollDetection::CollDetection(CollServer* curServer, string serverIp, string brainServerPort, string superuserServerPort, QObject* parent):myServer(static_cast<CollServer*>(parent)){
     myServer=curServer;
     accessManager=new QNetworkAccessManager(this);
     timerForFilterTip=new QTimer(this);
 //    SuperUserHostAddress="http://114.117.165.134:26000/SuperUser";
 //    BrainTellHostAddress="http://114.117.165.134:26000/dynamic";
-    SuperUserHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(brainServerPort)+"/SuperUser";
+    SuperUserHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(superuserServerPort)+"/SuperUser";
     BrainTellHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(brainServerPort)+"/dynamic";
 }
 
@@ -78,7 +81,8 @@ XYZ CollDetection::getSomaCoordinate(QString apoPath){
 }
 
 void CollDetection::detectWholeAtStart(){
-//    detectOthersWhole();
+    detectOthersWhole();
+    detectLoops();
 //    detectTipsWhole();
 //    detectBranchingPoints();
 }
@@ -125,9 +129,9 @@ void CollDetection::detectBranchingPoints(){
 
 void CollDetection::detectCrossings(){
     qDebug()<<"enter detectCrossings";
-    myServer->mutex.lock();
-    myServer->imediateSave(false);
-    myServer->mutex.unlock();
+//    myServer->mutex.lock();
+//    myServer->imediateSave(false);
+//    myServer->mutex.unlock();
     QJsonArray infos = crossingDetection();
     handleCrossing(infos);
 }
@@ -668,8 +672,10 @@ vector<NeuronSWC> CollDetection::loopDetection(V_NeuronSWC_list& inputSegList, d
         else
             ++iter;
 
+
     QStringList result;
     int count = 0;
+    proto::SwcDataV1 swcData;
     iter = inputSegList.seg.begin();
     while (iter != inputSegList.seg.end())
         if (iter->to_be_deleted){
@@ -677,12 +683,29 @@ vector<NeuronSWC> CollDetection::loopDetection(V_NeuronSWC_list& inputSegList, d
             count++;
             result+=V_NeuronSWCToSendMSG(*iter);
             result.push_back("$");
+
+            for(int j=0; j<iter->row.size(); j++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_x(iter->row[j].x);
+                swcNodeInternalData.set_y(iter->row[j].y);
+                swcNodeInternalData.set_z(iter->row[j].z);
+                swcNodeInternalData.set_radius(iter->row[j].r);
+                swcNodeInternalData.set_type(iter->row[j].type);
+                swcNodeInternalData.set_mode(iter->row[j].creatmode);
+
+                auto* newData = swcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                newData->mutable_base()->set_uuid(iter->row[j].uuid);
+            }
             iter = inputSegList.seg.erase(iter);
         }
         else
             ++iter;
+
     result.insert(0,QString("%1 server overlap %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
     if(count!=0){
+        proto::DeleteSwcNodeDataResponse response;
+        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
         QString msg=QString("/delline_norm:"+result.join(","));
         qDebug()<<"removeOverLapSegs: "<<msg;
         emit myServer->clientSendMsgs({msg});
@@ -1227,25 +1250,8 @@ vector<NeuronSWC> CollDetection::branchingDetection(V_NeuronSWC_list inputSegLis
 QJsonArray CollDetection::crossingDetection(){
     QString swcFileName=myServer->getAnoName()+".ano.eswc";
     QString fileSavePath=myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_forcrossing.ano.eswc";
+    writeESWC_file(fileSavePath,V_NeuronSWC_list__2__NeuronTree(myServer->segments));
 
-    QFile sourceFile(myServer->swcpath);
-    if (sourceFile.exists()) {
-        // 如果源文件存在，尝试将其复制到目标文件
-        // 如果目标文件已经存在，则删除
-        QFile destinationFile(fileSavePath);
-        if (destinationFile.exists()) {
-            if (!destinationFile.remove()) {
-                qDebug() << "Failed to remove existing destination file.";
-            }
-        }
-        if (sourceFile.copy(fileSavePath)) {
-            qDebug() << "file copied success!";
-        } else {
-            qDebug() << "file copied failed: " << sourceFile.errorString();
-        }
-    } else {
-        qDebug() << "swcfile not exists! " << myServer->swcpath;
-    }
     QFile *file = new QFile(fileSavePath);
     file->open(QIODevice::Text|QIODevice::ReadWrite);
     file->setPermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner);
@@ -1479,25 +1485,6 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
         QString fileSavePath=myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_fortip.ano.eswc";
         writeESWC_file(fileSavePath,V_NeuronSWC_list__2__NeuronTree(myServer->segments));
 
-//        QFile sourceFile(myServer->swcpath);
-//        if (sourceFile.exists()) {
-//            // 如果源文件存在，尝试将其复制到目标文件
-//            // 如果目标文件已经存在，则删除
-//            QFile destinationFile(fileSavePath);
-//            if (destinationFile.exists()) {
-//                if (!destinationFile.remove()) {
-//                    qDebug() << "Failed to remove existing destination file.";
-//                }
-//            }
-//            if (sourceFile.copy(fileSavePath)) {
-//                qDebug() << "file copied success!";
-//            } else {
-//                qDebug() << "file copied failed! " << sourceFile.errorString();
-//            }
-//        } else {
-//            qDebug() << "swc file not exists! " << myServer->swcpath;
-//        }
-
         sortSWC(fileSavePath,fileSavePath,0);
         setSWCRadius(fileSavePath,1);
 
@@ -1699,28 +1686,6 @@ void CollDetection::filterTip(vector<NeuronSWC>& markPoints){
 }
 
 void CollDetection::handleBranchingPoints(vector<NeuronSWC>& brainchingPoints, int& count){
-//    QString tobeSendMsg=QString("/WARN_BranchingError:server 0,");
-//    QStringList result;
-
-//    for(int i=0;i<brainchingPoints.size();i++){
-//        RGB8 color = getColorFromType(brainchingPoints[i].type);
-//        QString curMarker=QString("%1 %2 %3 %4 %5 %6").arg(color.r).arg(color.g).arg(color.b).arg(brainchingPoints[i].x).arg(brainchingPoints[i].y).arg(brainchingPoints[i].z);
-
-//        QString msg=QString("/WARN_BranchingError:server,"+curMarker);
-//        bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/WARN_BranchingError:").size()));
-//        if(isSucess){
-//            result.push_back(curMarker);
-//            count++;
-//        }
-//    }
-
-//    tobeSendMsg = tobeSendMsg + result.join(",");
-
-//    if(count!=0)
-//        emit myServer->clientSendMsgs({tobeSendMsg});
-//    qDebug()<<"Server finish /WARN_BranchingError";
-//    return;
-
     if(brainchingPoints.size()!=0){
         QJsonObject json;
         QString obj=myServer->getImage();
@@ -1868,18 +1833,6 @@ void CollDetection::handleBranchingPoints(vector<NeuronSWC>& brainchingPoints, i
 }
 
 void CollDetection::handleCrossing(QJsonArray& infos){
-//    for(int i=0;i<crossingPoints.size();i++){
-//        for(auto it=crossingPoints[i].begin();it!=crossingPoints[i].end();it++){
-//            QStringList result;
-//            result.push_back(QString("%1 server").arg(0));
-//            result.push_back(QString("%1 %2 %3 %4").arg(it->type).arg(it->x).arg(it->y).arg(it->z));
-//            QString msg=QString("/WARN_Crossing:"+result.join(","));
-//            myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/WARN_Crossing:").size()));
-//            qDebug()<<"Server finish /WARN_Crossing";
-//            emit myServer->clientSendMsgs({msg});
-//        }
-//    }
-
     QString swcFileName=myServer->getAnoName()+".ano.eswc";
     QString fileSavePath=myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_forcrossing.ano.eswc";
     // 创建一个QFile对象，用于读取要上传的文件
@@ -2348,8 +2301,9 @@ void CollDetection::removeErrorSegs(bool flag){
 
 void CollDetection::tuneErrorSegs(bool flag){
     vector<pair<V_NeuronSWC, V_NeuronSWC>> errorSegPairVec;
+    proto::SwcDataV1 delSwcData;
     for(size_t i=0; i<myServer->segments.seg.size(); ++i){
-        V_NeuronSWC& seg = myServer->segments.seg[i];
+        V_NeuronSWC seg = myServer->segments.seg[i];
         if(seg.row.size()==1){
             myServer->segments.seg[i].to_be_deleted = true;
             auto seg_it = findseg(myServer->last1MinSegments.seg.begin(), myServer->last1MinSegments.seg.end(), myServer->segments.seg[i]);
@@ -2374,11 +2328,26 @@ void CollDetection::tuneErrorSegs(bool flag){
             coors.insert(gridKey);
         }
 
-        if(coors.size() < seg.row.size() || seg.row[0].type == 5)
+        if(coors.size() < seg.row.size())
         {
-            myServer->removedErrSegNum++;
+//            myServer->removedErrSegNum++;
             pair<V_NeuronSWC, V_NeuronSWC> segPair;
             segPair.first = seg;
+
+            //            for(int j=0; j<seg.row.size(); j++){
+            //                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+            //                swcNodeInternalData.set_x(seg.row[j].x);
+            //                swcNodeInternalData.set_y(seg.row[j].y);
+            //                swcNodeInternalData.set_z(seg.row[j].z);
+            //                swcNodeInternalData.set_radius(seg.row[j].r);
+            //                swcNodeInternalData.set_type(seg.row[j].type);
+            //                swcNodeInternalData.set_mode(seg.row[j].creatmode);
+
+            //                auto* newData = delSwcData.add_swcdata();
+            //                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+            //                newData->mutable_base()->set_uuid(seg.row[j].uuid);
+            //            }
+
             for (auto it = seg.row.begin(); it!=seg.row.end() - 1 && it!=seg.row.end();)
             {
                 V_NeuronSWC_unit v1 = *it;
@@ -2391,11 +2360,6 @@ void CollDetection::tuneErrorSegs(bool flag){
                 }
             }
 
-//            if(seg.row.size()==1){
-//                myServer->segments.seg[i].to_be_deleted = true;
-//                continue;
-//            }
-
             int count = 1;
             for (V3DLONG p=0;p<seg.row.size();p++)
             {
@@ -2405,6 +2369,9 @@ void CollDetection::tuneErrorSegs(bool flag){
             }
             seg.row[seg.row.size() - 1].parent = -1;
             segPair.second = seg;
+
+            myServer->segments.seg[i].to_be_deleted = true;
+
             errorSegPairVec.push_back(segPair);
         }
     }
@@ -2422,23 +2389,45 @@ void CollDetection::tuneErrorSegs(bool flag){
             seg_it->to_be_deleted = true;
         }
 
-        result+=V_NeuronSWCToSendMSG(it->first);
-        result.push_back("$");
-        count++;
+//        result+=V_NeuronSWCToSendMSG(it->first);
+//        result.push_back("$");
+//        count++;
     }
-    std::vector<V_NeuronSWC>::iterator iter = myServer->last1MinSegments.seg.begin();
 
-    iter = myServer->segments.seg.begin();
+    //以上完成异常seg的标记
+
+    //删除segments中的线、数据库中的线、客户端的线
+    std::vector<V_NeuronSWC>::iterator iter = myServer->segments.seg.begin();
     while (iter != myServer->segments.seg.end())
         if (iter->to_be_deleted){
             myServer->removedErrSegNum++;
             count++;
             result+=V_NeuronSWCToSendMSG(*iter);
             result.push_back("$");
+
+            for(int j=0; j<iter->row.size(); j++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_x(iter->row[j].x);
+                swcNodeInternalData.set_y(iter->row[j].y);
+                swcNodeInternalData.set_z(iter->row[j].z);
+                swcNodeInternalData.set_radius(iter->row[j].r);
+                swcNodeInternalData.set_type(iter->row[j].type);
+                swcNodeInternalData.set_mode(iter->row[j].creatmode);
+
+                auto* newData = delSwcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                newData->mutable_base()->set_uuid(iter->row[j].uuid);
+            }
             iter = myServer->segments.seg.erase(iter);
         }
         else
             ++iter;
+
+    if(delSwcData.swcdata_size() > 0){
+        proto::DeleteSwcNodeDataResponse response;
+        WrappedCall::deleteSwcNodeData(myServer->swcName, delSwcData, response, myServer->cachedUserData);
+    }
+
     //最后的1表示多条线
     result.insert(0, QString("%1 server error %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
     if(count != 0){
@@ -2447,6 +2436,8 @@ void CollDetection::tuneErrorSegs(bool flag){
         emit myServer->clientSendMsgs({msg});
     }
 
+    //删除两个增量数据结构中的线
+    iter = myServer->last1MinSegments.seg.begin();
     while (iter != myServer->last1MinSegments.seg.end())
         if (iter->to_be_deleted){
             iter = myServer->last1MinSegments.seg.erase(iter);
@@ -2462,13 +2453,90 @@ void CollDetection::tuneErrorSegs(bool flag){
         else
             ++iter;
 
+    //加线
     for(auto it = errorSegPairVec.begin(); it != errorSegPairVec.end(); it++){
         if(it->second.row.size() != 1){
+            V3DLONG point_size = myServer->segments.nrows();
+            proto::SwcDataV1 addSwcData;
+
+            for(int i=0; i<it->second.row.size(); i++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_n(point_size + i + 1);
+                if(i == it->second.row.size()-1)
+                    swcNodeInternalData.set_parent(-1);
+                else
+                    swcNodeInternalData.set_parent(point_size + i + 2);
+                swcNodeInternalData.set_x(it->second.row[i].x);
+                swcNodeInternalData.set_y(it->second.row[i].y);
+                swcNodeInternalData.set_z(it->second.row[i].z);
+                swcNodeInternalData.set_radius(it->second.row[i].r);
+                swcNodeInternalData.set_type(it->second.row[i].type);
+                swcNodeInternalData.set_mode(it->second.row[i].creatmode);
+
+                auto* newData = addSwcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+            }
+
+            proto::CreateSwcNodeDataResponse response;
+            if(!WrappedCall::addSwcNodeData(myServer->swcName, addSwcData, response, myServer->cachedUserData)){
+                QString msg = "/WARN_AddSwcNodeDataError:server";
+                emit myServer->clientSendMsgs({msg});
+                return;
+            }
+
+            auto uuids = response.creatednodesuuid();
+            for(int i=0; i<it->second.row.size(); i++){
+                it->second.row[i].uuid = uuids.Get(i);
+            }
+
+            myServer->segments.append(it->second);
             myServer->last1MinSegments.append(it->second);
             myServer->last3MinSegments.append(it->second);
+
+            reverseSeg(it->second);
+            int firstSegID = -1;
+            int secondSegID = -1;
+            int index = myServer->segments.seg.size() - 1;
+            for(int i = 0; i < myServer->segments.seg.size(); i++){
+                V_NeuronSWC seg =  myServer->segments.seg[i];
+                for(int j = 0; j < seg.row.size(); j++){
+                    if(fabs(seg.row[j].x - it->second.row[0].x) < 1e-5 && fabs(seg.row[j].y - it->second.row[0].y) < 1e-5 &&
+                        fabs(seg.row[j].z - it->second.row[0].z) < 1e-5 && index != i){
+                        firstSegID = i;
+                    }
+                    if(fabs(seg.row[j].x - it->second.row[it->second.row.size() - 1].x) < 1e-5 && fabs(seg.row[j].y - it->second.row[it->second.row.size() - 1].y) < 1e-5 &&
+                        fabs(seg.row[j].z - it->second.row[it->second.row.size() - 1].z) < 1e-5 && index != i){
+                        secondSegID = i;
+                    }
+                }
+            }
+
+            qDebug() << "firstSegID: "<< firstSegID << "secondSegID: " << secondSegID;
+            vector<V_NeuronSWC> connectedSegs;
+            bool isBegin = true;
+            if(firstSegID != -1){
+                connectedSegs.push_back(myServer->segments.seg[firstSegID]);
+            }
+            if(secondSegID != -1){
+                connectedSegs.push_back(myServer->segments.seg[secondSegID]);
+            }
+
+            if(firstSegID!=-1 && connectedSegs.size()==1){
+                isBegin = true;
+            }
+            if(secondSegID!=-1 && connectedSegs.size()==1){
+                isBegin = false;
+            }
+
             QStringList addMsgList;
             addMsgList.append(QString("0 server %1 %2 %3 %4").arg(0).arg(123).arg(123).arg(123));
             addMsgList += V_NeuronSWCToSendMSG(it->second);
+            addMsgList += "$";
+            for(auto connectedSegs_it = connectedSegs.begin(); connectedSegs_it != connectedSegs.end(); connectedSegs_it++){
+                addMsgList += V_NeuronSWCToSendMSG(*connectedSegs_it);
+                addMsgList += "$";
+            }
+
             QString msg=QString("/drawline_norm:"+addMsgList.join(","));
             qDebug()<<"drawline for correcting error seg: "<<msg;
             emit myServer->clientSendMsgs({msg});
@@ -2493,7 +2561,7 @@ void CollDetection::removeShortSegs(V_NeuronSWC_list inputSegList, double dist_t
         set<size_t> segIds = it->second;
         if(segIds.size() >= 4){
             for(auto segIt=segIds.begin(); segIt!=segIds.end(); segIt++){
-                if(inputSegList.seg[*segIt].row.size()<=2){
+                if(inputSegList.seg[*segIt].row.size() <= 3){
                     float xLabel1 = inputSegList.seg[*segIt].row[0].x;
                     float yLabel1 = inputSegList.seg[*segIt].row[0].y;
                     float zLabel1 = inputSegList.seg[*segIt].row[0].z;
@@ -2563,16 +2631,36 @@ void CollDetection::removeShortSegs(V_NeuronSWC_list inputSegList, double dist_t
     QStringList result;
     bool isSend = false;
     result.push_back(QString("%1 server %2 %3 %4 %5").arg(0).arg(123).arg(123).arg(123).arg(1));
+    proto::SwcDataV1 swcData;
     while (iter != myServer->segments.seg.end())
         if (iter->to_be_deleted){
             isSend = true;
             result+=V_NeuronSWCToSendMSG(*iter);
             result.push_back("$");
 
+            for(int j=0; j<iter->row.size(); j++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_x(iter->row[j].x);
+                swcNodeInternalData.set_y(iter->row[j].y);
+                swcNodeInternalData.set_z(iter->row[j].z);
+                swcNodeInternalData.set_radius(iter->row[j].r);
+                swcNodeInternalData.set_type(iter->row[j].type);
+                swcNodeInternalData.set_mode(iter->row[j].creatmode);
+
+                auto* newData = swcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                newData->mutable_base()->set_uuid(iter->row[j].uuid);
+            }
+
             iter = myServer->segments.seg.erase(iter);
         }
         else
             ++iter;
+
+    if(swcData.swcdata_size() > 0){
+        proto::DeleteSwcNodeDataResponse response;
+        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+    }
 
     QString msg=QString("/delline_norm:"+result.join(","));
     if(isSend){
@@ -2600,7 +2688,7 @@ void CollDetection::removeOverlapSegs(V_NeuronSWC_list inputSegList){
                 continue;
         }
 
-        for(size_t j=i+1; j<inputSegList.seg.size(); j++){            
+        for(size_t j=i+1; j<inputSegList.seg.size(); j++){
             float xLabel3 = inputSegList.seg[j].row[0].x;
             float yLabel3 = inputSegList.seg[j].row[0].y;
             float zLabel3 = inputSegList.seg[j].row[0].z;
@@ -2650,6 +2738,8 @@ void CollDetection::removeOverlapSegs(V_NeuronSWC_list inputSegList){
     QStringList result;
     int count = 0;
     bool isSend = false;
+
+    proto::SwcDataV1 swcData;
     while (iter != myServer->segments.seg.end())
         if (iter->to_be_deleted){
             isSend = true;
@@ -2658,10 +2748,29 @@ void CollDetection::removeOverlapSegs(V_NeuronSWC_list inputSegList){
             result+=V_NeuronSWCToSendMSG(*iter);
             result.push_back("$");
 
+            for(int j=0; j<iter->row.size(); j++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_x(iter->row[j].x);
+                swcNodeInternalData.set_y(iter->row[j].y);
+                swcNodeInternalData.set_z(iter->row[j].z);
+                swcNodeInternalData.set_radius(iter->row[j].r);
+                swcNodeInternalData.set_type(iter->row[j].type);
+                swcNodeInternalData.set_mode(iter->row[j].creatmode);
+
+                auto* newData = swcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                newData->mutable_base()->set_uuid(iter->row[j].uuid);
+            }
             iter = myServer->segments.seg.erase(iter);
         }
         else
             ++iter;
+
+    if(swcData.swcdata_size() > 0){
+        proto::DeleteSwcNodeDataResponse response;
+        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+    }
+
     result.insert(0,QString("%1 server overlap %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
 
     QString msg=QString("/delline_norm:"+result.join(","));

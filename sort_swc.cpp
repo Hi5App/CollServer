@@ -603,8 +603,8 @@ bool SortSWCSimplify(QList<NeuronSWC> & neurons, V_NeuronSWC_list segments, QLis
     cout<<"Done 1st DFS"<<endl;
     //    qDebug()<<"sorted_size: "<<sorted_size;
     if(sorted_size < siz){
-        qDebug()<<"swc is not a interconnected tree!";
-        msg = "swc is not a interconnected tree!";
+        qDebug()<<"swc is not an interconnected tree!";
+        msg = "swc is not an interconnected tree!";
         return false;
     }
 

@@ -13,6 +13,7 @@ public:
         eServerIP,
         dbmsServerPort,
         brainServerPort,
+        superuserServerPort,
         apiVersion,
         redisServerIP
     };
@@ -62,6 +63,13 @@ public:
         case ConfigItem::brainServerPort: {
             if(m_AppConfig.contains("brainServerPort")){
                 return m_AppConfig["brainServerPort"];
+            } else{
+                return "";
+            }
+        }
+        case ConfigItem::superuserServerPort: {
+            if(m_AppConfig.contains("superuserServerPort")){
+                return m_AppConfig["superuserServerPort"];
             } else{
                 return "";
             }

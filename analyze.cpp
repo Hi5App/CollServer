@@ -610,7 +610,7 @@ float calculateAngleofVecs(QVector3D vector1, QVector3D vector2){
 }
 
 //将soma点的半径设置为1.234
-bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ somaCoordinate, double dist_thre, CollDetection* detectUtil, QString& msg){
+bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ somaCoordinate, double dist_thre, double bifur_dist_thre, CollDetection* detectUtil, QString& msg){
     map<string, set<size_t> > wholeGrid2SegIDMap;
     map<string, bool> isEndPointMap;
 
@@ -778,7 +778,7 @@ bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ som
                 if(distance(n1.x,somaCoordinate.x,n1.y,somaCoordinate.y,n1.z,somaCoordinate.z)>soma_radius
                     &&distance(n2.x,somaCoordinate.x,n2.y,somaCoordinate.y,n2.z,somaCoordinate.z)>soma_radius){
                     double dist=distance(n1.x,n2.x,n1.y,n2.y,n1.z,n2.z);
-                    if(distance((n1.x+n2.x)/2,somaCoordinate.x,(n1.y+n2.y)/2,somaCoordinate.y,(n1.z+n2.z)/2,somaCoordinate.z)>1e-7&&dist<dist_thre){
+                    if(distance((n1.x+n2.x)/2,somaCoordinate.x,(n1.y+n2.y)/2,somaCoordinate.y,(n1.z+n2.z)/2,somaCoordinate.z)>1e-7&&dist<bifur_dist_thre){
                         vector<size_t> v={pre_tip_id,cur_tip_id};
                         pairs.push_back(v);
                         pset.insert(pre_tip_id);

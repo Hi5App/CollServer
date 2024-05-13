@@ -1569,10 +1569,6 @@ void CollClient::ondisconnect()
     myServer->mutex.lock();
     if(myServer->hashmap.contains(username)&&myServer->hashmap[username]==this)
         myServer->hashmap.remove(username);
-    if(myServer->hashmap.size()==0)
-    {
-        emit serverImediateSave(false);
-    }
 
     QString onlineUserMsg = "/onlineusers:";
     for(auto it = myServer->hashmap.begin(); it != myServer->hashmap.end(); it++){
@@ -2548,7 +2544,7 @@ void CollClient::defineSoma(const QString msg){
         myServer->mutexForDetectOthers.unlock();
         myServer->mutex.unlock();
         QString fileSaveName = myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_somadefined.ano.eswc";
-        bool result = setSomaPointRadius(fileSaveName, myServer->segments, myServer->somaCoordinate, 8, myServer->detectUtil, info);
+        bool result = setSomaPointRadius(fileSaveName, myServer->segments, myServer->somaCoordinate, 8, 2, myServer->detectUtil, info);
         if(!result){
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
             tobeSendMsg += ",";
@@ -2605,6 +2601,9 @@ void CollClient::defineSoma(const QString msg){
             info = "success!";
             tobeSendMsg += info;
             sendmsgs({tobeSendMsg});
+
+            //将定义父节点之后的swc上传到数据管理系统
+
         }
     }
 }
@@ -2633,7 +2632,6 @@ void CollClient::getSomaPos(const QString msg){
         myServer->somaCoordinate.z = myServer->markers.last().z;
         myServer->isSomaExists = true;
         myServer->markers.move(myServer->markers.size() - 1, 0);
-        emit serverImediateSave(false);
 
         tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
         tobeSendMsg += ",";

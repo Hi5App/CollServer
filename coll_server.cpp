@@ -53,11 +53,12 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
     serverIP = Config::getInstance().getConfig(Config::ConfigItem::eServerIP);
     dbmsServerPort = Config::getInstance().getConfig(Config::ConfigItem::dbmsServerPort);
     brainServerPort = Config::getInstance().getConfig(Config::ConfigItem::brainServerPort);
+    superuserServerPort = Config::getInstance().getConfig(Config::ConfigItem::superuserServerPort);
     apiVersion = Config::getInstance().getConfig(Config::ConfigItem::apiVersion);
     redisIp = Config::getInstance().getConfig(Config::ConfigItem::redisServerIP);
     std::cout<<serverIP<<" "<<dbmsServerPort<<" "<<brainServerPort<<" "<<apiVersion<<" "<<redisIp;
 
-    detectUtil=new CollDetection(this, serverIP, brainServerPort, this);
+    detectUtil=new CollDetection(this, serverIP, brainServerPort, superuserServerPort, this);
 //    string serverIP = "114.117.165.134";
 //    string serverPort = "14251";
     auto endPoint = serverIP + ":" + dbmsServerPort;
@@ -325,11 +326,11 @@ void CollServer::RemoveList(QThread* thread){
 }
 
 void CollServer::startTimerForDetectLoops(){
-    timerForDetectLoops->start(24*60*60*1000);
+    timerForDetectLoops->start(60*1000);
 }
 
 void CollServer::startTimerForDetectOthers(){
-    timerForDetectOthers->start(24*60*60*1000);
+    timerForDetectOthers->start(60*1000);
 }
 
 void CollServer::startTimerForDetectWhole(){

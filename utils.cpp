@@ -270,7 +270,7 @@ vector<V_NeuronSWC>::iterator findseg(vector<V_NeuronSWC>::iterator begin,vector
     double mindist = 1;
     double length = getSegLength(seg);
 
-    mindist = 1 + 1 * length/((length + 1) * (length + 1));
+    mindist = 1 + 1 * sqrt(length)/(sqrt(length) + 1);
 
     if(seg.row.size() <= 2){
         mindist = 1;
@@ -560,13 +560,13 @@ int isOverlapOfTwoSegs(V_NeuronSWC& seg1, V_NeuronSWC& seg2){
     double minDensity = min(length1/seg1.row.size(), length2/seg2.row.size());
     double minLength = min(length1, length2);
     //    double mindist = 3.5 - 3.5 * 1.0 / minLength;
-    double mindist = 2 + 1.5 * minLength/((minLength + 1) * (minLength + 1));
+    double mindist = 1 + 3 * sqrt(minLength)/(sqrt(minLength) + 1);
     //    double mindist_thres = 3.5 - 3.5 * 1.0 / minLength;
-    double mindist_thres = 2 + 1.5 * minLength/((minLength + 1) * (minLength + 1));
+    double mindist_thres = 1 + 3 * sqrt(minLength)/(sqrt(minLength) + 1);
 
     if(minDensity < 5){
-        mindist = 0.4 + 0.2 * minLength/((minLength + 1) * (minLength + 1));
-        mindist_thres = 0.4 + 0.2 * minLength/((minLength + 1) * (minLength + 1));
+        mindist = 0.2 + 0.4 * sqrt(minLength)/(sqrt(minLength) + 1);
+        mindist_thres = 0.2 + 0.4 * sqrt(minLength)/(sqrt(minLength) + 1);
     }
 
     if(seg1.row.size() == seg2.row.size()){

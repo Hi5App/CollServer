@@ -20,7 +20,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
 //计算两个向量的夹角
 float calculateAngleofVecs(QVector3D vector1, QVector3D vector2);
 //将soma点的半径设置为1.234
-bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ somaCoordinate, double dist_thre, CollDetection* detectUtil, QString& msg);
+bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ somaCoordinate, double dist_thre, double bifur_dist_thre, CollDetection* detectUtil, QString& msg);
 //从swc文件中获取soma点的序号
 int getSomaNumberFromSwcFile(QString filePath, float r, QString& msg);
 

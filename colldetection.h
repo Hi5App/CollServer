@@ -37,7 +37,7 @@ public:
     static XYZ subMaxRes;
     QTimer *timerForFilterTip;
 
-    explicit CollDetection(CollServer* curServer, string serverIp, string brainServerPort, QObject* parent=nullptr);
+    explicit CollDetection(CollServer* curServer, string serverIp, string brainServerPort, string superuserServerPort, QObject* parent=nullptr);
     ~CollDetection(){}
     XYZ getSomaCoordinate(QString apoPath);
     vector<NeuronSWC> specStructsDetection(V_NeuronSWC_list& inputSegList, double dist_thresh=2);
