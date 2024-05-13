@@ -2596,14 +2596,40 @@ void CollClient::defineSoma(const QString msg){
                 sendmsgs({tobeSendMsg});
                 return;
             }
+
+            auto definedSwcNt = readSWC_file(fileSaveName);
+            neuron = definedSwcNt.listNeuron;
+            std::vector<proto::SwcNodeDataV1> modelData;
+
+            for(auto it = neuron.begin(); it != neuron.end(); it++){
+                proto::SwcNodeDataV1 swcNodeData;
+                auto* swcNodeInternalData = swcNodeData.mutable_swcnodeinternaldata();
+                swcNodeInternalData->set_n(it->n);
+                swcNodeInternalData->set_x(it->x);
+                swcNodeInternalData->set_y(it->y);
+                swcNodeInternalData->set_z(it->z);
+                swcNodeInternalData->set_radius(it->r);
+                swcNodeInternalData->set_parent(it->pn);
+                swcNodeInternalData->set_type(it->type);
+                swcNodeInternalData->set_mode(it->creatmode);
+                modelData.push_back(swcNodeData);
+            }
+
+            proto::UpdateSwcAttachmentSwcResponse response;
+            if(!WrappedCall::updateSwcAttachmentSwc(myServer->swcName, modelData, response, cachedUserData)){
+                tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+                tobeSendMsg += ",";
+                info = "UpdateSwcAttachmentSwcError from DBMS!";
+                tobeSendMsg += info;
+                sendmsgs({msg});
+                return;
+            }
+
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
             tobeSendMsg += ",";
             info = "success!";
             tobeSendMsg += info;
             sendmsgs({tobeSendMsg});
-
-            //将定义父节点之后的swc上传到数据管理系统
-
         }
     }
 }

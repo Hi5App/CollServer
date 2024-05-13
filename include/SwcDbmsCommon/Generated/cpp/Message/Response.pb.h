@@ -62,6 +62,9 @@ extern CreateSwcAttachmentAnoResponseDefaultTypeInternal _CreateSwcAttachmentAno
 class CreateSwcAttachmentApoResponse;
 struct CreateSwcAttachmentApoResponseDefaultTypeInternal;
 extern CreateSwcAttachmentApoResponseDefaultTypeInternal _CreateSwcAttachmentApoResponse_default_instance_;
+class CreateSwcAttachmentSwcResponse;
+struct CreateSwcAttachmentSwcResponseDefaultTypeInternal;
+extern CreateSwcAttachmentSwcResponseDefaultTypeInternal _CreateSwcAttachmentSwcResponse_default_instance_;
 class CreateSwcNodeDataResponse;
 struct CreateSwcNodeDataResponseDefaultTypeInternal;
 extern CreateSwcNodeDataResponseDefaultTypeInternal _CreateSwcNodeDataResponse_default_instance_;
@@ -86,6 +89,9 @@ extern DeleteSwcAttachmentAnoResponseDefaultTypeInternal _DeleteSwcAttachmentAno
 class DeleteSwcAttachmentApoResponse;
 struct DeleteSwcAttachmentApoResponseDefaultTypeInternal;
 extern DeleteSwcAttachmentApoResponseDefaultTypeInternal _DeleteSwcAttachmentApoResponse_default_instance_;
+class DeleteSwcAttachmentSwcResponse;
+struct DeleteSwcAttachmentSwcResponseDefaultTypeInternal;
+extern DeleteSwcAttachmentSwcResponseDefaultTypeInternal _DeleteSwcAttachmentSwcResponse_default_instance_;
 class DeleteSwcNodeDataResponse;
 struct DeleteSwcNodeDataResponseDefaultTypeInternal;
 extern DeleteSwcNodeDataResponseDefaultTypeInternal _DeleteSwcNodeDataResponse_default_instance_;
@@ -137,6 +143,9 @@ extern GetSwcAttachmentAnoResponseDefaultTypeInternal _GetSwcAttachmentAnoRespon
 class GetSwcAttachmentApoResponse;
 struct GetSwcAttachmentApoResponseDefaultTypeInternal;
 extern GetSwcAttachmentApoResponseDefaultTypeInternal _GetSwcAttachmentApoResponse_default_instance_;
+class GetSwcAttachmentSwcResponse;
+struct GetSwcAttachmentSwcResponseDefaultTypeInternal;
+extern GetSwcAttachmentSwcResponseDefaultTypeInternal _GetSwcAttachmentSwcResponse_default_instance_;
 class GetSwcFullNodeDataResponse;
 struct GetSwcFullNodeDataResponseDefaultTypeInternal;
 extern GetSwcFullNodeDataResponseDefaultTypeInternal _GetSwcFullNodeDataResponse_default_instance_;
@@ -170,6 +179,9 @@ extern UpdateSwcAttachmentAnoResponseDefaultTypeInternal _UpdateSwcAttachmentAno
 class UpdateSwcAttachmentApoResponse;
 struct UpdateSwcAttachmentApoResponseDefaultTypeInternal;
 extern UpdateSwcAttachmentApoResponseDefaultTypeInternal _UpdateSwcAttachmentApoResponse_default_instance_;
+class UpdateSwcAttachmentSwcResponse;
+struct UpdateSwcAttachmentSwcResponseDefaultTypeInternal;
+extern UpdateSwcAttachmentSwcResponseDefaultTypeInternal _UpdateSwcAttachmentSwcResponse_default_instance_;
 class UpdateSwcNodeDataResponse;
 struct UpdateSwcNodeDataResponseDefaultTypeInternal;
 extern UpdateSwcNodeDataResponseDefaultTypeInternal _UpdateSwcNodeDataResponse_default_instance_;
@@ -195,6 +207,7 @@ template<> ::proto::CreateDailyStatisticsResponse* Arena::CreateMaybeMessage<::p
 template<> ::proto::CreateProjectResponse* Arena::CreateMaybeMessage<::proto::CreateProjectResponse>(Arena*);
 template<> ::proto::CreateSwcAttachmentAnoResponse* Arena::CreateMaybeMessage<::proto::CreateSwcAttachmentAnoResponse>(Arena*);
 template<> ::proto::CreateSwcAttachmentApoResponse* Arena::CreateMaybeMessage<::proto::CreateSwcAttachmentApoResponse>(Arena*);
+template<> ::proto::CreateSwcAttachmentSwcResponse* Arena::CreateMaybeMessage<::proto::CreateSwcAttachmentSwcResponse>(Arena*);
 template<> ::proto::CreateSwcNodeDataResponse* Arena::CreateMaybeMessage<::proto::CreateSwcNodeDataResponse>(Arena*);
 template<> ::proto::CreateSwcResponse* Arena::CreateMaybeMessage<::proto::CreateSwcResponse>(Arena*);
 template<> ::proto::CreateSwcSnapshotResponse* Arena::CreateMaybeMessage<::proto::CreateSwcSnapshotResponse>(Arena*);
@@ -203,6 +216,7 @@ template<> ::proto::DeleteDailyStatisticsResponse* Arena::CreateMaybeMessage<::p
 template<> ::proto::DeleteProjectResponse* Arena::CreateMaybeMessage<::proto::DeleteProjectResponse>(Arena*);
 template<> ::proto::DeleteSwcAttachmentAnoResponse* Arena::CreateMaybeMessage<::proto::DeleteSwcAttachmentAnoResponse>(Arena*);
 template<> ::proto::DeleteSwcAttachmentApoResponse* Arena::CreateMaybeMessage<::proto::DeleteSwcAttachmentApoResponse>(Arena*);
+template<> ::proto::DeleteSwcAttachmentSwcResponse* Arena::CreateMaybeMessage<::proto::DeleteSwcAttachmentSwcResponse>(Arena*);
 template<> ::proto::DeleteSwcNodeDataResponse* Arena::CreateMaybeMessage<::proto::DeleteSwcNodeDataResponse>(Arena*);
 template<> ::proto::DeleteSwcResponse* Arena::CreateMaybeMessage<::proto::DeleteSwcResponse>(Arena*);
 template<> ::proto::DeleteUserResponse* Arena::CreateMaybeMessage<::proto::DeleteUserResponse>(Arena*);
@@ -220,6 +234,7 @@ template<> ::proto::GetProjectResponse* Arena::CreateMaybeMessage<::proto::GetPr
 template<> ::proto::GetSnapshotResponse* Arena::CreateMaybeMessage<::proto::GetSnapshotResponse>(Arena*);
 template<> ::proto::GetSwcAttachmentAnoResponse* Arena::CreateMaybeMessage<::proto::GetSwcAttachmentAnoResponse>(Arena*);
 template<> ::proto::GetSwcAttachmentApoResponse* Arena::CreateMaybeMessage<::proto::GetSwcAttachmentApoResponse>(Arena*);
+template<> ::proto::GetSwcAttachmentSwcResponse* Arena::CreateMaybeMessage<::proto::GetSwcAttachmentSwcResponse>(Arena*);
 template<> ::proto::GetSwcFullNodeDataResponse* Arena::CreateMaybeMessage<::proto::GetSwcFullNodeDataResponse>(Arena*);
 template<> ::proto::GetSwcMetaInfoResponse* Arena::CreateMaybeMessage<::proto::GetSwcMetaInfoResponse>(Arena*);
 template<> ::proto::GetSwcNodeDataListByTimeAndUserResponse* Arena::CreateMaybeMessage<::proto::GetSwcNodeDataListByTimeAndUserResponse>(Arena*);
@@ -231,6 +246,7 @@ template<> ::proto::UpdateDailyStatisticsResponse* Arena::CreateMaybeMessage<::p
 template<> ::proto::UpdateProjectResponse* Arena::CreateMaybeMessage<::proto::UpdateProjectResponse>(Arena*);
 template<> ::proto::UpdateSwcAttachmentAnoResponse* Arena::CreateMaybeMessage<::proto::UpdateSwcAttachmentAnoResponse>(Arena*);
 template<> ::proto::UpdateSwcAttachmentApoResponse* Arena::CreateMaybeMessage<::proto::UpdateSwcAttachmentApoResponse>(Arena*);
+template<> ::proto::UpdateSwcAttachmentSwcResponse* Arena::CreateMaybeMessage<::proto::UpdateSwcAttachmentSwcResponse>(Arena*);
 template<> ::proto::UpdateSwcNodeDataResponse* Arena::CreateMaybeMessage<::proto::UpdateSwcNodeDataResponse>(Arena*);
 template<> ::proto::UpdateSwcResponse* Arena::CreateMaybeMessage<::proto::UpdateSwcResponse>(Arena*);
 template<> ::proto::UpdateUserResponse* Arena::CreateMaybeMessage<::proto::UpdateUserResponse>(Arena*);
@@ -8389,6 +8405,670 @@ class RevertSwcVersionResponse final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_Message_2fResponse_2eproto;
 };
+// -------------------------------------------------------------------
+
+class CreateSwcAttachmentSwcResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.CreateSwcAttachmentSwcResponse) */ {
+ public:
+  inline CreateSwcAttachmentSwcResponse() : CreateSwcAttachmentSwcResponse(nullptr) {}
+  ~CreateSwcAttachmentSwcResponse() override;
+  explicit PROTOBUF_CONSTEXPR CreateSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateSwcAttachmentSwcResponse(const CreateSwcAttachmentSwcResponse& from);
+  CreateSwcAttachmentSwcResponse(CreateSwcAttachmentSwcResponse&& from) noexcept
+    : CreateSwcAttachmentSwcResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateSwcAttachmentSwcResponse& operator=(const CreateSwcAttachmentSwcResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateSwcAttachmentSwcResponse& operator=(CreateSwcAttachmentSwcResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CreateSwcAttachmentSwcResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateSwcAttachmentSwcResponse* internal_default_instance() {
+    return reinterpret_cast<const CreateSwcAttachmentSwcResponse*>(
+               &_CreateSwcAttachmentSwcResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    47;
+
+  friend void swap(CreateSwcAttachmentSwcResponse& a, CreateSwcAttachmentSwcResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CreateSwcAttachmentSwcResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CreateSwcAttachmentSwcResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const CreateSwcAttachmentSwcResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const CreateSwcAttachmentSwcResponse& from) {
+    CreateSwcAttachmentSwcResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CreateSwcAttachmentSwcResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.CreateSwcAttachmentSwcResponse";
+  }
+  protected:
+  explicit CreateSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSwcAttachmentUuidFieldNumber = 2,
+    kMetaInfoFieldNumber = 1,
+  };
+  // string SwcAttachmentUuid = 2;
+  void clear_swcattachmentuuid();
+  const std::string& swcattachmentuuid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_swcattachmentuuid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_swcattachmentuuid();
+  PROTOBUF_NODISCARD std::string* release_swcattachmentuuid();
+  void set_allocated_swcattachmentuuid(std::string* swcattachmentuuid);
+  private:
+  const std::string& _internal_swcattachmentuuid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_swcattachmentuuid(const std::string& value);
+  std::string* _internal_mutable_swcattachmentuuid();
+  public:
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  bool has_metainfo() const;
+  private:
+  bool _internal_has_metainfo() const;
+  public:
+  void clear_metainfo();
+  const ::proto::ResponseMetaInfoV1& metainfo() const;
+  PROTOBUF_NODISCARD ::proto::ResponseMetaInfoV1* release_metainfo();
+  ::proto::ResponseMetaInfoV1* mutable_metainfo();
+  void set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo);
+  private:
+  const ::proto::ResponseMetaInfoV1& _internal_metainfo() const;
+  ::proto::ResponseMetaInfoV1* _internal_mutable_metainfo();
+  public:
+  void unsafe_arena_set_allocated_metainfo(
+      ::proto::ResponseMetaInfoV1* metainfo);
+  ::proto::ResponseMetaInfoV1* unsafe_arena_release_metainfo();
+
+  // @@protoc_insertion_point(class_scope:proto.CreateSwcAttachmentSwcResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr swcattachmentuuid_;
+    ::proto::ResponseMetaInfoV1* metainfo_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fResponse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DeleteSwcAttachmentSwcResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.DeleteSwcAttachmentSwcResponse) */ {
+ public:
+  inline DeleteSwcAttachmentSwcResponse() : DeleteSwcAttachmentSwcResponse(nullptr) {}
+  ~DeleteSwcAttachmentSwcResponse() override;
+  explicit PROTOBUF_CONSTEXPR DeleteSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeleteSwcAttachmentSwcResponse(const DeleteSwcAttachmentSwcResponse& from);
+  DeleteSwcAttachmentSwcResponse(DeleteSwcAttachmentSwcResponse&& from) noexcept
+    : DeleteSwcAttachmentSwcResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline DeleteSwcAttachmentSwcResponse& operator=(const DeleteSwcAttachmentSwcResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeleteSwcAttachmentSwcResponse& operator=(DeleteSwcAttachmentSwcResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const DeleteSwcAttachmentSwcResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeleteSwcAttachmentSwcResponse* internal_default_instance() {
+    return reinterpret_cast<const DeleteSwcAttachmentSwcResponse*>(
+               &_DeleteSwcAttachmentSwcResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    48;
+
+  friend void swap(DeleteSwcAttachmentSwcResponse& a, DeleteSwcAttachmentSwcResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeleteSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeleteSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeleteSwcAttachmentSwcResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeleteSwcAttachmentSwcResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const DeleteSwcAttachmentSwcResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const DeleteSwcAttachmentSwcResponse& from) {
+    DeleteSwcAttachmentSwcResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DeleteSwcAttachmentSwcResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.DeleteSwcAttachmentSwcResponse";
+  }
+  protected:
+  explicit DeleteSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMetaInfoFieldNumber = 1,
+  };
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  bool has_metainfo() const;
+  private:
+  bool _internal_has_metainfo() const;
+  public:
+  void clear_metainfo();
+  const ::proto::ResponseMetaInfoV1& metainfo() const;
+  PROTOBUF_NODISCARD ::proto::ResponseMetaInfoV1* release_metainfo();
+  ::proto::ResponseMetaInfoV1* mutable_metainfo();
+  void set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo);
+  private:
+  const ::proto::ResponseMetaInfoV1& _internal_metainfo() const;
+  ::proto::ResponseMetaInfoV1* _internal_mutable_metainfo();
+  public:
+  void unsafe_arena_set_allocated_metainfo(
+      ::proto::ResponseMetaInfoV1* metainfo);
+  ::proto::ResponseMetaInfoV1* unsafe_arena_release_metainfo();
+
+  // @@protoc_insertion_point(class_scope:proto.DeleteSwcAttachmentSwcResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::proto::ResponseMetaInfoV1* metainfo_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fResponse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateSwcAttachmentSwcResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.UpdateSwcAttachmentSwcResponse) */ {
+ public:
+  inline UpdateSwcAttachmentSwcResponse() : UpdateSwcAttachmentSwcResponse(nullptr) {}
+  ~UpdateSwcAttachmentSwcResponse() override;
+  explicit PROTOBUF_CONSTEXPR UpdateSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateSwcAttachmentSwcResponse(const UpdateSwcAttachmentSwcResponse& from);
+  UpdateSwcAttachmentSwcResponse(UpdateSwcAttachmentSwcResponse&& from) noexcept
+    : UpdateSwcAttachmentSwcResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateSwcAttachmentSwcResponse& operator=(const UpdateSwcAttachmentSwcResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateSwcAttachmentSwcResponse& operator=(UpdateSwcAttachmentSwcResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UpdateSwcAttachmentSwcResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateSwcAttachmentSwcResponse* internal_default_instance() {
+    return reinterpret_cast<const UpdateSwcAttachmentSwcResponse*>(
+               &_UpdateSwcAttachmentSwcResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    49;
+
+  friend void swap(UpdateSwcAttachmentSwcResponse& a, UpdateSwcAttachmentSwcResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateSwcAttachmentSwcResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateSwcAttachmentSwcResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UpdateSwcAttachmentSwcResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const UpdateSwcAttachmentSwcResponse& from) {
+    UpdateSwcAttachmentSwcResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateSwcAttachmentSwcResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.UpdateSwcAttachmentSwcResponse";
+  }
+  protected:
+  explicit UpdateSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMetaInfoFieldNumber = 1,
+  };
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  bool has_metainfo() const;
+  private:
+  bool _internal_has_metainfo() const;
+  public:
+  void clear_metainfo();
+  const ::proto::ResponseMetaInfoV1& metainfo() const;
+  PROTOBUF_NODISCARD ::proto::ResponseMetaInfoV1* release_metainfo();
+  ::proto::ResponseMetaInfoV1* mutable_metainfo();
+  void set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo);
+  private:
+  const ::proto::ResponseMetaInfoV1& _internal_metainfo() const;
+  ::proto::ResponseMetaInfoV1* _internal_mutable_metainfo();
+  public:
+  void unsafe_arena_set_allocated_metainfo(
+      ::proto::ResponseMetaInfoV1* metainfo);
+  ::proto::ResponseMetaInfoV1* unsafe_arena_release_metainfo();
+
+  // @@protoc_insertion_point(class_scope:proto.UpdateSwcAttachmentSwcResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::proto::ResponseMetaInfoV1* metainfo_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fResponse_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetSwcAttachmentSwcResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.GetSwcAttachmentSwcResponse) */ {
+ public:
+  inline GetSwcAttachmentSwcResponse() : GetSwcAttachmentSwcResponse(nullptr) {}
+  ~GetSwcAttachmentSwcResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetSwcAttachmentSwcResponse(const GetSwcAttachmentSwcResponse& from);
+  GetSwcAttachmentSwcResponse(GetSwcAttachmentSwcResponse&& from) noexcept
+    : GetSwcAttachmentSwcResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetSwcAttachmentSwcResponse& operator=(const GetSwcAttachmentSwcResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetSwcAttachmentSwcResponse& operator=(GetSwcAttachmentSwcResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GetSwcAttachmentSwcResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetSwcAttachmentSwcResponse* internal_default_instance() {
+    return reinterpret_cast<const GetSwcAttachmentSwcResponse*>(
+               &_GetSwcAttachmentSwcResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    50;
+
+  friend void swap(GetSwcAttachmentSwcResponse& a, GetSwcAttachmentSwcResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetSwcAttachmentSwcResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetSwcAttachmentSwcResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetSwcAttachmentSwcResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GetSwcAttachmentSwcResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const GetSwcAttachmentSwcResponse& from) {
+    GetSwcAttachmentSwcResponse::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GetSwcAttachmentSwcResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.GetSwcAttachmentSwcResponse";
+  }
+  protected:
+  explicit GetSwcAttachmentSwcResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSwcDataFieldNumber = 2,
+    kMetaInfoFieldNumber = 1,
+  };
+  // repeated .proto.SwcNodeDataV1 SwcData = 2;
+  int swcdata_size() const;
+  private:
+  int _internal_swcdata_size() const;
+  public:
+  void clear_swcdata();
+  ::proto::SwcNodeDataV1* mutable_swcdata(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::SwcNodeDataV1 >*
+      mutable_swcdata();
+  private:
+  const ::proto::SwcNodeDataV1& _internal_swcdata(int index) const;
+  ::proto::SwcNodeDataV1* _internal_add_swcdata();
+  public:
+  const ::proto::SwcNodeDataV1& swcdata(int index) const;
+  ::proto::SwcNodeDataV1* add_swcdata();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::SwcNodeDataV1 >&
+      swcdata() const;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  bool has_metainfo() const;
+  private:
+  bool _internal_has_metainfo() const;
+  public:
+  void clear_metainfo();
+  const ::proto::ResponseMetaInfoV1& metainfo() const;
+  PROTOBUF_NODISCARD ::proto::ResponseMetaInfoV1* release_metainfo();
+  ::proto::ResponseMetaInfoV1* mutable_metainfo();
+  void set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo);
+  private:
+  const ::proto::ResponseMetaInfoV1& _internal_metainfo() const;
+  ::proto::ResponseMetaInfoV1* _internal_mutable_metainfo();
+  public:
+  void unsafe_arena_set_allocated_metainfo(
+      ::proto::ResponseMetaInfoV1* metainfo);
+  ::proto::ResponseMetaInfoV1* unsafe_arena_release_metainfo();
+
+  // @@protoc_insertion_point(class_scope:proto.GetSwcAttachmentSwcResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::SwcNodeDataV1 > swcdata_;
+    ::proto::ResponseMetaInfoV1* metainfo_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fResponse_2eproto;
+};
 // ===================================================================
 
 
@@ -15360,9 +16040,460 @@ inline void RevertSwcVersionResponse::set_allocated_metainfo(::proto::ResponseMe
   // @@protoc_insertion_point(field_set_allocated:proto.RevertSwcVersionResponse.metaInfo)
 }
 
+// -------------------------------------------------------------------
+
+// CreateSwcAttachmentSwcResponse
+
+// .proto.ResponseMetaInfoV1 metaInfo = 1;
+inline bool CreateSwcAttachmentSwcResponse::_internal_has_metainfo() const {
+  return this != internal_default_instance() && _impl_.metainfo_ != nullptr;
+}
+inline bool CreateSwcAttachmentSwcResponse::has_metainfo() const {
+  return _internal_has_metainfo();
+}
+inline const ::proto::ResponseMetaInfoV1& CreateSwcAttachmentSwcResponse::_internal_metainfo() const {
+  const ::proto::ResponseMetaInfoV1* p = _impl_.metainfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::ResponseMetaInfoV1&>(
+      ::proto::_ResponseMetaInfoV1_default_instance_);
+}
+inline const ::proto::ResponseMetaInfoV1& CreateSwcAttachmentSwcResponse::metainfo() const {
+  // @@protoc_insertion_point(field_get:proto.CreateSwcAttachmentSwcResponse.metaInfo)
+  return _internal_metainfo();
+}
+inline void CreateSwcAttachmentSwcResponse::unsafe_arena_set_allocated_metainfo(
+    ::proto::ResponseMetaInfoV1* metainfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  _impl_.metainfo_ = metainfo;
+  if (metainfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.CreateSwcAttachmentSwcResponse.metaInfo)
+}
+inline ::proto::ResponseMetaInfoV1* CreateSwcAttachmentSwcResponse::release_metainfo() {
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* CreateSwcAttachmentSwcResponse::unsafe_arena_release_metainfo() {
+  // @@protoc_insertion_point(field_release:proto.CreateSwcAttachmentSwcResponse.metaInfo)
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* CreateSwcAttachmentSwcResponse::_internal_mutable_metainfo() {
+  
+  if (_impl_.metainfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::ResponseMetaInfoV1>(GetArenaForAllocation());
+    _impl_.metainfo_ = p;
+  }
+  return _impl_.metainfo_;
+}
+inline ::proto::ResponseMetaInfoV1* CreateSwcAttachmentSwcResponse::mutable_metainfo() {
+  ::proto::ResponseMetaInfoV1* _msg = _internal_mutable_metainfo();
+  // @@protoc_insertion_point(field_mutable:proto.CreateSwcAttachmentSwcResponse.metaInfo)
+  return _msg;
+}
+inline void CreateSwcAttachmentSwcResponse::set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  if (metainfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(metainfo));
+    if (message_arena != submessage_arena) {
+      metainfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, metainfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.metainfo_ = metainfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.CreateSwcAttachmentSwcResponse.metaInfo)
+}
+
+// string SwcAttachmentUuid = 2;
+inline void CreateSwcAttachmentSwcResponse::clear_swcattachmentuuid() {
+  _impl_.swcattachmentuuid_.ClearToEmpty();
+}
+inline const std::string& CreateSwcAttachmentSwcResponse::swcattachmentuuid() const {
+  // @@protoc_insertion_point(field_get:proto.CreateSwcAttachmentSwcResponse.SwcAttachmentUuid)
+  return _internal_swcattachmentuuid();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CreateSwcAttachmentSwcResponse::set_swcattachmentuuid(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.swcattachmentuuid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.CreateSwcAttachmentSwcResponse.SwcAttachmentUuid)
+}
+inline std::string* CreateSwcAttachmentSwcResponse::mutable_swcattachmentuuid() {
+  std::string* _s = _internal_mutable_swcattachmentuuid();
+  // @@protoc_insertion_point(field_mutable:proto.CreateSwcAttachmentSwcResponse.SwcAttachmentUuid)
+  return _s;
+}
+inline const std::string& CreateSwcAttachmentSwcResponse::_internal_swcattachmentuuid() const {
+  return _impl_.swcattachmentuuid_.Get();
+}
+inline void CreateSwcAttachmentSwcResponse::_internal_set_swcattachmentuuid(const std::string& value) {
+  
+  _impl_.swcattachmentuuid_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CreateSwcAttachmentSwcResponse::_internal_mutable_swcattachmentuuid() {
+  
+  return _impl_.swcattachmentuuid_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CreateSwcAttachmentSwcResponse::release_swcattachmentuuid() {
+  // @@protoc_insertion_point(field_release:proto.CreateSwcAttachmentSwcResponse.SwcAttachmentUuid)
+  return _impl_.swcattachmentuuid_.Release();
+}
+inline void CreateSwcAttachmentSwcResponse::set_allocated_swcattachmentuuid(std::string* swcattachmentuuid) {
+  if (swcattachmentuuid != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.swcattachmentuuid_.SetAllocated(swcattachmentuuid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.swcattachmentuuid_.IsDefault()) {
+    _impl_.swcattachmentuuid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:proto.CreateSwcAttachmentSwcResponse.SwcAttachmentUuid)
+}
+
+// -------------------------------------------------------------------
+
+// DeleteSwcAttachmentSwcResponse
+
+// .proto.ResponseMetaInfoV1 metaInfo = 1;
+inline bool DeleteSwcAttachmentSwcResponse::_internal_has_metainfo() const {
+  return this != internal_default_instance() && _impl_.metainfo_ != nullptr;
+}
+inline bool DeleteSwcAttachmentSwcResponse::has_metainfo() const {
+  return _internal_has_metainfo();
+}
+inline const ::proto::ResponseMetaInfoV1& DeleteSwcAttachmentSwcResponse::_internal_metainfo() const {
+  const ::proto::ResponseMetaInfoV1* p = _impl_.metainfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::ResponseMetaInfoV1&>(
+      ::proto::_ResponseMetaInfoV1_default_instance_);
+}
+inline const ::proto::ResponseMetaInfoV1& DeleteSwcAttachmentSwcResponse::metainfo() const {
+  // @@protoc_insertion_point(field_get:proto.DeleteSwcAttachmentSwcResponse.metaInfo)
+  return _internal_metainfo();
+}
+inline void DeleteSwcAttachmentSwcResponse::unsafe_arena_set_allocated_metainfo(
+    ::proto::ResponseMetaInfoV1* metainfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  _impl_.metainfo_ = metainfo;
+  if (metainfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.DeleteSwcAttachmentSwcResponse.metaInfo)
+}
+inline ::proto::ResponseMetaInfoV1* DeleteSwcAttachmentSwcResponse::release_metainfo() {
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* DeleteSwcAttachmentSwcResponse::unsafe_arena_release_metainfo() {
+  // @@protoc_insertion_point(field_release:proto.DeleteSwcAttachmentSwcResponse.metaInfo)
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* DeleteSwcAttachmentSwcResponse::_internal_mutable_metainfo() {
+  
+  if (_impl_.metainfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::ResponseMetaInfoV1>(GetArenaForAllocation());
+    _impl_.metainfo_ = p;
+  }
+  return _impl_.metainfo_;
+}
+inline ::proto::ResponseMetaInfoV1* DeleteSwcAttachmentSwcResponse::mutable_metainfo() {
+  ::proto::ResponseMetaInfoV1* _msg = _internal_mutable_metainfo();
+  // @@protoc_insertion_point(field_mutable:proto.DeleteSwcAttachmentSwcResponse.metaInfo)
+  return _msg;
+}
+inline void DeleteSwcAttachmentSwcResponse::set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  if (metainfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(metainfo));
+    if (message_arena != submessage_arena) {
+      metainfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, metainfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.metainfo_ = metainfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.DeleteSwcAttachmentSwcResponse.metaInfo)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateSwcAttachmentSwcResponse
+
+// .proto.ResponseMetaInfoV1 metaInfo = 1;
+inline bool UpdateSwcAttachmentSwcResponse::_internal_has_metainfo() const {
+  return this != internal_default_instance() && _impl_.metainfo_ != nullptr;
+}
+inline bool UpdateSwcAttachmentSwcResponse::has_metainfo() const {
+  return _internal_has_metainfo();
+}
+inline const ::proto::ResponseMetaInfoV1& UpdateSwcAttachmentSwcResponse::_internal_metainfo() const {
+  const ::proto::ResponseMetaInfoV1* p = _impl_.metainfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::ResponseMetaInfoV1&>(
+      ::proto::_ResponseMetaInfoV1_default_instance_);
+}
+inline const ::proto::ResponseMetaInfoV1& UpdateSwcAttachmentSwcResponse::metainfo() const {
+  // @@protoc_insertion_point(field_get:proto.UpdateSwcAttachmentSwcResponse.metaInfo)
+  return _internal_metainfo();
+}
+inline void UpdateSwcAttachmentSwcResponse::unsafe_arena_set_allocated_metainfo(
+    ::proto::ResponseMetaInfoV1* metainfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  _impl_.metainfo_ = metainfo;
+  if (metainfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.UpdateSwcAttachmentSwcResponse.metaInfo)
+}
+inline ::proto::ResponseMetaInfoV1* UpdateSwcAttachmentSwcResponse::release_metainfo() {
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* UpdateSwcAttachmentSwcResponse::unsafe_arena_release_metainfo() {
+  // @@protoc_insertion_point(field_release:proto.UpdateSwcAttachmentSwcResponse.metaInfo)
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* UpdateSwcAttachmentSwcResponse::_internal_mutable_metainfo() {
+  
+  if (_impl_.metainfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::ResponseMetaInfoV1>(GetArenaForAllocation());
+    _impl_.metainfo_ = p;
+  }
+  return _impl_.metainfo_;
+}
+inline ::proto::ResponseMetaInfoV1* UpdateSwcAttachmentSwcResponse::mutable_metainfo() {
+  ::proto::ResponseMetaInfoV1* _msg = _internal_mutable_metainfo();
+  // @@protoc_insertion_point(field_mutable:proto.UpdateSwcAttachmentSwcResponse.metaInfo)
+  return _msg;
+}
+inline void UpdateSwcAttachmentSwcResponse::set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  if (metainfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(metainfo));
+    if (message_arena != submessage_arena) {
+      metainfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, metainfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.metainfo_ = metainfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.UpdateSwcAttachmentSwcResponse.metaInfo)
+}
+
+// -------------------------------------------------------------------
+
+// GetSwcAttachmentSwcResponse
+
+// .proto.ResponseMetaInfoV1 metaInfo = 1;
+inline bool GetSwcAttachmentSwcResponse::_internal_has_metainfo() const {
+  return this != internal_default_instance() && _impl_.metainfo_ != nullptr;
+}
+inline bool GetSwcAttachmentSwcResponse::has_metainfo() const {
+  return _internal_has_metainfo();
+}
+inline const ::proto::ResponseMetaInfoV1& GetSwcAttachmentSwcResponse::_internal_metainfo() const {
+  const ::proto::ResponseMetaInfoV1* p = _impl_.metainfo_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::ResponseMetaInfoV1&>(
+      ::proto::_ResponseMetaInfoV1_default_instance_);
+}
+inline const ::proto::ResponseMetaInfoV1& GetSwcAttachmentSwcResponse::metainfo() const {
+  // @@protoc_insertion_point(field_get:proto.GetSwcAttachmentSwcResponse.metaInfo)
+  return _internal_metainfo();
+}
+inline void GetSwcAttachmentSwcResponse::unsafe_arena_set_allocated_metainfo(
+    ::proto::ResponseMetaInfoV1* metainfo) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  _impl_.metainfo_ = metainfo;
+  if (metainfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GetSwcAttachmentSwcResponse.metaInfo)
+}
+inline ::proto::ResponseMetaInfoV1* GetSwcAttachmentSwcResponse::release_metainfo() {
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* GetSwcAttachmentSwcResponse::unsafe_arena_release_metainfo() {
+  // @@protoc_insertion_point(field_release:proto.GetSwcAttachmentSwcResponse.metaInfo)
+  
+  ::proto::ResponseMetaInfoV1* temp = _impl_.metainfo_;
+  _impl_.metainfo_ = nullptr;
+  return temp;
+}
+inline ::proto::ResponseMetaInfoV1* GetSwcAttachmentSwcResponse::_internal_mutable_metainfo() {
+  
+  if (_impl_.metainfo_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::ResponseMetaInfoV1>(GetArenaForAllocation());
+    _impl_.metainfo_ = p;
+  }
+  return _impl_.metainfo_;
+}
+inline ::proto::ResponseMetaInfoV1* GetSwcAttachmentSwcResponse::mutable_metainfo() {
+  ::proto::ResponseMetaInfoV1* _msg = _internal_mutable_metainfo();
+  // @@protoc_insertion_point(field_mutable:proto.GetSwcAttachmentSwcResponse.metaInfo)
+  return _msg;
+}
+inline void GetSwcAttachmentSwcResponse::set_allocated_metainfo(::proto::ResponseMetaInfoV1* metainfo) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.metainfo_);
+  }
+  if (metainfo) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(metainfo));
+    if (message_arena != submessage_arena) {
+      metainfo = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, metainfo, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.metainfo_ = metainfo;
+  // @@protoc_insertion_point(field_set_allocated:proto.GetSwcAttachmentSwcResponse.metaInfo)
+}
+
+// repeated .proto.SwcNodeDataV1 SwcData = 2;
+inline int GetSwcAttachmentSwcResponse::_internal_swcdata_size() const {
+  return _impl_.swcdata_.size();
+}
+inline int GetSwcAttachmentSwcResponse::swcdata_size() const {
+  return _internal_swcdata_size();
+}
+inline ::proto::SwcNodeDataV1* GetSwcAttachmentSwcResponse::mutable_swcdata(int index) {
+  // @@protoc_insertion_point(field_mutable:proto.GetSwcAttachmentSwcResponse.SwcData)
+  return _impl_.swcdata_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::SwcNodeDataV1 >*
+GetSwcAttachmentSwcResponse::mutable_swcdata() {
+  // @@protoc_insertion_point(field_mutable_list:proto.GetSwcAttachmentSwcResponse.SwcData)
+  return &_impl_.swcdata_;
+}
+inline const ::proto::SwcNodeDataV1& GetSwcAttachmentSwcResponse::_internal_swcdata(int index) const {
+  return _impl_.swcdata_.Get(index);
+}
+inline const ::proto::SwcNodeDataV1& GetSwcAttachmentSwcResponse::swcdata(int index) const {
+  // @@protoc_insertion_point(field_get:proto.GetSwcAttachmentSwcResponse.SwcData)
+  return _internal_swcdata(index);
+}
+inline ::proto::SwcNodeDataV1* GetSwcAttachmentSwcResponse::_internal_add_swcdata() {
+  return _impl_.swcdata_.Add();
+}
+inline ::proto::SwcNodeDataV1* GetSwcAttachmentSwcResponse::add_swcdata() {
+  ::proto::SwcNodeDataV1* _add = _internal_add_swcdata();
+  // @@protoc_insertion_point(field_add:proto.GetSwcAttachmentSwcResponse.SwcData)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::SwcNodeDataV1 >&
+GetSwcAttachmentSwcResponse::swcdata() const {
+  // @@protoc_insertion_point(field_list:proto.GetSwcAttachmentSwcResponse.SwcData)
+  return _impl_.swcdata_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

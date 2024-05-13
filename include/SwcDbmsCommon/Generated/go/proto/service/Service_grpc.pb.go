@@ -68,6 +68,10 @@ const (
 	DBMS_UpdateSwcAttachmentApo_FullMethodName           = "/proto.DBMS/UpdateSwcAttachmentApo"
 	DBMS_GetSwcAttachmentApo_FullMethodName              = "/proto.DBMS/GetSwcAttachmentApo"
 	DBMS_RevertSwcVersion_FullMethodName                 = "/proto.DBMS/RevertSwcVersion"
+	DBMS_CreateSwcAttachmentSwc_FullMethodName           = "/proto.DBMS/CreateSwcAttachmentSwc"
+	DBMS_DeleteSwcAttachmentSwc_FullMethodName           = "/proto.DBMS/DeleteSwcAttachmentSwc"
+	DBMS_UpdateSwcAttachmentSwc_FullMethodName           = "/proto.DBMS/UpdateSwcAttachmentSwc"
+	DBMS_GetSwcAttachmentSwc_FullMethodName              = "/proto.DBMS/GetSwcAttachmentSwc"
 )
 
 // DBMSClient is the client API for DBMS service.
@@ -121,6 +125,10 @@ type DBMSClient interface {
 	UpdateSwcAttachmentApo(ctx context.Context, in *request.UpdateSwcAttachmentApoRequest, opts ...grpc.CallOption) (*response.UpdateSwcAttachmentApoResponse, error)
 	GetSwcAttachmentApo(ctx context.Context, in *request.GetSwcAttachmentApoRequest, opts ...grpc.CallOption) (*response.GetSwcAttachmentApoResponse, error)
 	RevertSwcVersion(ctx context.Context, in *request.RevertSwcVersionRequest, opts ...grpc.CallOption) (*response.RevertSwcVersionResponse, error)
+	CreateSwcAttachmentSwc(ctx context.Context, in *request.CreateSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.CreateSwcAttachmentSwcResponse, error)
+	DeleteSwcAttachmentSwc(ctx context.Context, in *request.DeleteSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.DeleteSwcAttachmentSwcResponse, error)
+	UpdateSwcAttachmentSwc(ctx context.Context, in *request.UpdateSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.UpdateSwcAttachmentSwcResponse, error)
+	GetSwcAttachmentSwc(ctx context.Context, in *request.GetSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.GetSwcAttachmentSwcResponse, error)
 }
 
 type dBMSClient struct {
@@ -554,6 +562,42 @@ func (c *dBMSClient) RevertSwcVersion(ctx context.Context, in *request.RevertSwc
 	return out, nil
 }
 
+func (c *dBMSClient) CreateSwcAttachmentSwc(ctx context.Context, in *request.CreateSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.CreateSwcAttachmentSwcResponse, error) {
+	out := new(response.CreateSwcAttachmentSwcResponse)
+	err := c.cc.Invoke(ctx, DBMS_CreateSwcAttachmentSwc_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) DeleteSwcAttachmentSwc(ctx context.Context, in *request.DeleteSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.DeleteSwcAttachmentSwcResponse, error) {
+	out := new(response.DeleteSwcAttachmentSwcResponse)
+	err := c.cc.Invoke(ctx, DBMS_DeleteSwcAttachmentSwc_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) UpdateSwcAttachmentSwc(ctx context.Context, in *request.UpdateSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.UpdateSwcAttachmentSwcResponse, error) {
+	out := new(response.UpdateSwcAttachmentSwcResponse)
+	err := c.cc.Invoke(ctx, DBMS_UpdateSwcAttachmentSwc_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) GetSwcAttachmentSwc(ctx context.Context, in *request.GetSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.GetSwcAttachmentSwcResponse, error) {
+	out := new(response.GetSwcAttachmentSwcResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetSwcAttachmentSwc_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DBMSServer is the server API for DBMS service.
 // All implementations must embed UnimplementedDBMSServer
 // for forward compatibility
@@ -605,6 +649,10 @@ type DBMSServer interface {
 	UpdateSwcAttachmentApo(context.Context, *request.UpdateSwcAttachmentApoRequest) (*response.UpdateSwcAttachmentApoResponse, error)
 	GetSwcAttachmentApo(context.Context, *request.GetSwcAttachmentApoRequest) (*response.GetSwcAttachmentApoResponse, error)
 	RevertSwcVersion(context.Context, *request.RevertSwcVersionRequest) (*response.RevertSwcVersionResponse, error)
+	CreateSwcAttachmentSwc(context.Context, *request.CreateSwcAttachmentSwcRequest) (*response.CreateSwcAttachmentSwcResponse, error)
+	DeleteSwcAttachmentSwc(context.Context, *request.DeleteSwcAttachmentSwcRequest) (*response.DeleteSwcAttachmentSwcResponse, error)
+	UpdateSwcAttachmentSwc(context.Context, *request.UpdateSwcAttachmentSwcRequest) (*response.UpdateSwcAttachmentSwcResponse, error)
+	GetSwcAttachmentSwc(context.Context, *request.GetSwcAttachmentSwcRequest) (*response.GetSwcAttachmentSwcResponse, error)
 	mustEmbedUnimplementedDBMSServer()
 }
 
@@ -752,6 +800,18 @@ func (UnimplementedDBMSServer) GetSwcAttachmentApo(context.Context, *request.Get
 }
 func (UnimplementedDBMSServer) RevertSwcVersion(context.Context, *request.RevertSwcVersionRequest) (*response.RevertSwcVersionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RevertSwcVersion not implemented")
+}
+func (UnimplementedDBMSServer) CreateSwcAttachmentSwc(context.Context, *request.CreateSwcAttachmentSwcRequest) (*response.CreateSwcAttachmentSwcResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSwcAttachmentSwc not implemented")
+}
+func (UnimplementedDBMSServer) DeleteSwcAttachmentSwc(context.Context, *request.DeleteSwcAttachmentSwcRequest) (*response.DeleteSwcAttachmentSwcResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSwcAttachmentSwc not implemented")
+}
+func (UnimplementedDBMSServer) UpdateSwcAttachmentSwc(context.Context, *request.UpdateSwcAttachmentSwcRequest) (*response.UpdateSwcAttachmentSwcResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSwcAttachmentSwc not implemented")
+}
+func (UnimplementedDBMSServer) GetSwcAttachmentSwc(context.Context, *request.GetSwcAttachmentSwcRequest) (*response.GetSwcAttachmentSwcResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSwcAttachmentSwc not implemented")
 }
 func (UnimplementedDBMSServer) mustEmbedUnimplementedDBMSServer() {}
 
@@ -1612,6 +1672,78 @@ func _DBMS_RevertSwcVersion_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DBMS_CreateSwcAttachmentSwc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CreateSwcAttachmentSwcRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).CreateSwcAttachmentSwc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_CreateSwcAttachmentSwc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).CreateSwcAttachmentSwc(ctx, req.(*request.CreateSwcAttachmentSwcRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_DeleteSwcAttachmentSwc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DeleteSwcAttachmentSwcRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).DeleteSwcAttachmentSwc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_DeleteSwcAttachmentSwc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).DeleteSwcAttachmentSwc(ctx, req.(*request.DeleteSwcAttachmentSwcRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_UpdateSwcAttachmentSwc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateSwcAttachmentSwcRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).UpdateSwcAttachmentSwc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_UpdateSwcAttachmentSwc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).UpdateSwcAttachmentSwc(ctx, req.(*request.UpdateSwcAttachmentSwcRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_GetSwcAttachmentSwc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetSwcAttachmentSwcRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).GetSwcAttachmentSwc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_GetSwcAttachmentSwc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).GetSwcAttachmentSwc(ctx, req.(*request.GetSwcAttachmentSwcRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DBMS_ServiceDesc is the grpc.ServiceDesc for DBMS service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1806,6 +1938,22 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RevertSwcVersion",
 			Handler:    _DBMS_RevertSwcVersion_Handler,
+		},
+		{
+			MethodName: "CreateSwcAttachmentSwc",
+			Handler:    _DBMS_CreateSwcAttachmentSwc_Handler,
+		},
+		{
+			MethodName: "DeleteSwcAttachmentSwc",
+			Handler:    _DBMS_DeleteSwcAttachmentSwc_Handler,
+		},
+		{
+			MethodName: "UpdateSwcAttachmentSwc",
+			Handler:    _DBMS_UpdateSwcAttachmentSwc_Handler,
+		},
+		{
+			MethodName: "GetSwcAttachmentSwc",
+			Handler:    _DBMS_GetSwcAttachmentSwc_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

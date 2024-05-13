@@ -69,6 +69,10 @@ static const char* DBMS_method_names[] = {
   "/proto.DBMS/UpdateSwcAttachmentApo",
   "/proto.DBMS/GetSwcAttachmentApo",
   "/proto.DBMS/RevertSwcVersion",
+  "/proto.DBMS/CreateSwcAttachmentSwc",
+  "/proto.DBMS/DeleteSwcAttachmentSwc",
+  "/proto.DBMS/UpdateSwcAttachmentSwc",
+  "/proto.DBMS/GetSwcAttachmentSwc",
 };
 
 std::unique_ptr< DBMS::Stub> DBMS::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -125,6 +129,10 @@ DBMS::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, cons
   , rpcmethod_UpdateSwcAttachmentApo_(DBMS_method_names[44], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetSwcAttachmentApo_(DBMS_method_names[45], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_RevertSwcVersion_(DBMS_method_names[46], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateSwcAttachmentSwc_(DBMS_method_names[47], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteSwcAttachmentSwc_(DBMS_method_names[48], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateSwcAttachmentSwc_(DBMS_method_names[49], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetSwcAttachmentSwc_(DBMS_method_names[50], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status DBMS::Stub::CreateUser(::grpc::ClientContext* context, const ::proto::CreateUserRequest& request, ::proto::CreateUserResponse* response) {
@@ -1208,6 +1216,98 @@ void DBMS::Stub::async::RevertSwcVersion(::grpc::ClientContext* context, const :
   return result;
 }
 
+::grpc::Status DBMS::Stub::CreateSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::CreateSwcAttachmentSwcRequest& request, ::proto::CreateSwcAttachmentSwcResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::proto::CreateSwcAttachmentSwcRequest, ::proto::CreateSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateSwcAttachmentSwc_, context, request, response);
+}
+
+void DBMS::Stub::async::CreateSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::CreateSwcAttachmentSwcRequest* request, ::proto::CreateSwcAttachmentSwcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::proto::CreateSwcAttachmentSwcRequest, ::proto::CreateSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateSwcAttachmentSwc_, context, request, response, std::move(f));
+}
+
+void DBMS::Stub::async::CreateSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::CreateSwcAttachmentSwcRequest* request, ::proto::CreateSwcAttachmentSwcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateSwcAttachmentSwc_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::CreateSwcAttachmentSwcResponse>* DBMS::Stub::PrepareAsyncCreateSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::CreateSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::CreateSwcAttachmentSwcResponse, ::proto::CreateSwcAttachmentSwcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateSwcAttachmentSwc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::CreateSwcAttachmentSwcResponse>* DBMS::Stub::AsyncCreateSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::CreateSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCreateSwcAttachmentSwcRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status DBMS::Stub::DeleteSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::DeleteSwcAttachmentSwcRequest& request, ::proto::DeleteSwcAttachmentSwcResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::proto::DeleteSwcAttachmentSwcRequest, ::proto::DeleteSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DeleteSwcAttachmentSwc_, context, request, response);
+}
+
+void DBMS::Stub::async::DeleteSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::DeleteSwcAttachmentSwcRequest* request, ::proto::DeleteSwcAttachmentSwcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::proto::DeleteSwcAttachmentSwcRequest, ::proto::DeleteSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteSwcAttachmentSwc_, context, request, response, std::move(f));
+}
+
+void DBMS::Stub::async::DeleteSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::DeleteSwcAttachmentSwcRequest* request, ::proto::DeleteSwcAttachmentSwcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteSwcAttachmentSwc_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::DeleteSwcAttachmentSwcResponse>* DBMS::Stub::PrepareAsyncDeleteSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::DeleteSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::DeleteSwcAttachmentSwcResponse, ::proto::DeleteSwcAttachmentSwcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DeleteSwcAttachmentSwc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::DeleteSwcAttachmentSwcResponse>* DBMS::Stub::AsyncDeleteSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::DeleteSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncDeleteSwcAttachmentSwcRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status DBMS::Stub::UpdateSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::UpdateSwcAttachmentSwcRequest& request, ::proto::UpdateSwcAttachmentSwcResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::proto::UpdateSwcAttachmentSwcRequest, ::proto::UpdateSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateSwcAttachmentSwc_, context, request, response);
+}
+
+void DBMS::Stub::async::UpdateSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::UpdateSwcAttachmentSwcRequest* request, ::proto::UpdateSwcAttachmentSwcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::proto::UpdateSwcAttachmentSwcRequest, ::proto::UpdateSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateSwcAttachmentSwc_, context, request, response, std::move(f));
+}
+
+void DBMS::Stub::async::UpdateSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::UpdateSwcAttachmentSwcRequest* request, ::proto::UpdateSwcAttachmentSwcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateSwcAttachmentSwc_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::UpdateSwcAttachmentSwcResponse>* DBMS::Stub::PrepareAsyncUpdateSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::UpdateSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::UpdateSwcAttachmentSwcResponse, ::proto::UpdateSwcAttachmentSwcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateSwcAttachmentSwc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::UpdateSwcAttachmentSwcResponse>* DBMS::Stub::AsyncUpdateSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::UpdateSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateSwcAttachmentSwcRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status DBMS::Stub::GetSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::GetSwcAttachmentSwcRequest& request, ::proto::GetSwcAttachmentSwcResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::proto::GetSwcAttachmentSwcRequest, ::proto::GetSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetSwcAttachmentSwc_, context, request, response);
+}
+
+void DBMS::Stub::async::GetSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::GetSwcAttachmentSwcRequest* request, ::proto::GetSwcAttachmentSwcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::proto::GetSwcAttachmentSwcRequest, ::proto::GetSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetSwcAttachmentSwc_, context, request, response, std::move(f));
+}
+
+void DBMS::Stub::async::GetSwcAttachmentSwc(::grpc::ClientContext* context, const ::proto::GetSwcAttachmentSwcRequest* request, ::proto::GetSwcAttachmentSwcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetSwcAttachmentSwc_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::GetSwcAttachmentSwcResponse>* DBMS::Stub::PrepareAsyncGetSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::GetSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::proto::GetSwcAttachmentSwcResponse, ::proto::GetSwcAttachmentSwcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetSwcAttachmentSwc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::proto::GetSwcAttachmentSwcResponse>* DBMS::Stub::AsyncGetSwcAttachmentSwcRaw(::grpc::ClientContext* context, const ::proto::GetSwcAttachmentSwcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetSwcAttachmentSwcRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 DBMS::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       DBMS_method_names[0],
@@ -1679,6 +1779,46 @@ DBMS::Service::Service() {
              ::proto::RevertSwcVersionResponse* resp) {
                return service->RevertSwcVersion(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      DBMS_method_names[47],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::CreateSwcAttachmentSwcRequest, ::proto::CreateSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](DBMS::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::proto::CreateSwcAttachmentSwcRequest* req,
+             ::proto::CreateSwcAttachmentSwcResponse* resp) {
+               return service->CreateSwcAttachmentSwc(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      DBMS_method_names[48],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::DeleteSwcAttachmentSwcRequest, ::proto::DeleteSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](DBMS::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::proto::DeleteSwcAttachmentSwcRequest* req,
+             ::proto::DeleteSwcAttachmentSwcResponse* resp) {
+               return service->DeleteSwcAttachmentSwc(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      DBMS_method_names[49],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::UpdateSwcAttachmentSwcRequest, ::proto::UpdateSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](DBMS::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::proto::UpdateSwcAttachmentSwcRequest* req,
+             ::proto::UpdateSwcAttachmentSwcResponse* resp) {
+               return service->UpdateSwcAttachmentSwc(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      DBMS_method_names[50],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< DBMS::Service, ::proto::GetSwcAttachmentSwcRequest, ::proto::GetSwcAttachmentSwcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](DBMS::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::proto::GetSwcAttachmentSwcRequest* req,
+             ::proto::GetSwcAttachmentSwcResponse* resp) {
+               return service->GetSwcAttachmentSwc(ctx, req, resp);
+             }, this)));
 }
 
 DBMS::Service::~Service() {
@@ -2007,6 +2147,34 @@ DBMS::Service::~Service() {
 }
 
 ::grpc::Status DBMS::Service::RevertSwcVersion(::grpc::ServerContext* context, const ::proto::RevertSwcVersionRequest* request, ::proto::RevertSwcVersionResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status DBMS::Service::CreateSwcAttachmentSwc(::grpc::ServerContext* context, const ::proto::CreateSwcAttachmentSwcRequest* request, ::proto::CreateSwcAttachmentSwcResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status DBMS::Service::DeleteSwcAttachmentSwc(::grpc::ServerContext* context, const ::proto::DeleteSwcAttachmentSwcRequest* request, ::proto::DeleteSwcAttachmentSwcResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status DBMS::Service::UpdateSwcAttachmentSwc(::grpc::ServerContext* context, const ::proto::UpdateSwcAttachmentSwcRequest* request, ::proto::UpdateSwcAttachmentSwcResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status DBMS::Service::GetSwcAttachmentSwc(::grpc::ServerContext* context, const ::proto::GetSwcAttachmentSwcRequest* request, ::proto::GetSwcAttachmentSwcResponse* response) {
   (void) context;
   (void) request;
   (void) response;

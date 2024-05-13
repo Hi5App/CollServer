@@ -30,15 +30,54 @@ public:
     }
 
     static bool getAllProjectMetaInfo(proto::GetAllProjectResponse&response, CachedProtoData& cachedUserData) {
-        grpc::ClientContext context;
         proto::GetAllProjectRequest request;
         setCommonRequestField(request, cachedUserData);
+
+        grpc::ClientContext context;
         auto status = RpcCall::getInstance().Stub()->GetAllProject(&context, request, &response);
         return defaultErrorHandler(__func__, status, response.metainfo());
     }
 
+    static bool getAllSwcMetaInfo(proto::GetAllSwcMetaInfoResponse&response, CachedProtoData& cachedUserData) {
+        proto::GetAllSwcMetaInfoRequest request;
+        setCommonRequestField(request, cachedUserData);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetAllSwcMetaInfo(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool getAllDailyStatisticsMetaInfo(proto::GetAllDailyStatisticsResponse&response, CachedProtoData& cachedUserData) {
+        proto::GetAllDailyStatisticsRequest request;
+        setCommonRequestField(request, cachedUserData);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetAllDailyStatistics(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool getAllUserMetaInfo(proto::GetAllUserResponse&response, CachedProtoData& cachedUserData) {
+        proto::GetAllUserRequest request;
+        setCommonRequestField(request, cachedUserData);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetAllUser(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool getProjectMetaInfoByName(const std::string&projectName, proto::GetProjectResponse&response,
+                                         CachedProtoData& cachedUserData) {
+        proto::GetProjectRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_projectname(projectName);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetProject(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
     static bool getSwcMetaInfoByName(const std::string&swcName, proto::GetSwcMetaInfoResponse&response,
-                                    CachedProtoData& cachedUserData) {
+                                     CachedProtoData& cachedUserData) {
         proto::GetSwcMetaInfoRequest request;
         setCommonRequestField(request, cachedUserData);
         request.set_swcname(swcName);
@@ -48,14 +87,53 @@ public:
         return defaultErrorHandler(__func__, status, response.metainfo());
     }
 
+    static bool getDailyStatisticsmMetaInfoByName(const std::string&dailyStatisticsName,
+                                                  proto::GetDailyStatisticsResponse&response, CachedProtoData& cachedUserData) {
+        proto::GetDailyStatisticsRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_dailystatisticsname(dailyStatisticsName);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetDailyStatistics(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
     static bool getSwcFullNodeData(const std::string&swcName, proto::GetSwcFullNodeDataResponse&response,
-                                   CachedProtoData& cachedUserData) {
+                                  CachedProtoData& cachedUserData) {
         proto::GetSwcFullNodeDataRequest request;
         setCommonRequestField(request, cachedUserData);
         request.set_swcname(swcName);
 
         grpc::ClientContext context;
         auto status = RpcCall::getInstance().Stub()->GetSwcFullNodeData(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool getSwcSnapshot(const std::string&swcSnapshotCollectioNname, proto::GetSnapshotResponse&response,
+                               CachedProtoData& cachedUserData) {
+        proto::GetSnapshotRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcsnapshotcollectionname(swcSnapshotCollectioNname);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetSnapshot(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool getSwcNodeDataListByTimeAndUserResponse(const std::string&swcName, const std::string&userName,
+                                                        google::protobuf::Timestamp&startTime,
+                                                        google::protobuf::Timestamp&endTime,
+                                                        proto::GetSwcNodeDataListByTimeAndUserResponse&response,
+                                                        CachedProtoData& cachedUserData) {
+        proto::GetSwcNodeDataListByTimeAndUserRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcname(swcName);
+        request.set_username(userName);
+        request.mutable_starttime()->CopyFrom(startTime);
+        request.mutable_endtime()->CopyFrom(endTime);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetSwcNodeDataListByTimeAndUser(&context, request, &response);
         return defaultErrorHandler(__func__, status, response.metainfo());
     }
 
@@ -244,6 +322,60 @@ public:
 
         grpc::ClientContext context;
         auto status = RpcCall::getInstance().Stub()->DeleteSwcAttachmentApo(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool createSwcAttachmentSwc(const std::string&name, std::vector<proto::SwcNodeDataV1>&swcData,
+                                       proto::CreateSwcAttachmentSwcResponse&response,
+                                       CachedProtoData& cachedUserData) {
+        proto::CreateSwcAttachmentSwcRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcname(name);
+        for(auto&swcNodeData: swcData){
+            request.add_swcdata()->CopyFrom(swcNodeData);
+        }
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->CreateSwcAttachmentSwc(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool updateSwcAttachmentSwc(const std::string&name, std::vector<proto::SwcNodeDataV1>&swcData,
+                                       proto::UpdateSwcAttachmentSwcResponse&response,
+                                       CachedProtoData& cachedUserData) {
+        proto::UpdateSwcAttachmentSwcRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcname(name);
+        for(auto&swcNodeData: swcData){
+            request.add_newswcdata()->CopyFrom(swcNodeData);
+        }
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->UpdateSwcAttachmentSwc(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool RevertSwcVersion(const std::string&name, google::protobuf::Timestamp& endTime,
+                                 proto::RevertSwcVersionResponse&response,
+                                 CachedProtoData& cachedUserData) {
+        proto::RevertSwcVersionRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcname(name);
+        request.mutable_versionendtime()->CopyFrom(endTime);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->RevertSwcVersion(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool GetPermissionGroupByUuid(const std::string& uuid, proto::GetPermissionGroupResponse&response,
+                                         CachedProtoData& cachedUserData) {
+        proto::GetPermissionGroupRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.mutable_permissiongroup()->mutable_base()->set_uuid(uuid);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->GetPermissionGroup(&context, request, &response);
         return defaultErrorHandler(__func__, status, response.metainfo());
     }
 };

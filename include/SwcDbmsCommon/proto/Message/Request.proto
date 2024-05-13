@@ -301,3 +301,32 @@ message RevertSwcVersionRequest{
     string SwcName = 3;
     google.protobuf.Timestamp VersionEndTime = 4;
 }
+
+message CreateSwcAttachmentSwcRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcName = 3;
+    repeated SwcNodeDataV1 SwcData = 4;
+}
+
+message DeleteSwcAttachmentSwcRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcName = 3;
+    string SwcAttachmentUuid = 4;
+}
+
+message UpdateSwcAttachmentSwcRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcName = 3;
+    string SwcAttachmentUuid = 4;
+    repeated SwcNodeDataV1 NewSwcData = 5;
+}
+
+message GetSwcAttachmentSwcRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcName = 3;
+    string SwcAttachmentUuid = 4;
+}

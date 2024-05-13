@@ -27,36 +27,57 @@ message UserMetaInfoV1{
     string Description = 4;
     google.protobuf.Timestamp CreateTime = 5;
     bytes HeadPhotoBinData = 6;
-    string UserPermissionGroup = 7;
+    string PermissionGroupUuid = 7;
     int32 UserId = 8;
     BrainTellServerMysqlDBCompatibleData CompatibleData = 9;
 }
 
-message GlobalPermissionMetaInfoV1{
-    bool WritePermissionCreateProject = 1;
-    bool WritePermissionModifyProject = 2;
-    bool WritePermissionDeleteProject = 3;
-    bool ReadPerimissionQuery = 4;
+message PermissionGroupAceV1{
+	bool AllPermissionGroupManagementPermission = 1;
+	bool AllUserManagementPermission = 2;
+	bool AllProjectManagementPermission = 3;
+	bool AllSwcManagementPermission = 4;
+	bool AllDailyStatisticsManagementPermission = 5;
 }
 
-message ProjectPermissionMetaInfoV1{
-    bool WritePermissionAddData = 1;
-    bool WritePermissionModifyData = 2;
-    bool WritePermissionDeleteData = 3;
-    bool ReadPerimissionQuery = 4;
+message PermissionGroupAclV1{
+	string PermissionGroupUuid = 1;
+	PermissionGroupAceV1 PermissionGroupAce = 2;
+}
+
+message PermissionAceV1{
+	bool WritePermissionCreateProject = 1;
+	bool WritePermissionModifyProject = 2;
+	bool WritePermissionDeleteProject = 3;
+	bool ReadPerimissionQueryProject = 4;
+
+	bool WritePermissionAddSwcData = 5;
+	bool WritePermissionModifySwcData = 6;
+	bool WritePermissionDeleteSwcData = 7;
+	bool ReadPerimissionQuerySwcData = 8;
+}
+
+message UserPermissionAclV1{
+	string UserUuid = 1;
+	PermissionAceV1 Ace = 2;
+}
+
+message GroupPermissionAclV1{
+	string GroupUuid = 1;
+	PermissionAceV1 Ace = 2;
+}
+
+message PermissionMetaInfoV1{
+	UserPermissionAclV1 Owner = 1;
+	repeated UserPermissionAclV1 Users = 2;
+	repeated GroupPermissionAclV1 Groups = 3;
 }
 
 message PermissionGroupMetaInfoV1{
     MetaInfoBase Base = 1;
     string Name = 2;
     string Description = 3;
-    GlobalPermissionMetaInfoV1 GlobalPermission = 4;
-    ProjectPermissionMetaInfoV1 ProjectPermission = 5;
-}
-
-message UserPermissionOverrideMetaInfoV1{
-    ProjectPermissionMetaInfoV1 ProjectPermission = 1;
-    string UserName = 2;
+    PermissionGroupAceV1 Ace = 4;
 }
 
 message ProjectMetaInfoV1{
@@ -67,8 +88,8 @@ message ProjectMetaInfoV1{
     google.protobuf.Timestamp CreateTime = 5;
     google.protobuf.Timestamp LastModifiedTime = 6;
     repeated string SwcList = 7;
-    repeated UserPermissionOverrideMetaInfoV1 UserPermissionOverride = 8;
-    string WorkMode = 9;
+    string WorkMode = 8;
+    PermissionMetaInfoV1 Permission = 9;
 }
 
 message SwcSnapshotMetaInfoV1{
@@ -124,6 +145,8 @@ message SwcMetaInfoV1{
     string CurrentIncrementOperationCollectionName = 10;
     SwcAttachmentAnoMetaInfoV1 SwcAttachmentAnoMetaInfo = 11;
     SwcAttachmentApoMetaInfoV1 SwcAttachmentApoMetaInfo = 12;
+    string SwcAttachmentSwcUuid = 13;
+	PermissionMetaInfoV1 Permission = 14;
 }
 
 message SwcNodeInternalDataV1{

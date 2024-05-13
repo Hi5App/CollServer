@@ -233,3 +233,21 @@ message GetSwcAttachmentApoResponse{
 message RevertSwcVersionResponse{
     ResponseMetaInfoV1 metaInfo = 1;
 }
+
+message CreateSwcAttachmentSwcResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+    string SwcAttachmentUuid = 2; 
+}
+
+message DeleteSwcAttachmentSwcResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+}
+
+message UpdateSwcAttachmentSwcResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+}
+
+message GetSwcAttachmentSwcResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+    repeated SwcNodeDataV1 SwcData = 2;
+}

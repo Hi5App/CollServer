@@ -53,21 +53,30 @@ extern BrainTellServerMysqlDBCompatibleDataDefaultTypeInternal _BrainTellServerM
 class DailyStatisticsMetaInfoV1;
 struct DailyStatisticsMetaInfoV1DefaultTypeInternal;
 extern DailyStatisticsMetaInfoV1DefaultTypeInternal _DailyStatisticsMetaInfoV1_default_instance_;
-class GlobalPermissionMetaInfoV1;
-struct GlobalPermissionMetaInfoV1DefaultTypeInternal;
-extern GlobalPermissionMetaInfoV1DefaultTypeInternal _GlobalPermissionMetaInfoV1_default_instance_;
+class GroupPermissionAclV1;
+struct GroupPermissionAclV1DefaultTypeInternal;
+extern GroupPermissionAclV1DefaultTypeInternal _GroupPermissionAclV1_default_instance_;
 class MetaInfoBase;
 struct MetaInfoBaseDefaultTypeInternal;
 extern MetaInfoBaseDefaultTypeInternal _MetaInfoBase_default_instance_;
+class PermissionAceV1;
+struct PermissionAceV1DefaultTypeInternal;
+extern PermissionAceV1DefaultTypeInternal _PermissionAceV1_default_instance_;
+class PermissionGroupAceV1;
+struct PermissionGroupAceV1DefaultTypeInternal;
+extern PermissionGroupAceV1DefaultTypeInternal _PermissionGroupAceV1_default_instance_;
+class PermissionGroupAclV1;
+struct PermissionGroupAclV1DefaultTypeInternal;
+extern PermissionGroupAclV1DefaultTypeInternal _PermissionGroupAclV1_default_instance_;
 class PermissionGroupMetaInfoV1;
 struct PermissionGroupMetaInfoV1DefaultTypeInternal;
 extern PermissionGroupMetaInfoV1DefaultTypeInternal _PermissionGroupMetaInfoV1_default_instance_;
+class PermissionMetaInfoV1;
+struct PermissionMetaInfoV1DefaultTypeInternal;
+extern PermissionMetaInfoV1DefaultTypeInternal _PermissionMetaInfoV1_default_instance_;
 class ProjectMetaInfoV1;
 struct ProjectMetaInfoV1DefaultTypeInternal;
 extern ProjectMetaInfoV1DefaultTypeInternal _ProjectMetaInfoV1_default_instance_;
-class ProjectPermissionMetaInfoV1;
-struct ProjectPermissionMetaInfoV1DefaultTypeInternal;
-extern ProjectPermissionMetaInfoV1DefaultTypeInternal _ProjectPermissionMetaInfoV1_default_instance_;
 class RequestMetaInfoV1;
 struct RequestMetaInfoV1DefaultTypeInternal;
 extern RequestMetaInfoV1DefaultTypeInternal _RequestMetaInfoV1_default_instance_;
@@ -113,9 +122,9 @@ extern SwcSnapshotMetaInfoV1DefaultTypeInternal _SwcSnapshotMetaInfoV1_default_i
 class UserMetaInfoV1;
 struct UserMetaInfoV1DefaultTypeInternal;
 extern UserMetaInfoV1DefaultTypeInternal _UserMetaInfoV1_default_instance_;
-class UserPermissionOverrideMetaInfoV1;
-struct UserPermissionOverrideMetaInfoV1DefaultTypeInternal;
-extern UserPermissionOverrideMetaInfoV1DefaultTypeInternal _UserPermissionOverrideMetaInfoV1_default_instance_;
+class UserPermissionAclV1;
+struct UserPermissionAclV1DefaultTypeInternal;
+extern UserPermissionAclV1DefaultTypeInternal _UserPermissionAclV1_default_instance_;
 class UserVerifyInfoV1;
 struct UserVerifyInfoV1DefaultTypeInternal;
 extern UserVerifyInfoV1DefaultTypeInternal _UserVerifyInfoV1_default_instance_;
@@ -123,11 +132,14 @@ extern UserVerifyInfoV1DefaultTypeInternal _UserVerifyInfoV1_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::proto::BrainTellServerMysqlDBCompatibleData* Arena::CreateMaybeMessage<::proto::BrainTellServerMysqlDBCompatibleData>(Arena*);
 template<> ::proto::DailyStatisticsMetaInfoV1* Arena::CreateMaybeMessage<::proto::DailyStatisticsMetaInfoV1>(Arena*);
-template<> ::proto::GlobalPermissionMetaInfoV1* Arena::CreateMaybeMessage<::proto::GlobalPermissionMetaInfoV1>(Arena*);
+template<> ::proto::GroupPermissionAclV1* Arena::CreateMaybeMessage<::proto::GroupPermissionAclV1>(Arena*);
 template<> ::proto::MetaInfoBase* Arena::CreateMaybeMessage<::proto::MetaInfoBase>(Arena*);
+template<> ::proto::PermissionAceV1* Arena::CreateMaybeMessage<::proto::PermissionAceV1>(Arena*);
+template<> ::proto::PermissionGroupAceV1* Arena::CreateMaybeMessage<::proto::PermissionGroupAceV1>(Arena*);
+template<> ::proto::PermissionGroupAclV1* Arena::CreateMaybeMessage<::proto::PermissionGroupAclV1>(Arena*);
 template<> ::proto::PermissionGroupMetaInfoV1* Arena::CreateMaybeMessage<::proto::PermissionGroupMetaInfoV1>(Arena*);
+template<> ::proto::PermissionMetaInfoV1* Arena::CreateMaybeMessage<::proto::PermissionMetaInfoV1>(Arena*);
 template<> ::proto::ProjectMetaInfoV1* Arena::CreateMaybeMessage<::proto::ProjectMetaInfoV1>(Arena*);
-template<> ::proto::ProjectPermissionMetaInfoV1* Arena::CreateMaybeMessage<::proto::ProjectPermissionMetaInfoV1>(Arena*);
 template<> ::proto::RequestMetaInfoV1* Arena::CreateMaybeMessage<::proto::RequestMetaInfoV1>(Arena*);
 template<> ::proto::ResponseMetaInfoV1* Arena::CreateMaybeMessage<::proto::ResponseMetaInfoV1>(Arena*);
 template<> ::proto::SwcAttachmentAnoMetaInfoV1* Arena::CreateMaybeMessage<::proto::SwcAttachmentAnoMetaInfoV1>(Arena*);
@@ -143,7 +155,7 @@ template<> ::proto::SwcNodeDataV1* Arena::CreateMaybeMessage<::proto::SwcNodeDat
 template<> ::proto::SwcNodeInternalDataV1* Arena::CreateMaybeMessage<::proto::SwcNodeInternalDataV1>(Arena*);
 template<> ::proto::SwcSnapshotMetaInfoV1* Arena::CreateMaybeMessage<::proto::SwcSnapshotMetaInfoV1>(Arena*);
 template<> ::proto::UserMetaInfoV1* Arena::CreateMaybeMessage<::proto::UserMetaInfoV1>(Arena*);
-template<> ::proto::UserPermissionOverrideMetaInfoV1* Arena::CreateMaybeMessage<::proto::UserPermissionOverrideMetaInfoV1>(Arena*);
+template<> ::proto::UserPermissionAclV1* Arena::CreateMaybeMessage<::proto::UserPermissionAclV1>(Arena*);
 template<> ::proto::UserVerifyInfoV1* Arena::CreateMaybeMessage<::proto::UserVerifyInfoV1>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace proto {
@@ -694,7 +706,7 @@ class UserMetaInfoV1 final :
     kPasswordFieldNumber = 3,
     kDescriptionFieldNumber = 4,
     kHeadPhotoBinDataFieldNumber = 6,
-    kUserPermissionGroupFieldNumber = 7,
+    kPermissionGroupUuidFieldNumber = 7,
     kBaseFieldNumber = 1,
     kCreateTimeFieldNumber = 5,
     kCompatibleDataFieldNumber = 9,
@@ -756,18 +768,18 @@ class UserMetaInfoV1 final :
   std::string* _internal_mutable_headphotobindata();
   public:
 
-  // string UserPermissionGroup = 7;
-  void clear_userpermissiongroup();
-  const std::string& userpermissiongroup() const;
+  // string PermissionGroupUuid = 7;
+  void clear_permissiongroupuuid();
+  const std::string& permissiongroupuuid() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_userpermissiongroup(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_userpermissiongroup();
-  PROTOBUF_NODISCARD std::string* release_userpermissiongroup();
-  void set_allocated_userpermissiongroup(std::string* userpermissiongroup);
+  void set_permissiongroupuuid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_permissiongroupuuid();
+  PROTOBUF_NODISCARD std::string* release_permissiongroupuuid();
+  void set_allocated_permissiongroupuuid(std::string* permissiongroupuuid);
   private:
-  const std::string& _internal_userpermissiongroup() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_userpermissiongroup(const std::string& value);
-  std::string* _internal_mutable_userpermissiongroup();
+  const std::string& _internal_permissiongroupuuid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_permissiongroupuuid(const std::string& value);
+  std::string* _internal_mutable_permissiongroupuuid();
   public:
 
   // .proto.MetaInfoBase Base = 1;
@@ -845,7 +857,7 @@ class UserMetaInfoV1 final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr headphotobindata_;
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr userpermissiongroup_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr permissiongroupuuid_;
     ::proto::MetaInfoBase* base_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime_;
     ::proto::BrainTellServerMysqlDBCompatibleData* compatibledata_;
@@ -857,24 +869,24 @@ class UserMetaInfoV1 final :
 };
 // -------------------------------------------------------------------
 
-class GlobalPermissionMetaInfoV1 final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.GlobalPermissionMetaInfoV1) */ {
+class PermissionGroupAceV1 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.PermissionGroupAceV1) */ {
  public:
-  inline GlobalPermissionMetaInfoV1() : GlobalPermissionMetaInfoV1(nullptr) {}
-  ~GlobalPermissionMetaInfoV1() override;
-  explicit PROTOBUF_CONSTEXPR GlobalPermissionMetaInfoV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline PermissionGroupAceV1() : PermissionGroupAceV1(nullptr) {}
+  ~PermissionGroupAceV1() override;
+  explicit PROTOBUF_CONSTEXPR PermissionGroupAceV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  GlobalPermissionMetaInfoV1(const GlobalPermissionMetaInfoV1& from);
-  GlobalPermissionMetaInfoV1(GlobalPermissionMetaInfoV1&& from) noexcept
-    : GlobalPermissionMetaInfoV1() {
+  PermissionGroupAceV1(const PermissionGroupAceV1& from);
+  PermissionGroupAceV1(PermissionGroupAceV1&& from) noexcept
+    : PermissionGroupAceV1() {
     *this = ::std::move(from);
   }
 
-  inline GlobalPermissionMetaInfoV1& operator=(const GlobalPermissionMetaInfoV1& from) {
+  inline PermissionGroupAceV1& operator=(const PermissionGroupAceV1& from) {
     CopyFrom(from);
     return *this;
   }
-  inline GlobalPermissionMetaInfoV1& operator=(GlobalPermissionMetaInfoV1&& from) noexcept {
+  inline PermissionGroupAceV1& operator=(PermissionGroupAceV1&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -897,20 +909,20 @@ class GlobalPermissionMetaInfoV1 final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const GlobalPermissionMetaInfoV1& default_instance() {
+  static const PermissionGroupAceV1& default_instance() {
     return *internal_default_instance();
   }
-  static inline const GlobalPermissionMetaInfoV1* internal_default_instance() {
-    return reinterpret_cast<const GlobalPermissionMetaInfoV1*>(
-               &_GlobalPermissionMetaInfoV1_default_instance_);
+  static inline const PermissionGroupAceV1* internal_default_instance() {
+    return reinterpret_cast<const PermissionGroupAceV1*>(
+               &_PermissionGroupAceV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(GlobalPermissionMetaInfoV1& a, GlobalPermissionMetaInfoV1& b) {
+  friend void swap(PermissionGroupAceV1& a, PermissionGroupAceV1& b) {
     a.Swap(&b);
   }
-  inline void Swap(GlobalPermissionMetaInfoV1* other) {
+  inline void Swap(PermissionGroupAceV1* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -923,7 +935,7 @@ class GlobalPermissionMetaInfoV1 final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(GlobalPermissionMetaInfoV1* other) {
+  void UnsafeArenaSwap(PermissionGroupAceV1* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -931,14 +943,14 @@ class GlobalPermissionMetaInfoV1 final :
 
   // implements Message ----------------------------------------------
 
-  GlobalPermissionMetaInfoV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GlobalPermissionMetaInfoV1>(arena);
+  PermissionGroupAceV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PermissionGroupAceV1>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const GlobalPermissionMetaInfoV1& from);
+  void CopyFrom(const PermissionGroupAceV1& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const GlobalPermissionMetaInfoV1& from) {
-    GlobalPermissionMetaInfoV1::MergeImpl(*this, from);
+  void MergeFrom( const PermissionGroupAceV1& from) {
+    PermissionGroupAceV1::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -956,15 +968,380 @@ class GlobalPermissionMetaInfoV1 final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(GlobalPermissionMetaInfoV1* other);
+  void InternalSwap(PermissionGroupAceV1* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.GlobalPermissionMetaInfoV1";
+    return "proto.PermissionGroupAceV1";
   }
   protected:
-  explicit GlobalPermissionMetaInfoV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit PermissionGroupAceV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAllPermissionGroupManagementPermissionFieldNumber = 1,
+    kAllUserManagementPermissionFieldNumber = 2,
+    kAllProjectManagementPermissionFieldNumber = 3,
+    kAllSwcManagementPermissionFieldNumber = 4,
+    kAllDailyStatisticsManagementPermissionFieldNumber = 5,
+  };
+  // bool AllPermissionGroupManagementPermission = 1;
+  void clear_allpermissiongroupmanagementpermission();
+  bool allpermissiongroupmanagementpermission() const;
+  void set_allpermissiongroupmanagementpermission(bool value);
+  private:
+  bool _internal_allpermissiongroupmanagementpermission() const;
+  void _internal_set_allpermissiongroupmanagementpermission(bool value);
+  public:
+
+  // bool AllUserManagementPermission = 2;
+  void clear_allusermanagementpermission();
+  bool allusermanagementpermission() const;
+  void set_allusermanagementpermission(bool value);
+  private:
+  bool _internal_allusermanagementpermission() const;
+  void _internal_set_allusermanagementpermission(bool value);
+  public:
+
+  // bool AllProjectManagementPermission = 3;
+  void clear_allprojectmanagementpermission();
+  bool allprojectmanagementpermission() const;
+  void set_allprojectmanagementpermission(bool value);
+  private:
+  bool _internal_allprojectmanagementpermission() const;
+  void _internal_set_allprojectmanagementpermission(bool value);
+  public:
+
+  // bool AllSwcManagementPermission = 4;
+  void clear_allswcmanagementpermission();
+  bool allswcmanagementpermission() const;
+  void set_allswcmanagementpermission(bool value);
+  private:
+  bool _internal_allswcmanagementpermission() const;
+  void _internal_set_allswcmanagementpermission(bool value);
+  public:
+
+  // bool AllDailyStatisticsManagementPermission = 5;
+  void clear_alldailystatisticsmanagementpermission();
+  bool alldailystatisticsmanagementpermission() const;
+  void set_alldailystatisticsmanagementpermission(bool value);
+  private:
+  bool _internal_alldailystatisticsmanagementpermission() const;
+  void _internal_set_alldailystatisticsmanagementpermission(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:proto.PermissionGroupAceV1)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    bool allpermissiongroupmanagementpermission_;
+    bool allusermanagementpermission_;
+    bool allprojectmanagementpermission_;
+    bool allswcmanagementpermission_;
+    bool alldailystatisticsmanagementpermission_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fMessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PermissionGroupAclV1 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.PermissionGroupAclV1) */ {
+ public:
+  inline PermissionGroupAclV1() : PermissionGroupAclV1(nullptr) {}
+  ~PermissionGroupAclV1() override;
+  explicit PROTOBUF_CONSTEXPR PermissionGroupAclV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PermissionGroupAclV1(const PermissionGroupAclV1& from);
+  PermissionGroupAclV1(PermissionGroupAclV1&& from) noexcept
+    : PermissionGroupAclV1() {
+    *this = ::std::move(from);
+  }
+
+  inline PermissionGroupAclV1& operator=(const PermissionGroupAclV1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PermissionGroupAclV1& operator=(PermissionGroupAclV1&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PermissionGroupAclV1& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PermissionGroupAclV1* internal_default_instance() {
+    return reinterpret_cast<const PermissionGroupAclV1*>(
+               &_PermissionGroupAclV1_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(PermissionGroupAclV1& a, PermissionGroupAclV1& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PermissionGroupAclV1* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PermissionGroupAclV1* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PermissionGroupAclV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PermissionGroupAclV1>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PermissionGroupAclV1& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PermissionGroupAclV1& from) {
+    PermissionGroupAclV1::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PermissionGroupAclV1* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.PermissionGroupAclV1";
+  }
+  protected:
+  explicit PermissionGroupAclV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPermissionGroupUuidFieldNumber = 1,
+    kPermissionGroupAceFieldNumber = 2,
+  };
+  // string PermissionGroupUuid = 1;
+  void clear_permissiongroupuuid();
+  const std::string& permissiongroupuuid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_permissiongroupuuid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_permissiongroupuuid();
+  PROTOBUF_NODISCARD std::string* release_permissiongroupuuid();
+  void set_allocated_permissiongroupuuid(std::string* permissiongroupuuid);
+  private:
+  const std::string& _internal_permissiongroupuuid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_permissiongroupuuid(const std::string& value);
+  std::string* _internal_mutable_permissiongroupuuid();
+  public:
+
+  // .proto.PermissionGroupAceV1 PermissionGroupAce = 2;
+  bool has_permissiongroupace() const;
+  private:
+  bool _internal_has_permissiongroupace() const;
+  public:
+  void clear_permissiongroupace();
+  const ::proto::PermissionGroupAceV1& permissiongroupace() const;
+  PROTOBUF_NODISCARD ::proto::PermissionGroupAceV1* release_permissiongroupace();
+  ::proto::PermissionGroupAceV1* mutable_permissiongroupace();
+  void set_allocated_permissiongroupace(::proto::PermissionGroupAceV1* permissiongroupace);
+  private:
+  const ::proto::PermissionGroupAceV1& _internal_permissiongroupace() const;
+  ::proto::PermissionGroupAceV1* _internal_mutable_permissiongroupace();
+  public:
+  void unsafe_arena_set_allocated_permissiongroupace(
+      ::proto::PermissionGroupAceV1* permissiongroupace);
+  ::proto::PermissionGroupAceV1* unsafe_arena_release_permissiongroupace();
+
+  // @@protoc_insertion_point(class_scope:proto.PermissionGroupAclV1)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr permissiongroupuuid_;
+    ::proto::PermissionGroupAceV1* permissiongroupace_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fMessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PermissionAceV1 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.PermissionAceV1) */ {
+ public:
+  inline PermissionAceV1() : PermissionAceV1(nullptr) {}
+  ~PermissionAceV1() override;
+  explicit PROTOBUF_CONSTEXPR PermissionAceV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PermissionAceV1(const PermissionAceV1& from);
+  PermissionAceV1(PermissionAceV1&& from) noexcept
+    : PermissionAceV1() {
+    *this = ::std::move(from);
+  }
+
+  inline PermissionAceV1& operator=(const PermissionAceV1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PermissionAceV1& operator=(PermissionAceV1&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PermissionAceV1& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PermissionAceV1* internal_default_instance() {
+    return reinterpret_cast<const PermissionAceV1*>(
+               &_PermissionAceV1_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(PermissionAceV1& a, PermissionAceV1& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PermissionAceV1* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PermissionAceV1* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PermissionAceV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PermissionAceV1>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PermissionAceV1& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PermissionAceV1& from) {
+    PermissionAceV1::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PermissionAceV1* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.PermissionAceV1";
+  }
+  protected:
+  explicit PermissionAceV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -981,7 +1358,11 @@ class GlobalPermissionMetaInfoV1 final :
     kWritePermissionCreateProjectFieldNumber = 1,
     kWritePermissionModifyProjectFieldNumber = 2,
     kWritePermissionDeleteProjectFieldNumber = 3,
-    kReadPerimissionQueryFieldNumber = 4,
+    kReadPerimissionQueryProjectFieldNumber = 4,
+    kWritePermissionAddSwcDataFieldNumber = 5,
+    kWritePermissionModifySwcDataFieldNumber = 6,
+    kWritePermissionDeleteSwcDataFieldNumber = 7,
+    kReadPerimissionQuerySwcDataFieldNumber = 8,
   };
   // bool WritePermissionCreateProject = 1;
   void clear_writepermissioncreateproject();
@@ -1010,16 +1391,52 @@ class GlobalPermissionMetaInfoV1 final :
   void _internal_set_writepermissiondeleteproject(bool value);
   public:
 
-  // bool ReadPerimissionQuery = 4;
-  void clear_readperimissionquery();
-  bool readperimissionquery() const;
-  void set_readperimissionquery(bool value);
+  // bool ReadPerimissionQueryProject = 4;
+  void clear_readperimissionqueryproject();
+  bool readperimissionqueryproject() const;
+  void set_readperimissionqueryproject(bool value);
   private:
-  bool _internal_readperimissionquery() const;
-  void _internal_set_readperimissionquery(bool value);
+  bool _internal_readperimissionqueryproject() const;
+  void _internal_set_readperimissionqueryproject(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:proto.GlobalPermissionMetaInfoV1)
+  // bool WritePermissionAddSwcData = 5;
+  void clear_writepermissionaddswcdata();
+  bool writepermissionaddswcdata() const;
+  void set_writepermissionaddswcdata(bool value);
+  private:
+  bool _internal_writepermissionaddswcdata() const;
+  void _internal_set_writepermissionaddswcdata(bool value);
+  public:
+
+  // bool WritePermissionModifySwcData = 6;
+  void clear_writepermissionmodifyswcdata();
+  bool writepermissionmodifyswcdata() const;
+  void set_writepermissionmodifyswcdata(bool value);
+  private:
+  bool _internal_writepermissionmodifyswcdata() const;
+  void _internal_set_writepermissionmodifyswcdata(bool value);
+  public:
+
+  // bool WritePermissionDeleteSwcData = 7;
+  void clear_writepermissiondeleteswcdata();
+  bool writepermissiondeleteswcdata() const;
+  void set_writepermissiondeleteswcdata(bool value);
+  private:
+  bool _internal_writepermissiondeleteswcdata() const;
+  void _internal_set_writepermissiondeleteswcdata(bool value);
+  public:
+
+  // bool ReadPerimissionQuerySwcData = 8;
+  void clear_readperimissionqueryswcdata();
+  bool readperimissionqueryswcdata() const;
+  void set_readperimissionqueryswcdata(bool value);
+  private:
+  bool _internal_readperimissionqueryswcdata() const;
+  void _internal_set_readperimissionqueryswcdata(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:proto.PermissionAceV1)
  private:
   class _Internal;
 
@@ -1030,7 +1447,11 @@ class GlobalPermissionMetaInfoV1 final :
     bool writepermissioncreateproject_;
     bool writepermissionmodifyproject_;
     bool writepermissiondeleteproject_;
-    bool readperimissionquery_;
+    bool readperimissionqueryproject_;
+    bool writepermissionaddswcdata_;
+    bool writepermissionmodifyswcdata_;
+    bool writepermissiondeleteswcdata_;
+    bool readperimissionqueryswcdata_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1038,24 +1459,24 @@ class GlobalPermissionMetaInfoV1 final :
 };
 // -------------------------------------------------------------------
 
-class ProjectPermissionMetaInfoV1 final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.ProjectPermissionMetaInfoV1) */ {
+class UserPermissionAclV1 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.UserPermissionAclV1) */ {
  public:
-  inline ProjectPermissionMetaInfoV1() : ProjectPermissionMetaInfoV1(nullptr) {}
-  ~ProjectPermissionMetaInfoV1() override;
-  explicit PROTOBUF_CONSTEXPR ProjectPermissionMetaInfoV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline UserPermissionAclV1() : UserPermissionAclV1(nullptr) {}
+  ~UserPermissionAclV1() override;
+  explicit PROTOBUF_CONSTEXPR UserPermissionAclV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  ProjectPermissionMetaInfoV1(const ProjectPermissionMetaInfoV1& from);
-  ProjectPermissionMetaInfoV1(ProjectPermissionMetaInfoV1&& from) noexcept
-    : ProjectPermissionMetaInfoV1() {
+  UserPermissionAclV1(const UserPermissionAclV1& from);
+  UserPermissionAclV1(UserPermissionAclV1&& from) noexcept
+    : UserPermissionAclV1() {
     *this = ::std::move(from);
   }
 
-  inline ProjectPermissionMetaInfoV1& operator=(const ProjectPermissionMetaInfoV1& from) {
+  inline UserPermissionAclV1& operator=(const UserPermissionAclV1& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ProjectPermissionMetaInfoV1& operator=(ProjectPermissionMetaInfoV1&& from) noexcept {
+  inline UserPermissionAclV1& operator=(UserPermissionAclV1&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -1078,20 +1499,20 @@ class ProjectPermissionMetaInfoV1 final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const ProjectPermissionMetaInfoV1& default_instance() {
+  static const UserPermissionAclV1& default_instance() {
     return *internal_default_instance();
   }
-  static inline const ProjectPermissionMetaInfoV1* internal_default_instance() {
-    return reinterpret_cast<const ProjectPermissionMetaInfoV1*>(
-               &_ProjectPermissionMetaInfoV1_default_instance_);
+  static inline const UserPermissionAclV1* internal_default_instance() {
+    return reinterpret_cast<const UserPermissionAclV1*>(
+               &_UserPermissionAclV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
-  friend void swap(ProjectPermissionMetaInfoV1& a, ProjectPermissionMetaInfoV1& b) {
+  friend void swap(UserPermissionAclV1& a, UserPermissionAclV1& b) {
     a.Swap(&b);
   }
-  inline void Swap(ProjectPermissionMetaInfoV1* other) {
+  inline void Swap(UserPermissionAclV1* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -1104,7 +1525,7 @@ class ProjectPermissionMetaInfoV1 final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(ProjectPermissionMetaInfoV1* other) {
+  void UnsafeArenaSwap(UserPermissionAclV1* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -1112,14 +1533,14 @@ class ProjectPermissionMetaInfoV1 final :
 
   // implements Message ----------------------------------------------
 
-  ProjectPermissionMetaInfoV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<ProjectPermissionMetaInfoV1>(arena);
+  UserPermissionAclV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UserPermissionAclV1>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const ProjectPermissionMetaInfoV1& from);
+  void CopyFrom(const UserPermissionAclV1& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const ProjectPermissionMetaInfoV1& from) {
-    ProjectPermissionMetaInfoV1::MergeImpl(*this, from);
+  void MergeFrom( const UserPermissionAclV1& from) {
+    UserPermissionAclV1::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -1137,15 +1558,15 @@ class ProjectPermissionMetaInfoV1 final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ProjectPermissionMetaInfoV1* other);
+  void InternalSwap(UserPermissionAclV1* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.ProjectPermissionMetaInfoV1";
+    return "proto.UserPermissionAclV1";
   }
   protected:
-  explicit ProjectPermissionMetaInfoV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit UserPermissionAclV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -1159,48 +1580,42 @@ class ProjectPermissionMetaInfoV1 final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kWritePermissionAddDataFieldNumber = 1,
-    kWritePermissionModifyDataFieldNumber = 2,
-    kWritePermissionDeleteDataFieldNumber = 3,
-    kReadPerimissionQueryFieldNumber = 4,
+    kUserUuidFieldNumber = 1,
+    kAceFieldNumber = 2,
   };
-  // bool WritePermissionAddData = 1;
-  void clear_writepermissionadddata();
-  bool writepermissionadddata() const;
-  void set_writepermissionadddata(bool value);
+  // string UserUuid = 1;
+  void clear_useruuid();
+  const std::string& useruuid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_useruuid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_useruuid();
+  PROTOBUF_NODISCARD std::string* release_useruuid();
+  void set_allocated_useruuid(std::string* useruuid);
   private:
-  bool _internal_writepermissionadddata() const;
-  void _internal_set_writepermissionadddata(bool value);
+  const std::string& _internal_useruuid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_useruuid(const std::string& value);
+  std::string* _internal_mutable_useruuid();
   public:
 
-  // bool WritePermissionModifyData = 2;
-  void clear_writepermissionmodifydata();
-  bool writepermissionmodifydata() const;
-  void set_writepermissionmodifydata(bool value);
+  // .proto.PermissionAceV1 Ace = 2;
+  bool has_ace() const;
   private:
-  bool _internal_writepermissionmodifydata() const;
-  void _internal_set_writepermissionmodifydata(bool value);
+  bool _internal_has_ace() const;
   public:
-
-  // bool WritePermissionDeleteData = 3;
-  void clear_writepermissiondeletedata();
-  bool writepermissiondeletedata() const;
-  void set_writepermissiondeletedata(bool value);
+  void clear_ace();
+  const ::proto::PermissionAceV1& ace() const;
+  PROTOBUF_NODISCARD ::proto::PermissionAceV1* release_ace();
+  ::proto::PermissionAceV1* mutable_ace();
+  void set_allocated_ace(::proto::PermissionAceV1* ace);
   private:
-  bool _internal_writepermissiondeletedata() const;
-  void _internal_set_writepermissiondeletedata(bool value);
+  const ::proto::PermissionAceV1& _internal_ace() const;
+  ::proto::PermissionAceV1* _internal_mutable_ace();
   public:
+  void unsafe_arena_set_allocated_ace(
+      ::proto::PermissionAceV1* ace);
+  ::proto::PermissionAceV1* unsafe_arena_release_ace();
 
-  // bool ReadPerimissionQuery = 4;
-  void clear_readperimissionquery();
-  bool readperimissionquery() const;
-  void set_readperimissionquery(bool value);
-  private:
-  bool _internal_readperimissionquery() const;
-  void _internal_set_readperimissionquery(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:proto.ProjectPermissionMetaInfoV1)
+  // @@protoc_insertion_point(class_scope:proto.UserPermissionAclV1)
  private:
   class _Internal;
 
@@ -1208,10 +1623,378 @@ class ProjectPermissionMetaInfoV1 final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    bool writepermissionadddata_;
-    bool writepermissionmodifydata_;
-    bool writepermissiondeletedata_;
-    bool readperimissionquery_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr useruuid_;
+    ::proto::PermissionAceV1* ace_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fMessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GroupPermissionAclV1 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.GroupPermissionAclV1) */ {
+ public:
+  inline GroupPermissionAclV1() : GroupPermissionAclV1(nullptr) {}
+  ~GroupPermissionAclV1() override;
+  explicit PROTOBUF_CONSTEXPR GroupPermissionAclV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GroupPermissionAclV1(const GroupPermissionAclV1& from);
+  GroupPermissionAclV1(GroupPermissionAclV1&& from) noexcept
+    : GroupPermissionAclV1() {
+    *this = ::std::move(from);
+  }
+
+  inline GroupPermissionAclV1& operator=(const GroupPermissionAclV1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GroupPermissionAclV1& operator=(GroupPermissionAclV1&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const GroupPermissionAclV1& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GroupPermissionAclV1* internal_default_instance() {
+    return reinterpret_cast<const GroupPermissionAclV1*>(
+               &_GroupPermissionAclV1_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(GroupPermissionAclV1& a, GroupPermissionAclV1& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GroupPermissionAclV1* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GroupPermissionAclV1* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GroupPermissionAclV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GroupPermissionAclV1>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const GroupPermissionAclV1& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const GroupPermissionAclV1& from) {
+    GroupPermissionAclV1::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(GroupPermissionAclV1* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.GroupPermissionAclV1";
+  }
+  protected:
+  explicit GroupPermissionAclV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kGroupUuidFieldNumber = 1,
+    kAceFieldNumber = 2,
+  };
+  // string GroupUuid = 1;
+  void clear_groupuuid();
+  const std::string& groupuuid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_groupuuid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_groupuuid();
+  PROTOBUF_NODISCARD std::string* release_groupuuid();
+  void set_allocated_groupuuid(std::string* groupuuid);
+  private:
+  const std::string& _internal_groupuuid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_groupuuid(const std::string& value);
+  std::string* _internal_mutable_groupuuid();
+  public:
+
+  // .proto.PermissionAceV1 Ace = 2;
+  bool has_ace() const;
+  private:
+  bool _internal_has_ace() const;
+  public:
+  void clear_ace();
+  const ::proto::PermissionAceV1& ace() const;
+  PROTOBUF_NODISCARD ::proto::PermissionAceV1* release_ace();
+  ::proto::PermissionAceV1* mutable_ace();
+  void set_allocated_ace(::proto::PermissionAceV1* ace);
+  private:
+  const ::proto::PermissionAceV1& _internal_ace() const;
+  ::proto::PermissionAceV1* _internal_mutable_ace();
+  public:
+  void unsafe_arena_set_allocated_ace(
+      ::proto::PermissionAceV1* ace);
+  ::proto::PermissionAceV1* unsafe_arena_release_ace();
+
+  // @@protoc_insertion_point(class_scope:proto.GroupPermissionAclV1)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr groupuuid_;
+    ::proto::PermissionAceV1* ace_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_Message_2fMessage_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PermissionMetaInfoV1 final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.PermissionMetaInfoV1) */ {
+ public:
+  inline PermissionMetaInfoV1() : PermissionMetaInfoV1(nullptr) {}
+  ~PermissionMetaInfoV1() override;
+  explicit PROTOBUF_CONSTEXPR PermissionMetaInfoV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PermissionMetaInfoV1(const PermissionMetaInfoV1& from);
+  PermissionMetaInfoV1(PermissionMetaInfoV1&& from) noexcept
+    : PermissionMetaInfoV1() {
+    *this = ::std::move(from);
+  }
+
+  inline PermissionMetaInfoV1& operator=(const PermissionMetaInfoV1& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PermissionMetaInfoV1& operator=(PermissionMetaInfoV1&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PermissionMetaInfoV1& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PermissionMetaInfoV1* internal_default_instance() {
+    return reinterpret_cast<const PermissionMetaInfoV1*>(
+               &_PermissionMetaInfoV1_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(PermissionMetaInfoV1& a, PermissionMetaInfoV1& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PermissionMetaInfoV1* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PermissionMetaInfoV1* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PermissionMetaInfoV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PermissionMetaInfoV1>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const PermissionMetaInfoV1& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PermissionMetaInfoV1& from) {
+    PermissionMetaInfoV1::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(PermissionMetaInfoV1* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "proto.PermissionMetaInfoV1";
+  }
+  protected:
+  explicit PermissionMetaInfoV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUsersFieldNumber = 2,
+    kGroupsFieldNumber = 3,
+    kOwnerFieldNumber = 1,
+  };
+  // repeated .proto.UserPermissionAclV1 Users = 2;
+  int users_size() const;
+  private:
+  int _internal_users_size() const;
+  public:
+  void clear_users();
+  ::proto::UserPermissionAclV1* mutable_users(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionAclV1 >*
+      mutable_users();
+  private:
+  const ::proto::UserPermissionAclV1& _internal_users(int index) const;
+  ::proto::UserPermissionAclV1* _internal_add_users();
+  public:
+  const ::proto::UserPermissionAclV1& users(int index) const;
+  ::proto::UserPermissionAclV1* add_users();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionAclV1 >&
+      users() const;
+
+  // repeated .proto.GroupPermissionAclV1 Groups = 3;
+  int groups_size() const;
+  private:
+  int _internal_groups_size() const;
+  public:
+  void clear_groups();
+  ::proto::GroupPermissionAclV1* mutable_groups(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::GroupPermissionAclV1 >*
+      mutable_groups();
+  private:
+  const ::proto::GroupPermissionAclV1& _internal_groups(int index) const;
+  ::proto::GroupPermissionAclV1* _internal_add_groups();
+  public:
+  const ::proto::GroupPermissionAclV1& groups(int index) const;
+  ::proto::GroupPermissionAclV1* add_groups();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::GroupPermissionAclV1 >&
+      groups() const;
+
+  // .proto.UserPermissionAclV1 Owner = 1;
+  bool has_owner() const;
+  private:
+  bool _internal_has_owner() const;
+  public:
+  void clear_owner();
+  const ::proto::UserPermissionAclV1& owner() const;
+  PROTOBUF_NODISCARD ::proto::UserPermissionAclV1* release_owner();
+  ::proto::UserPermissionAclV1* mutable_owner();
+  void set_allocated_owner(::proto::UserPermissionAclV1* owner);
+  private:
+  const ::proto::UserPermissionAclV1& _internal_owner() const;
+  ::proto::UserPermissionAclV1* _internal_mutable_owner();
+  public:
+  void unsafe_arena_set_allocated_owner(
+      ::proto::UserPermissionAclV1* owner);
+  ::proto::UserPermissionAclV1* unsafe_arena_release_owner();
+
+  // @@protoc_insertion_point(class_scope:proto.PermissionMetaInfoV1)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionAclV1 > users_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::GroupPermissionAclV1 > groups_;
+    ::proto::UserPermissionAclV1* owner_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1267,7 +2050,7 @@ class PermissionGroupMetaInfoV1 final :
                &_PermissionGroupMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    9;
 
   friend void swap(PermissionGroupMetaInfoV1& a, PermissionGroupMetaInfoV1& b) {
     a.Swap(&b);
@@ -1343,8 +2126,7 @@ class PermissionGroupMetaInfoV1 final :
     kNameFieldNumber = 2,
     kDescriptionFieldNumber = 3,
     kBaseFieldNumber = 1,
-    kGlobalPermissionFieldNumber = 4,
-    kProjectPermissionFieldNumber = 5,
+    kAceFieldNumber = 4,
   };
   // string Name = 2;
   void clear_name();
@@ -1392,41 +2174,23 @@ class PermissionGroupMetaInfoV1 final :
       ::proto::MetaInfoBase* base);
   ::proto::MetaInfoBase* unsafe_arena_release_base();
 
-  // .proto.GlobalPermissionMetaInfoV1 GlobalPermission = 4;
-  bool has_globalpermission() const;
+  // .proto.PermissionGroupAceV1 Ace = 4;
+  bool has_ace() const;
   private:
-  bool _internal_has_globalpermission() const;
+  bool _internal_has_ace() const;
   public:
-  void clear_globalpermission();
-  const ::proto::GlobalPermissionMetaInfoV1& globalpermission() const;
-  PROTOBUF_NODISCARD ::proto::GlobalPermissionMetaInfoV1* release_globalpermission();
-  ::proto::GlobalPermissionMetaInfoV1* mutable_globalpermission();
-  void set_allocated_globalpermission(::proto::GlobalPermissionMetaInfoV1* globalpermission);
+  void clear_ace();
+  const ::proto::PermissionGroupAceV1& ace() const;
+  PROTOBUF_NODISCARD ::proto::PermissionGroupAceV1* release_ace();
+  ::proto::PermissionGroupAceV1* mutable_ace();
+  void set_allocated_ace(::proto::PermissionGroupAceV1* ace);
   private:
-  const ::proto::GlobalPermissionMetaInfoV1& _internal_globalpermission() const;
-  ::proto::GlobalPermissionMetaInfoV1* _internal_mutable_globalpermission();
+  const ::proto::PermissionGroupAceV1& _internal_ace() const;
+  ::proto::PermissionGroupAceV1* _internal_mutable_ace();
   public:
-  void unsafe_arena_set_allocated_globalpermission(
-      ::proto::GlobalPermissionMetaInfoV1* globalpermission);
-  ::proto::GlobalPermissionMetaInfoV1* unsafe_arena_release_globalpermission();
-
-  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 5;
-  bool has_projectpermission() const;
-  private:
-  bool _internal_has_projectpermission() const;
-  public:
-  void clear_projectpermission();
-  const ::proto::ProjectPermissionMetaInfoV1& projectpermission() const;
-  PROTOBUF_NODISCARD ::proto::ProjectPermissionMetaInfoV1* release_projectpermission();
-  ::proto::ProjectPermissionMetaInfoV1* mutable_projectpermission();
-  void set_allocated_projectpermission(::proto::ProjectPermissionMetaInfoV1* projectpermission);
-  private:
-  const ::proto::ProjectPermissionMetaInfoV1& _internal_projectpermission() const;
-  ::proto::ProjectPermissionMetaInfoV1* _internal_mutable_projectpermission();
-  public:
-  void unsafe_arena_set_allocated_projectpermission(
-      ::proto::ProjectPermissionMetaInfoV1* projectpermission);
-  ::proto::ProjectPermissionMetaInfoV1* unsafe_arena_release_projectpermission();
+  void unsafe_arena_set_allocated_ace(
+      ::proto::PermissionGroupAceV1* ace);
+  ::proto::PermissionGroupAceV1* unsafe_arena_release_ace();
 
   // @@protoc_insertion_point(class_scope:proto.PermissionGroupMetaInfoV1)
  private:
@@ -1439,181 +2203,7 @@ class PermissionGroupMetaInfoV1 final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
     ::proto::MetaInfoBase* base_;
-    ::proto::GlobalPermissionMetaInfoV1* globalpermission_;
-    ::proto::ProjectPermissionMetaInfoV1* projectpermission_;
-    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_Message_2fMessage_2eproto;
-};
-// -------------------------------------------------------------------
-
-class UserPermissionOverrideMetaInfoV1 final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:proto.UserPermissionOverrideMetaInfoV1) */ {
- public:
-  inline UserPermissionOverrideMetaInfoV1() : UserPermissionOverrideMetaInfoV1(nullptr) {}
-  ~UserPermissionOverrideMetaInfoV1() override;
-  explicit PROTOBUF_CONSTEXPR UserPermissionOverrideMetaInfoV1(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  UserPermissionOverrideMetaInfoV1(const UserPermissionOverrideMetaInfoV1& from);
-  UserPermissionOverrideMetaInfoV1(UserPermissionOverrideMetaInfoV1&& from) noexcept
-    : UserPermissionOverrideMetaInfoV1() {
-    *this = ::std::move(from);
-  }
-
-  inline UserPermissionOverrideMetaInfoV1& operator=(const UserPermissionOverrideMetaInfoV1& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline UserPermissionOverrideMetaInfoV1& operator=(UserPermissionOverrideMetaInfoV1&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const UserPermissionOverrideMetaInfoV1& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const UserPermissionOverrideMetaInfoV1* internal_default_instance() {
-    return reinterpret_cast<const UserPermissionOverrideMetaInfoV1*>(
-               &_UserPermissionOverrideMetaInfoV1_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  friend void swap(UserPermissionOverrideMetaInfoV1& a, UserPermissionOverrideMetaInfoV1& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(UserPermissionOverrideMetaInfoV1* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(UserPermissionOverrideMetaInfoV1* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  UserPermissionOverrideMetaInfoV1* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<UserPermissionOverrideMetaInfoV1>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const UserPermissionOverrideMetaInfoV1& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const UserPermissionOverrideMetaInfoV1& from) {
-    UserPermissionOverrideMetaInfoV1::MergeImpl(*this, from);
-  }
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(UserPermissionOverrideMetaInfoV1* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "proto.UserPermissionOverrideMetaInfoV1";
-  }
-  protected:
-  explicit UserPermissionOverrideMetaInfoV1(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kUserNameFieldNumber = 2,
-    kProjectPermissionFieldNumber = 1,
-  };
-  // string UserName = 2;
-  void clear_username();
-  const std::string& username() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_username(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_username();
-  PROTOBUF_NODISCARD std::string* release_username();
-  void set_allocated_username(std::string* username);
-  private:
-  const std::string& _internal_username() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
-  std::string* _internal_mutable_username();
-  public:
-
-  // .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
-  bool has_projectpermission() const;
-  private:
-  bool _internal_has_projectpermission() const;
-  public:
-  void clear_projectpermission();
-  const ::proto::ProjectPermissionMetaInfoV1& projectpermission() const;
-  PROTOBUF_NODISCARD ::proto::ProjectPermissionMetaInfoV1* release_projectpermission();
-  ::proto::ProjectPermissionMetaInfoV1* mutable_projectpermission();
-  void set_allocated_projectpermission(::proto::ProjectPermissionMetaInfoV1* projectpermission);
-  private:
-  const ::proto::ProjectPermissionMetaInfoV1& _internal_projectpermission() const;
-  ::proto::ProjectPermissionMetaInfoV1* _internal_mutable_projectpermission();
-  public:
-  void unsafe_arena_set_allocated_projectpermission(
-      ::proto::ProjectPermissionMetaInfoV1* projectpermission);
-  ::proto::ProjectPermissionMetaInfoV1* unsafe_arena_release_projectpermission();
-
-  // @@protoc_insertion_point(class_scope:proto.UserPermissionOverrideMetaInfoV1)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  struct Impl_ {
-    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
-    ::proto::ProjectPermissionMetaInfoV1* projectpermission_;
+    ::proto::PermissionGroupAceV1* ace_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1669,7 +2259,7 @@ class ProjectMetaInfoV1 final :
                &_ProjectMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    10;
 
   friend void swap(ProjectMetaInfoV1& a, ProjectMetaInfoV1& b) {
     a.Swap(&b);
@@ -1743,14 +2333,14 @@ class ProjectMetaInfoV1 final :
 
   enum : int {
     kSwcListFieldNumber = 7,
-    kUserPermissionOverrideFieldNumber = 8,
     kNameFieldNumber = 2,
     kDescriptionFieldNumber = 3,
     kCreatorFieldNumber = 4,
-    kWorkModeFieldNumber = 9,
+    kWorkModeFieldNumber = 8,
     kBaseFieldNumber = 1,
     kCreateTimeFieldNumber = 5,
     kLastModifiedTimeFieldNumber = 6,
+    kPermissionFieldNumber = 9,
   };
   // repeated string SwcList = 7;
   int swclist_size() const;
@@ -1775,24 +2365,6 @@ class ProjectMetaInfoV1 final :
   const std::string& _internal_swclist(int index) const;
   std::string* _internal_add_swclist();
   public:
-
-  // repeated .proto.UserPermissionOverrideMetaInfoV1 UserPermissionOverride = 8;
-  int userpermissionoverride_size() const;
-  private:
-  int _internal_userpermissionoverride_size() const;
-  public:
-  void clear_userpermissionoverride();
-  ::proto::UserPermissionOverrideMetaInfoV1* mutable_userpermissionoverride(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionOverrideMetaInfoV1 >*
-      mutable_userpermissionoverride();
-  private:
-  const ::proto::UserPermissionOverrideMetaInfoV1& _internal_userpermissionoverride(int index) const;
-  ::proto::UserPermissionOverrideMetaInfoV1* _internal_add_userpermissionoverride();
-  public:
-  const ::proto::UserPermissionOverrideMetaInfoV1& userpermissionoverride(int index) const;
-  ::proto::UserPermissionOverrideMetaInfoV1* add_userpermissionoverride();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionOverrideMetaInfoV1 >&
-      userpermissionoverride() const;
 
   // string Name = 2;
   void clear_name();
@@ -1836,7 +2408,7 @@ class ProjectMetaInfoV1 final :
   std::string* _internal_mutable_creator();
   public:
 
-  // string WorkMode = 9;
+  // string WorkMode = 8;
   void clear_workmode();
   const std::string& workmode() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -1904,6 +2476,24 @@ class ProjectMetaInfoV1 final :
       ::PROTOBUF_NAMESPACE_ID::Timestamp* lastmodifiedtime);
   ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_lastmodifiedtime();
 
+  // .proto.PermissionMetaInfoV1 Permission = 9;
+  bool has_permission() const;
+  private:
+  bool _internal_has_permission() const;
+  public:
+  void clear_permission();
+  const ::proto::PermissionMetaInfoV1& permission() const;
+  PROTOBUF_NODISCARD ::proto::PermissionMetaInfoV1* release_permission();
+  ::proto::PermissionMetaInfoV1* mutable_permission();
+  void set_allocated_permission(::proto::PermissionMetaInfoV1* permission);
+  private:
+  const ::proto::PermissionMetaInfoV1& _internal_permission() const;
+  ::proto::PermissionMetaInfoV1* _internal_mutable_permission();
+  public:
+  void unsafe_arena_set_allocated_permission(
+      ::proto::PermissionMetaInfoV1* permission);
+  ::proto::PermissionMetaInfoV1* unsafe_arena_release_permission();
+
   // @@protoc_insertion_point(class_scope:proto.ProjectMetaInfoV1)
  private:
   class _Internal;
@@ -1913,7 +2503,6 @@ class ProjectMetaInfoV1 final :
   typedef void DestructorSkippable_;
   struct Impl_ {
     ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> swclist_;
-    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionOverrideMetaInfoV1 > userpermissionoverride_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr description_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr creator_;
@@ -1921,6 +2510,7 @@ class ProjectMetaInfoV1 final :
     ::proto::MetaInfoBase* base_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* lastmodifiedtime_;
+    ::proto::PermissionMetaInfoV1* permission_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1976,7 +2566,7 @@ class SwcSnapshotMetaInfoV1 final :
                &_SwcSnapshotMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    11;
 
   friend void swap(SwcSnapshotMetaInfoV1& a, SwcSnapshotMetaInfoV1& b) {
     a.Swap(&b);
@@ -2185,7 +2775,7 @@ class SwcIncrementOperationMetaInfoV1 final :
                &_SwcIncrementOperationMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    12;
 
   friend void swap(SwcIncrementOperationMetaInfoV1& a, SwcIncrementOperationMetaInfoV1& b) {
     a.Swap(&b);
@@ -2394,7 +2984,7 @@ class SwcIncrementOperationV1 final :
                &_SwcIncrementOperationV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    13;
 
   friend void swap(SwcIncrementOperationV1& a, SwcIncrementOperationV1& b) {
     a.Swap(&b);
@@ -2602,7 +3192,7 @@ class SwcIncrementOperationListV1 final :
                &_SwcIncrementOperationListV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    14;
 
   friend void swap(SwcIncrementOperationListV1& a, SwcIncrementOperationListV1& b) {
     a.Swap(&b);
@@ -2759,7 +3349,7 @@ class SwcAttachmentAnoMetaInfoV1 final :
                &_SwcAttachmentAnoMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    15;
 
   friend void swap(SwcAttachmentAnoMetaInfoV1& a, SwcAttachmentAnoMetaInfoV1& b) {
     a.Swap(&b);
@@ -2912,7 +3502,7 @@ class SwcAttachmentApoMetaInfoV1 final :
                &_SwcAttachmentApoMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    16;
 
   friend void swap(SwcAttachmentApoMetaInfoV1& a, SwcAttachmentApoMetaInfoV1& b) {
     a.Swap(&b);
@@ -3065,7 +3655,7 @@ class SwcMetaInfoV1 final :
                &_SwcMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    17;
 
   friend void swap(SwcMetaInfoV1& a, SwcMetaInfoV1& b) {
     a.Swap(&b);
@@ -3145,11 +3735,13 @@ class SwcMetaInfoV1 final :
     kCreatorFieldNumber = 4,
     kSwcTypeFieldNumber = 5,
     kCurrentIncrementOperationCollectionNameFieldNumber = 10,
+    kSwcAttachmentSwcUuidFieldNumber = 13,
     kBaseFieldNumber = 1,
     kCreateTimeFieldNumber = 6,
     kLastModifiedTimeFieldNumber = 7,
     kSwcAttachmentAnoMetaInfoFieldNumber = 11,
     kSwcAttachmentApoMetaInfoFieldNumber = 12,
+    kPermissionFieldNumber = 14,
   };
   // repeated .proto.SwcSnapshotMetaInfoV1 SwcSnapshotMetaInfoList = 8;
   int swcsnapshotmetainfolist_size() const;
@@ -3257,6 +3849,20 @@ class SwcMetaInfoV1 final :
   std::string* _internal_mutable_currentincrementoperationcollectionname();
   public:
 
+  // string SwcAttachmentSwcUuid = 13;
+  void clear_swcattachmentswcuuid();
+  const std::string& swcattachmentswcuuid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_swcattachmentswcuuid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_swcattachmentswcuuid();
+  PROTOBUF_NODISCARD std::string* release_swcattachmentswcuuid();
+  void set_allocated_swcattachmentswcuuid(std::string* swcattachmentswcuuid);
+  private:
+  const std::string& _internal_swcattachmentswcuuid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_swcattachmentswcuuid(const std::string& value);
+  std::string* _internal_mutable_swcattachmentswcuuid();
+  public:
+
   // .proto.MetaInfoBase Base = 1;
   bool has_base() const;
   private:
@@ -3347,6 +3953,24 @@ class SwcMetaInfoV1 final :
       ::proto::SwcAttachmentApoMetaInfoV1* swcattachmentapometainfo);
   ::proto::SwcAttachmentApoMetaInfoV1* unsafe_arena_release_swcattachmentapometainfo();
 
+  // .proto.PermissionMetaInfoV1 Permission = 14;
+  bool has_permission() const;
+  private:
+  bool _internal_has_permission() const;
+  public:
+  void clear_permission();
+  const ::proto::PermissionMetaInfoV1& permission() const;
+  PROTOBUF_NODISCARD ::proto::PermissionMetaInfoV1* release_permission();
+  ::proto::PermissionMetaInfoV1* mutable_permission();
+  void set_allocated_permission(::proto::PermissionMetaInfoV1* permission);
+  private:
+  const ::proto::PermissionMetaInfoV1& _internal_permission() const;
+  ::proto::PermissionMetaInfoV1* _internal_mutable_permission();
+  public:
+  void unsafe_arena_set_allocated_permission(
+      ::proto::PermissionMetaInfoV1* permission);
+  ::proto::PermissionMetaInfoV1* unsafe_arena_release_permission();
+
   // @@protoc_insertion_point(class_scope:proto.SwcMetaInfoV1)
  private:
   class _Internal;
@@ -3362,11 +3986,13 @@ class SwcMetaInfoV1 final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr creator_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr swctype_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr currentincrementoperationcollectionname_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr swcattachmentswcuuid_;
     ::proto::MetaInfoBase* base_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* createtime_;
     ::PROTOBUF_NAMESPACE_ID::Timestamp* lastmodifiedtime_;
     ::proto::SwcAttachmentAnoMetaInfoV1* swcattachmentanometainfo_;
     ::proto::SwcAttachmentApoMetaInfoV1* swcattachmentapometainfo_;
+    ::proto::PermissionMetaInfoV1* permission_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -3422,7 +4048,7 @@ class SwcNodeInternalDataV1 final :
                &_SwcNodeInternalDataV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    18;
 
   friend void swap(SwcNodeInternalDataV1& a, SwcNodeInternalDataV1& b) {
     a.Swap(&b);
@@ -3691,7 +4317,7 @@ class SwcNodeDataV1 final :
                &_SwcNodeDataV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    19;
 
   friend void swap(SwcNodeDataV1& a, SwcNodeDataV1& b) {
     a.Swap(&b);
@@ -3940,7 +4566,7 @@ class SwcDataV1 final :
                &_SwcDataV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    20;
 
   friend void swap(SwcDataV1& a, SwcDataV1& b) {
     a.Swap(&b);
@@ -4097,7 +4723,7 @@ class DailyStatisticsMetaInfoV1 final :
                &_DailyStatisticsMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    21;
 
   friend void swap(DailyStatisticsMetaInfoV1& a, DailyStatisticsMetaInfoV1& b) {
     a.Swap(&b);
@@ -4445,7 +5071,7 @@ class UserVerifyInfoV1 final :
                &_UserVerifyInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    22;
 
   friend void swap(UserVerifyInfoV1& a, UserVerifyInfoV1& b) {
     a.Swap(&b);
@@ -4630,7 +5256,7 @@ class RequestMetaInfoV1 final :
                &_RequestMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    23;
 
   friend void swap(RequestMetaInfoV1& a, RequestMetaInfoV1& b) {
     a.Swap(&b);
@@ -4783,7 +5409,7 @@ class ResponseMetaInfoV1 final :
                &_ResponseMetaInfoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    24;
 
   friend void swap(ResponseMetaInfoV1& a, ResponseMetaInfoV1& b) {
     a.Swap(&b);
@@ -4963,7 +5589,7 @@ class SwcAttachmentAnoV1 final :
                &_SwcAttachmentAnoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    25;
 
   friend void swap(SwcAttachmentAnoV1& a, SwcAttachmentAnoV1& b) {
     a.Swap(&b);
@@ -5152,7 +5778,7 @@ class SwcAttachmentApoV1 final :
                &_SwcAttachmentApoV1_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    26;
 
   friend void swap(SwcAttachmentApoV1& a, SwcAttachmentApoV1& b) {
     a.Swap(&b);
@@ -6173,54 +6799,54 @@ inline void UserMetaInfoV1::set_allocated_headphotobindata(std::string* headphot
   // @@protoc_insertion_point(field_set_allocated:proto.UserMetaInfoV1.HeadPhotoBinData)
 }
 
-// string UserPermissionGroup = 7;
-inline void UserMetaInfoV1::clear_userpermissiongroup() {
-  _impl_.userpermissiongroup_.ClearToEmpty();
+// string PermissionGroupUuid = 7;
+inline void UserMetaInfoV1::clear_permissiongroupuuid() {
+  _impl_.permissiongroupuuid_.ClearToEmpty();
 }
-inline const std::string& UserMetaInfoV1::userpermissiongroup() const {
-  // @@protoc_insertion_point(field_get:proto.UserMetaInfoV1.UserPermissionGroup)
-  return _internal_userpermissiongroup();
+inline const std::string& UserMetaInfoV1::permissiongroupuuid() const {
+  // @@protoc_insertion_point(field_get:proto.UserMetaInfoV1.PermissionGroupUuid)
+  return _internal_permissiongroupuuid();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void UserMetaInfoV1::set_userpermissiongroup(ArgT0&& arg0, ArgT... args) {
+void UserMetaInfoV1::set_permissiongroupuuid(ArgT0&& arg0, ArgT... args) {
  
- _impl_.userpermissiongroup_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:proto.UserMetaInfoV1.UserPermissionGroup)
+ _impl_.permissiongroupuuid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.UserMetaInfoV1.PermissionGroupUuid)
 }
-inline std::string* UserMetaInfoV1::mutable_userpermissiongroup() {
-  std::string* _s = _internal_mutable_userpermissiongroup();
-  // @@protoc_insertion_point(field_mutable:proto.UserMetaInfoV1.UserPermissionGroup)
+inline std::string* UserMetaInfoV1::mutable_permissiongroupuuid() {
+  std::string* _s = _internal_mutable_permissiongroupuuid();
+  // @@protoc_insertion_point(field_mutable:proto.UserMetaInfoV1.PermissionGroupUuid)
   return _s;
 }
-inline const std::string& UserMetaInfoV1::_internal_userpermissiongroup() const {
-  return _impl_.userpermissiongroup_.Get();
+inline const std::string& UserMetaInfoV1::_internal_permissiongroupuuid() const {
+  return _impl_.permissiongroupuuid_.Get();
 }
-inline void UserMetaInfoV1::_internal_set_userpermissiongroup(const std::string& value) {
+inline void UserMetaInfoV1::_internal_set_permissiongroupuuid(const std::string& value) {
   
-  _impl_.userpermissiongroup_.Set(value, GetArenaForAllocation());
+  _impl_.permissiongroupuuid_.Set(value, GetArenaForAllocation());
 }
-inline std::string* UserMetaInfoV1::_internal_mutable_userpermissiongroup() {
+inline std::string* UserMetaInfoV1::_internal_mutable_permissiongroupuuid() {
   
-  return _impl_.userpermissiongroup_.Mutable(GetArenaForAllocation());
+  return _impl_.permissiongroupuuid_.Mutable(GetArenaForAllocation());
 }
-inline std::string* UserMetaInfoV1::release_userpermissiongroup() {
-  // @@protoc_insertion_point(field_release:proto.UserMetaInfoV1.UserPermissionGroup)
-  return _impl_.userpermissiongroup_.Release();
+inline std::string* UserMetaInfoV1::release_permissiongroupuuid() {
+  // @@protoc_insertion_point(field_release:proto.UserMetaInfoV1.PermissionGroupUuid)
+  return _impl_.permissiongroupuuid_.Release();
 }
-inline void UserMetaInfoV1::set_allocated_userpermissiongroup(std::string* userpermissiongroup) {
-  if (userpermissiongroup != nullptr) {
+inline void UserMetaInfoV1::set_allocated_permissiongroupuuid(std::string* permissiongroupuuid) {
+  if (permissiongroupuuid != nullptr) {
     
   } else {
     
   }
-  _impl_.userpermissiongroup_.SetAllocated(userpermissiongroup, GetArenaForAllocation());
+  _impl_.permissiongroupuuid_.SetAllocated(permissiongroupuuid, GetArenaForAllocation());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.userpermissiongroup_.IsDefault()) {
-    _impl_.userpermissiongroup_.Set("", GetArenaForAllocation());
+  if (_impl_.permissiongroupuuid_.IsDefault()) {
+    _impl_.permissiongroupuuid_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:proto.UserMetaInfoV1.UserPermissionGroup)
+  // @@protoc_insertion_point(field_set_allocated:proto.UserMetaInfoV1.PermissionGroupUuid)
 }
 
 // int32 UserId = 8;
@@ -6335,170 +6961,876 @@ inline void UserMetaInfoV1::set_allocated_compatibledata(::proto::BrainTellServe
 
 // -------------------------------------------------------------------
 
-// GlobalPermissionMetaInfoV1
+// PermissionGroupAceV1
 
-// bool WritePermissionCreateProject = 1;
-inline void GlobalPermissionMetaInfoV1::clear_writepermissioncreateproject() {
-  _impl_.writepermissioncreateproject_ = false;
+// bool AllPermissionGroupManagementPermission = 1;
+inline void PermissionGroupAceV1::clear_allpermissiongroupmanagementpermission() {
+  _impl_.allpermissiongroupmanagementpermission_ = false;
 }
-inline bool GlobalPermissionMetaInfoV1::_internal_writepermissioncreateproject() const {
-  return _impl_.writepermissioncreateproject_;
+inline bool PermissionGroupAceV1::_internal_allpermissiongroupmanagementpermission() const {
+  return _impl_.allpermissiongroupmanagementpermission_;
 }
-inline bool GlobalPermissionMetaInfoV1::writepermissioncreateproject() const {
-  // @@protoc_insertion_point(field_get:proto.GlobalPermissionMetaInfoV1.WritePermissionCreateProject)
-  return _internal_writepermissioncreateproject();
+inline bool PermissionGroupAceV1::allpermissiongroupmanagementpermission() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAceV1.AllPermissionGroupManagementPermission)
+  return _internal_allpermissiongroupmanagementpermission();
 }
-inline void GlobalPermissionMetaInfoV1::_internal_set_writepermissioncreateproject(bool value) {
+inline void PermissionGroupAceV1::_internal_set_allpermissiongroupmanagementpermission(bool value) {
   
-  _impl_.writepermissioncreateproject_ = value;
+  _impl_.allpermissiongroupmanagementpermission_ = value;
 }
-inline void GlobalPermissionMetaInfoV1::set_writepermissioncreateproject(bool value) {
-  _internal_set_writepermissioncreateproject(value);
-  // @@protoc_insertion_point(field_set:proto.GlobalPermissionMetaInfoV1.WritePermissionCreateProject)
-}
-
-// bool WritePermissionModifyProject = 2;
-inline void GlobalPermissionMetaInfoV1::clear_writepermissionmodifyproject() {
-  _impl_.writepermissionmodifyproject_ = false;
-}
-inline bool GlobalPermissionMetaInfoV1::_internal_writepermissionmodifyproject() const {
-  return _impl_.writepermissionmodifyproject_;
-}
-inline bool GlobalPermissionMetaInfoV1::writepermissionmodifyproject() const {
-  // @@protoc_insertion_point(field_get:proto.GlobalPermissionMetaInfoV1.WritePermissionModifyProject)
-  return _internal_writepermissionmodifyproject();
-}
-inline void GlobalPermissionMetaInfoV1::_internal_set_writepermissionmodifyproject(bool value) {
-  
-  _impl_.writepermissionmodifyproject_ = value;
-}
-inline void GlobalPermissionMetaInfoV1::set_writepermissionmodifyproject(bool value) {
-  _internal_set_writepermissionmodifyproject(value);
-  // @@protoc_insertion_point(field_set:proto.GlobalPermissionMetaInfoV1.WritePermissionModifyProject)
+inline void PermissionGroupAceV1::set_allpermissiongroupmanagementpermission(bool value) {
+  _internal_set_allpermissiongroupmanagementpermission(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionGroupAceV1.AllPermissionGroupManagementPermission)
 }
 
-// bool WritePermissionDeleteProject = 3;
-inline void GlobalPermissionMetaInfoV1::clear_writepermissiondeleteproject() {
-  _impl_.writepermissiondeleteproject_ = false;
+// bool AllUserManagementPermission = 2;
+inline void PermissionGroupAceV1::clear_allusermanagementpermission() {
+  _impl_.allusermanagementpermission_ = false;
 }
-inline bool GlobalPermissionMetaInfoV1::_internal_writepermissiondeleteproject() const {
-  return _impl_.writepermissiondeleteproject_;
+inline bool PermissionGroupAceV1::_internal_allusermanagementpermission() const {
+  return _impl_.allusermanagementpermission_;
 }
-inline bool GlobalPermissionMetaInfoV1::writepermissiondeleteproject() const {
-  // @@protoc_insertion_point(field_get:proto.GlobalPermissionMetaInfoV1.WritePermissionDeleteProject)
-  return _internal_writepermissiondeleteproject();
+inline bool PermissionGroupAceV1::allusermanagementpermission() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAceV1.AllUserManagementPermission)
+  return _internal_allusermanagementpermission();
 }
-inline void GlobalPermissionMetaInfoV1::_internal_set_writepermissiondeleteproject(bool value) {
+inline void PermissionGroupAceV1::_internal_set_allusermanagementpermission(bool value) {
   
-  _impl_.writepermissiondeleteproject_ = value;
+  _impl_.allusermanagementpermission_ = value;
 }
-inline void GlobalPermissionMetaInfoV1::set_writepermissiondeleteproject(bool value) {
-  _internal_set_writepermissiondeleteproject(value);
-  // @@protoc_insertion_point(field_set:proto.GlobalPermissionMetaInfoV1.WritePermissionDeleteProject)
+inline void PermissionGroupAceV1::set_allusermanagementpermission(bool value) {
+  _internal_set_allusermanagementpermission(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionGroupAceV1.AllUserManagementPermission)
 }
 
-// bool ReadPerimissionQuery = 4;
-inline void GlobalPermissionMetaInfoV1::clear_readperimissionquery() {
-  _impl_.readperimissionquery_ = false;
+// bool AllProjectManagementPermission = 3;
+inline void PermissionGroupAceV1::clear_allprojectmanagementpermission() {
+  _impl_.allprojectmanagementpermission_ = false;
 }
-inline bool GlobalPermissionMetaInfoV1::_internal_readperimissionquery() const {
-  return _impl_.readperimissionquery_;
+inline bool PermissionGroupAceV1::_internal_allprojectmanagementpermission() const {
+  return _impl_.allprojectmanagementpermission_;
 }
-inline bool GlobalPermissionMetaInfoV1::readperimissionquery() const {
-  // @@protoc_insertion_point(field_get:proto.GlobalPermissionMetaInfoV1.ReadPerimissionQuery)
-  return _internal_readperimissionquery();
+inline bool PermissionGroupAceV1::allprojectmanagementpermission() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAceV1.AllProjectManagementPermission)
+  return _internal_allprojectmanagementpermission();
 }
-inline void GlobalPermissionMetaInfoV1::_internal_set_readperimissionquery(bool value) {
+inline void PermissionGroupAceV1::_internal_set_allprojectmanagementpermission(bool value) {
   
-  _impl_.readperimissionquery_ = value;
+  _impl_.allprojectmanagementpermission_ = value;
 }
-inline void GlobalPermissionMetaInfoV1::set_readperimissionquery(bool value) {
-  _internal_set_readperimissionquery(value);
-  // @@protoc_insertion_point(field_set:proto.GlobalPermissionMetaInfoV1.ReadPerimissionQuery)
+inline void PermissionGroupAceV1::set_allprojectmanagementpermission(bool value) {
+  _internal_set_allprojectmanagementpermission(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionGroupAceV1.AllProjectManagementPermission)
+}
+
+// bool AllSwcManagementPermission = 4;
+inline void PermissionGroupAceV1::clear_allswcmanagementpermission() {
+  _impl_.allswcmanagementpermission_ = false;
+}
+inline bool PermissionGroupAceV1::_internal_allswcmanagementpermission() const {
+  return _impl_.allswcmanagementpermission_;
+}
+inline bool PermissionGroupAceV1::allswcmanagementpermission() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAceV1.AllSwcManagementPermission)
+  return _internal_allswcmanagementpermission();
+}
+inline void PermissionGroupAceV1::_internal_set_allswcmanagementpermission(bool value) {
+  
+  _impl_.allswcmanagementpermission_ = value;
+}
+inline void PermissionGroupAceV1::set_allswcmanagementpermission(bool value) {
+  _internal_set_allswcmanagementpermission(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionGroupAceV1.AllSwcManagementPermission)
+}
+
+// bool AllDailyStatisticsManagementPermission = 5;
+inline void PermissionGroupAceV1::clear_alldailystatisticsmanagementpermission() {
+  _impl_.alldailystatisticsmanagementpermission_ = false;
+}
+inline bool PermissionGroupAceV1::_internal_alldailystatisticsmanagementpermission() const {
+  return _impl_.alldailystatisticsmanagementpermission_;
+}
+inline bool PermissionGroupAceV1::alldailystatisticsmanagementpermission() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAceV1.AllDailyStatisticsManagementPermission)
+  return _internal_alldailystatisticsmanagementpermission();
+}
+inline void PermissionGroupAceV1::_internal_set_alldailystatisticsmanagementpermission(bool value) {
+  
+  _impl_.alldailystatisticsmanagementpermission_ = value;
+}
+inline void PermissionGroupAceV1::set_alldailystatisticsmanagementpermission(bool value) {
+  _internal_set_alldailystatisticsmanagementpermission(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionGroupAceV1.AllDailyStatisticsManagementPermission)
 }
 
 // -------------------------------------------------------------------
 
-// ProjectPermissionMetaInfoV1
+// PermissionGroupAclV1
 
-// bool WritePermissionAddData = 1;
-inline void ProjectPermissionMetaInfoV1::clear_writepermissionadddata() {
-  _impl_.writepermissionadddata_ = false;
+// string PermissionGroupUuid = 1;
+inline void PermissionGroupAclV1::clear_permissiongroupuuid() {
+  _impl_.permissiongroupuuid_.ClearToEmpty();
 }
-inline bool ProjectPermissionMetaInfoV1::_internal_writepermissionadddata() const {
-  return _impl_.writepermissionadddata_;
+inline const std::string& PermissionGroupAclV1::permissiongroupuuid() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAclV1.PermissionGroupUuid)
+  return _internal_permissiongroupuuid();
 }
-inline bool ProjectPermissionMetaInfoV1::writepermissionadddata() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermissionAddData)
-  return _internal_writepermissionadddata();
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void PermissionGroupAclV1::set_permissiongroupuuid(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.permissiongroupuuid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.PermissionGroupAclV1.PermissionGroupUuid)
 }
-inline void ProjectPermissionMetaInfoV1::_internal_set_writepermissionadddata(bool value) {
+inline std::string* PermissionGroupAclV1::mutable_permissiongroupuuid() {
+  std::string* _s = _internal_mutable_permissiongroupuuid();
+  // @@protoc_insertion_point(field_mutable:proto.PermissionGroupAclV1.PermissionGroupUuid)
+  return _s;
+}
+inline const std::string& PermissionGroupAclV1::_internal_permissiongroupuuid() const {
+  return _impl_.permissiongroupuuid_.Get();
+}
+inline void PermissionGroupAclV1::_internal_set_permissiongroupuuid(const std::string& value) {
   
-  _impl_.writepermissionadddata_ = value;
+  _impl_.permissiongroupuuid_.Set(value, GetArenaForAllocation());
 }
-inline void ProjectPermissionMetaInfoV1::set_writepermissionadddata(bool value) {
-  _internal_set_writepermissionadddata(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermissionAddData)
-}
-
-// bool WritePermissionModifyData = 2;
-inline void ProjectPermissionMetaInfoV1::clear_writepermissionmodifydata() {
-  _impl_.writepermissionmodifydata_ = false;
-}
-inline bool ProjectPermissionMetaInfoV1::_internal_writepermissionmodifydata() const {
-  return _impl_.writepermissionmodifydata_;
-}
-inline bool ProjectPermissionMetaInfoV1::writepermissionmodifydata() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermissionModifyData)
-  return _internal_writepermissionmodifydata();
-}
-inline void ProjectPermissionMetaInfoV1::_internal_set_writepermissionmodifydata(bool value) {
+inline std::string* PermissionGroupAclV1::_internal_mutable_permissiongroupuuid() {
   
-  _impl_.writepermissionmodifydata_ = value;
+  return _impl_.permissiongroupuuid_.Mutable(GetArenaForAllocation());
 }
-inline void ProjectPermissionMetaInfoV1::set_writepermissionmodifydata(bool value) {
-  _internal_set_writepermissionmodifydata(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermissionModifyData)
+inline std::string* PermissionGroupAclV1::release_permissiongroupuuid() {
+  // @@protoc_insertion_point(field_release:proto.PermissionGroupAclV1.PermissionGroupUuid)
+  return _impl_.permissiongroupuuid_.Release();
 }
-
-// bool WritePermissionDeleteData = 3;
-inline void ProjectPermissionMetaInfoV1::clear_writepermissiondeletedata() {
-  _impl_.writepermissiondeletedata_ = false;
-}
-inline bool ProjectPermissionMetaInfoV1::_internal_writepermissiondeletedata() const {
-  return _impl_.writepermissiondeletedata_;
-}
-inline bool ProjectPermissionMetaInfoV1::writepermissiondeletedata() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.WritePermissionDeleteData)
-  return _internal_writepermissiondeletedata();
-}
-inline void ProjectPermissionMetaInfoV1::_internal_set_writepermissiondeletedata(bool value) {
-  
-  _impl_.writepermissiondeletedata_ = value;
-}
-inline void ProjectPermissionMetaInfoV1::set_writepermissiondeletedata(bool value) {
-  _internal_set_writepermissiondeletedata(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.WritePermissionDeleteData)
+inline void PermissionGroupAclV1::set_allocated_permissiongroupuuid(std::string* permissiongroupuuid) {
+  if (permissiongroupuuid != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.permissiongroupuuid_.SetAllocated(permissiongroupuuid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.permissiongroupuuid_.IsDefault()) {
+    _impl_.permissiongroupuuid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:proto.PermissionGroupAclV1.PermissionGroupUuid)
 }
 
-// bool ReadPerimissionQuery = 4;
-inline void ProjectPermissionMetaInfoV1::clear_readperimissionquery() {
-  _impl_.readperimissionquery_ = false;
+// .proto.PermissionGroupAceV1 PermissionGroupAce = 2;
+inline bool PermissionGroupAclV1::_internal_has_permissiongroupace() const {
+  return this != internal_default_instance() && _impl_.permissiongroupace_ != nullptr;
 }
-inline bool ProjectPermissionMetaInfoV1::_internal_readperimissionquery() const {
-  return _impl_.readperimissionquery_;
+inline bool PermissionGroupAclV1::has_permissiongroupace() const {
+  return _internal_has_permissiongroupace();
 }
-inline bool ProjectPermissionMetaInfoV1::readperimissionquery() const {
-  // @@protoc_insertion_point(field_get:proto.ProjectPermissionMetaInfoV1.ReadPerimissionQuery)
-  return _internal_readperimissionquery();
+inline void PermissionGroupAclV1::clear_permissiongroupace() {
+  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroupace_ != nullptr) {
+    delete _impl_.permissiongroupace_;
+  }
+  _impl_.permissiongroupace_ = nullptr;
 }
-inline void ProjectPermissionMetaInfoV1::_internal_set_readperimissionquery(bool value) {
+inline const ::proto::PermissionGroupAceV1& PermissionGroupAclV1::_internal_permissiongroupace() const {
+  const ::proto::PermissionGroupAceV1* p = _impl_.permissiongroupace_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionGroupAceV1&>(
+      ::proto::_PermissionGroupAceV1_default_instance_);
+}
+inline const ::proto::PermissionGroupAceV1& PermissionGroupAclV1::permissiongroupace() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupAclV1.PermissionGroupAce)
+  return _internal_permissiongroupace();
+}
+inline void PermissionGroupAclV1::unsafe_arena_set_allocated_permissiongroupace(
+    ::proto::PermissionGroupAceV1* permissiongroupace) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permissiongroupace_);
+  }
+  _impl_.permissiongroupace_ = permissiongroupace;
+  if (permissiongroupace) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.PermissionGroupAclV1.PermissionGroupAce)
+}
+inline ::proto::PermissionGroupAceV1* PermissionGroupAclV1::release_permissiongroupace() {
   
-  _impl_.readperimissionquery_ = value;
+  ::proto::PermissionGroupAceV1* temp = _impl_.permissiongroupace_;
+  _impl_.permissiongroupace_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
 }
-inline void ProjectPermissionMetaInfoV1::set_readperimissionquery(bool value) {
-  _internal_set_readperimissionquery(value);
-  // @@protoc_insertion_point(field_set:proto.ProjectPermissionMetaInfoV1.ReadPerimissionQuery)
+inline ::proto::PermissionGroupAceV1* PermissionGroupAclV1::unsafe_arena_release_permissiongroupace() {
+  // @@protoc_insertion_point(field_release:proto.PermissionGroupAclV1.PermissionGroupAce)
+  
+  ::proto::PermissionGroupAceV1* temp = _impl_.permissiongroupace_;
+  _impl_.permissiongroupace_ = nullptr;
+  return temp;
+}
+inline ::proto::PermissionGroupAceV1* PermissionGroupAclV1::_internal_mutable_permissiongroupace() {
+  
+  if (_impl_.permissiongroupace_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::PermissionGroupAceV1>(GetArenaForAllocation());
+    _impl_.permissiongroupace_ = p;
+  }
+  return _impl_.permissiongroupace_;
+}
+inline ::proto::PermissionGroupAceV1* PermissionGroupAclV1::mutable_permissiongroupace() {
+  ::proto::PermissionGroupAceV1* _msg = _internal_mutable_permissiongroupace();
+  // @@protoc_insertion_point(field_mutable:proto.PermissionGroupAclV1.PermissionGroupAce)
+  return _msg;
+}
+inline void PermissionGroupAclV1::set_allocated_permissiongroupace(::proto::PermissionGroupAceV1* permissiongroupace) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.permissiongroupace_;
+  }
+  if (permissiongroupace) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(permissiongroupace);
+    if (message_arena != submessage_arena) {
+      permissiongroupace = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, permissiongroupace, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.permissiongroupace_ = permissiongroupace;
+  // @@protoc_insertion_point(field_set_allocated:proto.PermissionGroupAclV1.PermissionGroupAce)
+}
+
+// -------------------------------------------------------------------
+
+// PermissionAceV1
+
+// bool WritePermissionCreateProject = 1;
+inline void PermissionAceV1::clear_writepermissioncreateproject() {
+  _impl_.writepermissioncreateproject_ = false;
+}
+inline bool PermissionAceV1::_internal_writepermissioncreateproject() const {
+  return _impl_.writepermissioncreateproject_;
+}
+inline bool PermissionAceV1::writepermissioncreateproject() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.WritePermissionCreateProject)
+  return _internal_writepermissioncreateproject();
+}
+inline void PermissionAceV1::_internal_set_writepermissioncreateproject(bool value) {
+  
+  _impl_.writepermissioncreateproject_ = value;
+}
+inline void PermissionAceV1::set_writepermissioncreateproject(bool value) {
+  _internal_set_writepermissioncreateproject(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.WritePermissionCreateProject)
+}
+
+// bool WritePermissionModifyProject = 2;
+inline void PermissionAceV1::clear_writepermissionmodifyproject() {
+  _impl_.writepermissionmodifyproject_ = false;
+}
+inline bool PermissionAceV1::_internal_writepermissionmodifyproject() const {
+  return _impl_.writepermissionmodifyproject_;
+}
+inline bool PermissionAceV1::writepermissionmodifyproject() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.WritePermissionModifyProject)
+  return _internal_writepermissionmodifyproject();
+}
+inline void PermissionAceV1::_internal_set_writepermissionmodifyproject(bool value) {
+  
+  _impl_.writepermissionmodifyproject_ = value;
+}
+inline void PermissionAceV1::set_writepermissionmodifyproject(bool value) {
+  _internal_set_writepermissionmodifyproject(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.WritePermissionModifyProject)
+}
+
+// bool WritePermissionDeleteProject = 3;
+inline void PermissionAceV1::clear_writepermissiondeleteproject() {
+  _impl_.writepermissiondeleteproject_ = false;
+}
+inline bool PermissionAceV1::_internal_writepermissiondeleteproject() const {
+  return _impl_.writepermissiondeleteproject_;
+}
+inline bool PermissionAceV1::writepermissiondeleteproject() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.WritePermissionDeleteProject)
+  return _internal_writepermissiondeleteproject();
+}
+inline void PermissionAceV1::_internal_set_writepermissiondeleteproject(bool value) {
+  
+  _impl_.writepermissiondeleteproject_ = value;
+}
+inline void PermissionAceV1::set_writepermissiondeleteproject(bool value) {
+  _internal_set_writepermissiondeleteproject(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.WritePermissionDeleteProject)
+}
+
+// bool ReadPerimissionQueryProject = 4;
+inline void PermissionAceV1::clear_readperimissionqueryproject() {
+  _impl_.readperimissionqueryproject_ = false;
+}
+inline bool PermissionAceV1::_internal_readperimissionqueryproject() const {
+  return _impl_.readperimissionqueryproject_;
+}
+inline bool PermissionAceV1::readperimissionqueryproject() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.ReadPerimissionQueryProject)
+  return _internal_readperimissionqueryproject();
+}
+inline void PermissionAceV1::_internal_set_readperimissionqueryproject(bool value) {
+  
+  _impl_.readperimissionqueryproject_ = value;
+}
+inline void PermissionAceV1::set_readperimissionqueryproject(bool value) {
+  _internal_set_readperimissionqueryproject(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.ReadPerimissionQueryProject)
+}
+
+// bool WritePermissionAddSwcData = 5;
+inline void PermissionAceV1::clear_writepermissionaddswcdata() {
+  _impl_.writepermissionaddswcdata_ = false;
+}
+inline bool PermissionAceV1::_internal_writepermissionaddswcdata() const {
+  return _impl_.writepermissionaddswcdata_;
+}
+inline bool PermissionAceV1::writepermissionaddswcdata() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.WritePermissionAddSwcData)
+  return _internal_writepermissionaddswcdata();
+}
+inline void PermissionAceV1::_internal_set_writepermissionaddswcdata(bool value) {
+  
+  _impl_.writepermissionaddswcdata_ = value;
+}
+inline void PermissionAceV1::set_writepermissionaddswcdata(bool value) {
+  _internal_set_writepermissionaddswcdata(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.WritePermissionAddSwcData)
+}
+
+// bool WritePermissionModifySwcData = 6;
+inline void PermissionAceV1::clear_writepermissionmodifyswcdata() {
+  _impl_.writepermissionmodifyswcdata_ = false;
+}
+inline bool PermissionAceV1::_internal_writepermissionmodifyswcdata() const {
+  return _impl_.writepermissionmodifyswcdata_;
+}
+inline bool PermissionAceV1::writepermissionmodifyswcdata() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.WritePermissionModifySwcData)
+  return _internal_writepermissionmodifyswcdata();
+}
+inline void PermissionAceV1::_internal_set_writepermissionmodifyswcdata(bool value) {
+  
+  _impl_.writepermissionmodifyswcdata_ = value;
+}
+inline void PermissionAceV1::set_writepermissionmodifyswcdata(bool value) {
+  _internal_set_writepermissionmodifyswcdata(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.WritePermissionModifySwcData)
+}
+
+// bool WritePermissionDeleteSwcData = 7;
+inline void PermissionAceV1::clear_writepermissiondeleteswcdata() {
+  _impl_.writepermissiondeleteswcdata_ = false;
+}
+inline bool PermissionAceV1::_internal_writepermissiondeleteswcdata() const {
+  return _impl_.writepermissiondeleteswcdata_;
+}
+inline bool PermissionAceV1::writepermissiondeleteswcdata() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.WritePermissionDeleteSwcData)
+  return _internal_writepermissiondeleteswcdata();
+}
+inline void PermissionAceV1::_internal_set_writepermissiondeleteswcdata(bool value) {
+  
+  _impl_.writepermissiondeleteswcdata_ = value;
+}
+inline void PermissionAceV1::set_writepermissiondeleteswcdata(bool value) {
+  _internal_set_writepermissiondeleteswcdata(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.WritePermissionDeleteSwcData)
+}
+
+// bool ReadPerimissionQuerySwcData = 8;
+inline void PermissionAceV1::clear_readperimissionqueryswcdata() {
+  _impl_.readperimissionqueryswcdata_ = false;
+}
+inline bool PermissionAceV1::_internal_readperimissionqueryswcdata() const {
+  return _impl_.readperimissionqueryswcdata_;
+}
+inline bool PermissionAceV1::readperimissionqueryswcdata() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionAceV1.ReadPerimissionQuerySwcData)
+  return _internal_readperimissionqueryswcdata();
+}
+inline void PermissionAceV1::_internal_set_readperimissionqueryswcdata(bool value) {
+  
+  _impl_.readperimissionqueryswcdata_ = value;
+}
+inline void PermissionAceV1::set_readperimissionqueryswcdata(bool value) {
+  _internal_set_readperimissionqueryswcdata(value);
+  // @@protoc_insertion_point(field_set:proto.PermissionAceV1.ReadPerimissionQuerySwcData)
+}
+
+// -------------------------------------------------------------------
+
+// UserPermissionAclV1
+
+// string UserUuid = 1;
+inline void UserPermissionAclV1::clear_useruuid() {
+  _impl_.useruuid_.ClearToEmpty();
+}
+inline const std::string& UserPermissionAclV1::useruuid() const {
+  // @@protoc_insertion_point(field_get:proto.UserPermissionAclV1.UserUuid)
+  return _internal_useruuid();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UserPermissionAclV1::set_useruuid(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.useruuid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.UserPermissionAclV1.UserUuid)
+}
+inline std::string* UserPermissionAclV1::mutable_useruuid() {
+  std::string* _s = _internal_mutable_useruuid();
+  // @@protoc_insertion_point(field_mutable:proto.UserPermissionAclV1.UserUuid)
+  return _s;
+}
+inline const std::string& UserPermissionAclV1::_internal_useruuid() const {
+  return _impl_.useruuid_.Get();
+}
+inline void UserPermissionAclV1::_internal_set_useruuid(const std::string& value) {
+  
+  _impl_.useruuid_.Set(value, GetArenaForAllocation());
+}
+inline std::string* UserPermissionAclV1::_internal_mutable_useruuid() {
+  
+  return _impl_.useruuid_.Mutable(GetArenaForAllocation());
+}
+inline std::string* UserPermissionAclV1::release_useruuid() {
+  // @@protoc_insertion_point(field_release:proto.UserPermissionAclV1.UserUuid)
+  return _impl_.useruuid_.Release();
+}
+inline void UserPermissionAclV1::set_allocated_useruuid(std::string* useruuid) {
+  if (useruuid != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.useruuid_.SetAllocated(useruuid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.useruuid_.IsDefault()) {
+    _impl_.useruuid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:proto.UserPermissionAclV1.UserUuid)
+}
+
+// .proto.PermissionAceV1 Ace = 2;
+inline bool UserPermissionAclV1::_internal_has_ace() const {
+  return this != internal_default_instance() && _impl_.ace_ != nullptr;
+}
+inline bool UserPermissionAclV1::has_ace() const {
+  return _internal_has_ace();
+}
+inline void UserPermissionAclV1::clear_ace() {
+  if (GetArenaForAllocation() == nullptr && _impl_.ace_ != nullptr) {
+    delete _impl_.ace_;
+  }
+  _impl_.ace_ = nullptr;
+}
+inline const ::proto::PermissionAceV1& UserPermissionAclV1::_internal_ace() const {
+  const ::proto::PermissionAceV1* p = _impl_.ace_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionAceV1&>(
+      ::proto::_PermissionAceV1_default_instance_);
+}
+inline const ::proto::PermissionAceV1& UserPermissionAclV1::ace() const {
+  // @@protoc_insertion_point(field_get:proto.UserPermissionAclV1.Ace)
+  return _internal_ace();
+}
+inline void UserPermissionAclV1::unsafe_arena_set_allocated_ace(
+    ::proto::PermissionAceV1* ace) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ace_);
+  }
+  _impl_.ace_ = ace;
+  if (ace) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.UserPermissionAclV1.Ace)
+}
+inline ::proto::PermissionAceV1* UserPermissionAclV1::release_ace() {
+  
+  ::proto::PermissionAceV1* temp = _impl_.ace_;
+  _impl_.ace_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::PermissionAceV1* UserPermissionAclV1::unsafe_arena_release_ace() {
+  // @@protoc_insertion_point(field_release:proto.UserPermissionAclV1.Ace)
+  
+  ::proto::PermissionAceV1* temp = _impl_.ace_;
+  _impl_.ace_ = nullptr;
+  return temp;
+}
+inline ::proto::PermissionAceV1* UserPermissionAclV1::_internal_mutable_ace() {
+  
+  if (_impl_.ace_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::PermissionAceV1>(GetArenaForAllocation());
+    _impl_.ace_ = p;
+  }
+  return _impl_.ace_;
+}
+inline ::proto::PermissionAceV1* UserPermissionAclV1::mutable_ace() {
+  ::proto::PermissionAceV1* _msg = _internal_mutable_ace();
+  // @@protoc_insertion_point(field_mutable:proto.UserPermissionAclV1.Ace)
+  return _msg;
+}
+inline void UserPermissionAclV1::set_allocated_ace(::proto::PermissionAceV1* ace) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.ace_;
+  }
+  if (ace) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ace);
+    if (message_arena != submessage_arena) {
+      ace = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ace, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.ace_ = ace;
+  // @@protoc_insertion_point(field_set_allocated:proto.UserPermissionAclV1.Ace)
+}
+
+// -------------------------------------------------------------------
+
+// GroupPermissionAclV1
+
+// string GroupUuid = 1;
+inline void GroupPermissionAclV1::clear_groupuuid() {
+  _impl_.groupuuid_.ClearToEmpty();
+}
+inline const std::string& GroupPermissionAclV1::groupuuid() const {
+  // @@protoc_insertion_point(field_get:proto.GroupPermissionAclV1.GroupUuid)
+  return _internal_groupuuid();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GroupPermissionAclV1::set_groupuuid(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.groupuuid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.GroupPermissionAclV1.GroupUuid)
+}
+inline std::string* GroupPermissionAclV1::mutable_groupuuid() {
+  std::string* _s = _internal_mutable_groupuuid();
+  // @@protoc_insertion_point(field_mutable:proto.GroupPermissionAclV1.GroupUuid)
+  return _s;
+}
+inline const std::string& GroupPermissionAclV1::_internal_groupuuid() const {
+  return _impl_.groupuuid_.Get();
+}
+inline void GroupPermissionAclV1::_internal_set_groupuuid(const std::string& value) {
+  
+  _impl_.groupuuid_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GroupPermissionAclV1::_internal_mutable_groupuuid() {
+  
+  return _impl_.groupuuid_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GroupPermissionAclV1::release_groupuuid() {
+  // @@protoc_insertion_point(field_release:proto.GroupPermissionAclV1.GroupUuid)
+  return _impl_.groupuuid_.Release();
+}
+inline void GroupPermissionAclV1::set_allocated_groupuuid(std::string* groupuuid) {
+  if (groupuuid != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.groupuuid_.SetAllocated(groupuuid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.groupuuid_.IsDefault()) {
+    _impl_.groupuuid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:proto.GroupPermissionAclV1.GroupUuid)
+}
+
+// .proto.PermissionAceV1 Ace = 2;
+inline bool GroupPermissionAclV1::_internal_has_ace() const {
+  return this != internal_default_instance() && _impl_.ace_ != nullptr;
+}
+inline bool GroupPermissionAclV1::has_ace() const {
+  return _internal_has_ace();
+}
+inline void GroupPermissionAclV1::clear_ace() {
+  if (GetArenaForAllocation() == nullptr && _impl_.ace_ != nullptr) {
+    delete _impl_.ace_;
+  }
+  _impl_.ace_ = nullptr;
+}
+inline const ::proto::PermissionAceV1& GroupPermissionAclV1::_internal_ace() const {
+  const ::proto::PermissionAceV1* p = _impl_.ace_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionAceV1&>(
+      ::proto::_PermissionAceV1_default_instance_);
+}
+inline const ::proto::PermissionAceV1& GroupPermissionAclV1::ace() const {
+  // @@protoc_insertion_point(field_get:proto.GroupPermissionAclV1.Ace)
+  return _internal_ace();
+}
+inline void GroupPermissionAclV1::unsafe_arena_set_allocated_ace(
+    ::proto::PermissionAceV1* ace) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ace_);
+  }
+  _impl_.ace_ = ace;
+  if (ace) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.GroupPermissionAclV1.Ace)
+}
+inline ::proto::PermissionAceV1* GroupPermissionAclV1::release_ace() {
+  
+  ::proto::PermissionAceV1* temp = _impl_.ace_;
+  _impl_.ace_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::PermissionAceV1* GroupPermissionAclV1::unsafe_arena_release_ace() {
+  // @@protoc_insertion_point(field_release:proto.GroupPermissionAclV1.Ace)
+  
+  ::proto::PermissionAceV1* temp = _impl_.ace_;
+  _impl_.ace_ = nullptr;
+  return temp;
+}
+inline ::proto::PermissionAceV1* GroupPermissionAclV1::_internal_mutable_ace() {
+  
+  if (_impl_.ace_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::PermissionAceV1>(GetArenaForAllocation());
+    _impl_.ace_ = p;
+  }
+  return _impl_.ace_;
+}
+inline ::proto::PermissionAceV1* GroupPermissionAclV1::mutable_ace() {
+  ::proto::PermissionAceV1* _msg = _internal_mutable_ace();
+  // @@protoc_insertion_point(field_mutable:proto.GroupPermissionAclV1.Ace)
+  return _msg;
+}
+inline void GroupPermissionAclV1::set_allocated_ace(::proto::PermissionAceV1* ace) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.ace_;
+  }
+  if (ace) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ace);
+    if (message_arena != submessage_arena) {
+      ace = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ace, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.ace_ = ace;
+  // @@protoc_insertion_point(field_set_allocated:proto.GroupPermissionAclV1.Ace)
+}
+
+// -------------------------------------------------------------------
+
+// PermissionMetaInfoV1
+
+// .proto.UserPermissionAclV1 Owner = 1;
+inline bool PermissionMetaInfoV1::_internal_has_owner() const {
+  return this != internal_default_instance() && _impl_.owner_ != nullptr;
+}
+inline bool PermissionMetaInfoV1::has_owner() const {
+  return _internal_has_owner();
+}
+inline void PermissionMetaInfoV1::clear_owner() {
+  if (GetArenaForAllocation() == nullptr && _impl_.owner_ != nullptr) {
+    delete _impl_.owner_;
+  }
+  _impl_.owner_ = nullptr;
+}
+inline const ::proto::UserPermissionAclV1& PermissionMetaInfoV1::_internal_owner() const {
+  const ::proto::UserPermissionAclV1* p = _impl_.owner_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::UserPermissionAclV1&>(
+      ::proto::_UserPermissionAclV1_default_instance_);
+}
+inline const ::proto::UserPermissionAclV1& PermissionMetaInfoV1::owner() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionMetaInfoV1.Owner)
+  return _internal_owner();
+}
+inline void PermissionMetaInfoV1::unsafe_arena_set_allocated_owner(
+    ::proto::UserPermissionAclV1* owner) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.owner_);
+  }
+  _impl_.owner_ = owner;
+  if (owner) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.PermissionMetaInfoV1.Owner)
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::release_owner() {
+  
+  ::proto::UserPermissionAclV1* temp = _impl_.owner_;
+  _impl_.owner_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::unsafe_arena_release_owner() {
+  // @@protoc_insertion_point(field_release:proto.PermissionMetaInfoV1.Owner)
+  
+  ::proto::UserPermissionAclV1* temp = _impl_.owner_;
+  _impl_.owner_ = nullptr;
+  return temp;
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::_internal_mutable_owner() {
+  
+  if (_impl_.owner_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::UserPermissionAclV1>(GetArenaForAllocation());
+    _impl_.owner_ = p;
+  }
+  return _impl_.owner_;
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::mutable_owner() {
+  ::proto::UserPermissionAclV1* _msg = _internal_mutable_owner();
+  // @@protoc_insertion_point(field_mutable:proto.PermissionMetaInfoV1.Owner)
+  return _msg;
+}
+inline void PermissionMetaInfoV1::set_allocated_owner(::proto::UserPermissionAclV1* owner) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.owner_;
+  }
+  if (owner) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(owner);
+    if (message_arena != submessage_arena) {
+      owner = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, owner, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.owner_ = owner;
+  // @@protoc_insertion_point(field_set_allocated:proto.PermissionMetaInfoV1.Owner)
+}
+
+// repeated .proto.UserPermissionAclV1 Users = 2;
+inline int PermissionMetaInfoV1::_internal_users_size() const {
+  return _impl_.users_.size();
+}
+inline int PermissionMetaInfoV1::users_size() const {
+  return _internal_users_size();
+}
+inline void PermissionMetaInfoV1::clear_users() {
+  _impl_.users_.Clear();
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::mutable_users(int index) {
+  // @@protoc_insertion_point(field_mutable:proto.PermissionMetaInfoV1.Users)
+  return _impl_.users_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionAclV1 >*
+PermissionMetaInfoV1::mutable_users() {
+  // @@protoc_insertion_point(field_mutable_list:proto.PermissionMetaInfoV1.Users)
+  return &_impl_.users_;
+}
+inline const ::proto::UserPermissionAclV1& PermissionMetaInfoV1::_internal_users(int index) const {
+  return _impl_.users_.Get(index);
+}
+inline const ::proto::UserPermissionAclV1& PermissionMetaInfoV1::users(int index) const {
+  // @@protoc_insertion_point(field_get:proto.PermissionMetaInfoV1.Users)
+  return _internal_users(index);
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::_internal_add_users() {
+  return _impl_.users_.Add();
+}
+inline ::proto::UserPermissionAclV1* PermissionMetaInfoV1::add_users() {
+  ::proto::UserPermissionAclV1* _add = _internal_add_users();
+  // @@protoc_insertion_point(field_add:proto.PermissionMetaInfoV1.Users)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionAclV1 >&
+PermissionMetaInfoV1::users() const {
+  // @@protoc_insertion_point(field_list:proto.PermissionMetaInfoV1.Users)
+  return _impl_.users_;
+}
+
+// repeated .proto.GroupPermissionAclV1 Groups = 3;
+inline int PermissionMetaInfoV1::_internal_groups_size() const {
+  return _impl_.groups_.size();
+}
+inline int PermissionMetaInfoV1::groups_size() const {
+  return _internal_groups_size();
+}
+inline void PermissionMetaInfoV1::clear_groups() {
+  _impl_.groups_.Clear();
+}
+inline ::proto::GroupPermissionAclV1* PermissionMetaInfoV1::mutable_groups(int index) {
+  // @@protoc_insertion_point(field_mutable:proto.PermissionMetaInfoV1.Groups)
+  return _impl_.groups_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::GroupPermissionAclV1 >*
+PermissionMetaInfoV1::mutable_groups() {
+  // @@protoc_insertion_point(field_mutable_list:proto.PermissionMetaInfoV1.Groups)
+  return &_impl_.groups_;
+}
+inline const ::proto::GroupPermissionAclV1& PermissionMetaInfoV1::_internal_groups(int index) const {
+  return _impl_.groups_.Get(index);
+}
+inline const ::proto::GroupPermissionAclV1& PermissionMetaInfoV1::groups(int index) const {
+  // @@protoc_insertion_point(field_get:proto.PermissionMetaInfoV1.Groups)
+  return _internal_groups(index);
+}
+inline ::proto::GroupPermissionAclV1* PermissionMetaInfoV1::_internal_add_groups() {
+  return _impl_.groups_.Add();
+}
+inline ::proto::GroupPermissionAclV1* PermissionMetaInfoV1::add_groups() {
+  ::proto::GroupPermissionAclV1* _add = _internal_add_groups();
+  // @@protoc_insertion_point(field_add:proto.PermissionMetaInfoV1.Groups)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::GroupPermissionAclV1 >&
+PermissionMetaInfoV1::groups() const {
+  // @@protoc_insertion_point(field_list:proto.PermissionMetaInfoV1.Groups)
+  return _impl_.groups_;
 }
 
 // -------------------------------------------------------------------
@@ -6695,45 +8027,45 @@ inline void PermissionGroupMetaInfoV1::set_allocated_description(std::string* de
   // @@protoc_insertion_point(field_set_allocated:proto.PermissionGroupMetaInfoV1.Description)
 }
 
-// .proto.GlobalPermissionMetaInfoV1 GlobalPermission = 4;
-inline bool PermissionGroupMetaInfoV1::_internal_has_globalpermission() const {
-  return this != internal_default_instance() && _impl_.globalpermission_ != nullptr;
+// .proto.PermissionGroupAceV1 Ace = 4;
+inline bool PermissionGroupMetaInfoV1::_internal_has_ace() const {
+  return this != internal_default_instance() && _impl_.ace_ != nullptr;
 }
-inline bool PermissionGroupMetaInfoV1::has_globalpermission() const {
-  return _internal_has_globalpermission();
+inline bool PermissionGroupMetaInfoV1::has_ace() const {
+  return _internal_has_ace();
 }
-inline void PermissionGroupMetaInfoV1::clear_globalpermission() {
-  if (GetArenaForAllocation() == nullptr && _impl_.globalpermission_ != nullptr) {
-    delete _impl_.globalpermission_;
+inline void PermissionGroupMetaInfoV1::clear_ace() {
+  if (GetArenaForAllocation() == nullptr && _impl_.ace_ != nullptr) {
+    delete _impl_.ace_;
   }
-  _impl_.globalpermission_ = nullptr;
+  _impl_.ace_ = nullptr;
 }
-inline const ::proto::GlobalPermissionMetaInfoV1& PermissionGroupMetaInfoV1::_internal_globalpermission() const {
-  const ::proto::GlobalPermissionMetaInfoV1* p = _impl_.globalpermission_;
-  return p != nullptr ? *p : reinterpret_cast<const ::proto::GlobalPermissionMetaInfoV1&>(
-      ::proto::_GlobalPermissionMetaInfoV1_default_instance_);
+inline const ::proto::PermissionGroupAceV1& PermissionGroupMetaInfoV1::_internal_ace() const {
+  const ::proto::PermissionGroupAceV1* p = _impl_.ace_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionGroupAceV1&>(
+      ::proto::_PermissionGroupAceV1_default_instance_);
 }
-inline const ::proto::GlobalPermissionMetaInfoV1& PermissionGroupMetaInfoV1::globalpermission() const {
-  // @@protoc_insertion_point(field_get:proto.PermissionGroupMetaInfoV1.GlobalPermission)
-  return _internal_globalpermission();
+inline const ::proto::PermissionGroupAceV1& PermissionGroupMetaInfoV1::ace() const {
+  // @@protoc_insertion_point(field_get:proto.PermissionGroupMetaInfoV1.Ace)
+  return _internal_ace();
 }
-inline void PermissionGroupMetaInfoV1::unsafe_arena_set_allocated_globalpermission(
-    ::proto::GlobalPermissionMetaInfoV1* globalpermission) {
+inline void PermissionGroupMetaInfoV1::unsafe_arena_set_allocated_ace(
+    ::proto::PermissionGroupAceV1* ace) {
   if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.globalpermission_);
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.ace_);
   }
-  _impl_.globalpermission_ = globalpermission;
-  if (globalpermission) {
+  _impl_.ace_ = ace;
+  if (ace) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.PermissionGroupMetaInfoV1.GlobalPermission)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.PermissionGroupMetaInfoV1.Ace)
 }
-inline ::proto::GlobalPermissionMetaInfoV1* PermissionGroupMetaInfoV1::release_globalpermission() {
+inline ::proto::PermissionGroupAceV1* PermissionGroupMetaInfoV1::release_ace() {
   
-  ::proto::GlobalPermissionMetaInfoV1* temp = _impl_.globalpermission_;
-  _impl_.globalpermission_ = nullptr;
+  ::proto::PermissionGroupAceV1* temp = _impl_.ace_;
+  _impl_.ace_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
   temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
@@ -6745,278 +8077,44 @@ inline ::proto::GlobalPermissionMetaInfoV1* PermissionGroupMetaInfoV1::release_g
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::proto::GlobalPermissionMetaInfoV1* PermissionGroupMetaInfoV1::unsafe_arena_release_globalpermission() {
-  // @@protoc_insertion_point(field_release:proto.PermissionGroupMetaInfoV1.GlobalPermission)
+inline ::proto::PermissionGroupAceV1* PermissionGroupMetaInfoV1::unsafe_arena_release_ace() {
+  // @@protoc_insertion_point(field_release:proto.PermissionGroupMetaInfoV1.Ace)
   
-  ::proto::GlobalPermissionMetaInfoV1* temp = _impl_.globalpermission_;
-  _impl_.globalpermission_ = nullptr;
+  ::proto::PermissionGroupAceV1* temp = _impl_.ace_;
+  _impl_.ace_ = nullptr;
   return temp;
 }
-inline ::proto::GlobalPermissionMetaInfoV1* PermissionGroupMetaInfoV1::_internal_mutable_globalpermission() {
+inline ::proto::PermissionGroupAceV1* PermissionGroupMetaInfoV1::_internal_mutable_ace() {
   
-  if (_impl_.globalpermission_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::GlobalPermissionMetaInfoV1>(GetArenaForAllocation());
-    _impl_.globalpermission_ = p;
+  if (_impl_.ace_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::PermissionGroupAceV1>(GetArenaForAllocation());
+    _impl_.ace_ = p;
   }
-  return _impl_.globalpermission_;
+  return _impl_.ace_;
 }
-inline ::proto::GlobalPermissionMetaInfoV1* PermissionGroupMetaInfoV1::mutable_globalpermission() {
-  ::proto::GlobalPermissionMetaInfoV1* _msg = _internal_mutable_globalpermission();
-  // @@protoc_insertion_point(field_mutable:proto.PermissionGroupMetaInfoV1.GlobalPermission)
+inline ::proto::PermissionGroupAceV1* PermissionGroupMetaInfoV1::mutable_ace() {
+  ::proto::PermissionGroupAceV1* _msg = _internal_mutable_ace();
+  // @@protoc_insertion_point(field_mutable:proto.PermissionGroupMetaInfoV1.Ace)
   return _msg;
 }
-inline void PermissionGroupMetaInfoV1::set_allocated_globalpermission(::proto::GlobalPermissionMetaInfoV1* globalpermission) {
+inline void PermissionGroupMetaInfoV1::set_allocated_ace(::proto::PermissionGroupAceV1* ace) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
-    delete _impl_.globalpermission_;
+    delete _impl_.ace_;
   }
-  if (globalpermission) {
+  if (ace) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(globalpermission);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ace);
     if (message_arena != submessage_arena) {
-      globalpermission = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, globalpermission, submessage_arena);
+      ace = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ace, submessage_arena);
     }
     
   } else {
     
   }
-  _impl_.globalpermission_ = globalpermission;
-  // @@protoc_insertion_point(field_set_allocated:proto.PermissionGroupMetaInfoV1.GlobalPermission)
-}
-
-// .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 5;
-inline bool PermissionGroupMetaInfoV1::_internal_has_projectpermission() const {
-  return this != internal_default_instance() && _impl_.projectpermission_ != nullptr;
-}
-inline bool PermissionGroupMetaInfoV1::has_projectpermission() const {
-  return _internal_has_projectpermission();
-}
-inline void PermissionGroupMetaInfoV1::clear_projectpermission() {
-  if (GetArenaForAllocation() == nullptr && _impl_.projectpermission_ != nullptr) {
-    delete _impl_.projectpermission_;
-  }
-  _impl_.projectpermission_ = nullptr;
-}
-inline const ::proto::ProjectPermissionMetaInfoV1& PermissionGroupMetaInfoV1::_internal_projectpermission() const {
-  const ::proto::ProjectPermissionMetaInfoV1* p = _impl_.projectpermission_;
-  return p != nullptr ? *p : reinterpret_cast<const ::proto::ProjectPermissionMetaInfoV1&>(
-      ::proto::_ProjectPermissionMetaInfoV1_default_instance_);
-}
-inline const ::proto::ProjectPermissionMetaInfoV1& PermissionGroupMetaInfoV1::projectpermission() const {
-  // @@protoc_insertion_point(field_get:proto.PermissionGroupMetaInfoV1.ProjectPermission)
-  return _internal_projectpermission();
-}
-inline void PermissionGroupMetaInfoV1::unsafe_arena_set_allocated_projectpermission(
-    ::proto::ProjectPermissionMetaInfoV1* projectpermission) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.projectpermission_);
-  }
-  _impl_.projectpermission_ = projectpermission;
-  if (projectpermission) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.PermissionGroupMetaInfoV1.ProjectPermission)
-}
-inline ::proto::ProjectPermissionMetaInfoV1* PermissionGroupMetaInfoV1::release_projectpermission() {
-  
-  ::proto::ProjectPermissionMetaInfoV1* temp = _impl_.projectpermission_;
-  _impl_.projectpermission_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::proto::ProjectPermissionMetaInfoV1* PermissionGroupMetaInfoV1::unsafe_arena_release_projectpermission() {
-  // @@protoc_insertion_point(field_release:proto.PermissionGroupMetaInfoV1.ProjectPermission)
-  
-  ::proto::ProjectPermissionMetaInfoV1* temp = _impl_.projectpermission_;
-  _impl_.projectpermission_ = nullptr;
-  return temp;
-}
-inline ::proto::ProjectPermissionMetaInfoV1* PermissionGroupMetaInfoV1::_internal_mutable_projectpermission() {
-  
-  if (_impl_.projectpermission_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::ProjectPermissionMetaInfoV1>(GetArenaForAllocation());
-    _impl_.projectpermission_ = p;
-  }
-  return _impl_.projectpermission_;
-}
-inline ::proto::ProjectPermissionMetaInfoV1* PermissionGroupMetaInfoV1::mutable_projectpermission() {
-  ::proto::ProjectPermissionMetaInfoV1* _msg = _internal_mutable_projectpermission();
-  // @@protoc_insertion_point(field_mutable:proto.PermissionGroupMetaInfoV1.ProjectPermission)
-  return _msg;
-}
-inline void PermissionGroupMetaInfoV1::set_allocated_projectpermission(::proto::ProjectPermissionMetaInfoV1* projectpermission) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.projectpermission_;
-  }
-  if (projectpermission) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(projectpermission);
-    if (message_arena != submessage_arena) {
-      projectpermission = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, projectpermission, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.projectpermission_ = projectpermission;
-  // @@protoc_insertion_point(field_set_allocated:proto.PermissionGroupMetaInfoV1.ProjectPermission)
-}
-
-// -------------------------------------------------------------------
-
-// UserPermissionOverrideMetaInfoV1
-
-// .proto.ProjectPermissionMetaInfoV1 ProjectPermission = 1;
-inline bool UserPermissionOverrideMetaInfoV1::_internal_has_projectpermission() const {
-  return this != internal_default_instance() && _impl_.projectpermission_ != nullptr;
-}
-inline bool UserPermissionOverrideMetaInfoV1::has_projectpermission() const {
-  return _internal_has_projectpermission();
-}
-inline void UserPermissionOverrideMetaInfoV1::clear_projectpermission() {
-  if (GetArenaForAllocation() == nullptr && _impl_.projectpermission_ != nullptr) {
-    delete _impl_.projectpermission_;
-  }
-  _impl_.projectpermission_ = nullptr;
-}
-inline const ::proto::ProjectPermissionMetaInfoV1& UserPermissionOverrideMetaInfoV1::_internal_projectpermission() const {
-  const ::proto::ProjectPermissionMetaInfoV1* p = _impl_.projectpermission_;
-  return p != nullptr ? *p : reinterpret_cast<const ::proto::ProjectPermissionMetaInfoV1&>(
-      ::proto::_ProjectPermissionMetaInfoV1_default_instance_);
-}
-inline const ::proto::ProjectPermissionMetaInfoV1& UserPermissionOverrideMetaInfoV1::projectpermission() const {
-  // @@protoc_insertion_point(field_get:proto.UserPermissionOverrideMetaInfoV1.ProjectPermission)
-  return _internal_projectpermission();
-}
-inline void UserPermissionOverrideMetaInfoV1::unsafe_arena_set_allocated_projectpermission(
-    ::proto::ProjectPermissionMetaInfoV1* projectpermission) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.projectpermission_);
-  }
-  _impl_.projectpermission_ = projectpermission;
-  if (projectpermission) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.UserPermissionOverrideMetaInfoV1.ProjectPermission)
-}
-inline ::proto::ProjectPermissionMetaInfoV1* UserPermissionOverrideMetaInfoV1::release_projectpermission() {
-  
-  ::proto::ProjectPermissionMetaInfoV1* temp = _impl_.projectpermission_;
-  _impl_.projectpermission_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::proto::ProjectPermissionMetaInfoV1* UserPermissionOverrideMetaInfoV1::unsafe_arena_release_projectpermission() {
-  // @@protoc_insertion_point(field_release:proto.UserPermissionOverrideMetaInfoV1.ProjectPermission)
-  
-  ::proto::ProjectPermissionMetaInfoV1* temp = _impl_.projectpermission_;
-  _impl_.projectpermission_ = nullptr;
-  return temp;
-}
-inline ::proto::ProjectPermissionMetaInfoV1* UserPermissionOverrideMetaInfoV1::_internal_mutable_projectpermission() {
-  
-  if (_impl_.projectpermission_ == nullptr) {
-    auto* p = CreateMaybeMessage<::proto::ProjectPermissionMetaInfoV1>(GetArenaForAllocation());
-    _impl_.projectpermission_ = p;
-  }
-  return _impl_.projectpermission_;
-}
-inline ::proto::ProjectPermissionMetaInfoV1* UserPermissionOverrideMetaInfoV1::mutable_projectpermission() {
-  ::proto::ProjectPermissionMetaInfoV1* _msg = _internal_mutable_projectpermission();
-  // @@protoc_insertion_point(field_mutable:proto.UserPermissionOverrideMetaInfoV1.ProjectPermission)
-  return _msg;
-}
-inline void UserPermissionOverrideMetaInfoV1::set_allocated_projectpermission(::proto::ProjectPermissionMetaInfoV1* projectpermission) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete _impl_.projectpermission_;
-  }
-  if (projectpermission) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(projectpermission);
-    if (message_arena != submessage_arena) {
-      projectpermission = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, projectpermission, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  _impl_.projectpermission_ = projectpermission;
-  // @@protoc_insertion_point(field_set_allocated:proto.UserPermissionOverrideMetaInfoV1.ProjectPermission)
-}
-
-// string UserName = 2;
-inline void UserPermissionOverrideMetaInfoV1::clear_username() {
-  _impl_.username_.ClearToEmpty();
-}
-inline const std::string& UserPermissionOverrideMetaInfoV1::username() const {
-  // @@protoc_insertion_point(field_get:proto.UserPermissionOverrideMetaInfoV1.UserName)
-  return _internal_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void UserPermissionOverrideMetaInfoV1::set_username(ArgT0&& arg0, ArgT... args) {
- 
- _impl_.username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:proto.UserPermissionOverrideMetaInfoV1.UserName)
-}
-inline std::string* UserPermissionOverrideMetaInfoV1::mutable_username() {
-  std::string* _s = _internal_mutable_username();
-  // @@protoc_insertion_point(field_mutable:proto.UserPermissionOverrideMetaInfoV1.UserName)
-  return _s;
-}
-inline const std::string& UserPermissionOverrideMetaInfoV1::_internal_username() const {
-  return _impl_.username_.Get();
-}
-inline void UserPermissionOverrideMetaInfoV1::_internal_set_username(const std::string& value) {
-  
-  _impl_.username_.Set(value, GetArenaForAllocation());
-}
-inline std::string* UserPermissionOverrideMetaInfoV1::_internal_mutable_username() {
-  
-  return _impl_.username_.Mutable(GetArenaForAllocation());
-}
-inline std::string* UserPermissionOverrideMetaInfoV1::release_username() {
-  // @@protoc_insertion_point(field_release:proto.UserPermissionOverrideMetaInfoV1.UserName)
-  return _impl_.username_.Release();
-}
-inline void UserPermissionOverrideMetaInfoV1::set_allocated_username(std::string* username) {
-  if (username != nullptr) {
-    
-  } else {
-    
-  }
-  _impl_.username_.SetAllocated(username, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (_impl_.username_.IsDefault()) {
-    _impl_.username_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:proto.UserPermissionOverrideMetaInfoV1.UserName)
+  _impl_.ace_ = ace;
+  // @@protoc_insertion_point(field_set_allocated:proto.PermissionGroupMetaInfoV1.Ace)
 }
 
 // -------------------------------------------------------------------
@@ -7508,47 +8606,7 @@ ProjectMetaInfoV1::mutable_swclist() {
   return &_impl_.swclist_;
 }
 
-// repeated .proto.UserPermissionOverrideMetaInfoV1 UserPermissionOverride = 8;
-inline int ProjectMetaInfoV1::_internal_userpermissionoverride_size() const {
-  return _impl_.userpermissionoverride_.size();
-}
-inline int ProjectMetaInfoV1::userpermissionoverride_size() const {
-  return _internal_userpermissionoverride_size();
-}
-inline void ProjectMetaInfoV1::clear_userpermissionoverride() {
-  _impl_.userpermissionoverride_.Clear();
-}
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::mutable_userpermissionoverride(int index) {
-  // @@protoc_insertion_point(field_mutable:proto.ProjectMetaInfoV1.UserPermissionOverride)
-  return _impl_.userpermissionoverride_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionOverrideMetaInfoV1 >*
-ProjectMetaInfoV1::mutable_userpermissionoverride() {
-  // @@protoc_insertion_point(field_mutable_list:proto.ProjectMetaInfoV1.UserPermissionOverride)
-  return &_impl_.userpermissionoverride_;
-}
-inline const ::proto::UserPermissionOverrideMetaInfoV1& ProjectMetaInfoV1::_internal_userpermissionoverride(int index) const {
-  return _impl_.userpermissionoverride_.Get(index);
-}
-inline const ::proto::UserPermissionOverrideMetaInfoV1& ProjectMetaInfoV1::userpermissionoverride(int index) const {
-  // @@protoc_insertion_point(field_get:proto.ProjectMetaInfoV1.UserPermissionOverride)
-  return _internal_userpermissionoverride(index);
-}
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::_internal_add_userpermissionoverride() {
-  return _impl_.userpermissionoverride_.Add();
-}
-inline ::proto::UserPermissionOverrideMetaInfoV1* ProjectMetaInfoV1::add_userpermissionoverride() {
-  ::proto::UserPermissionOverrideMetaInfoV1* _add = _internal_add_userpermissionoverride();
-  // @@protoc_insertion_point(field_add:proto.ProjectMetaInfoV1.UserPermissionOverride)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::proto::UserPermissionOverrideMetaInfoV1 >&
-ProjectMetaInfoV1::userpermissionoverride() const {
-  // @@protoc_insertion_point(field_list:proto.ProjectMetaInfoV1.UserPermissionOverride)
-  return _impl_.userpermissionoverride_;
-}
-
-// string WorkMode = 9;
+// string WorkMode = 8;
 inline void ProjectMetaInfoV1::clear_workmode() {
   _impl_.workmode_.ClearToEmpty();
 }
@@ -7596,6 +8654,96 @@ inline void ProjectMetaInfoV1::set_allocated_workmode(std::string* workmode) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:proto.ProjectMetaInfoV1.WorkMode)
+}
+
+// .proto.PermissionMetaInfoV1 Permission = 9;
+inline bool ProjectMetaInfoV1::_internal_has_permission() const {
+  return this != internal_default_instance() && _impl_.permission_ != nullptr;
+}
+inline bool ProjectMetaInfoV1::has_permission() const {
+  return _internal_has_permission();
+}
+inline void ProjectMetaInfoV1::clear_permission() {
+  if (GetArenaForAllocation() == nullptr && _impl_.permission_ != nullptr) {
+    delete _impl_.permission_;
+  }
+  _impl_.permission_ = nullptr;
+}
+inline const ::proto::PermissionMetaInfoV1& ProjectMetaInfoV1::_internal_permission() const {
+  const ::proto::PermissionMetaInfoV1* p = _impl_.permission_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionMetaInfoV1&>(
+      ::proto::_PermissionMetaInfoV1_default_instance_);
+}
+inline const ::proto::PermissionMetaInfoV1& ProjectMetaInfoV1::permission() const {
+  // @@protoc_insertion_point(field_get:proto.ProjectMetaInfoV1.Permission)
+  return _internal_permission();
+}
+inline void ProjectMetaInfoV1::unsafe_arena_set_allocated_permission(
+    ::proto::PermissionMetaInfoV1* permission) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permission_);
+  }
+  _impl_.permission_ = permission;
+  if (permission) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.ProjectMetaInfoV1.Permission)
+}
+inline ::proto::PermissionMetaInfoV1* ProjectMetaInfoV1::release_permission() {
+  
+  ::proto::PermissionMetaInfoV1* temp = _impl_.permission_;
+  _impl_.permission_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::PermissionMetaInfoV1* ProjectMetaInfoV1::unsafe_arena_release_permission() {
+  // @@protoc_insertion_point(field_release:proto.ProjectMetaInfoV1.Permission)
+  
+  ::proto::PermissionMetaInfoV1* temp = _impl_.permission_;
+  _impl_.permission_ = nullptr;
+  return temp;
+}
+inline ::proto::PermissionMetaInfoV1* ProjectMetaInfoV1::_internal_mutable_permission() {
+  
+  if (_impl_.permission_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::PermissionMetaInfoV1>(GetArenaForAllocation());
+    _impl_.permission_ = p;
+  }
+  return _impl_.permission_;
+}
+inline ::proto::PermissionMetaInfoV1* ProjectMetaInfoV1::mutable_permission() {
+  ::proto::PermissionMetaInfoV1* _msg = _internal_mutable_permission();
+  // @@protoc_insertion_point(field_mutable:proto.ProjectMetaInfoV1.Permission)
+  return _msg;
+}
+inline void ProjectMetaInfoV1::set_allocated_permission(::proto::PermissionMetaInfoV1* permission) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.permission_;
+  }
+  if (permission) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(permission);
+    if (message_arena != submessage_arena) {
+      permission = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, permission, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.permission_ = permission;
+  // @@protoc_insertion_point(field_set_allocated:proto.ProjectMetaInfoV1.Permission)
 }
 
 // -------------------------------------------------------------------
@@ -9369,6 +10517,146 @@ inline void SwcMetaInfoV1::set_allocated_swcattachmentapometainfo(::proto::SwcAt
   }
   _impl_.swcattachmentapometainfo_ = swcattachmentapometainfo;
   // @@protoc_insertion_point(field_set_allocated:proto.SwcMetaInfoV1.SwcAttachmentApoMetaInfo)
+}
+
+// string SwcAttachmentSwcUuid = 13;
+inline void SwcMetaInfoV1::clear_swcattachmentswcuuid() {
+  _impl_.swcattachmentswcuuid_.ClearToEmpty();
+}
+inline const std::string& SwcMetaInfoV1::swcattachmentswcuuid() const {
+  // @@protoc_insertion_point(field_get:proto.SwcMetaInfoV1.SwcAttachmentSwcUuid)
+  return _internal_swcattachmentswcuuid();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SwcMetaInfoV1::set_swcattachmentswcuuid(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.swcattachmentswcuuid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:proto.SwcMetaInfoV1.SwcAttachmentSwcUuid)
+}
+inline std::string* SwcMetaInfoV1::mutable_swcattachmentswcuuid() {
+  std::string* _s = _internal_mutable_swcattachmentswcuuid();
+  // @@protoc_insertion_point(field_mutable:proto.SwcMetaInfoV1.SwcAttachmentSwcUuid)
+  return _s;
+}
+inline const std::string& SwcMetaInfoV1::_internal_swcattachmentswcuuid() const {
+  return _impl_.swcattachmentswcuuid_.Get();
+}
+inline void SwcMetaInfoV1::_internal_set_swcattachmentswcuuid(const std::string& value) {
+  
+  _impl_.swcattachmentswcuuid_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SwcMetaInfoV1::_internal_mutable_swcattachmentswcuuid() {
+  
+  return _impl_.swcattachmentswcuuid_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SwcMetaInfoV1::release_swcattachmentswcuuid() {
+  // @@protoc_insertion_point(field_release:proto.SwcMetaInfoV1.SwcAttachmentSwcUuid)
+  return _impl_.swcattachmentswcuuid_.Release();
+}
+inline void SwcMetaInfoV1::set_allocated_swcattachmentswcuuid(std::string* swcattachmentswcuuid) {
+  if (swcattachmentswcuuid != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.swcattachmentswcuuid_.SetAllocated(swcattachmentswcuuid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.swcattachmentswcuuid_.IsDefault()) {
+    _impl_.swcattachmentswcuuid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:proto.SwcMetaInfoV1.SwcAttachmentSwcUuid)
+}
+
+// .proto.PermissionMetaInfoV1 Permission = 14;
+inline bool SwcMetaInfoV1::_internal_has_permission() const {
+  return this != internal_default_instance() && _impl_.permission_ != nullptr;
+}
+inline bool SwcMetaInfoV1::has_permission() const {
+  return _internal_has_permission();
+}
+inline void SwcMetaInfoV1::clear_permission() {
+  if (GetArenaForAllocation() == nullptr && _impl_.permission_ != nullptr) {
+    delete _impl_.permission_;
+  }
+  _impl_.permission_ = nullptr;
+}
+inline const ::proto::PermissionMetaInfoV1& SwcMetaInfoV1::_internal_permission() const {
+  const ::proto::PermissionMetaInfoV1* p = _impl_.permission_;
+  return p != nullptr ? *p : reinterpret_cast<const ::proto::PermissionMetaInfoV1&>(
+      ::proto::_PermissionMetaInfoV1_default_instance_);
+}
+inline const ::proto::PermissionMetaInfoV1& SwcMetaInfoV1::permission() const {
+  // @@protoc_insertion_point(field_get:proto.SwcMetaInfoV1.Permission)
+  return _internal_permission();
+}
+inline void SwcMetaInfoV1::unsafe_arena_set_allocated_permission(
+    ::proto::PermissionMetaInfoV1* permission) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.permission_);
+  }
+  _impl_.permission_ = permission;
+  if (permission) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:proto.SwcMetaInfoV1.Permission)
+}
+inline ::proto::PermissionMetaInfoV1* SwcMetaInfoV1::release_permission() {
+  
+  ::proto::PermissionMetaInfoV1* temp = _impl_.permission_;
+  _impl_.permission_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::proto::PermissionMetaInfoV1* SwcMetaInfoV1::unsafe_arena_release_permission() {
+  // @@protoc_insertion_point(field_release:proto.SwcMetaInfoV1.Permission)
+  
+  ::proto::PermissionMetaInfoV1* temp = _impl_.permission_;
+  _impl_.permission_ = nullptr;
+  return temp;
+}
+inline ::proto::PermissionMetaInfoV1* SwcMetaInfoV1::_internal_mutable_permission() {
+  
+  if (_impl_.permission_ == nullptr) {
+    auto* p = CreateMaybeMessage<::proto::PermissionMetaInfoV1>(GetArenaForAllocation());
+    _impl_.permission_ = p;
+  }
+  return _impl_.permission_;
+}
+inline ::proto::PermissionMetaInfoV1* SwcMetaInfoV1::mutable_permission() {
+  ::proto::PermissionMetaInfoV1* _msg = _internal_mutable_permission();
+  // @@protoc_insertion_point(field_mutable:proto.SwcMetaInfoV1.Permission)
+  return _msg;
+}
+inline void SwcMetaInfoV1::set_allocated_permission(::proto::PermissionMetaInfoV1* permission) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.permission_;
+  }
+  if (permission) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(permission);
+    if (message_arena != submessage_arena) {
+      permission = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, permission, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  _impl_.permission_ = permission;
+  // @@protoc_insertion_point(field_set_allocated:proto.SwcMetaInfoV1.Permission)
 }
 
 // -------------------------------------------------------------------
@@ -11630,6 +12918,12 @@ inline void SwcAttachmentApoV1::set_colorb(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

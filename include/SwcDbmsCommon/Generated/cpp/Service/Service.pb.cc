@@ -32,7 +32,7 @@ const char descriptor_table_protodef_Service_2fService_2eproto[] PROTOBUF_SECTIO
   "\n\025Service/Service.proto\022\005proto\032\037google/p"
   "rotobuf/timestamp.proto\032\025Message/Message"
   ".proto\032\025Message/Request.proto\032\026Message/R"
-  "esponse.proto2\227!\n\004DBMS\022C\n\nCreateUser\022\030.p"
+  "esponse.proto2\262$\n\004DBMS\022C\n\nCreateUser\022\030.p"
   "roto.CreateUserRequest\032\031.proto.CreateUse"
   "rResponse\"\000\022C\n\nDeleteUser\022\030.proto.Delete"
   "UserRequest\032\031.proto.DeleteUserResponse\"\000"
@@ -138,9 +138,19 @@ const char descriptor_table_protodef_Service_2fService_2eproto[] PROTOBUF_SECTIO
   "tachmentApoRequest\032\".proto.GetSwcAttachm"
   "entApoResponse\"\000\022U\n\020RevertSwcVersion\022\036.p"
   "roto.RevertSwcVersionRequest\032\037.proto.Rev"
-  "ertSwcVersionResponse\"\000B/Z-DBMS/SwcDbmsC"
-  "ommon/Generated/go/proto/serviceP\000b\006prot"
-  "o3"
+  "ertSwcVersionResponse\"\000\022g\n\026CreateSwcAtta"
+  "chmentSwc\022$.proto.CreateSwcAttachmentSwc"
+  "Request\032%.proto.CreateSwcAttachmentSwcRe"
+  "sponse\"\000\022g\n\026DeleteSwcAttachmentSwc\022$.pro"
+  "to.DeleteSwcAttachmentSwcRequest\032%.proto"
+  ".DeleteSwcAttachmentSwcResponse\"\000\022g\n\026Upd"
+  "ateSwcAttachmentSwc\022$.proto.UpdateSwcAtt"
+  "achmentSwcRequest\032%.proto.UpdateSwcAttac"
+  "hmentSwcResponse\"\000\022^\n\023GetSwcAttachmentSw"
+  "c\022!.proto.GetSwcAttachmentSwcRequest\032\".p"
+  "roto.GetSwcAttachmentSwcResponse\"\000B/Z-DB"
+  "MS/SwcDbmsCommon/Generated/go/proto/serv"
+  "iceP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Service_2fService_2eproto_deps[4] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -150,7 +160,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Service_2fService_2
 };
 static ::_pbi::once_flag descriptor_table_Service_2fService_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Service_2fService_2eproto = {
-    false, false, 4442, descriptor_table_protodef_Service_2fService_2eproto,
+    false, false, 4853, descriptor_table_protodef_Service_2fService_2eproto,
     "Service/Service.proto",
     &descriptor_table_Service_2fService_2eproto_once, descriptor_table_Service_2fService_2eproto_deps, 4, 0,
     schemas, file_default_instances, TableStruct_Service_2fService_2eproto::offsets,
