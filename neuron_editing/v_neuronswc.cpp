@@ -64,7 +64,7 @@ void V_NeuronSWC::printInfo()
 	{
 		V_NeuronSWC_unit v = row.at(i);
 		qDebug()<<"row ["<< i <<"] : "<<v.data[0]<<" "<<v.data[1]<<" "<<v.data[2]<<" "<<v.data[3]<<" "<<v.data[4]<<" "<<v.data[5]<<" "<<v.data[6];
-        qDebug()<<"segId: "<<v.seg_id;
+        qDebug()<<"uuid: "<<QString::fromStdString(v.uuid);
 	}
 	qDebug()<<"*********** finish print info";
 }

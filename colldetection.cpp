@@ -2275,22 +2275,50 @@ void CollDetection::removeErrorSegs(bool flag){
         else
             ++iter;
 
+    iter = myServer->segments.seg.begin();
     QStringList result;
     int count = 0;
-    iter = myServer->segments.seg.begin();
+    bool isSend = false;
+
+    proto::SwcDataV1 swcData;
     while (iter != myServer->segments.seg.end())
         if (iter->to_be_deleted){
             myServer->removedErrSegNum++;
+            isSend = true;
             count++;
             result+=V_NeuronSWCToSendMSG(*iter);
             result.push_back("$");
+
+            for(int j=0; j<iter->row.size(); j++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_x(iter->row[j].x);
+                swcNodeInternalData.set_y(iter->row[j].y);
+                swcNodeInternalData.set_z(iter->row[j].z);
+                swcNodeInternalData.set_radius(iter->row[j].r);
+                swcNodeInternalData.set_type(iter->row[j].type);
+                swcNodeInternalData.set_mode(iter->row[j].creatmode);
+
+                auto* newData = swcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                newData->mutable_base()->set_uuid(iter->row[j].uuid);
+            }
+
+            iter->printInfo();
+
             iter = myServer->segments.seg.erase(iter);
         }
         else
             ++iter;
-    result.insert(0, QString("%1 server error %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
-    if(count != 0){
-        QString msg=QString("/delline_norm:"+result.join(","));
+
+    if(swcData.swcdata_size() > 0){
+        proto::DeleteSwcNodeDataResponse response;
+        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+    }
+
+    result.insert(0,QString("%1 server error %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
+
+    QString msg=QString("/delline_norm:"+result.join(","));
+    if(isSend){
         qDebug()<<"removeErrorSegs: "<<msg;
         emit myServer->clientSendMsgs({msg});
     }
@@ -2330,7 +2358,7 @@ void CollDetection::tuneErrorSegs(bool flag){
 
         if(coors.size() < seg.row.size())
         {
-//            myServer->removedErrSegNum++;
+            myServer->removedErrSegNum++;
             pair<V_NeuronSWC, V_NeuronSWC> segPair;
             segPair.first = seg;
 

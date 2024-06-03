@@ -482,7 +482,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
             if(isVaild){
                 if(segIndexs.size() == 2)
                     twoSegsMap[*it] = segIndexs;
-                else{
+                else if(segIndexs.size() == 3){
                     threeSegsMap[*it] = segIndexs;
                 }
                 it++;
