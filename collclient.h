@@ -13,8 +13,11 @@ class CollClient : public QTcpSocket
 {
     Q_OBJECT
     struct DataType{
-        bool isFile=false;//false msg,true file
+        int isFile=0;//0 msg,1 file,2 data
         qint64 datasize=0;
+        qint64 filesize = 0;
+
+
     };
 
     struct segInfoUnit

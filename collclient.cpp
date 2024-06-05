@@ -1550,7 +1550,7 @@ void CollClient::onread()
                 QFile f(QCoreApplication::applicationDirPath()+"/eegdata/"+data);
                 QByteArray fileData = this->read(datatype.filesize);
                 if(f.open(QIODevice::WriteOnly)){
-                    f.write(filedata,datatype.filesize);
+                    f.write(fileData,datatype.filesize);
                     f.close();
                 }
 
@@ -1921,6 +1921,8 @@ void CollClient::resetdatatype()
 {
     datatype.isFile=false;
     datatype.datasize=0;
+    datatype.filesize=0;
+
 }
 
 void CollClient::quit(){
