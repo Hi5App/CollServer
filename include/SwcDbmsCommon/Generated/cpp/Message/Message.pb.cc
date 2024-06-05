@@ -81,6 +81,8 @@ PROTOBUF_CONSTEXPR PermissionGroupAceV1::PermissionGroupAceV1(
   , /*decltype(_impl_.allprojectmanagementpermission_)*/false
   , /*decltype(_impl_.allswcmanagementpermission_)*/false
   , /*decltype(_impl_.alldailystatisticsmanagementpermission_)*/false
+  , /*decltype(_impl_.createprojectpermission_)*/false
+  , /*decltype(_impl_.createswcpermission_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PermissionGroupAceV1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR PermissionGroupAceV1DefaultTypeInternal()
@@ -107,14 +109,31 @@ struct PermissionGroupAclV1DefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PermissionGroupAclV1DefaultTypeInternal _PermissionGroupAclV1_default_instance_;
 PROTOBUF_CONSTEXPR PermissionAceV1::PermissionAceV1(
     ::_pbi::ConstantInitialized): _impl_{
-    /*decltype(_impl_.writepermissioncreateproject_)*/false
-  , /*decltype(_impl_.writepermissionmodifyproject_)*/false
+    /*decltype(_impl_.writepermissionmodifyproject_)*/false
   , /*decltype(_impl_.writepermissiondeleteproject_)*/false
   , /*decltype(_impl_.readperimissionqueryproject_)*/false
+  , /*decltype(_impl_.writepermissionupdateswc_)*/false
+  , /*decltype(_impl_.writepermissiondeleteswc_)*/false
+  , /*decltype(_impl_.readperimissionqueryswc_)*/false
   , /*decltype(_impl_.writepermissionaddswcdata_)*/false
   , /*decltype(_impl_.writepermissionmodifyswcdata_)*/false
   , /*decltype(_impl_.writepermissiondeleteswcdata_)*/false
   , /*decltype(_impl_.readperimissionqueryswcdata_)*/false
+  , /*decltype(_impl_.createsnapshotandincrementpermission_)*/false
+  , /*decltype(_impl_.deletesnapshotandincrementpermission_)*/false
+  , /*decltype(_impl_.querysnapshotandincrementpermission_)*/false
+  , /*decltype(_impl_.createanoattachmentpermission_)*/false
+  , /*decltype(_impl_.deleteanoattachmentpermission_)*/false
+  , /*decltype(_impl_.updateanoattachmentpermission_)*/false
+  , /*decltype(_impl_.queryanoattachmentpermission_)*/false
+  , /*decltype(_impl_.createapoattachmentpermission_)*/false
+  , /*decltype(_impl_.deleteapoattachmentpermission_)*/false
+  , /*decltype(_impl_.updateapoattachmentpermission_)*/false
+  , /*decltype(_impl_.queryapoattachmentpermission_)*/false
+  , /*decltype(_impl_.createswcattachmentpermission_)*/false
+  , /*decltype(_impl_.deleteswcattachmentpermission_)*/false
+  , /*decltype(_impl_.updateswcattachmentpermission_)*/false
+  , /*decltype(_impl_.queryswcattachmentpermission_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PermissionAceV1DefaultTypeInternal {
   PROTOBUF_CONSTEXPR PermissionAceV1DefaultTypeInternal()
@@ -302,6 +321,7 @@ PROTOBUF_CONSTEXPR SwcMetaInfoV1::SwcMetaInfoV1(
   , /*decltype(_impl_.swctype_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.currentincrementoperationcollectionname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.swcattachmentswcuuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.belongingprojectuuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
   , /*decltype(_impl_.base_)*/nullptr
   , /*decltype(_impl_.createtime_)*/nullptr
   , /*decltype(_impl_.lastmodifiedtime_)*/nullptr
@@ -488,8 +508,22 @@ struct SwcAttachmentApoV1DefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwcAttachmentApoV1DefaultTypeInternal _SwcAttachmentApoV1_default_instance_;
+PROTOBUF_CONSTEXPR SwcUuidName::SwcUuidName(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.swcuuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.swcname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct SwcUuidNameDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SwcUuidNameDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SwcUuidNameDefaultTypeInternal() {}
+  union {
+    SwcUuidName _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwcUuidNameDefaultTypeInternal _SwcUuidName_default_instance_;
 }  // namespace proto
-static ::_pb::Metadata file_level_metadata_Message_2fMessage_2eproto[27];
+static ::_pb::Metadata file_level_metadata_Message_2fMessage_2eproto[28];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_Message_2fMessage_2eproto[1];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Message_2fMessage_2eproto = nullptr;
 
@@ -540,6 +574,8 @@ const uint32_t TableStruct_Message_2fMessage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupAceV1, _impl_.allprojectmanagementpermission_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupAceV1, _impl_.allswcmanagementpermission_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupAceV1, _impl_.alldailystatisticsmanagementpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupAceV1, _impl_.createprojectpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupAceV1, _impl_.createswcpermission_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::PermissionGroupAclV1, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -554,14 +590,31 @@ const uint32_t TableStruct_Message_2fMessage_2eproto::offsets[] PROTOBUF_SECTION
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissioncreateproject_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissionmodifyproject_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissiondeleteproject_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.readperimissionqueryproject_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissionupdateswc_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissiondeleteswc_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.readperimissionqueryswc_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissionaddswcdata_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissionmodifyswcdata_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.writepermissiondeleteswcdata_),
   PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.readperimissionqueryswcdata_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.createsnapshotandincrementpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.deletesnapshotandincrementpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.querysnapshotandincrementpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.createanoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.deleteanoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.updateanoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.queryanoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.createapoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.deleteapoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.updateapoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.queryapoattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.createswcattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.deleteswcattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.updateswcattachmentpermission_),
+  PROTOBUF_FIELD_OFFSET(::proto::PermissionAceV1, _impl_.queryswcattachmentpermission_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::UserPermissionAclV1, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -683,6 +736,7 @@ const uint32_t TableStruct_Message_2fMessage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::proto::SwcMetaInfoV1, _impl_.swcattachmentapometainfo_),
   PROTOBUF_FIELD_OFFSET(::proto::SwcMetaInfoV1, _impl_.swcattachmentswcuuid_),
   PROTOBUF_FIELD_OFFSET(::proto::SwcMetaInfoV1, _impl_.permission_),
+  PROTOBUF_FIELD_OFFSET(::proto::SwcMetaInfoV1, _impl_.belongingprojectuuid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::SwcNodeInternalDataV1, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -799,35 +853,44 @@ const uint32_t TableStruct_Message_2fMessage_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::proto::SwcAttachmentApoV1, _impl_.colorr_),
   PROTOBUF_FIELD_OFFSET(::proto::SwcAttachmentApoV1, _impl_.colorg_),
   PROTOBUF_FIELD_OFFSET(::proto::SwcAttachmentApoV1, _impl_.colorb_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::SwcUuidName, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::SwcUuidName, _impl_.swcuuid_),
+  PROTOBUF_FIELD_OFFSET(::proto::SwcUuidName, _impl_.swcname_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::proto::MetaInfoBase)},
   { 9, -1, -1, sizeof(::proto::BrainTellServerMysqlDBCompatibleData)},
   { 20, -1, -1, sizeof(::proto::UserMetaInfoV1)},
   { 35, -1, -1, sizeof(::proto::PermissionGroupAceV1)},
-  { 46, -1, -1, sizeof(::proto::PermissionGroupAclV1)},
-  { 54, -1, -1, sizeof(::proto::PermissionAceV1)},
-  { 68, -1, -1, sizeof(::proto::UserPermissionAclV1)},
-  { 76, -1, -1, sizeof(::proto::GroupPermissionAclV1)},
-  { 84, -1, -1, sizeof(::proto::PermissionMetaInfoV1)},
-  { 93, -1, -1, sizeof(::proto::PermissionGroupMetaInfoV1)},
-  { 103, -1, -1, sizeof(::proto::ProjectMetaInfoV1)},
-  { 118, -1, -1, sizeof(::proto::SwcSnapshotMetaInfoV1)},
-  { 128, -1, -1, sizeof(::proto::SwcIncrementOperationMetaInfoV1)},
-  { 138, -1, -1, sizeof(::proto::SwcIncrementOperationV1)},
-  { 148, -1, -1, sizeof(::proto::SwcIncrementOperationListV1)},
-  { 155, -1, -1, sizeof(::proto::SwcAttachmentAnoMetaInfoV1)},
-  { 162, -1, -1, sizeof(::proto::SwcAttachmentApoMetaInfoV1)},
-  { 169, -1, -1, sizeof(::proto::SwcMetaInfoV1)},
-  { 189, -1, -1, sizeof(::proto::SwcNodeInternalDataV1)},
-  { 207, -1, -1, sizeof(::proto::SwcNodeDataV1)},
-  { 219, -1, -1, sizeof(::proto::SwcDataV1)},
-  { 226, -1, -1, sizeof(::proto::DailyStatisticsMetaInfoV1)},
-  { 249, -1, -1, sizeof(::proto::UserVerifyInfoV1)},
-  { 258, -1, -1, sizeof(::proto::RequestMetaInfoV1)},
-  { 265, -1, -1, sizeof(::proto::ResponseMetaInfoV1)},
-  { 274, -1, -1, sizeof(::proto::SwcAttachmentAnoV1)},
-  { 283, -1, -1, sizeof(::proto::SwcAttachmentApoV1)},
+  { 48, -1, -1, sizeof(::proto::PermissionGroupAclV1)},
+  { 56, -1, -1, sizeof(::proto::PermissionAceV1)},
+  { 87, -1, -1, sizeof(::proto::UserPermissionAclV1)},
+  { 95, -1, -1, sizeof(::proto::GroupPermissionAclV1)},
+  { 103, -1, -1, sizeof(::proto::PermissionMetaInfoV1)},
+  { 112, -1, -1, sizeof(::proto::PermissionGroupMetaInfoV1)},
+  { 122, -1, -1, sizeof(::proto::ProjectMetaInfoV1)},
+  { 137, -1, -1, sizeof(::proto::SwcSnapshotMetaInfoV1)},
+  { 147, -1, -1, sizeof(::proto::SwcIncrementOperationMetaInfoV1)},
+  { 157, -1, -1, sizeof(::proto::SwcIncrementOperationV1)},
+  { 167, -1, -1, sizeof(::proto::SwcIncrementOperationListV1)},
+  { 174, -1, -1, sizeof(::proto::SwcAttachmentAnoMetaInfoV1)},
+  { 181, -1, -1, sizeof(::proto::SwcAttachmentApoMetaInfoV1)},
+  { 188, -1, -1, sizeof(::proto::SwcMetaInfoV1)},
+  { 209, -1, -1, sizeof(::proto::SwcNodeInternalDataV1)},
+  { 227, -1, -1, sizeof(::proto::SwcNodeDataV1)},
+  { 239, -1, -1, sizeof(::proto::SwcDataV1)},
+  { 246, -1, -1, sizeof(::proto::DailyStatisticsMetaInfoV1)},
+  { 269, -1, -1, sizeof(::proto::UserVerifyInfoV1)},
+  { 278, -1, -1, sizeof(::proto::RequestMetaInfoV1)},
+  { 285, -1, -1, sizeof(::proto::ResponseMetaInfoV1)},
+  { 294, -1, -1, sizeof(::proto::SwcAttachmentAnoV1)},
+  { 303, -1, -1, sizeof(::proto::SwcAttachmentApoV1)},
+  { 325, -1, -1, sizeof(::proto::SwcUuidName)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
@@ -858,6 +921,7 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::proto::_ResponseMetaInfoV1_default_instance_._instance,
   &::proto::_SwcAttachmentAnoV1_default_instance_._instance,
   &::proto::_SwcAttachmentApoV1_default_instance_._instance,
+  &::proto::_SwcUuidName_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Message_2fMessage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -874,128 +938,148 @@ const char descriptor_table_protodef_Message_2fMessage_2eproto[] PROTOBUF_SECTIO
   "otobuf.Timestamp\022\030\n\020HeadPhotoBinData\030\006 \001"
   "(\014\022\033\n\023PermissionGroupUuid\030\007 \001(\t\022\016\n\006UserI"
   "d\030\010 \001(\005\022C\n\016CompatibleData\030\t \001(\0132+.proto."
-  "BrainTellServerMysqlDBCompatibleData\"\347\001\n"
+  "BrainTellServerMysqlDBCompatibleData\"\245\002\n"
   "\024PermissionGroupAceV1\022.\n&AllPermissionGr"
   "oupManagementPermission\030\001 \001(\010\022#\n\033AllUser"
   "ManagementPermission\030\002 \001(\010\022&\n\036AllProject"
   "ManagementPermission\030\003 \001(\010\022\"\n\032AllSwcMana"
   "gementPermission\030\004 \001(\010\022.\n&AllDailyStatis"
-  "ticsManagementPermission\030\005 \001(\010\"l\n\024Permis"
-  "sionGroupAclV1\022\033\n\023PermissionGroupUuid\030\001 "
-  "\001(\t\0227\n\022PermissionGroupAce\030\002 \001(\0132\033.proto."
-  "PermissionGroupAceV1\"\274\002\n\017PermissionAceV1"
-  "\022$\n\034WritePermissionCreateProject\030\001 \001(\010\022$"
-  "\n\034WritePermissionModifyProject\030\002 \001(\010\022$\n\034"
-  "WritePermissionDeleteProject\030\003 \001(\010\022#\n\033Re"
-  "adPerimissionQueryProject\030\004 \001(\010\022!\n\031Write"
-  "PermissionAddSwcData\030\005 \001(\010\022$\n\034WritePermi"
-  "ssionModifySwcData\030\006 \001(\010\022$\n\034WritePermiss"
-  "ionDeleteSwcData\030\007 \001(\010\022#\n\033ReadPerimissio"
-  "nQuerySwcData\030\010 \001(\010\"L\n\023UserPermissionAcl"
-  "V1\022\020\n\010UserUuid\030\001 \001(\t\022#\n\003Ace\030\002 \001(\0132\026.prot"
-  "o.PermissionAceV1\"N\n\024GroupPermissionAclV"
-  "1\022\021\n\tGroupUuid\030\001 \001(\t\022#\n\003Ace\030\002 \001(\0132\026.prot"
-  "o.PermissionAceV1\"\231\001\n\024PermissionMetaInfo"
-  "V1\022)\n\005Owner\030\001 \001(\0132\032.proto.UserPermission"
-  "AclV1\022)\n\005Users\030\002 \003(\0132\032.proto.UserPermiss"
-  "ionAclV1\022+\n\006Groups\030\003 \003(\0132\033.proto.GroupPe"
-  "rmissionAclV1\"\213\001\n\031PermissionGroupMetaInf"
-  "oV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBase\022\014"
-  "\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t\022(\n\003Ace"
-  "\030\004 \001(\0132\033.proto.PermissionGroupAceV1\"\244\002\n\021"
-  "ProjectMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto."
-  "MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Descriptio"
-  "n\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022.\n\nCreateTime\030\005"
-  " \001(\0132\032.google.protobuf.Timestamp\0224\n\020Last"
-  "ModifiedTime\030\006 \001(\0132\032.google.protobuf.Tim"
-  "estamp\022\017\n\007SwcList\030\007 \003(\t\022\020\n\010WorkMode\030\010 \001("
-  "\t\022/\n\nPermission\030\t \001(\0132\033.proto.Permission"
-  "MetaInfoV1\"\236\001\n\025SwcSnapshotMetaInfoV1\022!\n\004"
-  "Base\030\001 \001(\0132\023.proto.MetaInfoBase\022!\n\031SwcSn"
-  "apshotCollectionName\030\002 \001(\t\022.\n\nCreateTime"
-  "\030\003 \001(\0132\032.google.protobuf.Timestamp\022\017\n\007Cr"
-  "eator\030\004 \001(\t\"\265\001\n\037SwcIncrementOperationMet"
-  "aInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBa"
-  "se\022(\n IncrementOperationCollectionName\030\002"
-  " \001(\t\022\025\n\rStartSnapshot\030\003 \001(\t\022.\n\nCreateTim"
-  "e\030\004 \001(\0132\032.google.protobuf.Timestamp\"\310\001\n\027"
-  "SwcIncrementOperationV1\022!\n\004Base\030\001 \001(\0132\023."
-  "proto.MetaInfoBase\022.\n\nCreateTime\030\002 \001(\0132\032"
-  ".google.protobuf.Timestamp\0227\n\022IncrementO"
-  "peration\030\003 \001(\0162\033.proto.IncrementOperatio"
-  "nV1\022!\n\007SwcData\030\004 \001(\0132\020.proto.SwcDataV1\"\\"
-  "\n\033SwcIncrementOperationListV1\022=\n\025SwcIncr"
-  "ementOperation\030\001 \003(\0132\036.proto.SwcIncremen"
-  "tOperationV1\"4\n\032SwcAttachmentAnoMetaInfo"
-  "V1\022\026\n\016AttachmentUuid\030\001 \001(\t\"4\n\032SwcAttachm"
-  "entApoMetaInfoV1\022\026\n\016AttachmentUuid\030\001 \001(\t"
-  "\"\371\004\n\rSwcMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto"
-  ".MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Descripti"
-  "on\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022\017\n\007SwcType\030\005 \001"
-  "(\t\022.\n\nCreateTime\030\006 \001(\0132\032.google.protobuf"
-  ".Timestamp\0224\n\020LastModifiedTime\030\007 \001(\0132\032.g"
-  "oogle.protobuf.Timestamp\022=\n\027SwcSnapshotM"
-  "etaInfoList\030\010 \003(\0132\034.proto.SwcSnapshotMet"
-  "aInfoV1\022Q\n!SwcIncrementOperationMetaInfo"
-  "List\030\t \003(\0132&.proto.SwcIncrementOperation"
-  "MetaInfoV1\022/\n\'CurrentIncrementOperationC"
-  "ollectionName\030\n \001(\t\022C\n\030SwcAttachmentAnoM"
-  "etaInfo\030\013 \001(\0132!.proto.SwcAttachmentAnoMe"
-  "taInfoV1\022C\n\030SwcAttachmentApoMetaInfo\030\014 \001"
-  "(\0132!.proto.SwcAttachmentApoMetaInfoV1\022\034\n"
-  "\024SwcAttachmentSwcUuid\030\r \001(\t\022/\n\nPermissio"
-  "n\030\016 \001(\0132\033.proto.PermissionMetaInfoV1\"\310\001\n"
-  "\025SwcNodeInternalDataV1\022\t\n\001N\030\001 \001(\005\022\014\n\004Typ"
-  "e\030\002 \001(\005\022\t\n\001X\030\003 \001(\002\022\t\n\001Y\030\004 \001(\002\022\t\n\001Z\030\005 \001(\002"
-  "\022\016\n\006Radius\030\006 \001(\002\022\016\n\006Parent\030\007 \001(\005\022\016\n\006Seg_"
-  "id\030\010 \001(\005\022\r\n\005Level\030\t \001(\005\022\014\n\004Mode\030\n \001(\005\022\021\n"
-  "\tTimestamp\030\013 \001(\005\022\025\n\rFeature_value\030\014 \001(\005\""
-  "\375\001\n\rSwcNodeDataV1\022!\n\004Base\030\001 \001(\0132\023.proto."
-  "MetaInfoBase\0229\n\023SwcNodeInternalData\030\002 \001("
-  "\0132\034.proto.SwcNodeInternalDataV1\022\017\n\007Creat"
-  "or\030\003 \001(\t\022.\n\nCreateTime\030\004 \001(\0132\032.google.pr"
-  "otobuf.Timestamp\0224\n\020LastModifiedTime\030\005 \001"
-  "(\0132\032.google.protobuf.Timestamp\022\027\n\017Checke"
-  "rUserUuid\030\006 \001(\t\"2\n\tSwcDataV1\022%\n\007SwcData\030"
-  "\001 \003(\0132\024.proto.SwcNodeDataV1\"\331\003\n\031DailySta"
-  "tisticsMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto."
-  "MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Descriptio"
-  "n\030\003 \001(\t\022\013\n\003Day\030\004 \001(\t\022\034\n\024CreatedProjectNu"
-  "mber\030\005 \001(\005\022\030\n\020CreatedSwcNumber\030\006 \001(\005\022\033\n\023"
-  "CreateSwcNodeNumber\030\007 \001(\005\022\034\n\024DeletedProj"
-  "ectNumber\030\010 \001(\005\022\030\n\020DeletedSwcNumber\030\t \001("
-  "\005\022\034\n\024DeletedSwcNodeNumber\030\n \001(\005\022\035\n\025Modif"
-  "iedProjectNumber\030\013 \001(\005\022\031\n\021ModifiedSwcNum"
-  "ber\030\014 \001(\005\022\035\n\025ModifiedSwcNodeNumber\030\r \001(\005"
-  "\022\032\n\022ProjectQueryNumber\030\016 \001(\005\022\026\n\016SwcQuery"
-  "Number\030\017 \001(\005\022\027\n\017NodeQueryNumber\030\020 \001(\005\022\030\n"
-  "\020ActiveUserNumber\030\021 \001(\005\"M\n\020UserVerifyInf"
-  "oV1\022\020\n\010UserName\030\001 \001(\t\022\021\n\tUserToken\030\002 \001(\t"
-  "\022\024\n\014UserPassword\030\003 \001(\t\"\'\n\021RequestMetaInf"
-  "oV1\022\022\n\nApiVersion\030\001 \001(\t\"A\n\022ResponseMetaI"
-  "nfoV1\022\016\n\006Status\030\001 \001(\010\022\n\n\002Id\030\002 \001(\t\022\017\n\007Mes"
-  "sage\030\003 \001(\t\"Y\n\022SwcAttachmentAnoV1\022!\n\004Base"
-  "\030\001 \001(\0132\023.proto.MetaInfoBase\022\017\n\007APOFILE\030\002"
-  " \001(\t\022\017\n\007SWCFILE\030\003 \001(\t\"\225\002\n\022SwcAttachmentA"
-  "poV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBase\022"
-  "\t\n\001N\030\002 \001(\005\022\021\n\tOrderinfo\030\003 \001(\t\022\014\n\004Name\030\004 "
-  "\001(\t\022\017\n\007Comment\030\005 \001(\t\022\t\n\001Z\030\006 \001(\002\022\t\n\001X\030\007 \001"
-  "(\002\022\t\n\001Y\030\010 \001(\002\022\016\n\006Pixmax\030\t \001(\002\022\021\n\tIntensi"
-  "ty\030\n \001(\002\022\014\n\004Sdev\030\013 \001(\002\022\017\n\007Volsize\030\014 \001(\002\022"
-  "\014\n\004Mass\030\r \001(\002\022\016\n\006ColorR\030\016 \001(\005\022\016\n\006ColorG\030"
-  "\017 \001(\005\022\016\n\006ColorB\030\020 \001(\005*G\n\024IncrementOperat"
-  "ionV1\022\013\n\007Unknown\020\000\022\n\n\006Create\020\001\022\n\n\006Delete"
-  "\020\002\022\n\n\006Update\020\003B/Z-DBMS/SwcDbmsCommon/Gen"
-  "erated/go/proto/messageP\000b\006proto3"
+  "ticsManagementPermission\030\005 \001(\010\022\037\n\027Create"
+  "ProjectPermission\030\006 \001(\010\022\033\n\023CreateSwcPerm"
+  "ission\030\007 \001(\010\"l\n\024PermissionGroupAclV1\022\033\n\023"
+  "PermissionGroupUuid\030\001 \001(\t\0227\n\022PermissionG"
+  "roupAce\030\002 \001(\0132\033.proto.PermissionGroupAce"
+  "V1\"\325\007\n\017PermissionAceV1\022$\n\034WritePermissio"
+  "nModifyProject\030\001 \001(\010\022$\n\034WritePermissionD"
+  "eleteProject\030\002 \001(\010\022#\n\033ReadPerimissionQue"
+  "ryProject\030\003 \001(\010\022 \n\030WritePermissionUpdate"
+  "Swc\030\004 \001(\010\022 \n\030WritePermissionDeleteSwc\030\005 "
+  "\001(\010\022\037\n\027ReadPerimissionQuerySwc\030\006 \001(\010\022!\n\031"
+  "WritePermissionAddSwcData\030\007 \001(\010\022$\n\034Write"
+  "PermissionModifySwcData\030\010 \001(\010\022$\n\034WritePe"
+  "rmissionDeleteSwcData\030\t \001(\010\022#\n\033ReadPerim"
+  "issionQuerySwcData\030\n \001(\010\022,\n$CreateSnapsh"
+  "otAndIncrementPermission\030\013 \001(\010\022,\n$Delete"
+  "SnapshotAndIncrementPermission\030\014 \001(\010\022+\n#"
+  "QuerySnapshotAndIncrementPermission\030\r \001("
+  "\010\022%\n\035CreateAnoAttachmentPermission\030\016 \001(\010"
+  "\022%\n\035DeleteAnoAttachmentPermission\030\017 \001(\010\022"
+  "%\n\035UpdateAnoAttachmentPermission\030\020 \001(\010\022$"
+  "\n\034QueryAnoAttachmentPermission\030\021 \001(\010\022%\n\035"
+  "CreateApoAttachmentPermission\030\022 \001(\010\022%\n\035D"
+  "eleteApoAttachmentPermission\030\023 \001(\010\022%\n\035Up"
+  "dateApoAttachmentPermission\030\024 \001(\010\022$\n\034Que"
+  "ryApoAttachmentPermission\030\025 \001(\010\022%\n\035Creat"
+  "eSwcAttachmentPermission\030\026 \001(\010\022%\n\035Delete"
+  "SwcAttachmentPermission\030\027 \001(\010\022%\n\035UpdateS"
+  "wcAttachmentPermission\030\030 \001(\010\022$\n\034QuerySwc"
+  "AttachmentPermission\030\031 \001(\010\"L\n\023UserPermis"
+  "sionAclV1\022\020\n\010UserUuid\030\001 \001(\t\022#\n\003Ace\030\002 \001(\013"
+  "2\026.proto.PermissionAceV1\"N\n\024GroupPermiss"
+  "ionAclV1\022\021\n\tGroupUuid\030\001 \001(\t\022#\n\003Ace\030\002 \001(\013"
+  "2\026.proto.PermissionAceV1\"\231\001\n\024PermissionM"
+  "etaInfoV1\022)\n\005Owner\030\001 \001(\0132\032.proto.UserPer"
+  "missionAclV1\022)\n\005Users\030\002 \003(\0132\032.proto.User"
+  "PermissionAclV1\022+\n\006Groups\030\003 \003(\0132\033.proto."
+  "GroupPermissionAclV1\"\213\001\n\031PermissionGroup"
+  "MetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInf"
+  "oBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003 \001(\t"
+  "\022(\n\003Ace\030\004 \001(\0132\033.proto.PermissionGroupAce"
+  "V1\"\244\002\n\021ProjectMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023"
+  ".proto.MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Des"
+  "cription\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022.\n\nCreat"
+  "eTime\030\005 \001(\0132\032.google.protobuf.Timestamp\022"
+  "4\n\020LastModifiedTime\030\006 \001(\0132\032.google.proto"
+  "buf.Timestamp\022\017\n\007SwcList\030\007 \003(\t\022\020\n\010WorkMo"
+  "de\030\010 \001(\t\022/\n\nPermission\030\t \001(\0132\033.proto.Per"
+  "missionMetaInfoV1\"\236\001\n\025SwcSnapshotMetaInf"
+  "oV1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBase\022!"
+  "\n\031SwcSnapshotCollectionName\030\002 \001(\t\022.\n\nCre"
+  "ateTime\030\003 \001(\0132\032.google.protobuf.Timestam"
+  "p\022\017\n\007Creator\030\004 \001(\t\"\265\001\n\037SwcIncrementOpera"
+  "tionMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.Met"
+  "aInfoBase\022(\n IncrementOperationCollectio"
+  "nName\030\002 \001(\t\022\025\n\rStartSnapshot\030\003 \001(\t\022.\n\nCr"
+  "eateTime\030\004 \001(\0132\032.google.protobuf.Timesta"
+  "mp\"\310\001\n\027SwcIncrementOperationV1\022!\n\004Base\030\001"
+  " \001(\0132\023.proto.MetaInfoBase\022.\n\nCreateTime\030"
+  "\002 \001(\0132\032.google.protobuf.Timestamp\0227\n\022Inc"
+  "rementOperation\030\003 \001(\0162\033.proto.IncrementO"
+  "perationV1\022!\n\007SwcData\030\004 \001(\0132\020.proto.SwcD"
+  "ataV1\"\\\n\033SwcIncrementOperationListV1\022=\n\025"
+  "SwcIncrementOperation\030\001 \003(\0132\036.proto.SwcI"
+  "ncrementOperationV1\"4\n\032SwcAttachmentAnoM"
+  "etaInfoV1\022\026\n\016AttachmentUuid\030\001 \001(\t\"4\n\032Swc"
+  "AttachmentApoMetaInfoV1\022\026\n\016AttachmentUui"
+  "d\030\001 \001(\t\"\227\005\n\rSwcMetaInfoV1\022!\n\004Base\030\001 \001(\0132"
+  "\023.proto.MetaInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013De"
+  "scription\030\003 \001(\t\022\017\n\007Creator\030\004 \001(\t\022\017\n\007SwcT"
+  "ype\030\005 \001(\t\022.\n\nCreateTime\030\006 \001(\0132\032.google.p"
+  "rotobuf.Timestamp\0224\n\020LastModifiedTime\030\007 "
+  "\001(\0132\032.google.protobuf.Timestamp\022=\n\027SwcSn"
+  "apshotMetaInfoList\030\010 \003(\0132\034.proto.SwcSnap"
+  "shotMetaInfoV1\022Q\n!SwcIncrementOperationM"
+  "etaInfoList\030\t \003(\0132&.proto.SwcIncrementOp"
+  "erationMetaInfoV1\022/\n\'CurrentIncrementOpe"
+  "rationCollectionName\030\n \001(\t\022C\n\030SwcAttachm"
+  "entAnoMetaInfo\030\013 \001(\0132!.proto.SwcAttachme"
+  "ntAnoMetaInfoV1\022C\n\030SwcAttachmentApoMetaI"
+  "nfo\030\014 \001(\0132!.proto.SwcAttachmentApoMetaIn"
+  "foV1\022\034\n\024SwcAttachmentSwcUuid\030\r \001(\t\022/\n\nPe"
+  "rmission\030\016 \001(\0132\033.proto.PermissionMetaInf"
+  "oV1\022\034\n\024BelongingProjectUuid\030\017 \001(\t\"\310\001\n\025Sw"
+  "cNodeInternalDataV1\022\t\n\001N\030\001 \001(\005\022\014\n\004Type\030\002"
+  " \001(\005\022\t\n\001X\030\003 \001(\002\022\t\n\001Y\030\004 \001(\002\022\t\n\001Z\030\005 \001(\002\022\016\n"
+  "\006Radius\030\006 \001(\002\022\016\n\006Parent\030\007 \001(\005\022\016\n\006Seg_id\030"
+  "\010 \001(\005\022\r\n\005Level\030\t \001(\005\022\014\n\004Mode\030\n \001(\005\022\021\n\tTi"
+  "mestamp\030\013 \001(\005\022\025\n\rFeature_value\030\014 \001(\005\"\375\001\n"
+  "\rSwcNodeDataV1\022!\n\004Base\030\001 \001(\0132\023.proto.Met"
+  "aInfoBase\0229\n\023SwcNodeInternalData\030\002 \001(\0132\034"
+  ".proto.SwcNodeInternalDataV1\022\017\n\007Creator\030"
+  "\003 \001(\t\022.\n\nCreateTime\030\004 \001(\0132\032.google.proto"
+  "buf.Timestamp\0224\n\020LastModifiedTime\030\005 \001(\0132"
+  "\032.google.protobuf.Timestamp\022\027\n\017CheckerUs"
+  "erUuid\030\006 \001(\t\"2\n\tSwcDataV1\022%\n\007SwcData\030\001 \003"
+  "(\0132\024.proto.SwcNodeDataV1\"\331\003\n\031DailyStatis"
+  "ticsMetaInfoV1\022!\n\004Base\030\001 \001(\0132\023.proto.Met"
+  "aInfoBase\022\014\n\004Name\030\002 \001(\t\022\023\n\013Description\030\003"
+  " \001(\t\022\013\n\003Day\030\004 \001(\t\022\034\n\024CreatedProjectNumbe"
+  "r\030\005 \001(\005\022\030\n\020CreatedSwcNumber\030\006 \001(\005\022\033\n\023Cre"
+  "ateSwcNodeNumber\030\007 \001(\005\022\034\n\024DeletedProject"
+  "Number\030\010 \001(\005\022\030\n\020DeletedSwcNumber\030\t \001(\005\022\034"
+  "\n\024DeletedSwcNodeNumber\030\n \001(\005\022\035\n\025Modified"
+  "ProjectNumber\030\013 \001(\005\022\031\n\021ModifiedSwcNumber"
+  "\030\014 \001(\005\022\035\n\025ModifiedSwcNodeNumber\030\r \001(\005\022\032\n"
+  "\022ProjectQueryNumber\030\016 \001(\005\022\026\n\016SwcQueryNum"
+  "ber\030\017 \001(\005\022\027\n\017NodeQueryNumber\030\020 \001(\005\022\030\n\020Ac"
+  "tiveUserNumber\030\021 \001(\005\"M\n\020UserVerifyInfoV1"
+  "\022\020\n\010UserName\030\001 \001(\t\022\021\n\tUserToken\030\002 \001(\t\022\024\n"
+  "\014UserPassword\030\003 \001(\t\"\'\n\021RequestMetaInfoV1"
+  "\022\022\n\nApiVersion\030\001 \001(\t\"A\n\022ResponseMetaInfo"
+  "V1\022\016\n\006Status\030\001 \001(\010\022\n\n\002Id\030\002 \001(\t\022\017\n\007Messag"
+  "e\030\003 \001(\t\"Y\n\022SwcAttachmentAnoV1\022!\n\004Base\030\001 "
+  "\001(\0132\023.proto.MetaInfoBase\022\017\n\007APOFILE\030\002 \001("
+  "\t\022\017\n\007SWCFILE\030\003 \001(\t\"\225\002\n\022SwcAttachmentApoV"
+  "1\022!\n\004Base\030\001 \001(\0132\023.proto.MetaInfoBase\022\t\n\001"
+  "N\030\002 \001(\005\022\021\n\tOrderinfo\030\003 \001(\t\022\014\n\004Name\030\004 \001(\t"
+  "\022\017\n\007Comment\030\005 \001(\t\022\t\n\001Z\030\006 \001(\002\022\t\n\001X\030\007 \001(\002\022"
+  "\t\n\001Y\030\010 \001(\002\022\016\n\006Pixmax\030\t \001(\002\022\021\n\tIntensity\030"
+  "\n \001(\002\022\014\n\004Sdev\030\013 \001(\002\022\017\n\007Volsize\030\014 \001(\002\022\014\n\004"
+  "Mass\030\r \001(\002\022\016\n\006ColorR\030\016 \001(\005\022\016\n\006ColorG\030\017 \001"
+  "(\005\022\016\n\006ColorB\030\020 \001(\005\"/\n\013SwcUuidName\022\017\n\007Swc"
+  "Uuid\030\001 \001(\t\022\017\n\007SwcName\030\002 \001(\t*G\n\024Increment"
+  "OperationV1\022\013\n\007Unknown\020\000\022\n\n\006Create\020\001\022\n\n\006"
+  "Delete\020\002\022\n\n\006Update\020\003B/Z-DBMS/SwcDbmsComm"
+  "on/Generated/go/proto/messageP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fMessage_2eproto_deps[1] = {
   &::descriptor_table_google_2fprotobuf_2ftimestamp_2eproto,
 };
 static ::_pbi::once_flag descriptor_table_Message_2fMessage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fMessage_2eproto = {
-    false, false, 5033, descriptor_table_protodef_Message_2fMessage_2eproto,
+    false, false, 5839, descriptor_table_protodef_Message_2fMessage_2eproto,
     "Message/Message.proto",
-    &descriptor_table_Message_2fMessage_2eproto_once, descriptor_table_Message_2fMessage_2eproto_deps, 1, 27,
+    &descriptor_table_Message_2fMessage_2eproto_once, descriptor_table_Message_2fMessage_2eproto_deps, 1, 28,
     schemas, file_default_instances, TableStruct_Message_2fMessage_2eproto::offsets,
     file_level_metadata_Message_2fMessage_2eproto, file_level_enum_descriptors_Message_2fMessage_2eproto,
     file_level_service_descriptors_Message_2fMessage_2eproto,
@@ -2270,12 +2354,14 @@ PermissionGroupAceV1::PermissionGroupAceV1(const PermissionGroupAceV1& from)
     , decltype(_impl_.allprojectmanagementpermission_){}
     , decltype(_impl_.allswcmanagementpermission_){}
     , decltype(_impl_.alldailystatisticsmanagementpermission_){}
+    , decltype(_impl_.createprojectpermission_){}
+    , decltype(_impl_.createswcpermission_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&_impl_.allpermissiongroupmanagementpermission_, &from._impl_.allpermissiongroupmanagementpermission_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.alldailystatisticsmanagementpermission_) -
-    reinterpret_cast<char*>(&_impl_.allpermissiongroupmanagementpermission_)) + sizeof(_impl_.alldailystatisticsmanagementpermission_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.createswcpermission_) -
+    reinterpret_cast<char*>(&_impl_.allpermissiongroupmanagementpermission_)) + sizeof(_impl_.createswcpermission_));
   // @@protoc_insertion_point(copy_constructor:proto.PermissionGroupAceV1)
 }
 
@@ -2289,6 +2375,8 @@ inline void PermissionGroupAceV1::SharedCtor(
     , decltype(_impl_.allprojectmanagementpermission_){false}
     , decltype(_impl_.allswcmanagementpermission_){false}
     , decltype(_impl_.alldailystatisticsmanagementpermission_){false}
+    , decltype(_impl_.createprojectpermission_){false}
+    , decltype(_impl_.createswcpermission_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2317,8 +2405,8 @@ void PermissionGroupAceV1::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.allpermissiongroupmanagementpermission_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.alldailystatisticsmanagementpermission_) -
-      reinterpret_cast<char*>(&_impl_.allpermissiongroupmanagementpermission_)) + sizeof(_impl_.alldailystatisticsmanagementpermission_));
+      reinterpret_cast<char*>(&_impl_.createswcpermission_) -
+      reinterpret_cast<char*>(&_impl_.allpermissiongroupmanagementpermission_)) + sizeof(_impl_.createswcpermission_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2364,6 +2452,22 @@ const char* PermissionGroupAceV1::_InternalParse(const char* ptr, ::_pbi::ParseC
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _impl_.alldailystatisticsmanagementpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool CreateProjectPermission = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.createprojectpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool CreateSwcPermission = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _impl_.createswcpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2427,6 +2531,18 @@ uint8_t* PermissionGroupAceV1::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_alldailystatisticsmanagementpermission(), target);
   }
 
+  // bool CreateProjectPermission = 6;
+  if (this->_internal_createprojectpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_createprojectpermission(), target);
+  }
+
+  // bool CreateSwcPermission = 7;
+  if (this->_internal_createswcpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_createswcpermission(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2468,6 +2584,16 @@ size_t PermissionGroupAceV1::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool CreateProjectPermission = 6;
+  if (this->_internal_createprojectpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool CreateSwcPermission = 7;
+  if (this->_internal_createswcpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
@@ -2501,6 +2627,12 @@ void PermissionGroupAceV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, c
   if (from._internal_alldailystatisticsmanagementpermission() != 0) {
     _this->_internal_set_alldailystatisticsmanagementpermission(from._internal_alldailystatisticsmanagementpermission());
   }
+  if (from._internal_createprojectpermission() != 0) {
+    _this->_internal_set_createprojectpermission(from._internal_createprojectpermission());
+  }
+  if (from._internal_createswcpermission() != 0) {
+    _this->_internal_set_createswcpermission(from._internal_createswcpermission());
+  }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2519,8 +2651,8 @@ void PermissionGroupAceV1::InternalSwap(PermissionGroupAceV1* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PermissionGroupAceV1, _impl_.alldailystatisticsmanagementpermission_)
-      + sizeof(PermissionGroupAceV1::_impl_.alldailystatisticsmanagementpermission_)
+      PROTOBUF_FIELD_OFFSET(PermissionGroupAceV1, _impl_.createswcpermission_)
+      + sizeof(PermissionGroupAceV1::_impl_.createswcpermission_)
       - PROTOBUF_FIELD_OFFSET(PermissionGroupAceV1, _impl_.allpermissiongroupmanagementpermission_)>(
           reinterpret_cast<char*>(&_impl_.allpermissiongroupmanagementpermission_),
           reinterpret_cast<char*>(&other->_impl_.allpermissiongroupmanagementpermission_));
@@ -2793,20 +2925,37 @@ PermissionAceV1::PermissionAceV1(const PermissionAceV1& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   PermissionAceV1* const _this = this; (void)_this;
   new (&_impl_) Impl_{
-      decltype(_impl_.writepermissioncreateproject_){}
-    , decltype(_impl_.writepermissionmodifyproject_){}
+      decltype(_impl_.writepermissionmodifyproject_){}
     , decltype(_impl_.writepermissiondeleteproject_){}
     , decltype(_impl_.readperimissionqueryproject_){}
+    , decltype(_impl_.writepermissionupdateswc_){}
+    , decltype(_impl_.writepermissiondeleteswc_){}
+    , decltype(_impl_.readperimissionqueryswc_){}
     , decltype(_impl_.writepermissionaddswcdata_){}
     , decltype(_impl_.writepermissionmodifyswcdata_){}
     , decltype(_impl_.writepermissiondeleteswcdata_){}
     , decltype(_impl_.readperimissionqueryswcdata_){}
+    , decltype(_impl_.createsnapshotandincrementpermission_){}
+    , decltype(_impl_.deletesnapshotandincrementpermission_){}
+    , decltype(_impl_.querysnapshotandincrementpermission_){}
+    , decltype(_impl_.createanoattachmentpermission_){}
+    , decltype(_impl_.deleteanoattachmentpermission_){}
+    , decltype(_impl_.updateanoattachmentpermission_){}
+    , decltype(_impl_.queryanoattachmentpermission_){}
+    , decltype(_impl_.createapoattachmentpermission_){}
+    , decltype(_impl_.deleteapoattachmentpermission_){}
+    , decltype(_impl_.updateapoattachmentpermission_){}
+    , decltype(_impl_.queryapoattachmentpermission_){}
+    , decltype(_impl_.createswcattachmentpermission_){}
+    , decltype(_impl_.deleteswcattachmentpermission_){}
+    , decltype(_impl_.updateswcattachmentpermission_){}
+    , decltype(_impl_.queryswcattachmentpermission_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&_impl_.writepermissioncreateproject_, &from._impl_.writepermissioncreateproject_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.readperimissionqueryswcdata_) -
-    reinterpret_cast<char*>(&_impl_.writepermissioncreateproject_)) + sizeof(_impl_.readperimissionqueryswcdata_));
+  ::memcpy(&_impl_.writepermissionmodifyproject_, &from._impl_.writepermissionmodifyproject_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.queryswcattachmentpermission_) -
+    reinterpret_cast<char*>(&_impl_.writepermissionmodifyproject_)) + sizeof(_impl_.queryswcattachmentpermission_));
   // @@protoc_insertion_point(copy_constructor:proto.PermissionAceV1)
 }
 
@@ -2815,14 +2964,31 @@ inline void PermissionAceV1::SharedCtor(
   (void)arena;
   (void)is_message_owned;
   new (&_impl_) Impl_{
-      decltype(_impl_.writepermissioncreateproject_){false}
-    , decltype(_impl_.writepermissionmodifyproject_){false}
+      decltype(_impl_.writepermissionmodifyproject_){false}
     , decltype(_impl_.writepermissiondeleteproject_){false}
     , decltype(_impl_.readperimissionqueryproject_){false}
+    , decltype(_impl_.writepermissionupdateswc_){false}
+    , decltype(_impl_.writepermissiondeleteswc_){false}
+    , decltype(_impl_.readperimissionqueryswc_){false}
     , decltype(_impl_.writepermissionaddswcdata_){false}
     , decltype(_impl_.writepermissionmodifyswcdata_){false}
     , decltype(_impl_.writepermissiondeleteswcdata_){false}
     , decltype(_impl_.readperimissionqueryswcdata_){false}
+    , decltype(_impl_.createsnapshotandincrementpermission_){false}
+    , decltype(_impl_.deletesnapshotandincrementpermission_){false}
+    , decltype(_impl_.querysnapshotandincrementpermission_){false}
+    , decltype(_impl_.createanoattachmentpermission_){false}
+    , decltype(_impl_.deleteanoattachmentpermission_){false}
+    , decltype(_impl_.updateanoattachmentpermission_){false}
+    , decltype(_impl_.queryanoattachmentpermission_){false}
+    , decltype(_impl_.createapoattachmentpermission_){false}
+    , decltype(_impl_.deleteapoattachmentpermission_){false}
+    , decltype(_impl_.updateapoattachmentpermission_){false}
+    , decltype(_impl_.queryapoattachmentpermission_){false}
+    , decltype(_impl_.createswcattachmentpermission_){false}
+    , decltype(_impl_.deleteswcattachmentpermission_){false}
+    , decltype(_impl_.updateswcattachmentpermission_){false}
+    , decltype(_impl_.queryswcattachmentpermission_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -2850,9 +3016,9 @@ void PermissionAceV1::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&_impl_.writepermissioncreateproject_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.readperimissionqueryswcdata_) -
-      reinterpret_cast<char*>(&_impl_.writepermissioncreateproject_)) + sizeof(_impl_.readperimissionqueryswcdata_));
+  ::memset(&_impl_.writepermissionmodifyproject_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.queryswcattachmentpermission_) -
+      reinterpret_cast<char*>(&_impl_.writepermissionmodifyproject_)) + sizeof(_impl_.queryswcattachmentpermission_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2862,66 +3028,202 @@ const char* PermissionAceV1::_InternalParse(const char* ptr, ::_pbi::ParseContex
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bool WritePermissionCreateProject = 1;
+      // bool WritePermissionModifyProject = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.writepermissioncreateproject_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool WritePermissionModifyProject = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.writepermissionmodifyproject_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool WritePermissionDeleteProject = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+      // bool WritePermissionDeleteProject = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _impl_.writepermissiondeleteproject_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool ReadPerimissionQueryProject = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+      // bool ReadPerimissionQueryProject = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _impl_.readperimissionqueryproject_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool WritePermissionAddSwcData = 5;
+      // bool WritePermissionUpdateSwc = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _impl_.writepermissionupdateswc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool WritePermissionDeleteSwc = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _impl_.writepermissiondeleteswc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool ReadPerimissionQuerySwc = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _impl_.readperimissionqueryswc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool WritePermissionAddSwcData = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _impl_.writepermissionaddswcdata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool WritePermissionModifySwcData = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+      // bool WritePermissionModifySwcData = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _impl_.writepermissionmodifyswcdata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool WritePermissionDeleteSwcData = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+      // bool WritePermissionDeleteSwcData = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _impl_.writepermissiondeleteswcdata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bool ReadPerimissionQuerySwcData = 8;
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+      // bool ReadPerimissionQuerySwcData = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _impl_.readperimissionqueryswcdata_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool CreateSnapshotAndIncrementPermission = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _impl_.createsnapshotandincrementpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool DeleteSnapshotAndIncrementPermission = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          _impl_.deletesnapshotandincrementpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool QuerySnapshotAndIncrementPermission = 13;
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          _impl_.querysnapshotandincrementpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool CreateAnoAttachmentPermission = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          _impl_.createanoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool DeleteAnoAttachmentPermission = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          _impl_.deleteanoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool UpdateAnoAttachmentPermission = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
+          _impl_.updateanoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool QueryAnoAttachmentPermission = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
+          _impl_.queryanoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool CreateApoAttachmentPermission = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
+          _impl_.createapoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool DeleteApoAttachmentPermission = 19;
+      case 19:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
+          _impl_.deleteapoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool UpdateApoAttachmentPermission = 20;
+      case 20:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
+          _impl_.updateapoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool QueryApoAttachmentPermission = 21;
+      case 21:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 168)) {
+          _impl_.queryapoattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool CreateSwcAttachmentPermission = 22;
+      case 22:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
+          _impl_.createswcattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool DeleteSwcAttachmentPermission = 23;
+      case 23:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+          _impl_.deleteswcattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool UpdateSwcAttachmentPermission = 24;
+      case 24:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 192)) {
+          _impl_.updateswcattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool QuerySwcAttachmentPermission = 25;
+      case 25:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 200)) {
+          _impl_.queryswcattachmentpermission_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2955,52 +3257,154 @@ uint8_t* PermissionAceV1::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bool WritePermissionCreateProject = 1;
-  if (this->_internal_writepermissioncreateproject() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_writepermissioncreateproject(), target);
-  }
-
-  // bool WritePermissionModifyProject = 2;
+  // bool WritePermissionModifyProject = 1;
   if (this->_internal_writepermissionmodifyproject() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_writepermissionmodifyproject(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_writepermissionmodifyproject(), target);
   }
 
-  // bool WritePermissionDeleteProject = 3;
+  // bool WritePermissionDeleteProject = 2;
   if (this->_internal_writepermissiondeleteproject() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_writepermissiondeleteproject(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_writepermissiondeleteproject(), target);
   }
 
-  // bool ReadPerimissionQueryProject = 4;
+  // bool ReadPerimissionQueryProject = 3;
   if (this->_internal_readperimissionqueryproject() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_readperimissionqueryproject(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_readperimissionqueryproject(), target);
   }
 
-  // bool WritePermissionAddSwcData = 5;
+  // bool WritePermissionUpdateSwc = 4;
+  if (this->_internal_writepermissionupdateswc() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_writepermissionupdateswc(), target);
+  }
+
+  // bool WritePermissionDeleteSwc = 5;
+  if (this->_internal_writepermissiondeleteswc() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_writepermissiondeleteswc(), target);
+  }
+
+  // bool ReadPerimissionQuerySwc = 6;
+  if (this->_internal_readperimissionqueryswc() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_readperimissionqueryswc(), target);
+  }
+
+  // bool WritePermissionAddSwcData = 7;
   if (this->_internal_writepermissionaddswcdata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_writepermissionaddswcdata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_writepermissionaddswcdata(), target);
   }
 
-  // bool WritePermissionModifySwcData = 6;
+  // bool WritePermissionModifySwcData = 8;
   if (this->_internal_writepermissionmodifyswcdata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_writepermissionmodifyswcdata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_writepermissionmodifyswcdata(), target);
   }
 
-  // bool WritePermissionDeleteSwcData = 7;
+  // bool WritePermissionDeleteSwcData = 9;
   if (this->_internal_writepermissiondeleteswcdata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_writepermissiondeleteswcdata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_writepermissiondeleteswcdata(), target);
   }
 
-  // bool ReadPerimissionQuerySwcData = 8;
+  // bool ReadPerimissionQuerySwcData = 10;
   if (this->_internal_readperimissionqueryswcdata() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_readperimissionqueryswcdata(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_readperimissionqueryswcdata(), target);
+  }
+
+  // bool CreateSnapshotAndIncrementPermission = 11;
+  if (this->_internal_createsnapshotandincrementpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_createsnapshotandincrementpermission(), target);
+  }
+
+  // bool DeleteSnapshotAndIncrementPermission = 12;
+  if (this->_internal_deletesnapshotandincrementpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_deletesnapshotandincrementpermission(), target);
+  }
+
+  // bool QuerySnapshotAndIncrementPermission = 13;
+  if (this->_internal_querysnapshotandincrementpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_querysnapshotandincrementpermission(), target);
+  }
+
+  // bool CreateAnoAttachmentPermission = 14;
+  if (this->_internal_createanoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(14, this->_internal_createanoattachmentpermission(), target);
+  }
+
+  // bool DeleteAnoAttachmentPermission = 15;
+  if (this->_internal_deleteanoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_deleteanoattachmentpermission(), target);
+  }
+
+  // bool UpdateAnoAttachmentPermission = 16;
+  if (this->_internal_updateanoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_updateanoattachmentpermission(), target);
+  }
+
+  // bool QueryAnoAttachmentPermission = 17;
+  if (this->_internal_queryanoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(17, this->_internal_queryanoattachmentpermission(), target);
+  }
+
+  // bool CreateApoAttachmentPermission = 18;
+  if (this->_internal_createapoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_createapoattachmentpermission(), target);
+  }
+
+  // bool DeleteApoAttachmentPermission = 19;
+  if (this->_internal_deleteapoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(19, this->_internal_deleteapoattachmentpermission(), target);
+  }
+
+  // bool UpdateApoAttachmentPermission = 20;
+  if (this->_internal_updateapoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(20, this->_internal_updateapoattachmentpermission(), target);
+  }
+
+  // bool QueryApoAttachmentPermission = 21;
+  if (this->_internal_queryapoattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(21, this->_internal_queryapoattachmentpermission(), target);
+  }
+
+  // bool CreateSwcAttachmentPermission = 22;
+  if (this->_internal_createswcattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_createswcattachmentpermission(), target);
+  }
+
+  // bool DeleteSwcAttachmentPermission = 23;
+  if (this->_internal_deleteswcattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(23, this->_internal_deleteswcattachmentpermission(), target);
+  }
+
+  // bool UpdateSwcAttachmentPermission = 24;
+  if (this->_internal_updateswcattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(24, this->_internal_updateswcattachmentpermission(), target);
+  }
+
+  // bool QuerySwcAttachmentPermission = 25;
+  if (this->_internal_queryswcattachmentpermission() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(25, this->_internal_queryswcattachmentpermission(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3019,44 +3423,129 @@ size_t PermissionAceV1::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool WritePermissionCreateProject = 1;
-  if (this->_internal_writepermissioncreateproject() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // bool WritePermissionModifyProject = 2;
+  // bool WritePermissionModifyProject = 1;
   if (this->_internal_writepermissionmodifyproject() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool WritePermissionDeleteProject = 3;
+  // bool WritePermissionDeleteProject = 2;
   if (this->_internal_writepermissiondeleteproject() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool ReadPerimissionQueryProject = 4;
+  // bool ReadPerimissionQueryProject = 3;
   if (this->_internal_readperimissionqueryproject() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool WritePermissionAddSwcData = 5;
+  // bool WritePermissionUpdateSwc = 4;
+  if (this->_internal_writepermissionupdateswc() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool WritePermissionDeleteSwc = 5;
+  if (this->_internal_writepermissiondeleteswc() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool ReadPerimissionQuerySwc = 6;
+  if (this->_internal_readperimissionqueryswc() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool WritePermissionAddSwcData = 7;
   if (this->_internal_writepermissionaddswcdata() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool WritePermissionModifySwcData = 6;
+  // bool WritePermissionModifySwcData = 8;
   if (this->_internal_writepermissionmodifyswcdata() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool WritePermissionDeleteSwcData = 7;
+  // bool WritePermissionDeleteSwcData = 9;
   if (this->_internal_writepermissiondeleteswcdata() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool ReadPerimissionQuerySwcData = 8;
+  // bool ReadPerimissionQuerySwcData = 10;
   if (this->_internal_readperimissionqueryswcdata() != 0) {
     total_size += 1 + 1;
+  }
+
+  // bool CreateSnapshotAndIncrementPermission = 11;
+  if (this->_internal_createsnapshotandincrementpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool DeleteSnapshotAndIncrementPermission = 12;
+  if (this->_internal_deletesnapshotandincrementpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool QuerySnapshotAndIncrementPermission = 13;
+  if (this->_internal_querysnapshotandincrementpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool CreateAnoAttachmentPermission = 14;
+  if (this->_internal_createanoattachmentpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool DeleteAnoAttachmentPermission = 15;
+  if (this->_internal_deleteanoattachmentpermission() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool UpdateAnoAttachmentPermission = 16;
+  if (this->_internal_updateanoattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool QueryAnoAttachmentPermission = 17;
+  if (this->_internal_queryanoattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool CreateApoAttachmentPermission = 18;
+  if (this->_internal_createapoattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool DeleteApoAttachmentPermission = 19;
+  if (this->_internal_deleteapoattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool UpdateApoAttachmentPermission = 20;
+  if (this->_internal_updateapoattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool QueryApoAttachmentPermission = 21;
+  if (this->_internal_queryapoattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool CreateSwcAttachmentPermission = 22;
+  if (this->_internal_createswcattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool DeleteSwcAttachmentPermission = 23;
+  if (this->_internal_deleteswcattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool UpdateSwcAttachmentPermission = 24;
+  if (this->_internal_updateswcattachmentpermission() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool QuerySwcAttachmentPermission = 25;
+  if (this->_internal_queryswcattachmentpermission() != 0) {
+    total_size += 2 + 1;
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
@@ -3077,9 +3566,6 @@ void PermissionAceV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_writepermissioncreateproject() != 0) {
-    _this->_internal_set_writepermissioncreateproject(from._internal_writepermissioncreateproject());
-  }
   if (from._internal_writepermissionmodifyproject() != 0) {
     _this->_internal_set_writepermissionmodifyproject(from._internal_writepermissionmodifyproject());
   }
@@ -3088,6 +3574,15 @@ void PermissionAceV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   }
   if (from._internal_readperimissionqueryproject() != 0) {
     _this->_internal_set_readperimissionqueryproject(from._internal_readperimissionqueryproject());
+  }
+  if (from._internal_writepermissionupdateswc() != 0) {
+    _this->_internal_set_writepermissionupdateswc(from._internal_writepermissionupdateswc());
+  }
+  if (from._internal_writepermissiondeleteswc() != 0) {
+    _this->_internal_set_writepermissiondeleteswc(from._internal_writepermissiondeleteswc());
+  }
+  if (from._internal_readperimissionqueryswc() != 0) {
+    _this->_internal_set_readperimissionqueryswc(from._internal_readperimissionqueryswc());
   }
   if (from._internal_writepermissionaddswcdata() != 0) {
     _this->_internal_set_writepermissionaddswcdata(from._internal_writepermissionaddswcdata());
@@ -3100,6 +3595,51 @@ void PermissionAceV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   }
   if (from._internal_readperimissionqueryswcdata() != 0) {
     _this->_internal_set_readperimissionqueryswcdata(from._internal_readperimissionqueryswcdata());
+  }
+  if (from._internal_createsnapshotandincrementpermission() != 0) {
+    _this->_internal_set_createsnapshotandincrementpermission(from._internal_createsnapshotandincrementpermission());
+  }
+  if (from._internal_deletesnapshotandincrementpermission() != 0) {
+    _this->_internal_set_deletesnapshotandincrementpermission(from._internal_deletesnapshotandincrementpermission());
+  }
+  if (from._internal_querysnapshotandincrementpermission() != 0) {
+    _this->_internal_set_querysnapshotandincrementpermission(from._internal_querysnapshotandincrementpermission());
+  }
+  if (from._internal_createanoattachmentpermission() != 0) {
+    _this->_internal_set_createanoattachmentpermission(from._internal_createanoattachmentpermission());
+  }
+  if (from._internal_deleteanoattachmentpermission() != 0) {
+    _this->_internal_set_deleteanoattachmentpermission(from._internal_deleteanoattachmentpermission());
+  }
+  if (from._internal_updateanoattachmentpermission() != 0) {
+    _this->_internal_set_updateanoattachmentpermission(from._internal_updateanoattachmentpermission());
+  }
+  if (from._internal_queryanoattachmentpermission() != 0) {
+    _this->_internal_set_queryanoattachmentpermission(from._internal_queryanoattachmentpermission());
+  }
+  if (from._internal_createapoattachmentpermission() != 0) {
+    _this->_internal_set_createapoattachmentpermission(from._internal_createapoattachmentpermission());
+  }
+  if (from._internal_deleteapoattachmentpermission() != 0) {
+    _this->_internal_set_deleteapoattachmentpermission(from._internal_deleteapoattachmentpermission());
+  }
+  if (from._internal_updateapoattachmentpermission() != 0) {
+    _this->_internal_set_updateapoattachmentpermission(from._internal_updateapoattachmentpermission());
+  }
+  if (from._internal_queryapoattachmentpermission() != 0) {
+    _this->_internal_set_queryapoattachmentpermission(from._internal_queryapoattachmentpermission());
+  }
+  if (from._internal_createswcattachmentpermission() != 0) {
+    _this->_internal_set_createswcattachmentpermission(from._internal_createswcattachmentpermission());
+  }
+  if (from._internal_deleteswcattachmentpermission() != 0) {
+    _this->_internal_set_deleteswcattachmentpermission(from._internal_deleteswcattachmentpermission());
+  }
+  if (from._internal_updateswcattachmentpermission() != 0) {
+    _this->_internal_set_updateswcattachmentpermission(from._internal_updateswcattachmentpermission());
+  }
+  if (from._internal_queryswcattachmentpermission() != 0) {
+    _this->_internal_set_queryswcattachmentpermission(from._internal_queryswcattachmentpermission());
   }
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -3119,11 +3659,11 @@ void PermissionAceV1::InternalSwap(PermissionAceV1* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PermissionAceV1, _impl_.readperimissionqueryswcdata_)
-      + sizeof(PermissionAceV1::_impl_.readperimissionqueryswcdata_)
-      - PROTOBUF_FIELD_OFFSET(PermissionAceV1, _impl_.writepermissioncreateproject_)>(
-          reinterpret_cast<char*>(&_impl_.writepermissioncreateproject_),
-          reinterpret_cast<char*>(&other->_impl_.writepermissioncreateproject_));
+      PROTOBUF_FIELD_OFFSET(PermissionAceV1, _impl_.queryswcattachmentpermission_)
+      + sizeof(PermissionAceV1::_impl_.queryswcattachmentpermission_)
+      - PROTOBUF_FIELD_OFFSET(PermissionAceV1, _impl_.writepermissionmodifyproject_)>(
+          reinterpret_cast<char*>(&_impl_.writepermissionmodifyproject_),
+          reinterpret_cast<char*>(&other->_impl_.writepermissionmodifyproject_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PermissionAceV1::GetMetadata() const {
@@ -6464,6 +7004,7 @@ SwcMetaInfoV1::SwcMetaInfoV1(const SwcMetaInfoV1& from)
     , decltype(_impl_.swctype_){}
     , decltype(_impl_.currentincrementoperationcollectionname_){}
     , decltype(_impl_.swcattachmentswcuuid_){}
+    , decltype(_impl_.belongingprojectuuid_){}
     , decltype(_impl_.base_){nullptr}
     , decltype(_impl_.createtime_){nullptr}
     , decltype(_impl_.lastmodifiedtime_){nullptr}
@@ -6521,6 +7062,14 @@ SwcMetaInfoV1::SwcMetaInfoV1(const SwcMetaInfoV1& from)
     _this->_impl_.swcattachmentswcuuid_.Set(from._internal_swcattachmentswcuuid(), 
       _this->GetArenaForAllocation());
   }
+  _impl_.belongingprojectuuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.belongingprojectuuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_belongingprojectuuid().empty()) {
+    _this->_impl_.belongingprojectuuid_.Set(from._internal_belongingprojectuuid(), 
+      _this->GetArenaForAllocation());
+  }
   if (from._internal_has_base()) {
     _this->_impl_.base_ = new ::proto::MetaInfoBase(*from._impl_.base_);
   }
@@ -6555,6 +7104,7 @@ inline void SwcMetaInfoV1::SharedCtor(
     , decltype(_impl_.swctype_){}
     , decltype(_impl_.currentincrementoperationcollectionname_){}
     , decltype(_impl_.swcattachmentswcuuid_){}
+    , decltype(_impl_.belongingprojectuuid_){}
     , decltype(_impl_.base_){nullptr}
     , decltype(_impl_.createtime_){nullptr}
     , decltype(_impl_.lastmodifiedtime_){nullptr}
@@ -6587,6 +7137,10 @@ inline void SwcMetaInfoV1::SharedCtor(
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     _impl_.swcattachmentswcuuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.belongingprojectuuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.belongingprojectuuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SwcMetaInfoV1::~SwcMetaInfoV1() {
@@ -6608,6 +7162,7 @@ inline void SwcMetaInfoV1::SharedDtor() {
   _impl_.swctype_.Destroy();
   _impl_.currentincrementoperationcollectionname_.Destroy();
   _impl_.swcattachmentswcuuid_.Destroy();
+  _impl_.belongingprojectuuid_.Destroy();
   if (this != internal_default_instance()) delete _impl_.base_;
   if (this != internal_default_instance()) delete _impl_.createtime_;
   if (this != internal_default_instance()) delete _impl_.lastmodifiedtime_;
@@ -6634,6 +7189,7 @@ void SwcMetaInfoV1::Clear() {
   _impl_.swctype_.ClearToEmpty();
   _impl_.currentincrementoperationcollectionname_.ClearToEmpty();
   _impl_.swcattachmentswcuuid_.ClearToEmpty();
+  _impl_.belongingprojectuuid_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && _impl_.base_ != nullptr) {
     delete _impl_.base_;
   }
@@ -6801,6 +7357,16 @@ const char* SwcMetaInfoV1::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
+      // string BelongingProjectUuid = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
+          auto str = _internal_mutable_belongingprojectuuid();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "proto.SwcMetaInfoV1.BelongingProjectUuid"));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -6948,6 +7514,16 @@ uint8_t* SwcMetaInfoV1::_InternalSerialize(
         _Internal::permission(this).GetCachedSize(), target, stream);
   }
 
+  // string BelongingProjectUuid = 15;
+  if (!this->_internal_belongingprojectuuid().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_belongingprojectuuid().data(), static_cast<int>(this->_internal_belongingprojectuuid().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "proto.SwcMetaInfoV1.BelongingProjectUuid");
+    target = stream->WriteStringMaybeAliased(
+        15, this->_internal_belongingprojectuuid(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -7018,6 +7594,13 @@ size_t SwcMetaInfoV1::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_swcattachmentswcuuid());
+  }
+
+  // string BelongingProjectUuid = 15;
+  if (!this->_internal_belongingprojectuuid().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_belongingprojectuuid());
   }
 
   // .proto.MetaInfoBase Base = 1;
@@ -7100,6 +7683,9 @@ void SwcMetaInfoV1::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::
   if (!from._internal_swcattachmentswcuuid().empty()) {
     _this->_internal_set_swcattachmentswcuuid(from._internal_swcattachmentswcuuid());
   }
+  if (!from._internal_belongingprojectuuid().empty()) {
+    _this->_internal_set_belongingprojectuuid(from._internal_belongingprojectuuid());
+  }
   if (from._internal_has_base()) {
     _this->_internal_mutable_base()->::proto::MetaInfoBase::MergeFrom(
         from._internal_base());
@@ -7168,6 +7754,10 @@ void SwcMetaInfoV1::InternalSwap(SwcMetaInfoV1* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &_impl_.swcattachmentswcuuid_, lhs_arena,
       &other->_impl_.swcattachmentswcuuid_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.belongingprojectuuid_, lhs_arena,
+      &other->_impl_.belongingprojectuuid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SwcMetaInfoV1, _impl_.permission_)
@@ -10797,6 +11387,259 @@ void SwcAttachmentApoV1::InternalSwap(SwcAttachmentApoV1* other) {
       file_level_metadata_Message_2fMessage_2eproto[26]);
 }
 
+// ===================================================================
+
+class SwcUuidName::_Internal {
+ public:
+};
+
+SwcUuidName::SwcUuidName(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.SwcUuidName)
+}
+SwcUuidName::SwcUuidName(const SwcUuidName& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SwcUuidName* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.swcuuid_){}
+    , decltype(_impl_.swcname_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _impl_.swcuuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.swcuuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_swcuuid().empty()) {
+    _this->_impl_.swcuuid_.Set(from._internal_swcuuid(), 
+      _this->GetArenaForAllocation());
+  }
+  _impl_.swcname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.swcname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_swcname().empty()) {
+    _this->_impl_.swcname_.Set(from._internal_swcname(), 
+      _this->GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.SwcUuidName)
+}
+
+inline void SwcUuidName::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.swcuuid_){}
+    , decltype(_impl_.swcname_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.swcuuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.swcuuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.swcname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.swcname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+SwcUuidName::~SwcUuidName() {
+  // @@protoc_insertion_point(destructor:proto.SwcUuidName)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void SwcUuidName::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.swcuuid_.Destroy();
+  _impl_.swcname_.Destroy();
+}
+
+void SwcUuidName::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void SwcUuidName::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.SwcUuidName)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.swcuuid_.ClearToEmpty();
+  _impl_.swcname_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SwcUuidName::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string SwcUuid = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_swcuuid();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "proto.SwcUuidName.SwcUuid"));
+        } else
+          goto handle_unusual;
+        continue;
+      // string SwcName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_swcname();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "proto.SwcUuidName.SwcName"));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SwcUuidName::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.SwcUuidName)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string SwcUuid = 1;
+  if (!this->_internal_swcuuid().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_swcuuid().data(), static_cast<int>(this->_internal_swcuuid().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "proto.SwcUuidName.SwcUuid");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_swcuuid(), target);
+  }
+
+  // string SwcName = 2;
+  if (!this->_internal_swcname().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_swcname().data(), static_cast<int>(this->_internal_swcname().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "proto.SwcUuidName.SwcName");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_swcname(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.SwcUuidName)
+  return target;
+}
+
+size_t SwcUuidName::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.SwcUuidName)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string SwcUuid = 1;
+  if (!this->_internal_swcuuid().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_swcuuid());
+  }
+
+  // string SwcName = 2;
+  if (!this->_internal_swcname().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_swcname());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SwcUuidName::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    SwcUuidName::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SwcUuidName::GetClassData() const { return &_class_data_; }
+
+
+void SwcUuidName::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SwcUuidName*>(&to_msg);
+  auto& from = static_cast<const SwcUuidName&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.SwcUuidName)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_swcuuid().empty()) {
+    _this->_internal_set_swcuuid(from._internal_swcuuid());
+  }
+  if (!from._internal_swcname().empty()) {
+    _this->_internal_set_swcname(from._internal_swcname());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SwcUuidName::CopyFrom(const SwcUuidName& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.SwcUuidName)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SwcUuidName::IsInitialized() const {
+  return true;
+}
+
+void SwcUuidName::InternalSwap(SwcUuidName* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.swcuuid_, lhs_arena,
+      &other->_impl_.swcuuid_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &_impl_.swcname_, lhs_arena,
+      &other->_impl_.swcname_, rhs_arena
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata SwcUuidName::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fMessage_2eproto_getter, &descriptor_table_Message_2fMessage_2eproto_once,
+      file_level_metadata_Message_2fMessage_2eproto[27]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace proto
 PROTOBUF_NAMESPACE_OPEN
@@ -10907,6 +11750,10 @@ Arena::CreateMaybeMessage< ::proto::SwcAttachmentAnoV1 >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::proto::SwcAttachmentApoV1*
 Arena::CreateMaybeMessage< ::proto::SwcAttachmentApoV1 >(Arena* arena) {
   return Arena::CreateMessageInternal< ::proto::SwcAttachmentApoV1 >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::SwcUuidName*
+Arena::CreateMaybeMessage< ::proto::SwcUuidName >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::SwcUuidName >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

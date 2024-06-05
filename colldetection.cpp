@@ -705,7 +705,7 @@ vector<NeuronSWC> CollDetection::loopDetection(V_NeuronSWC_list& inputSegList, d
     result.insert(0,QString("%1 server overlap %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
     if(count!=0){
         proto::DeleteSwcNodeDataResponse response;
-        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+        WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, myServer->cachedUserData);
         QString msg=QString("/delline_norm:"+result.join(","));
         qDebug()<<"removeOverLapSegs: "<<msg;
         emit myServer->clientSendMsgs({msg});
@@ -2312,7 +2312,7 @@ void CollDetection::removeErrorSegs(bool flag){
 
     if(swcData.swcdata_size() > 0){
         proto::DeleteSwcNodeDataResponse response;
-        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+        WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, myServer->cachedUserData);
     }
 
     result.insert(0,QString("%1 server error %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
@@ -2453,7 +2453,7 @@ void CollDetection::tuneErrorSegs(bool flag){
 
     if(delSwcData.swcdata_size() > 0){
         proto::DeleteSwcNodeDataResponse response;
-        WrappedCall::deleteSwcNodeData(myServer->swcName, delSwcData, response, myServer->cachedUserData);
+        WrappedCall::deleteSwcNodeData(myServer->swcUuid, delSwcData, response, myServer->cachedUserData);
     }
 
     //最后的1表示多条线
@@ -2506,7 +2506,7 @@ void CollDetection::tuneErrorSegs(bool flag){
             }
 
             proto::CreateSwcNodeDataResponse response;
-            if(!WrappedCall::addSwcNodeData(myServer->swcName, addSwcData, response, myServer->cachedUserData)){
+            if(!WrappedCall::addSwcNodeData(myServer->swcUuid, addSwcData, response, myServer->cachedUserData)){
                 QString msg = "/WARN_AddSwcNodeDataError:server";
                 emit myServer->clientSendMsgs({msg});
                 return;
@@ -2687,7 +2687,7 @@ void CollDetection::removeShortSegs(V_NeuronSWC_list inputSegList, double dist_t
 
     if(swcData.swcdata_size() > 0){
         proto::DeleteSwcNodeDataResponse response;
-        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+        WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, myServer->cachedUserData);
     }
 
     QString msg=QString("/delline_norm:"+result.join(","));
@@ -2796,7 +2796,7 @@ void CollDetection::removeOverlapSegs(V_NeuronSWC_list inputSegList){
 
     if(swcData.swcdata_size() > 0){
         proto::DeleteSwcNodeDataResponse response;
-        WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, myServer->cachedUserData);
+        WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, myServer->cachedUserData);
     }
 
     result.insert(0,QString("%1 server overlap %2 %3 %4").arg(0).arg(count).arg(123).arg(1));

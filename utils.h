@@ -49,7 +49,7 @@ QStringList getSwcInBlock(const QString msg,const V_NeuronSWC_list& testVNL);
 QStringList getApoInBlock(const QString msg,const QList <CellAPO>& wholePoint);
 
 void setredis(const int port,const char *ano);
-void setexpire(const int port,const char *ano,const int expiretime);
+void setexpire(const char *project, const int port,const char *ano,const int expiretime);
 void recoverPort(const int port);
 
 vector<V_NeuronSWC>::iterator findseg(vector<V_NeuronSWC>::iterator begin,vector<V_NeuronSWC>::iterator end, V_NeuronSWC seg);

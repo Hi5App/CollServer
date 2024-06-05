@@ -2,24 +2,76 @@
 
     rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
 
-    GetSwcNodeData{}
-
     rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){}
-    rpc GetPermissionGroup(GetPermissionGroupRequest) returns (GetPermissionGroupResponse){}
-    rpc GetAllPermissionGroup(GetAllPermissionGroupRequest) returns (GetAllPermissionGroupResponse){}
     rpc ChangeUserPermissionGroup(ChangeUserPermissionGroupRequest) returns (ChangeUserPermissionGroupResponse){}
     
-    rpc BackupFullDatabase(BackupFullDatabaseRequest) returns (BackupFullDatabaseResponse){}
+    service DBMS {
+OK    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {} ACL - No
+OK    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {} ACL - Yes - Login and AllUserManagementPermission
+OK    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {} ACL - Yes - Login and (AllUserManagementPermission or Executor==UserSelf)
+OK    rpc GetUserByUuid(GetUserByUuidRequest) returns (GetUserByUuidResponse) {} //ACL - Yes - Login and (AllUserManagementPermission or Executor==UserSelf)
+OK    rpc GetUserByName(GetUserByNameRequest) returns (GetUserByNameResponse) {} //ACL - Yes - Login and (AllUserManagementPermission or Executor==UserSelf)
+OK    rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse){} //ACL - Yes - Login and AllUserManagementPermission
 
-   [M] rpc GetAllIncrementOperationMetaInfo(GetAllIncrementOperationMetaInfoRequest) returns (GetAllIncrementOperationMetaInfoResponse){}
-   [M] rpc GetIncrementOperation(GetIncrementOperationRequest) returns (GetIncrementOperationResponse){}
+OK    rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {} ACL - Yes - Login
+OK    rpc UserLogout(UserLogoutRequest) returns (UserLogoutResponse) {} ACL - Yes - Login
+OK    rpc UserOnlineHeartBeatNotifications(UserOnlineHeartBeatNotification) returns (UserOnlineHeartBeatResponse){} ACL - Yes - Login     
+
+OK    rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){} ACL - Yes - Login
+OK    rpc GetPermissionGroupByUuid(GetPermissionGroupByUuidRequest) returns (GetPermissionGroupByUuidResponse){} ACL - Yes - Login
+OK    rpc GetPermissionGroupByName(GetPermissionGroupByNameRequest) returns (GetPermissionGroupByNameResponse){} ACL - Yes - Login
+
+OK    rpc GetAllPermissionGroup(GetAllPermissionGroupRequest) returns (GetAllPermissionGroupResponse){} ACL - Yes - Login
+OK    rpc ChangeUserPermissionGroup(ChangeUserPermissionGroupRequest) returns (ChangeUserPermissionGroupResponse){} ACL - Yes - Login and AllUserManagementPermission
     
-CreateSwcAttachmentAno
-GetSwcAttachmentAno
-DeleteSwcAttachmentAno
-UpdateSwcAttachmentAno
+OK    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse){} ACL - Yes - Login and CreateProjectPermission or AllProjectManagementPermission
+OK    rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse){} ACL - Yes - Login and WritePermissionDeleteProject or AllProjectManagementPermission
+OK    rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse){} ACL - Yes - Login and WritePermissionModifyProject or AllProjectManagementPermission
+OK    rpc GetProject(GetProjectRequest) returns (GetProjectResponse){} ACL - Yes - Login and ReadPerimissionQueryProject or AllProjectManagementPermission
+OK    rpc GetAllProject(GetAllProjectRequest) returns (GetAllProjectResponse){} ACL - Yes - Login and ReadPerimissionQueryProject or AllProjectManagementPermission
+   
+OK    rpc CreateSwc(CreateSwcRequest) returns (CreateSwcResponse){} ACL - Yes - Login and CreateSwcPermission or AllSwcManagementPermission
+OK    rpc DeleteSwc(DeleteSwcRequest) returns (DeleteSwcResponse){} ACL - Yes - Login and WritePermissionDeleteSwc or AllSwcManagementPermission
+OK    rpc UpdateSwc(UpdateSwcRequest) returns (UpdateSwcResponse){} ACL - Yes - Login and WritePermissionUpdateSwc or AllSwcManagementPermission
+OK    rpc GetSwcMetaInfo(GetSwcMetaInfoRequest) returns (GetSwcMetaInfoResponse){} ACL - Yes - Login and ReadPerimissionQuerySwc or AllSwcManagementPermission
+OK    rpc GetAllSwcMetaInfo(GetAllSwcMetaInfoRequest) returns (GetAllSwcMetaInfoResponse){} ACL - Yes - Login and ReadPerimissionQuerySwc or AllSwcManagementPermission
+OK    rpc CreateSwcSnapshot(CreateSwcSnapshotRequest) returns (CreateSwcSnapshotResponse){} ACL - Yes - Login and CreateSnapshotAndIncrementPermission or AllSwcManagementPermission
+OK    rpc GetAllSnapshotMetaInfo(GetAllSnapshotMetaInfoRequest) returns (GetAllSnapshotMetaInfoResponse){} ACL - Yes - Login and QuerySnapshotAndIncrementPermission or AllSwcManagementPermission
+OK    rpc GetSnapshot(GetSnapshotRequest) returns (GetSnapshotResponse){} ACL - Yes - Login
+OK    rpc GetAllIncrementOperationMetaInfo(GetAllIncrementOperationMetaInfoRequest) returns (GetAllIncrementOperationMetaInfoResponse){} ACL - Yes - Login and (QuerySnapshotAndIncrementPermission or AllSwcManagementPermission)
+OK    rpc GetIncrementOperation(GetIncrementOperationRequest) returns (GetIncrementOperationResponse){} ACL - Yes - Login
 
-CreateSwcAttachmentApo
-GetSwcAttachmentApo
-DeleteSwcAttachmentApo
-UpdateSwcAttachmentApo
+OK    rpc CreateSwcNodeData(CreateSwcNodeDataRequest) returns (CreateSwcNodeDataResponse){} ACL - Yes - Login and WritePermissionAddSwcData or AllSwcManagementPermission
+OK    rpc DeleteSwcNodeData(DeleteSwcNodeDataRequest) returns (DeleteSwcNodeDataResponse){} ACL - Yes - Login and WritePermissionDeleteSwcData or AllSwcManagementPermission
+OK    rpc UpdateSwcNodeData(UpdateSwcNodeDataRequest) returns (UpdateSwcNodeDataResponse){} ACL - Yes - Login and WritePermissionModifySwcData or AllSwcManagementPermission
+OK    rpc GetSwcNodeData(GetSwcNodeDataRequest) returns (GetSwcNodeDataResponse){} ACL - Yes - Login and ReadPerimissionQuerySwcData or AllSwcManagementPermission
+OK    rpc GetSwcFullNodeData(GetSwcFullNodeDataRequest) returns (GetSwcFullNodeDataResponse){} ACL - Yes - Login and ReadPerimissionQuerySwcData or AllSwcManagementPermission
+OK    rpc GetSwcNodeDataListByTimeAndUser(GetSwcNodeDataListByTimeAndUserRequest) returns (GetSwcNodeDataListByTimeAndUserResponse){} ACL - Yes - Login and ReadPerimissionQuerySwcData or AllSwcManagementPermission
+
+OK    rpc CreateDailyStatistics(CreateDailyStatisticsRequest) returns (CreateDailyStatisticsResponse){} ACL - Yes - Login and AllDailyStatisticsManagementPermission
+OK    rpc DeleteDailyStatistics(DeleteDailyStatisticsRequest) returns (DeleteDailyStatisticsResponse){} ACL - Yes - Login and AllDailyStatisticsManagementPermission
+OK    rpc UpdateDailyStatistics(UpdateDailyStatisticsRequest) returns (UpdateDailyStatisticsResponse){} ACL - Yes - Login
+OK    rpc GetDailyStatistics(GetDailyStatisticsRequest) returns (GetDailyStatisticsResponse){} ACL - Yes - Login
+OK    rpc GetAllDailyStatistics(GetAllDailyStatisticsRequest) returns (GetAllDailyStatisticsResponse){} ACL - Yes - Login
+
+OK    rpc CreateSwcAttachmentAno(CreateSwcAttachmentAnoRequest) returns (CreateSwcAttachmentAnoResponse){} ACL - Yes - Login CreateAnoAttachmentPermission or AllSwcManagementPermission
+OK    rpc DeleteSwcAttachmentAno(DeleteSwcAttachmentAnoRequest) returns (DeleteSwcAttachmentAnoResponse){} ACL - Yes - Login DeleteAnoAttachmentPermission or AllSwcManagementPermission
+OK    rpc UpdateSwcAttachmentAno(UpdateSwcAttachmentAnoRequest) returns (UpdateSwcAttachmentAnoResponse){} ACL - Yes - Login UpdateAnoAttachmentPermission or AllSwcManagementPermission
+OK    rpc GetSwcAttachmentAno(GetSwcAttachmentAnoRequest) returns (GetSwcAttachmentAnoResponse){} ACL - Yes - Login QueryAnoAttachmentPermission or AllSwcManagementPermission
+
+OK    rpc CreateSwcAttachmentApo(CreateSwcAttachmentApoRequest) returns (CreateSwcAttachmentApoResponse){} ACL - Yes - Login CreateApoAttachmentPermission or AllSwcManagementPermission
+OK    rpc DeleteSwcAttachmentApo(DeleteSwcAttachmentApoRequest) returns (DeleteSwcAttachmentApoResponse){} ACL - Yes - Login DeleteApoAttachmentPermission or AllSwcManagementPermission
+OK    rpc UpdateSwcAttachmentApo(UpdateSwcAttachmentApoRequest) returns (UpdateSwcAttachmentApoResponse){} ACL - Yes - Login UpdateApoAttachmentPermission or AllSwcManagementPermission
+OK    rpc GetSwcAttachmentApo(GetSwcAttachmentApoRequest) returns (GetSwcAttachmentApoResponse){} ACL - Yes - Login QueryApoAttachmentPermission or AllSwcManagementPermission
+
+OK    rpc RevertSwcVersion(RevertSwcVersionRequest) returns (RevertSwcVersionResponse){} ACL - Yes - Login and WritePermissionAddSwcData and WritePermissionDeleteSwcData and WritePermissionModifySwcData and WritePermissionUpdateSwc or AllSwcManagementPermission
+
+OK    rpc CreateSwcAttachmentSwc(CreateSwcAttachmentSwcRequest) returns (CreateSwcAttachmentSwcResponse){} ACL - Yes - Login CreateSwcAttachmentPermission or AllSwcManagementPermission
+OK    rpc DeleteSwcAttachmentSwc(DeleteSwcAttachmentSwcRequest) returns (DeleteSwcAttachmentSwcResponse){} ACL - Yes - Login DeleteSwcAttachmentPermission or AllSwcManagementPermission
+OK    rpc UpdateSwcAttachmentSwc(UpdateSwcAttachmentSwcRequest) returns (UpdateSwcAttachmentSwcResponse){} ACL - Yes - Login UpdateSwcAttachmentPermission or AllSwcManagementPermission
+OK    rpc GetSwcAttachmentSwc(GetSwcAttachmentSwcRequest) returns (GetSwcAttachmentSwcResponse){} ACL - Yes - Login QuerySwcAttachmentPermission or AllSwcManagementPermission
+
+OK    rpc CreatePermissionGroup(CreatePermissionGroupRequest) returns (CreatePermissionGroupResponse){} ACL - Yes - Login and AllPermissionGroupManagementPermission
+OK    rpc DeletePermissionGroup(DeletePermissionGroupRequest) returns (DeletePermissionGroupResponse){} ACL - Yes - Login and AllPermissionGroupManagementPermission
+OK    rpc UpdatePermissionGroup(UpdatePermissionGroupRequest) returns (UpdatePermissionGroupResponse){} ACL - Yes - Login and AllPermissionGroupManagementPermission
+}

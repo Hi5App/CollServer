@@ -62,20 +62,34 @@ struct UpdateUserResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateUserResponseDefaultTypeInternal _UpdateUserResponse_default_instance_;
-PROTOBUF_CONSTEXPR GetUserResponse::GetUserResponse(
+PROTOBUF_CONSTEXPR GetUserByUuidResponse::GetUserByUuidResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.metainfo_)*/nullptr
   , /*decltype(_impl_.userinfo_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct GetUserResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetUserResponseDefaultTypeInternal()
+struct GetUserByUuidResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetUserByUuidResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetUserResponseDefaultTypeInternal() {}
+  ~GetUserByUuidResponseDefaultTypeInternal() {}
   union {
-    GetUserResponse _instance;
+    GetUserByUuidResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetUserResponseDefaultTypeInternal _GetUserResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetUserByUuidResponseDefaultTypeInternal _GetUserByUuidResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetUserByNameResponse::GetUserByNameResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metainfo_)*/nullptr
+  , /*decltype(_impl_.userinfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetUserByNameResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetUserByNameResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetUserByNameResponseDefaultTypeInternal() {}
+  union {
+    GetUserByNameResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetUserByNameResponseDefaultTypeInternal _GetUserByNameResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetAllUserResponse::GetAllUserResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.userinfo_)*/{}
@@ -146,20 +160,34 @@ struct GetUserPermissionGroupResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetUserPermissionGroupResponseDefaultTypeInternal _GetUserPermissionGroupResponse_default_instance_;
-PROTOBUF_CONSTEXPR GetPermissionGroupResponse::GetPermissionGroupResponse(
+PROTOBUF_CONSTEXPR GetPermissionGroupByUuidResponse::GetPermissionGroupByUuidResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.metainfo_)*/nullptr
   , /*decltype(_impl_.permissiongroup_)*/nullptr
   , /*decltype(_impl_._cached_size_)*/{}} {}
-struct GetPermissionGroupResponseDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR GetPermissionGroupResponseDefaultTypeInternal()
+struct GetPermissionGroupByUuidResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetPermissionGroupByUuidResponseDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~GetPermissionGroupResponseDefaultTypeInternal() {}
+  ~GetPermissionGroupByUuidResponseDefaultTypeInternal() {}
   union {
-    GetPermissionGroupResponse _instance;
+    GetPermissionGroupByUuidResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionGroupResponseDefaultTypeInternal _GetPermissionGroupResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionGroupByUuidResponseDefaultTypeInternal _GetPermissionGroupByUuidResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetPermissionGroupByNameResponse::GetPermissionGroupByNameResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metainfo_)*/nullptr
+  , /*decltype(_impl_.permissiongroup_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetPermissionGroupByNameResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetPermissionGroupByNameResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetPermissionGroupByNameResponseDefaultTypeInternal() {}
+  union {
+    GetPermissionGroupByNameResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionGroupByNameResponseDefaultTypeInternal _GetPermissionGroupByNameResponse_default_instance_;
 PROTOBUF_CONSTEXPR GetAllPermissionGroupResponse::GetAllPermissionGroupResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.permissiongrouplist_)*/{}
@@ -725,8 +753,61 @@ struct GetSwcAttachmentSwcResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetSwcAttachmentSwcResponseDefaultTypeInternal _GetSwcAttachmentSwcResponse_default_instance_;
+PROTOBUF_CONSTEXPR CreatePermissionGroupResponse::CreatePermissionGroupResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metainfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CreatePermissionGroupResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CreatePermissionGroupResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CreatePermissionGroupResponseDefaultTypeInternal() {}
+  union {
+    CreatePermissionGroupResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CreatePermissionGroupResponseDefaultTypeInternal _CreatePermissionGroupResponse_default_instance_;
+PROTOBUF_CONSTEXPR DeletePermissionGroupResponse::DeletePermissionGroupResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metainfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct DeletePermissionGroupResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeletePermissionGroupResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeletePermissionGroupResponseDefaultTypeInternal() {}
+  union {
+    DeletePermissionGroupResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeletePermissionGroupResponseDefaultTypeInternal _DeletePermissionGroupResponse_default_instance_;
+PROTOBUF_CONSTEXPR UpdatePermissionGroupResponse::UpdatePermissionGroupResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metainfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct UpdatePermissionGroupResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UpdatePermissionGroupResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UpdatePermissionGroupResponseDefaultTypeInternal() {}
+  union {
+    UpdatePermissionGroupResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdatePermissionGroupResponseDefaultTypeInternal _UpdatePermissionGroupResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetProjectSwcNamesByProjectUuidResponse::GetProjectSwcNamesByProjectUuidResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.swcuuidname_)*/{}
+  , /*decltype(_impl_.metainfo_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct GetProjectSwcNamesByProjectUuidResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetProjectSwcNamesByProjectUuidResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetProjectSwcNamesByProjectUuidResponseDefaultTypeInternal() {}
+  union {
+    GetProjectSwcNamesByProjectUuidResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetProjectSwcNamesByProjectUuidResponseDefaultTypeInternal _GetProjectSwcNamesByProjectUuidResponse_default_instance_;
 }  // namespace proto
-static ::_pb::Metadata file_level_metadata_Message_2fResponse_2eproto[51];
+static ::_pb::Metadata file_level_metadata_Message_2fResponse_2eproto[57];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_Message_2fResponse_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_Message_2fResponse_2eproto = nullptr;
 
@@ -755,13 +836,21 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   PROTOBUF_FIELD_OFFSET(::proto::UpdateUserResponse, _impl_.metainfo_),
   PROTOBUF_FIELD_OFFSET(::proto::UpdateUserResponse, _impl_.userinfo_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::proto::GetUserResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetUserByUuidResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::proto::GetUserResponse, _impl_.metainfo_),
-  PROTOBUF_FIELD_OFFSET(::proto::GetUserResponse, _impl_.userinfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetUserByUuidResponse, _impl_.metainfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetUserByUuidResponse, _impl_.userinfo_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::GetUserByNameResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::GetUserByNameResponse, _impl_.metainfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetUserByNameResponse, _impl_.userinfo_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::GetAllUserResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -803,13 +892,21 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   PROTOBUF_FIELD_OFFSET(::proto::GetUserPermissionGroupResponse, _impl_.metainfo_),
   PROTOBUF_FIELD_OFFSET(::proto::GetUserPermissionGroupResponse, _impl_.permissiongroup_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupByUuidResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _impl_.metainfo_),
-  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupResponse, _impl_.permissiongroup_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupByUuidResponse, _impl_.metainfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupByUuidResponse, _impl_.permissiongroup_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupByNameResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupByNameResponse, _impl_.metainfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetPermissionGroupByNameResponse, _impl_.permissiongroup_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::proto::GetAllPermissionGroupResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1129,72 +1226,109 @@ const uint32_t TableStruct_Message_2fResponse_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::proto::GetSwcAttachmentSwcResponse, _impl_.metainfo_),
   PROTOBUF_FIELD_OFFSET(::proto::GetSwcAttachmentSwcResponse, _impl_.swcdata_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::CreatePermissionGroupResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::CreatePermissionGroupResponse, _impl_.metainfo_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::DeletePermissionGroupResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::DeletePermissionGroupResponse, _impl_.metainfo_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::UpdatePermissionGroupResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::UpdatePermissionGroupResponse, _impl_.metainfo_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::proto::GetProjectSwcNamesByProjectUuidResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::proto::GetProjectSwcNamesByProjectUuidResponse, _impl_.metainfo_),
+  PROTOBUF_FIELD_OFFSET(::proto::GetProjectSwcNamesByProjectUuidResponse, _impl_.swcuuidname_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::proto::CreateUserResponse)},
   { 8, -1, -1, sizeof(::proto::DeleteUserResponse)},
   { 15, -1, -1, sizeof(::proto::UpdateUserResponse)},
-  { 23, -1, -1, sizeof(::proto::GetUserResponse)},
-  { 31, -1, -1, sizeof(::proto::GetAllUserResponse)},
-  { 39, -1, -1, sizeof(::proto::UserLoginResponse)},
-  { 48, -1, -1, sizeof(::proto::UserLogoutResponse)},
-  { 55, -1, -1, sizeof(::proto::UserOnlineHeartBeatResponse)},
-  { 63, -1, -1, sizeof(::proto::GetUserPermissionGroupResponse)},
-  { 71, -1, -1, sizeof(::proto::GetPermissionGroupResponse)},
-  { 79, -1, -1, sizeof(::proto::GetAllPermissionGroupResponse)},
-  { 87, -1, -1, sizeof(::proto::ChangeUserPermissionGroupResponse)},
-  { 94, -1, -1, sizeof(::proto::CreateProjectResponse)},
-  { 102, -1, -1, sizeof(::proto::DeleteProjectResponse)},
-  { 110, -1, -1, sizeof(::proto::UpdateProjectResponse)},
-  { 118, -1, -1, sizeof(::proto::GetProjectResponse)},
-  { 126, -1, -1, sizeof(::proto::GetAllProjectResponse)},
-  { 134, -1, -1, sizeof(::proto::CreateSwcResponse)},
-  { 144, -1, -1, sizeof(::proto::DeleteSwcResponse)},
-  { 152, -1, -1, sizeof(::proto::UpdateSwcResponse)},
-  { 160, -1, -1, sizeof(::proto::GetSwcMetaInfoResponse)},
-  { 168, -1, -1, sizeof(::proto::GetAllSwcMetaInfoResponse)},
-  { 176, -1, -1, sizeof(::proto::CreateSwcSnapshotResponse)},
-  { 183, -1, -1, sizeof(::proto::GetAllSnapshotMetaInfoResponse)},
-  { 191, -1, -1, sizeof(::proto::GetSnapshotResponse)},
-  { 199, -1, -1, sizeof(::proto::GetAllIncrementOperationMetaInfoResponse)},
-  { 207, -1, -1, sizeof(::proto::GetIncrementOperationResponse)},
-  { 215, -1, -1, sizeof(::proto::CreateSwcNodeDataResponse)},
-  { 223, -1, -1, sizeof(::proto::DeleteSwcNodeDataResponse)},
-  { 230, -1, -1, sizeof(::proto::UpdateSwcNodeDataResponse)},
-  { 237, -1, -1, sizeof(::proto::GetSwcNodeDataResponse)},
-  { 245, -1, -1, sizeof(::proto::GetSwcFullNodeDataResponse)},
-  { 253, -1, -1, sizeof(::proto::GetSwcNodeDataListByTimeAndUserResponse)},
-  { 261, -1, -1, sizeof(::proto::CreateDailyStatisticsResponse)},
-  { 269, -1, -1, sizeof(::proto::DeleteDailyStatisticsResponse)},
-  { 277, -1, -1, sizeof(::proto::UpdateDailyStatisticsResponse)},
-  { 285, -1, -1, sizeof(::proto::GetDailyStatisticsResponse)},
-  { 293, -1, -1, sizeof(::proto::GetAllDailyStatisticsResponse)},
-  { 301, -1, -1, sizeof(::proto::CreateSwcAttachmentAnoResponse)},
-  { 309, -1, -1, sizeof(::proto::DeleteSwcAttachmentAnoResponse)},
-  { 316, -1, -1, sizeof(::proto::UpdateSwcAttachmentAnoResponse)},
-  { 323, -1, -1, sizeof(::proto::GetSwcAttachmentAnoResponse)},
-  { 331, -1, -1, sizeof(::proto::CreateSwcAttachmentApoResponse)},
-  { 339, -1, -1, sizeof(::proto::DeleteSwcAttachmentApoResponse)},
-  { 346, -1, -1, sizeof(::proto::UpdateSwcAttachmentApoResponse)},
-  { 353, -1, -1, sizeof(::proto::GetSwcAttachmentApoResponse)},
-  { 361, -1, -1, sizeof(::proto::RevertSwcVersionResponse)},
-  { 368, -1, -1, sizeof(::proto::CreateSwcAttachmentSwcResponse)},
-  { 376, -1, -1, sizeof(::proto::DeleteSwcAttachmentSwcResponse)},
-  { 383, -1, -1, sizeof(::proto::UpdateSwcAttachmentSwcResponse)},
-  { 390, -1, -1, sizeof(::proto::GetSwcAttachmentSwcResponse)},
+  { 23, -1, -1, sizeof(::proto::GetUserByUuidResponse)},
+  { 31, -1, -1, sizeof(::proto::GetUserByNameResponse)},
+  { 39, -1, -1, sizeof(::proto::GetAllUserResponse)},
+  { 47, -1, -1, sizeof(::proto::UserLoginResponse)},
+  { 56, -1, -1, sizeof(::proto::UserLogoutResponse)},
+  { 63, -1, -1, sizeof(::proto::UserOnlineHeartBeatResponse)},
+  { 71, -1, -1, sizeof(::proto::GetUserPermissionGroupResponse)},
+  { 79, -1, -1, sizeof(::proto::GetPermissionGroupByUuidResponse)},
+  { 87, -1, -1, sizeof(::proto::GetPermissionGroupByNameResponse)},
+  { 95, -1, -1, sizeof(::proto::GetAllPermissionGroupResponse)},
+  { 103, -1, -1, sizeof(::proto::ChangeUserPermissionGroupResponse)},
+  { 110, -1, -1, sizeof(::proto::CreateProjectResponse)},
+  { 118, -1, -1, sizeof(::proto::DeleteProjectResponse)},
+  { 126, -1, -1, sizeof(::proto::UpdateProjectResponse)},
+  { 134, -1, -1, sizeof(::proto::GetProjectResponse)},
+  { 142, -1, -1, sizeof(::proto::GetAllProjectResponse)},
+  { 150, -1, -1, sizeof(::proto::CreateSwcResponse)},
+  { 160, -1, -1, sizeof(::proto::DeleteSwcResponse)},
+  { 168, -1, -1, sizeof(::proto::UpdateSwcResponse)},
+  { 176, -1, -1, sizeof(::proto::GetSwcMetaInfoResponse)},
+  { 184, -1, -1, sizeof(::proto::GetAllSwcMetaInfoResponse)},
+  { 192, -1, -1, sizeof(::proto::CreateSwcSnapshotResponse)},
+  { 199, -1, -1, sizeof(::proto::GetAllSnapshotMetaInfoResponse)},
+  { 207, -1, -1, sizeof(::proto::GetSnapshotResponse)},
+  { 215, -1, -1, sizeof(::proto::GetAllIncrementOperationMetaInfoResponse)},
+  { 223, -1, -1, sizeof(::proto::GetIncrementOperationResponse)},
+  { 231, -1, -1, sizeof(::proto::CreateSwcNodeDataResponse)},
+  { 239, -1, -1, sizeof(::proto::DeleteSwcNodeDataResponse)},
+  { 246, -1, -1, sizeof(::proto::UpdateSwcNodeDataResponse)},
+  { 253, -1, -1, sizeof(::proto::GetSwcNodeDataResponse)},
+  { 261, -1, -1, sizeof(::proto::GetSwcFullNodeDataResponse)},
+  { 269, -1, -1, sizeof(::proto::GetSwcNodeDataListByTimeAndUserResponse)},
+  { 277, -1, -1, sizeof(::proto::CreateDailyStatisticsResponse)},
+  { 285, -1, -1, sizeof(::proto::DeleteDailyStatisticsResponse)},
+  { 293, -1, -1, sizeof(::proto::UpdateDailyStatisticsResponse)},
+  { 301, -1, -1, sizeof(::proto::GetDailyStatisticsResponse)},
+  { 309, -1, -1, sizeof(::proto::GetAllDailyStatisticsResponse)},
+  { 317, -1, -1, sizeof(::proto::CreateSwcAttachmentAnoResponse)},
+  { 325, -1, -1, sizeof(::proto::DeleteSwcAttachmentAnoResponse)},
+  { 332, -1, -1, sizeof(::proto::UpdateSwcAttachmentAnoResponse)},
+  { 339, -1, -1, sizeof(::proto::GetSwcAttachmentAnoResponse)},
+  { 347, -1, -1, sizeof(::proto::CreateSwcAttachmentApoResponse)},
+  { 355, -1, -1, sizeof(::proto::DeleteSwcAttachmentApoResponse)},
+  { 362, -1, -1, sizeof(::proto::UpdateSwcAttachmentApoResponse)},
+  { 369, -1, -1, sizeof(::proto::GetSwcAttachmentApoResponse)},
+  { 377, -1, -1, sizeof(::proto::RevertSwcVersionResponse)},
+  { 384, -1, -1, sizeof(::proto::CreateSwcAttachmentSwcResponse)},
+  { 392, -1, -1, sizeof(::proto::DeleteSwcAttachmentSwcResponse)},
+  { 399, -1, -1, sizeof(::proto::UpdateSwcAttachmentSwcResponse)},
+  { 406, -1, -1, sizeof(::proto::GetSwcAttachmentSwcResponse)},
+  { 414, -1, -1, sizeof(::proto::CreatePermissionGroupResponse)},
+  { 421, -1, -1, sizeof(::proto::DeletePermissionGroupResponse)},
+  { 428, -1, -1, sizeof(::proto::UpdatePermissionGroupResponse)},
+  { 435, -1, -1, sizeof(::proto::GetProjectSwcNamesByProjectUuidResponse)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::proto::_CreateUserResponse_default_instance_._instance,
   &::proto::_DeleteUserResponse_default_instance_._instance,
   &::proto::_UpdateUserResponse_default_instance_._instance,
-  &::proto::_GetUserResponse_default_instance_._instance,
+  &::proto::_GetUserByUuidResponse_default_instance_._instance,
+  &::proto::_GetUserByNameResponse_default_instance_._instance,
   &::proto::_GetAllUserResponse_default_instance_._instance,
   &::proto::_UserLoginResponse_default_instance_._instance,
   &::proto::_UserLogoutResponse_default_instance_._instance,
   &::proto::_UserOnlineHeartBeatResponse_default_instance_._instance,
   &::proto::_GetUserPermissionGroupResponse_default_instance_._instance,
-  &::proto::_GetPermissionGroupResponse_default_instance_._instance,
+  &::proto::_GetPermissionGroupByUuidResponse_default_instance_._instance,
+  &::proto::_GetPermissionGroupByNameResponse_default_instance_._instance,
   &::proto::_GetAllPermissionGroupResponse_default_instance_._instance,
   &::proto::_ChangeUserPermissionGroupResponse_default_instance_._instance,
   &::proto::_CreateProjectResponse_default_instance_._instance,
@@ -1236,6 +1370,10 @@ static const ::_pb::Message* const file_default_instances[] = {
   &::proto::_DeleteSwcAttachmentSwcResponse_default_instance_._instance,
   &::proto::_UpdateSwcAttachmentSwcResponse_default_instance_._instance,
   &::proto::_GetSwcAttachmentSwcResponse_default_instance_._instance,
+  &::proto::_CreatePermissionGroupResponse_default_instance_._instance,
+  &::proto::_DeletePermissionGroupResponse_default_instance_._instance,
+  &::proto::_UpdatePermissionGroupResponse_default_instance_._instance,
+  &::proto::_GetProjectSwcNamesByProjectUuidResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_Message_2fResponse_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -1248,144 +1386,159 @@ const char descriptor_table_protodef_Message_2fResponse_2eproto[] PROTOBUF_SECTI
   "oto.ResponseMetaInfoV1\"j\n\022UpdateUserResp"
   "onse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseM"
   "etaInfoV1\022\'\n\010UserInfo\030\002 \001(\0132\025.proto.User"
-  "MetaInfoV1\"g\n\017GetUserResponse\022+\n\010metaInf"
-  "o\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022\'\n\010Us"
-  "erInfo\030\002 \001(\0132\025.proto.UserMetaInfoV1\"j\n\022G"
-  "etAllUserResponse\022+\n\010metaInfo\030\001 \001(\0132\031.pr"
-  "oto.ResponseMetaInfoV1\022\'\n\010UserInfo\030\002 \003(\013"
-  "2\025.proto.UserMetaInfoV1\"\232\001\n\021UserLoginRes"
-  "ponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Response"
-  "MetaInfoV1\022\'\n\010UserInfo\030\002 \001(\0132\025.proto.Use"
-  "rMetaInfoV1\022/\n\016UserVerifyInfo\030\003 \001(\0132\027.pr"
-  "oto.UserVerifyInfoV1\"A\n\022UserLogoutRespon"
-  "se\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMet"
-  "aInfoV1\"{\n\033UserOnlineHeartBeatResponse\022+"
-  "\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInf"
-  "oV1\022/\n\016UserVerifyInfo\030\002 \001(\0132\027.proto.User"
-  "VerifyInfoV1\"\210\001\n\036GetUserPermissionGroupR"
-  "esponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Respon"
-  "seMetaInfoV1\0229\n\017PermissionGroup\030\002 \001(\0132 ."
-  "proto.PermissionGroupMetaInfoV1\"\204\001\n\032GetP"
-  "ermissionGroupResponse\022+\n\010metaInfo\030\001 \001(\013"
-  "2\031.proto.ResponseMetaInfoV1\0229\n\017Permissio"
-  "nGroup\030\002 \001(\0132 .proto.PermissionGroupMeta"
-  "InfoV1\"\213\001\n\035GetAllPermissionGroupResponse"
-  "\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaI"
-  "nfoV1\022=\n\023PermissionGroupList\030\002 \003(\0132 .pro"
-  "to.PermissionGroupMetaInfoV1\"P\n!ChangeUs"
-  "erPermissionGroupResponse\022+\n\010metaInfo\030\001 "
-  "\001(\0132\031.proto.ResponseMetaInfoV1\"s\n\025Create"
-  "ProjectResponse\022+\n\010metaInfo\030\001 \001(\0132\031.prot"
-  "o.ResponseMetaInfoV1\022-\n\013ProjectInfo\030\002 \001("
-  "\0132\030.proto.ProjectMetaInfoV1\"s\n\025DeletePro"
-  "jectResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.R"
-  "esponseMetaInfoV1\022-\n\013ProjectInfo\030\002 \001(\0132\030"
-  ".proto.ProjectMetaInfoV1\"s\n\025UpdateProjec"
-  "tResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Resp"
-  "onseMetaInfoV1\022-\n\013ProjectInfo\030\002 \001(\0132\030.pr"
-  "oto.ProjectMetaInfoV1\"p\n\022GetProjectRespo"
-  "nse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMe"
-  "taInfoV1\022-\n\013ProjectInfo\030\002 \001(\0132\030.proto.Pr"
-  "ojectMetaInfoV1\"s\n\025GetAllProjectResponse"
-  "\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaI"
-  "nfoV1\022-\n\013ProjectInfo\030\002 \003(\0132\030.proto.Proje"
-  "ctMetaInfoV1\"\235\001\n\021CreateSwcResponse\022+\n\010me"
-  "taInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022"
-  "%\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\022\031"
-  "\n\021AnoAttachmentUuid\030\003 \001(\t\022\031\n\021ApoAttachme"
-  "ntUuid\030\004 \001(\t\"g\n\021DeleteSwcResponse\022+\n\010met"
-  "aInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022%"
-  "\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\"g\n"
-  "\021UpdateSwcResponse\022+\n\010metaInfo\030\001 \001(\0132\031.p"
-  "roto.ResponseMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\013"
-  "2\024.proto.SwcMetaInfoV1\"l\n\026GetSwcMetaInfo"
-  "Response\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Respo"
-  "nseMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.S"
-  "wcMetaInfoV1\"o\n\031GetAllSwcMetaInfoRespons"
-  "e\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMeta"
-  "InfoV1\022%\n\007SwcInfo\030\002 \003(\0132\024.proto.SwcMetaI"
-  "nfoV1\"H\n\031CreateSwcSnapshotResponse\022+\n\010me"
-  "taInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\""
-  "\204\001\n\036GetAllSnapshotMetaInfoResponse\022+\n\010me"
-  "taInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022"
-  "5\n\017SwcSnapshotList\030\002 \003(\0132\034.proto.SwcSnap"
-  "shotMetaInfoV1\"i\n\023GetSnapshotResponse\022+\n"
-  "\010metaInfo\030\002 \001(\0132\031.proto.ResponseMetaInfo"
-  "V1\022%\n\013SwcNodeData\030\003 \001(\0132\020.proto.SwcDataV"
-  "1\"\246\001\n(GetAllIncrementOperationMetaInfoRe"
-  "sponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Respons"
-  "eMetaInfoV1\022M\n\035SwcIncrementOperationMeta"
-  "Info\030\002 \003(\0132&.proto.SwcIncrementOperation"
-  "MetaInfoV1\"\223\001\n\035GetIncrementOperationResp"
-  "onse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseM"
-  "etaInfoV1\022E\n\031SwcIncrementOperationList\030\002"
-  " \001(\0132\".proto.SwcIncrementOperationListV1"
-  "\"b\n\031CreateSwcNodeDataResponse\022+\n\010metaInf"
-  "o\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022\030\n\020Cr"
-  "eatedNodesUuid\030\002 \003(\t\"H\n\031DeleteSwcNodeDat"
-  "aResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Resp"
-  "onseMetaInfoV1\"H\n\031UpdateSwcNodeDataRespo"
-  "nse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMe"
-  "taInfoV1\"l\n\026GetSwcNodeDataResponse\022+\n\010me"
-  "taInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022"
-  "%\n\013SwcNodeData\030\002 \001(\0132\020.proto.SwcDataV1\"p"
-  "\n\032GetSwcFullNodeDataResponse\022+\n\010metaInfo"
-  "\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022%\n\013Swc"
-  "NodeData\030\002 \001(\0132\020.proto.SwcDataV1\"}\n\'GetS"
-  "wcNodeDataListByTimeAndUserResponse\022+\n\010m"
+  "MetaInfoV1\"m\n\025GetUserByUuidResponse\022+\n\010m"
   "etaInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1"
-  "\022%\n\013SwcNodeData\030\002 \001(\0132\020.proto.SwcDataV1\""
-  "\213\001\n\035CreateDailyStatisticsResponse\022+\n\010met"
-  "aInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022="
-  "\n\023DailyStatisticsInfo\030\002 \001(\0132 .proto.Dail"
-  "yStatisticsMetaInfoV1\"\213\001\n\035DeleteDailySta"
-  "tisticsResponse\022+\n\010metaInfo\030\001 \001(\0132\031.prot"
-  "o.ResponseMetaInfoV1\022=\n\023DailyStatisticsI"
-  "nfo\030\002 \001(\0132 .proto.DailyStatisticsMetaInf"
-  "oV1\"\213\001\n\035UpdateDailyStatisticsResponse\022+\n"
-  "\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInfo"
-  "V1\022=\n\023DailyStatisticsInfo\030\002 \001(\0132 .proto."
-  "DailyStatisticsMetaInfoV1\"\210\001\n\032GetDailySt"
-  "atisticsResponse\022+\n\010metaInfo\030\001 \001(\0132\031.pro"
-  "to.ResponseMetaInfoV1\022=\n\023DailyStatistics"
-  "Info\030\002 \001(\0132 .proto.DailyStatisticsMetaIn"
-  "foV1\"\213\001\n\035GetAllDailyStatisticsResponse\022+"
-  "\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInf"
-  "oV1\022=\n\023DailyStatisticsInfo\030\002 \003(\0132 .proto"
-  ".DailyStatisticsMetaInfoV1\"h\n\036CreateSwcA"
-  "ttachmentAnoResponse\022+\n\010metaInfo\030\001 \001(\0132\031"
-  ".proto.ResponseMetaInfoV1\022\031\n\021AnoAttachme"
-  "ntUuid\030\002 \001(\t\"M\n\036DeleteSwcAttachmentAnoRe"
+  "\022\'\n\010UserInfo\030\002 \001(\0132\025.proto.UserMetaInfoV"
+  "1\"m\n\025GetUserByNameResponse\022+\n\010metaInfo\030\001"
+  " \001(\0132\031.proto.ResponseMetaInfoV1\022\'\n\010UserI"
+  "nfo\030\002 \001(\0132\025.proto.UserMetaInfoV1\"j\n\022GetA"
+  "llUserResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto"
+  ".ResponseMetaInfoV1\022\'\n\010UserInfo\030\002 \003(\0132\025."
+  "proto.UserMetaInfoV1\"\232\001\n\021UserLoginRespon"
+  "se\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMet"
+  "aInfoV1\022\'\n\010UserInfo\030\002 \001(\0132\025.proto.UserMe"
+  "taInfoV1\022/\n\016UserVerifyInfo\030\003 \001(\0132\027.proto"
+  ".UserVerifyInfoV1\"A\n\022UserLogoutResponse\022"
+  "+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaIn"
+  "foV1\"{\n\033UserOnlineHeartBeatResponse\022+\n\010m"
+  "etaInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1"
+  "\022/\n\016UserVerifyInfo\030\002 \001(\0132\027.proto.UserVer"
+  "ifyInfoV1\"\210\001\n\036GetUserPermissionGroupResp"
+  "onse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseM"
+  "etaInfoV1\0229\n\017PermissionGroup\030\002 \001(\0132 .pro"
+  "to.PermissionGroupMetaInfoV1\"\212\001\n GetPerm"
+  "issionGroupByUuidResponse\022+\n\010metaInfo\030\001 "
+  "\001(\0132\031.proto.ResponseMetaInfoV1\0229\n\017Permis"
+  "sionGroup\030\002 \001(\0132 .proto.PermissionGroupM"
+  "etaInfoV1\"\212\001\n GetPermissionGroupByNameRe"
   "sponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Respons"
-  "eMetaInfoV1\"M\n\036UpdateSwcAttachmentAnoRes"
-  "ponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Response"
-  "MetaInfoV1\"\177\n\033GetSwcAttachmentAnoRespons"
-  "e\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMeta"
-  "InfoV1\0223\n\020SwcAttachmentAno\030\002 \001(\0132\031.proto"
-  ".SwcAttachmentAnoV1\"h\n\036CreateSwcAttachme"
-  "ntApoResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto."
-  "ResponseMetaInfoV1\022\031\n\021ApoAttachmentUuid\030"
-  "\002 \001(\t\"M\n\036DeleteSwcAttachmentApoResponse\022"
+  "eMetaInfoV1\0229\n\017PermissionGroup\030\002 \001(\0132 .p"
+  "roto.PermissionGroupMetaInfoV1\"\213\001\n\035GetAl"
+  "lPermissionGroupResponse\022+\n\010metaInfo\030\001 \001"
+  "(\0132\031.proto.ResponseMetaInfoV1\022=\n\023Permiss"
+  "ionGroupList\030\002 \003(\0132 .proto.PermissionGro"
+  "upMetaInfoV1\"P\n!ChangeUserPermissionGrou"
+  "pResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Resp"
+  "onseMetaInfoV1\"s\n\025CreateProjectResponse\022"
   "+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaIn"
-  "foV1\"M\n\036UpdateSwcAttachmentApoResponse\022+"
-  "\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInf"
-  "oV1\"\177\n\033GetSwcAttachmentApoResponse\022+\n\010me"
-  "taInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022"
-  "3\n\020SwcAttachmentApo\030\002 \003(\0132\031.proto.SwcAtt"
-  "achmentApoV1\"G\n\030RevertSwcVersionResponse"
+  "foV1\022-\n\013ProjectInfo\030\002 \001(\0132\030.proto.Projec"
+  "tMetaInfoV1\"s\n\025DeleteProjectResponse\022+\n\010"
+  "metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV"
+  "1\022-\n\013ProjectInfo\030\002 \001(\0132\030.proto.ProjectMe"
+  "taInfoV1\"s\n\025UpdateProjectResponse\022+\n\010met"
+  "aInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022-"
+  "\n\013ProjectInfo\030\002 \001(\0132\030.proto.ProjectMetaI"
+  "nfoV1\"p\n\022GetProjectResponse\022+\n\010metaInfo\030"
+  "\001 \001(\0132\031.proto.ResponseMetaInfoV1\022-\n\013Proj"
+  "ectInfo\030\002 \001(\0132\030.proto.ProjectMetaInfoV1\""
+  "s\n\025GetAllProjectResponse\022+\n\010metaInfo\030\001 \001"
+  "(\0132\031.proto.ResponseMetaInfoV1\022-\n\013Project"
+  "Info\030\002 \003(\0132\030.proto.ProjectMetaInfoV1\"\235\001\n"
+  "\021CreateSwcResponse\022+\n\010metaInfo\030\001 \001(\0132\031.p"
+  "roto.ResponseMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\013"
+  "2\024.proto.SwcMetaInfoV1\022\031\n\021AnoAttachmentU"
+  "uid\030\003 \001(\t\022\031\n\021ApoAttachmentUuid\030\004 \001(\t\"g\n\021"
+  "DeleteSwcResponse\022+\n\010metaInfo\030\001 \001(\0132\031.pr"
+  "oto.ResponseMetaInfoV1\022%\n\007SwcInfo\030\002 \001(\0132"
+  "\024.proto.SwcMetaInfoV1\"g\n\021UpdateSwcRespon"
+  "se\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMet"
+  "aInfoV1\022%\n\007SwcInfo\030\002 \001(\0132\024.proto.SwcMeta"
+  "InfoV1\"l\n\026GetSwcMetaInfoResponse\022+\n\010meta"
+  "Info\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022%\n"
+  "\007SwcInfo\030\002 \001(\0132\024.proto.SwcMetaInfoV1\"o\n\031"
+  "GetAllSwcMetaInfoResponse\022+\n\010metaInfo\030\001 "
+  "\001(\0132\031.proto.ResponseMetaInfoV1\022%\n\007SwcInf"
+  "o\030\002 \003(\0132\024.proto.SwcMetaInfoV1\"H\n\031CreateS"
+  "wcSnapshotResponse\022+\n\010metaInfo\030\001 \001(\0132\031.p"
+  "roto.ResponseMetaInfoV1\"\204\001\n\036GetAllSnapsh"
+  "otMetaInfoResponse\022+\n\010metaInfo\030\001 \001(\0132\031.p"
+  "roto.ResponseMetaInfoV1\0225\n\017SwcSnapshotLi"
+  "st\030\002 \003(\0132\034.proto.SwcSnapshotMetaInfoV1\"i"
+  "\n\023GetSnapshotResponse\022+\n\010metaInfo\030\002 \001(\0132"
+  "\031.proto.ResponseMetaInfoV1\022%\n\013SwcNodeDat"
+  "a\030\003 \001(\0132\020.proto.SwcDataV1\"\246\001\n(GetAllIncr"
+  "ementOperationMetaInfoResponse\022+\n\010metaIn"
+  "fo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022M\n\035S"
+  "wcIncrementOperationMetaInfo\030\002 \003(\0132&.pro"
+  "to.SwcIncrementOperationMetaInfoV1\"\223\001\n\035G"
+  "etIncrementOperationResponse\022+\n\010metaInfo"
+  "\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\022E\n\031Swc"
+  "IncrementOperationList\030\002 \001(\0132\".proto.Swc"
+  "IncrementOperationListV1\"b\n\031CreateSwcNod"
+  "eDataResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto."
+  "ResponseMetaInfoV1\022\030\n\020CreatedNodesUuid\030\002"
+  " \003(\t\"H\n\031DeleteSwcNodeDataResponse\022+\n\010met"
+  "aInfo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\"H"
+  "\n\031UpdateSwcNodeDataResponse\022+\n\010metaInfo\030"
+  "\001 \001(\0132\031.proto.ResponseMetaInfoV1\"l\n\026GetS"
+  "wcNodeDataResponse\022+\n\010metaInfo\030\001 \001(\0132\031.p"
+  "roto.ResponseMetaInfoV1\022%\n\013SwcNodeData\030\002"
+  " \001(\0132\020.proto.SwcDataV1\"p\n\032GetSwcFullNode"
+  "DataResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.R"
+  "esponseMetaInfoV1\022%\n\013SwcNodeData\030\002 \001(\0132\020"
+  ".proto.SwcDataV1\"}\n\'GetSwcNodeDataListBy"
+  "TimeAndUserResponse\022+\n\010metaInfo\030\001 \001(\0132\031."
+  "proto.ResponseMetaInfoV1\022%\n\013SwcNodeData\030"
+  "\002 \001(\0132\020.proto.SwcDataV1\"\213\001\n\035CreateDailyS"
+  "tatisticsResponse\022+\n\010metaInfo\030\001 \001(\0132\031.pr"
+  "oto.ResponseMetaInfoV1\022=\n\023DailyStatistic"
+  "sInfo\030\002 \001(\0132 .proto.DailyStatisticsMetaI"
+  "nfoV1\"\213\001\n\035DeleteDailyStatisticsResponse\022"
+  "+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaIn"
+  "foV1\022=\n\023DailyStatisticsInfo\030\002 \001(\0132 .prot"
+  "o.DailyStatisticsMetaInfoV1\"\213\001\n\035UpdateDa"
+  "ilyStatisticsResponse\022+\n\010metaInfo\030\001 \001(\0132"
+  "\031.proto.ResponseMetaInfoV1\022=\n\023DailyStati"
+  "sticsInfo\030\002 \001(\0132 .proto.DailyStatisticsM"
+  "etaInfoV1\"\210\001\n\032GetDailyStatisticsResponse"
   "\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaI"
-  "nfoV1\"h\n\036CreateSwcAttachmentSwcResponse\022"
+  "nfoV1\022=\n\023DailyStatisticsInfo\030\002 \001(\0132 .pro"
+  "to.DailyStatisticsMetaInfoV1\"\213\001\n\035GetAllD"
+  "ailyStatisticsResponse\022+\n\010metaInfo\030\001 \001(\013"
+  "2\031.proto.ResponseMetaInfoV1\022=\n\023DailyStat"
+  "isticsInfo\030\002 \003(\0132 .proto.DailyStatistics"
+  "MetaInfoV1\"h\n\036CreateSwcAttachmentAnoResp"
+  "onse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseM"
+  "etaInfoV1\022\031\n\021AnoAttachmentUuid\030\002 \001(\t\"M\n\036"
+  "DeleteSwcAttachmentAnoResponse\022+\n\010metaIn"
+  "fo\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\"M\n\036U"
+  "pdateSwcAttachmentAnoResponse\022+\n\010metaInf"
+  "o\030\001 \001(\0132\031.proto.ResponseMetaInfoV1\"\177\n\033Ge"
+  "tSwcAttachmentAnoResponse\022+\n\010metaInfo\030\001 "
+  "\001(\0132\031.proto.ResponseMetaInfoV1\0223\n\020SwcAtt"
+  "achmentAno\030\002 \001(\0132\031.proto.SwcAttachmentAn"
+  "oV1\"h\n\036CreateSwcAttachmentApoResponse\022+\n"
+  "\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInfo"
+  "V1\022\031\n\021ApoAttachmentUuid\030\002 \001(\t\"M\n\036DeleteS"
+  "wcAttachmentApoResponse\022+\n\010metaInfo\030\001 \001("
+  "\0132\031.proto.ResponseMetaInfoV1\"M\n\036UpdateSw"
+  "cAttachmentApoResponse\022+\n\010metaInfo\030\001 \001(\013"
+  "2\031.proto.ResponseMetaInfoV1\"\177\n\033GetSwcAtt"
+  "achmentApoResponse\022+\n\010metaInfo\030\001 \001(\0132\031.p"
+  "roto.ResponseMetaInfoV1\0223\n\020SwcAttachment"
+  "Apo\030\002 \003(\0132\031.proto.SwcAttachmentApoV1\"G\n\030"
+  "RevertSwcVersionResponse\022+\n\010metaInfo\030\001 \001"
+  "(\0132\031.proto.ResponseMetaInfoV1\"h\n\036CreateS"
+  "wcAttachmentSwcResponse\022+\n\010metaInfo\030\001 \001("
+  "\0132\031.proto.ResponseMetaInfoV1\022\031\n\021SwcAttac"
+  "hmentUuid\030\002 \001(\t\"M\n\036DeleteSwcAttachmentSw"
+  "cResponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Resp"
+  "onseMetaInfoV1\"M\n\036UpdateSwcAttachmentSwc"
+  "Response\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Respo"
+  "nseMetaInfoV1\"q\n\033GetSwcAttachmentSwcResp"
+  "onse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseM"
+  "etaInfoV1\022%\n\007SwcData\030\002 \003(\0132\024.proto.SwcNo"
+  "deDataV1\"L\n\035CreatePermissionGroupRespons"
+  "e\022+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMeta"
+  "InfoV1\"L\n\035DeletePermissionGroupResponse\022"
   "+\n\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaIn"
-  "foV1\022\031\n\021SwcAttachmentUuid\030\002 \001(\t\"M\n\036Delet"
-  "eSwcAttachmentSwcResponse\022+\n\010metaInfo\030\001 "
-  "\001(\0132\031.proto.ResponseMetaInfoV1\"M\n\036Update"
-  "SwcAttachmentSwcResponse\022+\n\010metaInfo\030\001 \001"
-  "(\0132\031.proto.ResponseMetaInfoV1\"q\n\033GetSwcA"
-  "ttachmentSwcResponse\022+\n\010metaInfo\030\001 \001(\0132\031"
-  ".proto.ResponseMetaInfoV1\022%\n\007SwcData\030\002 \003"
-  "(\0132\024.proto.SwcNodeDataV1B0Z.DBMS/SwcDbms"
-  "Common/Generated/go/proto/responseP\000b\006pr"
-  "oto3"
+  "foV1\"L\n\035UpdatePermissionGroupResponse\022+\n"
+  "\010metaInfo\030\001 \001(\0132\031.proto.ResponseMetaInfo"
+  "V1\"\177\n\'GetProjectSwcNamesByProjectUuidRes"
+  "ponse\022+\n\010metaInfo\030\001 \001(\0132\031.proto.Response"
+  "MetaInfoV1\022\'\n\013swcUuidName\030\002 \003(\0132\022.proto."
+  "SwcUuidNameB0Z.DBMS/SwcDbmsCommon/Genera"
+  "ted/go/proto/responseP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_2eproto_deps[2] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -1393,9 +1546,9 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Message_2fResponse_
 };
 static ::_pbi::once_flag descriptor_table_Message_2fResponse_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Message_2fResponse_2eproto = {
-    false, false, 5844, descriptor_table_protodef_Message_2fResponse_2eproto,
+    false, false, 6471, descriptor_table_protodef_Message_2fResponse_2eproto,
     "Message/Response.proto",
-    &descriptor_table_Message_2fResponse_2eproto_once, descriptor_table_Message_2fResponse_2eproto_deps, 2, 51,
+    &descriptor_table_Message_2fResponse_2eproto_once, descriptor_table_Message_2fResponse_2eproto_deps, 2, 57,
     schemas, file_default_instances, TableStruct_Message_2fResponse_2eproto::offsets,
     file_level_metadata_Message_2fResponse_2eproto, file_level_enum_descriptors_Message_2fResponse_2eproto,
     file_level_service_descriptors_Message_2fResponse_2eproto,
@@ -2111,41 +2264,41 @@ void UpdateUserResponse::InternalSwap(UpdateUserResponse* other) {
 
 // ===================================================================
 
-class GetUserResponse::_Internal {
+class GetUserByUuidResponse::_Internal {
  public:
-  static const ::proto::ResponseMetaInfoV1& metainfo(const GetUserResponse* msg);
-  static const ::proto::UserMetaInfoV1& userinfo(const GetUserResponse* msg);
+  static const ::proto::ResponseMetaInfoV1& metainfo(const GetUserByUuidResponse* msg);
+  static const ::proto::UserMetaInfoV1& userinfo(const GetUserByUuidResponse* msg);
 };
 
 const ::proto::ResponseMetaInfoV1&
-GetUserResponse::_Internal::metainfo(const GetUserResponse* msg) {
+GetUserByUuidResponse::_Internal::metainfo(const GetUserByUuidResponse* msg) {
   return *msg->_impl_.metainfo_;
 }
 const ::proto::UserMetaInfoV1&
-GetUserResponse::_Internal::userinfo(const GetUserResponse* msg) {
+GetUserByUuidResponse::_Internal::userinfo(const GetUserByUuidResponse* msg) {
   return *msg->_impl_.userinfo_;
 }
-void GetUserResponse::clear_metainfo() {
+void GetUserByUuidResponse::clear_metainfo() {
   if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
     delete _impl_.metainfo_;
   }
   _impl_.metainfo_ = nullptr;
 }
-void GetUserResponse::clear_userinfo() {
+void GetUserByUuidResponse::clear_userinfo() {
   if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
     delete _impl_.userinfo_;
   }
   _impl_.userinfo_ = nullptr;
 }
-GetUserResponse::GetUserResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetUserByUuidResponse::GetUserByUuidResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:proto.GetUserResponse)
+  // @@protoc_insertion_point(arena_constructor:proto.GetUserByUuidResponse)
 }
-GetUserResponse::GetUserResponse(const GetUserResponse& from)
+GetUserByUuidResponse::GetUserByUuidResponse(const GetUserByUuidResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  GetUserResponse* const _this = this; (void)_this;
+  GetUserByUuidResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.metainfo_){nullptr}
     , decltype(_impl_.userinfo_){nullptr}
@@ -2158,10 +2311,10 @@ GetUserResponse::GetUserResponse(const GetUserResponse& from)
   if (from._internal_has_userinfo()) {
     _this->_impl_.userinfo_ = new ::proto::UserMetaInfoV1(*from._impl_.userinfo_);
   }
-  // @@protoc_insertion_point(copy_constructor:proto.GetUserResponse)
+  // @@protoc_insertion_point(copy_constructor:proto.GetUserByUuidResponse)
 }
 
-inline void GetUserResponse::SharedCtor(
+inline void GetUserByUuidResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -2172,8 +2325,8 @@ inline void GetUserResponse::SharedCtor(
   };
 }
 
-GetUserResponse::~GetUserResponse() {
-  // @@protoc_insertion_point(destructor:proto.GetUserResponse)
+GetUserByUuidResponse::~GetUserByUuidResponse() {
+  // @@protoc_insertion_point(destructor:proto.GetUserByUuidResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -2181,18 +2334,18 @@ GetUserResponse::~GetUserResponse() {
   SharedDtor();
 }
 
-inline void GetUserResponse::SharedDtor() {
+inline void GetUserByUuidResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.metainfo_;
   if (this != internal_default_instance()) delete _impl_.userinfo_;
 }
 
-void GetUserResponse::SetCachedSize(int size) const {
+void GetUserByUuidResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void GetUserResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:proto.GetUserResponse)
+void GetUserByUuidResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetUserByUuidResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2208,7 +2361,7 @@ void GetUserResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetUserResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GetUserByUuidResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -2253,9 +2406,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetUserResponse::_InternalSerialize(
+uint8_t* GetUserByUuidResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:proto.GetUserResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetUserByUuidResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2277,12 +2430,12 @@ uint8_t* GetUserResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:proto.GetUserResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetUserByUuidResponse)
   return target;
 }
 
-size_t GetUserResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:proto.GetUserResponse)
+size_t GetUserByUuidResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetUserByUuidResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -2306,17 +2459,17 @@ size_t GetUserResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetUserResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetUserByUuidResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    GetUserResponse::MergeImpl
+    GetUserByUuidResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetUserResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetUserByUuidResponse::GetClassData() const { return &_class_data_; }
 
 
-void GetUserResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<GetUserResponse*>(&to_msg);
-  auto& from = static_cast<const GetUserResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetUserResponse)
+void GetUserByUuidResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetUserByUuidResponse*>(&to_msg);
+  auto& from = static_cast<const GetUserByUuidResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetUserByUuidResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -2332,32 +2485,283 @@ void GetUserResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetUserResponse::CopyFrom(const GetUserResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetUserResponse)
+void GetUserByUuidResponse::CopyFrom(const GetUserByUuidResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetUserByUuidResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetUserResponse::IsInitialized() const {
+bool GetUserByUuidResponse::IsInitialized() const {
   return true;
 }
 
-void GetUserResponse::InternalSwap(GetUserResponse* other) {
+void GetUserByUuidResponse::InternalSwap(GetUserByUuidResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetUserResponse, _impl_.userinfo_)
-      + sizeof(GetUserResponse::_impl_.userinfo_)
-      - PROTOBUF_FIELD_OFFSET(GetUserResponse, _impl_.metainfo_)>(
+      PROTOBUF_FIELD_OFFSET(GetUserByUuidResponse, _impl_.userinfo_)
+      + sizeof(GetUserByUuidResponse::_impl_.userinfo_)
+      - PROTOBUF_FIELD_OFFSET(GetUserByUuidResponse, _impl_.metainfo_)>(
           reinterpret_cast<char*>(&_impl_.metainfo_),
           reinterpret_cast<char*>(&other->_impl_.metainfo_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata GetUserResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata GetUserByUuidResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
       file_level_metadata_Message_2fResponse_2eproto[3]);
+}
+
+// ===================================================================
+
+class GetUserByNameResponse::_Internal {
+ public:
+  static const ::proto::ResponseMetaInfoV1& metainfo(const GetUserByNameResponse* msg);
+  static const ::proto::UserMetaInfoV1& userinfo(const GetUserByNameResponse* msg);
+};
+
+const ::proto::ResponseMetaInfoV1&
+GetUserByNameResponse::_Internal::metainfo(const GetUserByNameResponse* msg) {
+  return *msg->_impl_.metainfo_;
+}
+const ::proto::UserMetaInfoV1&
+GetUserByNameResponse::_Internal::userinfo(const GetUserByNameResponse* msg) {
+  return *msg->_impl_.userinfo_;
+}
+void GetUserByNameResponse::clear_metainfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+}
+void GetUserByNameResponse::clear_userinfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
+    delete _impl_.userinfo_;
+  }
+  _impl_.userinfo_ = nullptr;
+}
+GetUserByNameResponse::GetUserByNameResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.GetUserByNameResponse)
+}
+GetUserByNameResponse::GetUserByNameResponse(const GetUserByNameResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetUserByNameResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , decltype(_impl_.userinfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_metainfo()) {
+    _this->_impl_.metainfo_ = new ::proto::ResponseMetaInfoV1(*from._impl_.metainfo_);
+  }
+  if (from._internal_has_userinfo()) {
+    _this->_impl_.userinfo_ = new ::proto::UserMetaInfoV1(*from._impl_.userinfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.GetUserByNameResponse)
+}
+
+inline void GetUserByNameResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , decltype(_impl_.userinfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+GetUserByNameResponse::~GetUserByNameResponse() {
+  // @@protoc_insertion_point(destructor:proto.GetUserByNameResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetUserByNameResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.metainfo_;
+  if (this != internal_default_instance()) delete _impl_.userinfo_;
+}
+
+void GetUserByNameResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetUserByNameResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetUserByNameResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.userinfo_ != nullptr) {
+    delete _impl_.userinfo_;
+  }
+  _impl_.userinfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetUserByNameResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.ResponseMetaInfoV1 metaInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_metainfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .proto.UserMetaInfoV1 UserInfo = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_userinfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetUserByNameResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetUserByNameResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::metainfo(this),
+        _Internal::metainfo(this).GetCachedSize(), target, stream);
+  }
+
+  // .proto.UserMetaInfoV1 UserInfo = 2;
+  if (this->_internal_has_userinfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::userinfo(this),
+        _Internal::userinfo(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetUserByNameResponse)
+  return target;
+}
+
+size_t GetUserByNameResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetUserByNameResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.metainfo_);
+  }
+
+  // .proto.UserMetaInfoV1 UserInfo = 2;
+  if (this->_internal_has_userinfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.userinfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetUserByNameResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetUserByNameResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetUserByNameResponse::GetClassData() const { return &_class_data_; }
+
+
+void GetUserByNameResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetUserByNameResponse*>(&to_msg);
+  auto& from = static_cast<const GetUserByNameResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetUserByNameResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_metainfo()) {
+    _this->_internal_mutable_metainfo()->::proto::ResponseMetaInfoV1::MergeFrom(
+        from._internal_metainfo());
+  }
+  if (from._internal_has_userinfo()) {
+    _this->_internal_mutable_userinfo()->::proto::UserMetaInfoV1::MergeFrom(
+        from._internal_userinfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetUserByNameResponse::CopyFrom(const GetUserByNameResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetUserByNameResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetUserByNameResponse::IsInitialized() const {
+  return true;
+}
+
+void GetUserByNameResponse::InternalSwap(GetUserByNameResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetUserByNameResponse, _impl_.userinfo_)
+      + sizeof(GetUserByNameResponse::_impl_.userinfo_)
+      - PROTOBUF_FIELD_OFFSET(GetUserByNameResponse, _impl_.metainfo_)>(
+          reinterpret_cast<char*>(&_impl_.metainfo_),
+          reinterpret_cast<char*>(&other->_impl_.metainfo_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetUserByNameResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
+      file_level_metadata_Message_2fResponse_2eproto[4]);
 }
 
 // ===================================================================
@@ -2593,7 +2997,7 @@ void GetAllUserResponse::InternalSwap(GetAllUserResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllUserResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[4]);
+      file_level_metadata_Message_2fResponse_2eproto[5]);
 }
 
 // ===================================================================
@@ -2891,7 +3295,7 @@ void UserLoginResponse::InternalSwap(UserLoginResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UserLoginResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[5]);
+      file_level_metadata_Message_2fResponse_2eproto[6]);
 }
 
 // ===================================================================
@@ -3090,7 +3494,7 @@ void UserLogoutResponse::InternalSwap(UserLogoutResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UserLogoutResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[6]);
+      file_level_metadata_Message_2fResponse_2eproto[7]);
 }
 
 // ===================================================================
@@ -3341,7 +3745,7 @@ void UserOnlineHeartBeatResponse::InternalSwap(UserOnlineHeartBeatResponse* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata UserOnlineHeartBeatResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[7]);
+      file_level_metadata_Message_2fResponse_2eproto[8]);
 }
 
 // ===================================================================
@@ -3592,46 +3996,46 @@ void GetUserPermissionGroupResponse::InternalSwap(GetUserPermissionGroupResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata GetUserPermissionGroupResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[8]);
+      file_level_metadata_Message_2fResponse_2eproto[9]);
 }
 
 // ===================================================================
 
-class GetPermissionGroupResponse::_Internal {
+class GetPermissionGroupByUuidResponse::_Internal {
  public:
-  static const ::proto::ResponseMetaInfoV1& metainfo(const GetPermissionGroupResponse* msg);
-  static const ::proto::PermissionGroupMetaInfoV1& permissiongroup(const GetPermissionGroupResponse* msg);
+  static const ::proto::ResponseMetaInfoV1& metainfo(const GetPermissionGroupByUuidResponse* msg);
+  static const ::proto::PermissionGroupMetaInfoV1& permissiongroup(const GetPermissionGroupByUuidResponse* msg);
 };
 
 const ::proto::ResponseMetaInfoV1&
-GetPermissionGroupResponse::_Internal::metainfo(const GetPermissionGroupResponse* msg) {
+GetPermissionGroupByUuidResponse::_Internal::metainfo(const GetPermissionGroupByUuidResponse* msg) {
   return *msg->_impl_.metainfo_;
 }
 const ::proto::PermissionGroupMetaInfoV1&
-GetPermissionGroupResponse::_Internal::permissiongroup(const GetPermissionGroupResponse* msg) {
+GetPermissionGroupByUuidResponse::_Internal::permissiongroup(const GetPermissionGroupByUuidResponse* msg) {
   return *msg->_impl_.permissiongroup_;
 }
-void GetPermissionGroupResponse::clear_metainfo() {
+void GetPermissionGroupByUuidResponse::clear_metainfo() {
   if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
     delete _impl_.metainfo_;
   }
   _impl_.metainfo_ = nullptr;
 }
-void GetPermissionGroupResponse::clear_permissiongroup() {
+void GetPermissionGroupByUuidResponse::clear_permissiongroup() {
   if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
     delete _impl_.permissiongroup_;
   }
   _impl_.permissiongroup_ = nullptr;
 }
-GetPermissionGroupResponse::GetPermissionGroupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetPermissionGroupByUuidResponse::GetPermissionGroupByUuidResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:proto.GetPermissionGroupResponse)
+  // @@protoc_insertion_point(arena_constructor:proto.GetPermissionGroupByUuidResponse)
 }
-GetPermissionGroupResponse::GetPermissionGroupResponse(const GetPermissionGroupResponse& from)
+GetPermissionGroupByUuidResponse::GetPermissionGroupByUuidResponse(const GetPermissionGroupByUuidResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  GetPermissionGroupResponse* const _this = this; (void)_this;
+  GetPermissionGroupByUuidResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.metainfo_){nullptr}
     , decltype(_impl_.permissiongroup_){nullptr}
@@ -3644,10 +4048,10 @@ GetPermissionGroupResponse::GetPermissionGroupResponse(const GetPermissionGroupR
   if (from._internal_has_permissiongroup()) {
     _this->_impl_.permissiongroup_ = new ::proto::PermissionGroupMetaInfoV1(*from._impl_.permissiongroup_);
   }
-  // @@protoc_insertion_point(copy_constructor:proto.GetPermissionGroupResponse)
+  // @@protoc_insertion_point(copy_constructor:proto.GetPermissionGroupByUuidResponse)
 }
 
-inline void GetPermissionGroupResponse::SharedCtor(
+inline void GetPermissionGroupByUuidResponse::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -3658,8 +4062,8 @@ inline void GetPermissionGroupResponse::SharedCtor(
   };
 }
 
-GetPermissionGroupResponse::~GetPermissionGroupResponse() {
-  // @@protoc_insertion_point(destructor:proto.GetPermissionGroupResponse)
+GetPermissionGroupByUuidResponse::~GetPermissionGroupByUuidResponse() {
+  // @@protoc_insertion_point(destructor:proto.GetPermissionGroupByUuidResponse)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -3667,18 +4071,18 @@ GetPermissionGroupResponse::~GetPermissionGroupResponse() {
   SharedDtor();
 }
 
-inline void GetPermissionGroupResponse::SharedDtor() {
+inline void GetPermissionGroupByUuidResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete _impl_.metainfo_;
   if (this != internal_default_instance()) delete _impl_.permissiongroup_;
 }
 
-void GetPermissionGroupResponse::SetCachedSize(int size) const {
+void GetPermissionGroupByUuidResponse::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void GetPermissionGroupResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:proto.GetPermissionGroupResponse)
+void GetPermissionGroupByUuidResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetPermissionGroupByUuidResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -3694,7 +4098,7 @@ void GetPermissionGroupResponse::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetPermissionGroupResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* GetPermissionGroupByUuidResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -3739,9 +4143,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetPermissionGroupResponse::_InternalSerialize(
+uint8_t* GetPermissionGroupByUuidResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:proto.GetPermissionGroupResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetPermissionGroupByUuidResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3763,12 +4167,12 @@ uint8_t* GetPermissionGroupResponse::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:proto.GetPermissionGroupResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetPermissionGroupByUuidResponse)
   return target;
 }
 
-size_t GetPermissionGroupResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:proto.GetPermissionGroupResponse)
+size_t GetPermissionGroupByUuidResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetPermissionGroupByUuidResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -3792,17 +4196,17 @@ size_t GetPermissionGroupResponse::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetPermissionGroupResponse::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetPermissionGroupByUuidResponse::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    GetPermissionGroupResponse::MergeImpl
+    GetPermissionGroupByUuidResponse::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetPermissionGroupResponse::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetPermissionGroupByUuidResponse::GetClassData() const { return &_class_data_; }
 
 
-void GetPermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<GetPermissionGroupResponse*>(&to_msg);
-  auto& from = static_cast<const GetPermissionGroupResponse&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetPermissionGroupResponse)
+void GetPermissionGroupByUuidResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetPermissionGroupByUuidResponse*>(&to_msg);
+  auto& from = static_cast<const GetPermissionGroupByUuidResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetPermissionGroupByUuidResponse)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -3818,32 +4222,283 @@ void GetPermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void GetPermissionGroupResponse::CopyFrom(const GetPermissionGroupResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetPermissionGroupResponse)
+void GetPermissionGroupByUuidResponse::CopyFrom(const GetPermissionGroupByUuidResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetPermissionGroupByUuidResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetPermissionGroupResponse::IsInitialized() const {
+bool GetPermissionGroupByUuidResponse::IsInitialized() const {
   return true;
 }
 
-void GetPermissionGroupResponse::InternalSwap(GetPermissionGroupResponse* other) {
+void GetPermissionGroupByUuidResponse::InternalSwap(GetPermissionGroupByUuidResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetPermissionGroupResponse, _impl_.permissiongroup_)
-      + sizeof(GetPermissionGroupResponse::_impl_.permissiongroup_)
-      - PROTOBUF_FIELD_OFFSET(GetPermissionGroupResponse, _impl_.metainfo_)>(
+      PROTOBUF_FIELD_OFFSET(GetPermissionGroupByUuidResponse, _impl_.permissiongroup_)
+      + sizeof(GetPermissionGroupByUuidResponse::_impl_.permissiongroup_)
+      - PROTOBUF_FIELD_OFFSET(GetPermissionGroupByUuidResponse, _impl_.metainfo_)>(
           reinterpret_cast<char*>(&_impl_.metainfo_),
           reinterpret_cast<char*>(&other->_impl_.metainfo_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata GetPermissionGroupResponse::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata GetPermissionGroupByUuidResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[9]);
+      file_level_metadata_Message_2fResponse_2eproto[10]);
+}
+
+// ===================================================================
+
+class GetPermissionGroupByNameResponse::_Internal {
+ public:
+  static const ::proto::ResponseMetaInfoV1& metainfo(const GetPermissionGroupByNameResponse* msg);
+  static const ::proto::PermissionGroupMetaInfoV1& permissiongroup(const GetPermissionGroupByNameResponse* msg);
+};
+
+const ::proto::ResponseMetaInfoV1&
+GetPermissionGroupByNameResponse::_Internal::metainfo(const GetPermissionGroupByNameResponse* msg) {
+  return *msg->_impl_.metainfo_;
+}
+const ::proto::PermissionGroupMetaInfoV1&
+GetPermissionGroupByNameResponse::_Internal::permissiongroup(const GetPermissionGroupByNameResponse* msg) {
+  return *msg->_impl_.permissiongroup_;
+}
+void GetPermissionGroupByNameResponse::clear_metainfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+}
+void GetPermissionGroupByNameResponse::clear_permissiongroup() {
+  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
+    delete _impl_.permissiongroup_;
+  }
+  _impl_.permissiongroup_ = nullptr;
+}
+GetPermissionGroupByNameResponse::GetPermissionGroupByNameResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.GetPermissionGroupByNameResponse)
+}
+GetPermissionGroupByNameResponse::GetPermissionGroupByNameResponse(const GetPermissionGroupByNameResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetPermissionGroupByNameResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , decltype(_impl_.permissiongroup_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_metainfo()) {
+    _this->_impl_.metainfo_ = new ::proto::ResponseMetaInfoV1(*from._impl_.metainfo_);
+  }
+  if (from._internal_has_permissiongroup()) {
+    _this->_impl_.permissiongroup_ = new ::proto::PermissionGroupMetaInfoV1(*from._impl_.permissiongroup_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.GetPermissionGroupByNameResponse)
+}
+
+inline void GetPermissionGroupByNameResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , decltype(_impl_.permissiongroup_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+GetPermissionGroupByNameResponse::~GetPermissionGroupByNameResponse() {
+  // @@protoc_insertion_point(destructor:proto.GetPermissionGroupByNameResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetPermissionGroupByNameResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.metainfo_;
+  if (this != internal_default_instance()) delete _impl_.permissiongroup_;
+}
+
+void GetPermissionGroupByNameResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetPermissionGroupByNameResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetPermissionGroupByNameResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.permissiongroup_ != nullptr) {
+    delete _impl_.permissiongroup_;
+  }
+  _impl_.permissiongroup_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetPermissionGroupByNameResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.ResponseMetaInfoV1 metaInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_metainfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_permissiongroup(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetPermissionGroupByNameResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetPermissionGroupByNameResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::metainfo(this),
+        _Internal::metainfo(this).GetCachedSize(), target, stream);
+  }
+
+  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 2;
+  if (this->_internal_has_permissiongroup()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::permissiongroup(this),
+        _Internal::permissiongroup(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetPermissionGroupByNameResponse)
+  return target;
+}
+
+size_t GetPermissionGroupByNameResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetPermissionGroupByNameResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.metainfo_);
+  }
+
+  // .proto.PermissionGroupMetaInfoV1 PermissionGroup = 2;
+  if (this->_internal_has_permissiongroup()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.permissiongroup_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetPermissionGroupByNameResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetPermissionGroupByNameResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetPermissionGroupByNameResponse::GetClassData() const { return &_class_data_; }
+
+
+void GetPermissionGroupByNameResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetPermissionGroupByNameResponse*>(&to_msg);
+  auto& from = static_cast<const GetPermissionGroupByNameResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetPermissionGroupByNameResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_metainfo()) {
+    _this->_internal_mutable_metainfo()->::proto::ResponseMetaInfoV1::MergeFrom(
+        from._internal_metainfo());
+  }
+  if (from._internal_has_permissiongroup()) {
+    _this->_internal_mutable_permissiongroup()->::proto::PermissionGroupMetaInfoV1::MergeFrom(
+        from._internal_permissiongroup());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetPermissionGroupByNameResponse::CopyFrom(const GetPermissionGroupByNameResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetPermissionGroupByNameResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetPermissionGroupByNameResponse::IsInitialized() const {
+  return true;
+}
+
+void GetPermissionGroupByNameResponse::InternalSwap(GetPermissionGroupByNameResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetPermissionGroupByNameResponse, _impl_.permissiongroup_)
+      + sizeof(GetPermissionGroupByNameResponse::_impl_.permissiongroup_)
+      - PROTOBUF_FIELD_OFFSET(GetPermissionGroupByNameResponse, _impl_.metainfo_)>(
+          reinterpret_cast<char*>(&_impl_.metainfo_),
+          reinterpret_cast<char*>(&other->_impl_.metainfo_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetPermissionGroupByNameResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
+      file_level_metadata_Message_2fResponse_2eproto[11]);
 }
 
 // ===================================================================
@@ -4079,7 +4734,7 @@ void GetAllPermissionGroupResponse::InternalSwap(GetAllPermissionGroupResponse* 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllPermissionGroupResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[10]);
+      file_level_metadata_Message_2fResponse_2eproto[12]);
 }
 
 // ===================================================================
@@ -4278,7 +4933,7 @@ void ChangeUserPermissionGroupResponse::InternalSwap(ChangeUserPermissionGroupRe
 ::PROTOBUF_NAMESPACE_ID::Metadata ChangeUserPermissionGroupResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[11]);
+      file_level_metadata_Message_2fResponse_2eproto[13]);
 }
 
 // ===================================================================
@@ -4529,7 +5184,7 @@ void CreateProjectResponse::InternalSwap(CreateProjectResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateProjectResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[12]);
+      file_level_metadata_Message_2fResponse_2eproto[14]);
 }
 
 // ===================================================================
@@ -4780,7 +5435,7 @@ void DeleteProjectResponse::InternalSwap(DeleteProjectResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteProjectResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[13]);
+      file_level_metadata_Message_2fResponse_2eproto[15]);
 }
 
 // ===================================================================
@@ -5031,7 +5686,7 @@ void UpdateProjectResponse::InternalSwap(UpdateProjectResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateProjectResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[14]);
+      file_level_metadata_Message_2fResponse_2eproto[16]);
 }
 
 // ===================================================================
@@ -5282,7 +5937,7 @@ void GetProjectResponse::InternalSwap(GetProjectResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetProjectResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[15]);
+      file_level_metadata_Message_2fResponse_2eproto[17]);
 }
 
 // ===================================================================
@@ -5518,7 +6173,7 @@ void GetAllProjectResponse::InternalSwap(GetAllProjectResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllProjectResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[16]);
+      file_level_metadata_Message_2fResponse_2eproto[18]);
 }
 
 // ===================================================================
@@ -5871,7 +6526,7 @@ void CreateSwcResponse::InternalSwap(CreateSwcResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[17]);
+      file_level_metadata_Message_2fResponse_2eproto[19]);
 }
 
 // ===================================================================
@@ -6122,7 +6777,7 @@ void DeleteSwcResponse::InternalSwap(DeleteSwcResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[18]);
+      file_level_metadata_Message_2fResponse_2eproto[20]);
 }
 
 // ===================================================================
@@ -6373,7 +7028,7 @@ void UpdateSwcResponse::InternalSwap(UpdateSwcResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[19]);
+      file_level_metadata_Message_2fResponse_2eproto[21]);
 }
 
 // ===================================================================
@@ -6624,7 +7279,7 @@ void GetSwcMetaInfoResponse::InternalSwap(GetSwcMetaInfoResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcMetaInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[20]);
+      file_level_metadata_Message_2fResponse_2eproto[22]);
 }
 
 // ===================================================================
@@ -6860,7 +7515,7 @@ void GetAllSwcMetaInfoResponse::InternalSwap(GetAllSwcMetaInfoResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllSwcMetaInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[21]);
+      file_level_metadata_Message_2fResponse_2eproto[23]);
 }
 
 // ===================================================================
@@ -7059,7 +7714,7 @@ void CreateSwcSnapshotResponse::InternalSwap(CreateSwcSnapshotResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcSnapshotResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[22]);
+      file_level_metadata_Message_2fResponse_2eproto[24]);
 }
 
 // ===================================================================
@@ -7295,7 +7950,7 @@ void GetAllSnapshotMetaInfoResponse::InternalSwap(GetAllSnapshotMetaInfoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllSnapshotMetaInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[23]);
+      file_level_metadata_Message_2fResponse_2eproto[25]);
 }
 
 // ===================================================================
@@ -7546,7 +8201,7 @@ void GetSnapshotResponse::InternalSwap(GetSnapshotResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSnapshotResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[24]);
+      file_level_metadata_Message_2fResponse_2eproto[26]);
 }
 
 // ===================================================================
@@ -7782,7 +8437,7 @@ void GetAllIncrementOperationMetaInfoResponse::InternalSwap(GetAllIncrementOpera
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllIncrementOperationMetaInfoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[25]);
+      file_level_metadata_Message_2fResponse_2eproto[27]);
 }
 
 // ===================================================================
@@ -8033,7 +8688,7 @@ void GetIncrementOperationResponse::InternalSwap(GetIncrementOperationResponse* 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetIncrementOperationResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[26]);
+      file_level_metadata_Message_2fResponse_2eproto[28]);
 }
 
 // ===================================================================
@@ -8271,7 +8926,7 @@ void CreateSwcNodeDataResponse::InternalSwap(CreateSwcNodeDataResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcNodeDataResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[27]);
+      file_level_metadata_Message_2fResponse_2eproto[29]);
 }
 
 // ===================================================================
@@ -8470,7 +9125,7 @@ void DeleteSwcNodeDataResponse::InternalSwap(DeleteSwcNodeDataResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcNodeDataResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[28]);
+      file_level_metadata_Message_2fResponse_2eproto[30]);
 }
 
 // ===================================================================
@@ -8669,7 +9324,7 @@ void UpdateSwcNodeDataResponse::InternalSwap(UpdateSwcNodeDataResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcNodeDataResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[29]);
+      file_level_metadata_Message_2fResponse_2eproto[31]);
 }
 
 // ===================================================================
@@ -8920,7 +9575,7 @@ void GetSwcNodeDataResponse::InternalSwap(GetSwcNodeDataResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcNodeDataResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[30]);
+      file_level_metadata_Message_2fResponse_2eproto[32]);
 }
 
 // ===================================================================
@@ -9171,7 +9826,7 @@ void GetSwcFullNodeDataResponse::InternalSwap(GetSwcFullNodeDataResponse* other)
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcFullNodeDataResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[31]);
+      file_level_metadata_Message_2fResponse_2eproto[33]);
 }
 
 // ===================================================================
@@ -9422,7 +10077,7 @@ void GetSwcNodeDataListByTimeAndUserResponse::InternalSwap(GetSwcNodeDataListByT
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcNodeDataListByTimeAndUserResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[32]);
+      file_level_metadata_Message_2fResponse_2eproto[34]);
 }
 
 // ===================================================================
@@ -9673,7 +10328,7 @@ void CreateDailyStatisticsResponse::InternalSwap(CreateDailyStatisticsResponse* 
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateDailyStatisticsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[33]);
+      file_level_metadata_Message_2fResponse_2eproto[35]);
 }
 
 // ===================================================================
@@ -9924,7 +10579,7 @@ void DeleteDailyStatisticsResponse::InternalSwap(DeleteDailyStatisticsResponse* 
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteDailyStatisticsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[34]);
+      file_level_metadata_Message_2fResponse_2eproto[36]);
 }
 
 // ===================================================================
@@ -10175,7 +10830,7 @@ void UpdateDailyStatisticsResponse::InternalSwap(UpdateDailyStatisticsResponse* 
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateDailyStatisticsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[35]);
+      file_level_metadata_Message_2fResponse_2eproto[37]);
 }
 
 // ===================================================================
@@ -10426,7 +11081,7 @@ void GetDailyStatisticsResponse::InternalSwap(GetDailyStatisticsResponse* other)
 ::PROTOBUF_NAMESPACE_ID::Metadata GetDailyStatisticsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[36]);
+      file_level_metadata_Message_2fResponse_2eproto[38]);
 }
 
 // ===================================================================
@@ -10662,7 +11317,7 @@ void GetAllDailyStatisticsResponse::InternalSwap(GetAllDailyStatisticsResponse* 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAllDailyStatisticsResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[37]);
+      file_level_metadata_Message_2fResponse_2eproto[39]);
 }
 
 // ===================================================================
@@ -10913,7 +11568,7 @@ void CreateSwcAttachmentAnoResponse::InternalSwap(CreateSwcAttachmentAnoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcAttachmentAnoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[38]);
+      file_level_metadata_Message_2fResponse_2eproto[40]);
 }
 
 // ===================================================================
@@ -11112,7 +11767,7 @@ void DeleteSwcAttachmentAnoResponse::InternalSwap(DeleteSwcAttachmentAnoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcAttachmentAnoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[39]);
+      file_level_metadata_Message_2fResponse_2eproto[41]);
 }
 
 // ===================================================================
@@ -11311,7 +11966,7 @@ void UpdateSwcAttachmentAnoResponse::InternalSwap(UpdateSwcAttachmentAnoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcAttachmentAnoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[40]);
+      file_level_metadata_Message_2fResponse_2eproto[42]);
 }
 
 // ===================================================================
@@ -11562,7 +12217,7 @@ void GetSwcAttachmentAnoResponse::InternalSwap(GetSwcAttachmentAnoResponse* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcAttachmentAnoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[41]);
+      file_level_metadata_Message_2fResponse_2eproto[43]);
 }
 
 // ===================================================================
@@ -11813,7 +12468,7 @@ void CreateSwcAttachmentApoResponse::InternalSwap(CreateSwcAttachmentApoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcAttachmentApoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[42]);
+      file_level_metadata_Message_2fResponse_2eproto[44]);
 }
 
 // ===================================================================
@@ -12012,7 +12667,7 @@ void DeleteSwcAttachmentApoResponse::InternalSwap(DeleteSwcAttachmentApoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcAttachmentApoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[43]);
+      file_level_metadata_Message_2fResponse_2eproto[45]);
 }
 
 // ===================================================================
@@ -12211,7 +12866,7 @@ void UpdateSwcAttachmentApoResponse::InternalSwap(UpdateSwcAttachmentApoResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcAttachmentApoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[44]);
+      file_level_metadata_Message_2fResponse_2eproto[46]);
 }
 
 // ===================================================================
@@ -12447,7 +13102,7 @@ void GetSwcAttachmentApoResponse::InternalSwap(GetSwcAttachmentApoResponse* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcAttachmentApoResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[45]);
+      file_level_metadata_Message_2fResponse_2eproto[47]);
 }
 
 // ===================================================================
@@ -12646,7 +13301,7 @@ void RevertSwcVersionResponse::InternalSwap(RevertSwcVersionResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata RevertSwcVersionResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[46]);
+      file_level_metadata_Message_2fResponse_2eproto[48]);
 }
 
 // ===================================================================
@@ -12897,7 +13552,7 @@ void CreateSwcAttachmentSwcResponse::InternalSwap(CreateSwcAttachmentSwcResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata CreateSwcAttachmentSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[47]);
+      file_level_metadata_Message_2fResponse_2eproto[49]);
 }
 
 // ===================================================================
@@ -13096,7 +13751,7 @@ void DeleteSwcAttachmentSwcResponse::InternalSwap(DeleteSwcAttachmentSwcResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata DeleteSwcAttachmentSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[48]);
+      file_level_metadata_Message_2fResponse_2eproto[50]);
 }
 
 // ===================================================================
@@ -13295,7 +13950,7 @@ void UpdateSwcAttachmentSwcResponse::InternalSwap(UpdateSwcAttachmentSwcResponse
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateSwcAttachmentSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[49]);
+      file_level_metadata_Message_2fResponse_2eproto[51]);
 }
 
 // ===================================================================
@@ -13531,7 +14186,840 @@ void GetSwcAttachmentSwcResponse::InternalSwap(GetSwcAttachmentSwcResponse* othe
 ::PROTOBUF_NAMESPACE_ID::Metadata GetSwcAttachmentSwcResponse::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
-      file_level_metadata_Message_2fResponse_2eproto[50]);
+      file_level_metadata_Message_2fResponse_2eproto[52]);
+}
+
+// ===================================================================
+
+class CreatePermissionGroupResponse::_Internal {
+ public:
+  static const ::proto::ResponseMetaInfoV1& metainfo(const CreatePermissionGroupResponse* msg);
+};
+
+const ::proto::ResponseMetaInfoV1&
+CreatePermissionGroupResponse::_Internal::metainfo(const CreatePermissionGroupResponse* msg) {
+  return *msg->_impl_.metainfo_;
+}
+void CreatePermissionGroupResponse::clear_metainfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+}
+CreatePermissionGroupResponse::CreatePermissionGroupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.CreatePermissionGroupResponse)
+}
+CreatePermissionGroupResponse::CreatePermissionGroupResponse(const CreatePermissionGroupResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CreatePermissionGroupResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_metainfo()) {
+    _this->_impl_.metainfo_ = new ::proto::ResponseMetaInfoV1(*from._impl_.metainfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.CreatePermissionGroupResponse)
+}
+
+inline void CreatePermissionGroupResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CreatePermissionGroupResponse::~CreatePermissionGroupResponse() {
+  // @@protoc_insertion_point(destructor:proto.CreatePermissionGroupResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CreatePermissionGroupResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.metainfo_;
+}
+
+void CreatePermissionGroupResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CreatePermissionGroupResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.CreatePermissionGroupResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* CreatePermissionGroupResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.ResponseMetaInfoV1 metaInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_metainfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CreatePermissionGroupResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.CreatePermissionGroupResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::metainfo(this),
+        _Internal::metainfo(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.CreatePermissionGroupResponse)
+  return target;
+}
+
+size_t CreatePermissionGroupResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.CreatePermissionGroupResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.metainfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CreatePermissionGroupResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    CreatePermissionGroupResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CreatePermissionGroupResponse::GetClassData() const { return &_class_data_; }
+
+
+void CreatePermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CreatePermissionGroupResponse*>(&to_msg);
+  auto& from = static_cast<const CreatePermissionGroupResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.CreatePermissionGroupResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_metainfo()) {
+    _this->_internal_mutable_metainfo()->::proto::ResponseMetaInfoV1::MergeFrom(
+        from._internal_metainfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CreatePermissionGroupResponse::CopyFrom(const CreatePermissionGroupResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.CreatePermissionGroupResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CreatePermissionGroupResponse::IsInitialized() const {
+  return true;
+}
+
+void CreatePermissionGroupResponse::InternalSwap(CreatePermissionGroupResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.metainfo_, other->_impl_.metainfo_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CreatePermissionGroupResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
+      file_level_metadata_Message_2fResponse_2eproto[53]);
+}
+
+// ===================================================================
+
+class DeletePermissionGroupResponse::_Internal {
+ public:
+  static const ::proto::ResponseMetaInfoV1& metainfo(const DeletePermissionGroupResponse* msg);
+};
+
+const ::proto::ResponseMetaInfoV1&
+DeletePermissionGroupResponse::_Internal::metainfo(const DeletePermissionGroupResponse* msg) {
+  return *msg->_impl_.metainfo_;
+}
+void DeletePermissionGroupResponse::clear_metainfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+}
+DeletePermissionGroupResponse::DeletePermissionGroupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.DeletePermissionGroupResponse)
+}
+DeletePermissionGroupResponse::DeletePermissionGroupResponse(const DeletePermissionGroupResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  DeletePermissionGroupResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_metainfo()) {
+    _this->_impl_.metainfo_ = new ::proto::ResponseMetaInfoV1(*from._impl_.metainfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.DeletePermissionGroupResponse)
+}
+
+inline void DeletePermissionGroupResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+DeletePermissionGroupResponse::~DeletePermissionGroupResponse() {
+  // @@protoc_insertion_point(destructor:proto.DeletePermissionGroupResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeletePermissionGroupResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.metainfo_;
+}
+
+void DeletePermissionGroupResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void DeletePermissionGroupResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.DeletePermissionGroupResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* DeletePermissionGroupResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.ResponseMetaInfoV1 metaInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_metainfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeletePermissionGroupResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.DeletePermissionGroupResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::metainfo(this),
+        _Internal::metainfo(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.DeletePermissionGroupResponse)
+  return target;
+}
+
+size_t DeletePermissionGroupResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.DeletePermissionGroupResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.metainfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData DeletePermissionGroupResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    DeletePermissionGroupResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*DeletePermissionGroupResponse::GetClassData() const { return &_class_data_; }
+
+
+void DeletePermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<DeletePermissionGroupResponse*>(&to_msg);
+  auto& from = static_cast<const DeletePermissionGroupResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.DeletePermissionGroupResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_metainfo()) {
+    _this->_internal_mutable_metainfo()->::proto::ResponseMetaInfoV1::MergeFrom(
+        from._internal_metainfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DeletePermissionGroupResponse::CopyFrom(const DeletePermissionGroupResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.DeletePermissionGroupResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeletePermissionGroupResponse::IsInitialized() const {
+  return true;
+}
+
+void DeletePermissionGroupResponse::InternalSwap(DeletePermissionGroupResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.metainfo_, other->_impl_.metainfo_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata DeletePermissionGroupResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
+      file_level_metadata_Message_2fResponse_2eproto[54]);
+}
+
+// ===================================================================
+
+class UpdatePermissionGroupResponse::_Internal {
+ public:
+  static const ::proto::ResponseMetaInfoV1& metainfo(const UpdatePermissionGroupResponse* msg);
+};
+
+const ::proto::ResponseMetaInfoV1&
+UpdatePermissionGroupResponse::_Internal::metainfo(const UpdatePermissionGroupResponse* msg) {
+  return *msg->_impl_.metainfo_;
+}
+void UpdatePermissionGroupResponse::clear_metainfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+}
+UpdatePermissionGroupResponse::UpdatePermissionGroupResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.UpdatePermissionGroupResponse)
+}
+UpdatePermissionGroupResponse::UpdatePermissionGroupResponse(const UpdatePermissionGroupResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UpdatePermissionGroupResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_metainfo()) {
+    _this->_impl_.metainfo_ = new ::proto::ResponseMetaInfoV1(*from._impl_.metainfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.UpdatePermissionGroupResponse)
+}
+
+inline void UpdatePermissionGroupResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+UpdatePermissionGroupResponse::~UpdatePermissionGroupResponse() {
+  // @@protoc_insertion_point(destructor:proto.UpdatePermissionGroupResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void UpdatePermissionGroupResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.metainfo_;
+}
+
+void UpdatePermissionGroupResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void UpdatePermissionGroupResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.UpdatePermissionGroupResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdatePermissionGroupResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.ResponseMetaInfoV1 metaInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_metainfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UpdatePermissionGroupResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.UpdatePermissionGroupResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::metainfo(this),
+        _Internal::metainfo(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.UpdatePermissionGroupResponse)
+  return target;
+}
+
+size_t UpdatePermissionGroupResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.UpdatePermissionGroupResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.metainfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UpdatePermissionGroupResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    UpdatePermissionGroupResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UpdatePermissionGroupResponse::GetClassData() const { return &_class_data_; }
+
+
+void UpdatePermissionGroupResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UpdatePermissionGroupResponse*>(&to_msg);
+  auto& from = static_cast<const UpdatePermissionGroupResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.UpdatePermissionGroupResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_metainfo()) {
+    _this->_internal_mutable_metainfo()->::proto::ResponseMetaInfoV1::MergeFrom(
+        from._internal_metainfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UpdatePermissionGroupResponse::CopyFrom(const UpdatePermissionGroupResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.UpdatePermissionGroupResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdatePermissionGroupResponse::IsInitialized() const {
+  return true;
+}
+
+void UpdatePermissionGroupResponse::InternalSwap(UpdatePermissionGroupResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.metainfo_, other->_impl_.metainfo_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdatePermissionGroupResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
+      file_level_metadata_Message_2fResponse_2eproto[55]);
+}
+
+// ===================================================================
+
+class GetProjectSwcNamesByProjectUuidResponse::_Internal {
+ public:
+  static const ::proto::ResponseMetaInfoV1& metainfo(const GetProjectSwcNamesByProjectUuidResponse* msg);
+};
+
+const ::proto::ResponseMetaInfoV1&
+GetProjectSwcNamesByProjectUuidResponse::_Internal::metainfo(const GetProjectSwcNamesByProjectUuidResponse* msg) {
+  return *msg->_impl_.metainfo_;
+}
+void GetProjectSwcNamesByProjectUuidResponse::clear_metainfo() {
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+}
+void GetProjectSwcNamesByProjectUuidResponse::clear_swcuuidname() {
+  _impl_.swcuuidname_.Clear();
+}
+GetProjectSwcNamesByProjectUuidResponse::GetProjectSwcNamesByProjectUuidResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:proto.GetProjectSwcNamesByProjectUuidResponse)
+}
+GetProjectSwcNamesByProjectUuidResponse::GetProjectSwcNamesByProjectUuidResponse(const GetProjectSwcNamesByProjectUuidResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetProjectSwcNamesByProjectUuidResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.swcuuidname_){from._impl_.swcuuidname_}
+    , decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_metainfo()) {
+    _this->_impl_.metainfo_ = new ::proto::ResponseMetaInfoV1(*from._impl_.metainfo_);
+  }
+  // @@protoc_insertion_point(copy_constructor:proto.GetProjectSwcNamesByProjectUuidResponse)
+}
+
+inline void GetProjectSwcNamesByProjectUuidResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.swcuuidname_){arena}
+    , decltype(_impl_.metainfo_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+GetProjectSwcNamesByProjectUuidResponse::~GetProjectSwcNamesByProjectUuidResponse() {
+  // @@protoc_insertion_point(destructor:proto.GetProjectSwcNamesByProjectUuidResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetProjectSwcNamesByProjectUuidResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.swcuuidname_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.metainfo_;
+}
+
+void GetProjectSwcNamesByProjectUuidResponse::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void GetProjectSwcNamesByProjectUuidResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:proto.GetProjectSwcNamesByProjectUuidResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.swcuuidname_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.metainfo_ != nullptr) {
+    delete _impl_.metainfo_;
+  }
+  _impl_.metainfo_ = nullptr;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* GetProjectSwcNamesByProjectUuidResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .proto.ResponseMetaInfoV1 metaInfo = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_metainfo(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .proto.SwcUuidName swcUuidName = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_swcuuidname(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetProjectSwcNamesByProjectUuidResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:proto.GetProjectSwcNamesByProjectUuidResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::metainfo(this),
+        _Internal::metainfo(this).GetCachedSize(), target, stream);
+  }
+
+  // repeated .proto.SwcUuidName swcUuidName = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_swcuuidname_size()); i < n; i++) {
+    const auto& repfield = this->_internal_swcuuidname(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:proto.GetProjectSwcNamesByProjectUuidResponse)
+  return target;
+}
+
+size_t GetProjectSwcNamesByProjectUuidResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:proto.GetProjectSwcNamesByProjectUuidResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .proto.SwcUuidName swcUuidName = 2;
+  total_size += 1UL * this->_internal_swcuuidname_size();
+  for (const auto& msg : this->_impl_.swcuuidname_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // .proto.ResponseMetaInfoV1 metaInfo = 1;
+  if (this->_internal_has_metainfo()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.metainfo_);
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetProjectSwcNamesByProjectUuidResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    GetProjectSwcNamesByProjectUuidResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetProjectSwcNamesByProjectUuidResponse::GetClassData() const { return &_class_data_; }
+
+
+void GetProjectSwcNamesByProjectUuidResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetProjectSwcNamesByProjectUuidResponse*>(&to_msg);
+  auto& from = static_cast<const GetProjectSwcNamesByProjectUuidResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:proto.GetProjectSwcNamesByProjectUuidResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_impl_.swcuuidname_.MergeFrom(from._impl_.swcuuidname_);
+  if (from._internal_has_metainfo()) {
+    _this->_internal_mutable_metainfo()->::proto::ResponseMetaInfoV1::MergeFrom(
+        from._internal_metainfo());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void GetProjectSwcNamesByProjectUuidResponse::CopyFrom(const GetProjectSwcNamesByProjectUuidResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:proto.GetProjectSwcNamesByProjectUuidResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetProjectSwcNamesByProjectUuidResponse::IsInitialized() const {
+  return true;
+}
+
+void GetProjectSwcNamesByProjectUuidResponse::InternalSwap(GetProjectSwcNamesByProjectUuidResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.swcuuidname_.InternalSwap(&other->_impl_.swcuuidname_);
+  swap(_impl_.metainfo_, other->_impl_.metainfo_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata GetProjectSwcNamesByProjectUuidResponse::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_Message_2fResponse_2eproto_getter, &descriptor_table_Message_2fResponse_2eproto_once,
+      file_level_metadata_Message_2fResponse_2eproto[56]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -13549,9 +15037,13 @@ template<> PROTOBUF_NOINLINE ::proto::UpdateUserResponse*
 Arena::CreateMaybeMessage< ::proto::UpdateUserResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::proto::UpdateUserResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::proto::GetUserResponse*
-Arena::CreateMaybeMessage< ::proto::GetUserResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::proto::GetUserResponse >(arena);
+template<> PROTOBUF_NOINLINE ::proto::GetUserByUuidResponse*
+Arena::CreateMaybeMessage< ::proto::GetUserByUuidResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetUserByUuidResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::GetUserByNameResponse*
+Arena::CreateMaybeMessage< ::proto::GetUserByNameResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetUserByNameResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::proto::GetAllUserResponse*
 Arena::CreateMaybeMessage< ::proto::GetAllUserResponse >(Arena* arena) {
@@ -13573,9 +15065,13 @@ template<> PROTOBUF_NOINLINE ::proto::GetUserPermissionGroupResponse*
 Arena::CreateMaybeMessage< ::proto::GetUserPermissionGroupResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::proto::GetUserPermissionGroupResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::proto::GetPermissionGroupResponse*
-Arena::CreateMaybeMessage< ::proto::GetPermissionGroupResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::proto::GetPermissionGroupResponse >(arena);
+template<> PROTOBUF_NOINLINE ::proto::GetPermissionGroupByUuidResponse*
+Arena::CreateMaybeMessage< ::proto::GetPermissionGroupByUuidResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetPermissionGroupByUuidResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::GetPermissionGroupByNameResponse*
+Arena::CreateMaybeMessage< ::proto::GetPermissionGroupByNameResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetPermissionGroupByNameResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::proto::GetAllPermissionGroupResponse*
 Arena::CreateMaybeMessage< ::proto::GetAllPermissionGroupResponse >(Arena* arena) {
@@ -13740,6 +15236,22 @@ Arena::CreateMaybeMessage< ::proto::UpdateSwcAttachmentSwcResponse >(Arena* aren
 template<> PROTOBUF_NOINLINE ::proto::GetSwcAttachmentSwcResponse*
 Arena::CreateMaybeMessage< ::proto::GetSwcAttachmentSwcResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::proto::GetSwcAttachmentSwcResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::CreatePermissionGroupResponse*
+Arena::CreateMaybeMessage< ::proto::CreatePermissionGroupResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::CreatePermissionGroupResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::DeletePermissionGroupResponse*
+Arena::CreateMaybeMessage< ::proto::DeletePermissionGroupResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::DeletePermissionGroupResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::UpdatePermissionGroupResponse*
+Arena::CreateMaybeMessage< ::proto::UpdatePermissionGroupResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::UpdatePermissionGroupResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::proto::GetProjectSwcNamesByProjectUuidResponse*
+Arena::CreateMaybeMessage< ::proto::GetProjectSwcNamesByProjectUuidResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::proto::GetProjectSwcNamesByProjectUuidResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

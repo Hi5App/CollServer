@@ -14,7 +14,8 @@ service DBMS {
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
-    rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
+    rpc GetUserByUuid(GetUserByUuidRequest) returns (GetUserByUuidResponse) {}
+    rpc GetUserByName(GetUserByNameRequest) returns (GetUserByNameResponse) {}
     rpc GetAllUser(GetAllUserRequest) returns (GetAllUserResponse){}
 
     rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {}
@@ -22,7 +23,9 @@ service DBMS {
     rpc UserOnlineHeartBeatNotifications(UserOnlineHeartBeatNotification) returns (UserOnlineHeartBeatResponse){}       
 
     rpc GetUserPermissionGroup(GetUserPermissionGroupRequest) returns (GetUserPermissionGroupResponse){}
-    rpc GetPermissionGroup(GetPermissionGroupRequest) returns (GetPermissionGroupResponse){}
+    rpc GetPermissionGroupByUuid(GetPermissionGroupByUuidRequest) returns (GetPermissionGroupByUuidResponse){}
+    rpc GetPermissionGroupByName(GetPermissionGroupByNameRequest) returns (GetPermissionGroupByNameResponse){}
+
     rpc GetAllPermissionGroup(GetAllPermissionGroupRequest) returns (GetAllPermissionGroupResponse){}
     rpc ChangeUserPermissionGroup(ChangeUserPermissionGroupRequest) returns (ChangeUserPermissionGroupResponse){}
     
@@ -72,4 +75,10 @@ service DBMS {
     rpc DeleteSwcAttachmentSwc(DeleteSwcAttachmentSwcRequest) returns (DeleteSwcAttachmentSwcResponse){}
     rpc UpdateSwcAttachmentSwc(UpdateSwcAttachmentSwcRequest) returns (UpdateSwcAttachmentSwcResponse){}
     rpc GetSwcAttachmentSwc(GetSwcAttachmentSwcRequest) returns (GetSwcAttachmentSwcResponse){}
+
+    rpc CreatePermissionGroup(CreatePermissionGroupRequest) returns (CreatePermissionGroupResponse){}
+    rpc DeletePermissionGroup(DeletePermissionGroupRequest) returns (DeletePermissionGroupResponse){}
+    rpc UpdatePermissionGroup(UpdatePermissionGroupRequest) returns (UpdatePermissionGroupResponse){}
+
+    rpc GetProjectSwcNamesByProjectUuid(GetProjectSwcNamesByProjectUuidRequest) returns (GetProjectSwcNamesByProjectUuidResponse){}
 }

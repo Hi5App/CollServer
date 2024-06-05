@@ -123,6 +123,7 @@ QStringList getApoInBlock(const QString msg,const QList <CellAPO>& wholePoint)
     }
 }
 
+//deprecated
 void setredis(int port,const char *ano)
 {
     // 取消DB0中键ano的过期时间
@@ -149,7 +150,7 @@ void setredis(int port,const char *ano)
     redisFree(c);
 }
 
-void setexpire(int port,const char *ano,int expiretime)
+void setexpire(const char *project, int port,const char *ano,int expiretime)
 {
     //设置DB0中键ano的过期时间,单位是s
     redisContext *c = redisConnect(redisIp.c_str(), 6379);
@@ -162,8 +163,8 @@ void setexpire(int port,const char *ano,int expiretime)
     }
     redisReply *reply = (redisReply *)redisCommand(c, "SELECT 0");
     freeReplyObject(reply);
-    qDebug()<<QString("EXPIRE Ano+Port:%1;%2 %3").arg(ano).arg(port).arg(expiretime).toStdString().c_str();
-    reply=(redisReply *)redisCommand(c, QString("EXPIRE Ano+Port:%1;%2 %3").arg(ano).arg(port).arg(expiretime).toStdString().c_str());
+    qDebug()<<QString("EXPIRE Project+Ano+Port:%1;%2;%3 %4").arg(project).arg(ano).arg(port).arg(expiretime).toStdString().c_str();
+    reply=(redisReply *)redisCommand(c, QString("EXPIRE Project+Ano+Port:%1;%2;%3 %4").arg(project).arg(ano).arg(port).arg(expiretime).toStdString().c_str());
     freeReplyObject(reply);
     redisFree(c);
 }

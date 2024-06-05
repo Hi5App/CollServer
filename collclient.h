@@ -95,7 +95,7 @@ private:
     void sendfiles(const QStringList &filepaths, const QStringList &filenames);//发送文件
     void preprocessmsgs(const QStringList &msgs);//处理消息
 
-    void receiveuser(const QString userName, QString passWord, QString RES, bool isFirstClient);//接收到用户登陆消息
+    void receiveuser(const QString userName, QString passWord, QString RES, QString swcUuid, bool isFirstClient);//接收到用户登陆消息
     void resetdatatype();//重置接收数据结构
 
     DataType datatype;

@@ -24,13 +24,15 @@ const (
 	DBMS_CreateUser_FullMethodName                       = "/proto.DBMS/CreateUser"
 	DBMS_DeleteUser_FullMethodName                       = "/proto.DBMS/DeleteUser"
 	DBMS_UpdateUser_FullMethodName                       = "/proto.DBMS/UpdateUser"
-	DBMS_GetUser_FullMethodName                          = "/proto.DBMS/GetUser"
+	DBMS_GetUserByUuid_FullMethodName                    = "/proto.DBMS/GetUserByUuid"
+	DBMS_GetUserByName_FullMethodName                    = "/proto.DBMS/GetUserByName"
 	DBMS_GetAllUser_FullMethodName                       = "/proto.DBMS/GetAllUser"
 	DBMS_UserLogin_FullMethodName                        = "/proto.DBMS/UserLogin"
 	DBMS_UserLogout_FullMethodName                       = "/proto.DBMS/UserLogout"
 	DBMS_UserOnlineHeartBeatNotifications_FullMethodName = "/proto.DBMS/UserOnlineHeartBeatNotifications"
 	DBMS_GetUserPermissionGroup_FullMethodName           = "/proto.DBMS/GetUserPermissionGroup"
-	DBMS_GetPermissionGroup_FullMethodName               = "/proto.DBMS/GetPermissionGroup"
+	DBMS_GetPermissionGroupByUuid_FullMethodName         = "/proto.DBMS/GetPermissionGroupByUuid"
+	DBMS_GetPermissionGroupByName_FullMethodName         = "/proto.DBMS/GetPermissionGroupByName"
 	DBMS_GetAllPermissionGroup_FullMethodName            = "/proto.DBMS/GetAllPermissionGroup"
 	DBMS_ChangeUserPermissionGroup_FullMethodName        = "/proto.DBMS/ChangeUserPermissionGroup"
 	DBMS_CreateProject_FullMethodName                    = "/proto.DBMS/CreateProject"
@@ -72,6 +74,10 @@ const (
 	DBMS_DeleteSwcAttachmentSwc_FullMethodName           = "/proto.DBMS/DeleteSwcAttachmentSwc"
 	DBMS_UpdateSwcAttachmentSwc_FullMethodName           = "/proto.DBMS/UpdateSwcAttachmentSwc"
 	DBMS_GetSwcAttachmentSwc_FullMethodName              = "/proto.DBMS/GetSwcAttachmentSwc"
+	DBMS_CreatePermissionGroup_FullMethodName            = "/proto.DBMS/CreatePermissionGroup"
+	DBMS_DeletePermissionGroup_FullMethodName            = "/proto.DBMS/DeletePermissionGroup"
+	DBMS_UpdatePermissionGroup_FullMethodName            = "/proto.DBMS/UpdatePermissionGroup"
+	DBMS_GetProjectSwcNamesByProjectUuid_FullMethodName  = "/proto.DBMS/GetProjectSwcNamesByProjectUuid"
 )
 
 // DBMSClient is the client API for DBMS service.
@@ -81,13 +87,15 @@ type DBMSClient interface {
 	CreateUser(ctx context.Context, in *request.CreateUserRequest, opts ...grpc.CallOption) (*response.CreateUserResponse, error)
 	DeleteUser(ctx context.Context, in *request.DeleteUserRequest, opts ...grpc.CallOption) (*response.DeleteUserResponse, error)
 	UpdateUser(ctx context.Context, in *request.UpdateUserRequest, opts ...grpc.CallOption) (*response.UpdateUserResponse, error)
-	GetUser(ctx context.Context, in *request.GetUserRequest, opts ...grpc.CallOption) (*response.GetUserResponse, error)
+	GetUserByUuid(ctx context.Context, in *request.GetUserByUuidRequest, opts ...grpc.CallOption) (*response.GetUserByUuidResponse, error)
+	GetUserByName(ctx context.Context, in *request.GetUserByNameRequest, opts ...grpc.CallOption) (*response.GetUserByNameResponse, error)
 	GetAllUser(ctx context.Context, in *request.GetAllUserRequest, opts ...grpc.CallOption) (*response.GetAllUserResponse, error)
 	UserLogin(ctx context.Context, in *request.UserLoginRequest, opts ...grpc.CallOption) (*response.UserLoginResponse, error)
 	UserLogout(ctx context.Context, in *request.UserLogoutRequest, opts ...grpc.CallOption) (*response.UserLogoutResponse, error)
 	UserOnlineHeartBeatNotifications(ctx context.Context, in *request.UserOnlineHeartBeatNotification, opts ...grpc.CallOption) (*response.UserOnlineHeartBeatResponse, error)
 	GetUserPermissionGroup(ctx context.Context, in *request.GetUserPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetUserPermissionGroupResponse, error)
-	GetPermissionGroup(ctx context.Context, in *request.GetPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupResponse, error)
+	GetPermissionGroupByUuid(ctx context.Context, in *request.GetPermissionGroupByUuidRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupByUuidResponse, error)
+	GetPermissionGroupByName(ctx context.Context, in *request.GetPermissionGroupByNameRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupByNameResponse, error)
 	GetAllPermissionGroup(ctx context.Context, in *request.GetAllPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetAllPermissionGroupResponse, error)
 	ChangeUserPermissionGroup(ctx context.Context, in *request.ChangeUserPermissionGroupRequest, opts ...grpc.CallOption) (*response.ChangeUserPermissionGroupResponse, error)
 	CreateProject(ctx context.Context, in *request.CreateProjectRequest, opts ...grpc.CallOption) (*response.CreateProjectResponse, error)
@@ -129,6 +137,10 @@ type DBMSClient interface {
 	DeleteSwcAttachmentSwc(ctx context.Context, in *request.DeleteSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.DeleteSwcAttachmentSwcResponse, error)
 	UpdateSwcAttachmentSwc(ctx context.Context, in *request.UpdateSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.UpdateSwcAttachmentSwcResponse, error)
 	GetSwcAttachmentSwc(ctx context.Context, in *request.GetSwcAttachmentSwcRequest, opts ...grpc.CallOption) (*response.GetSwcAttachmentSwcResponse, error)
+	CreatePermissionGroup(ctx context.Context, in *request.CreatePermissionGroupRequest, opts ...grpc.CallOption) (*response.CreatePermissionGroupResponse, error)
+	DeletePermissionGroup(ctx context.Context, in *request.DeletePermissionGroupRequest, opts ...grpc.CallOption) (*response.DeletePermissionGroupResponse, error)
+	UpdatePermissionGroup(ctx context.Context, in *request.UpdatePermissionGroupRequest, opts ...grpc.CallOption) (*response.UpdatePermissionGroupResponse, error)
+	GetProjectSwcNamesByProjectUuid(ctx context.Context, in *request.GetProjectSwcNamesByProjectUuidRequest, opts ...grpc.CallOption) (*response.GetProjectSwcNamesByProjectUuidResponse, error)
 }
 
 type dBMSClient struct {
@@ -166,9 +178,18 @@ func (c *dBMSClient) UpdateUser(ctx context.Context, in *request.UpdateUserReque
 	return out, nil
 }
 
-func (c *dBMSClient) GetUser(ctx context.Context, in *request.GetUserRequest, opts ...grpc.CallOption) (*response.GetUserResponse, error) {
-	out := new(response.GetUserResponse)
-	err := c.cc.Invoke(ctx, DBMS_GetUser_FullMethodName, in, out, opts...)
+func (c *dBMSClient) GetUserByUuid(ctx context.Context, in *request.GetUserByUuidRequest, opts ...grpc.CallOption) (*response.GetUserByUuidResponse, error) {
+	out := new(response.GetUserByUuidResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetUserByUuid_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) GetUserByName(ctx context.Context, in *request.GetUserByNameRequest, opts ...grpc.CallOption) (*response.GetUserByNameResponse, error) {
+	out := new(response.GetUserByNameResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetUserByName_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,9 +241,18 @@ func (c *dBMSClient) GetUserPermissionGroup(ctx context.Context, in *request.Get
 	return out, nil
 }
 
-func (c *dBMSClient) GetPermissionGroup(ctx context.Context, in *request.GetPermissionGroupRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupResponse, error) {
-	out := new(response.GetPermissionGroupResponse)
-	err := c.cc.Invoke(ctx, DBMS_GetPermissionGroup_FullMethodName, in, out, opts...)
+func (c *dBMSClient) GetPermissionGroupByUuid(ctx context.Context, in *request.GetPermissionGroupByUuidRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupByUuidResponse, error) {
+	out := new(response.GetPermissionGroupByUuidResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetPermissionGroupByUuid_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) GetPermissionGroupByName(ctx context.Context, in *request.GetPermissionGroupByNameRequest, opts ...grpc.CallOption) (*response.GetPermissionGroupByNameResponse, error) {
+	out := new(response.GetPermissionGroupByNameResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetPermissionGroupByName_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -598,6 +628,42 @@ func (c *dBMSClient) GetSwcAttachmentSwc(ctx context.Context, in *request.GetSwc
 	return out, nil
 }
 
+func (c *dBMSClient) CreatePermissionGroup(ctx context.Context, in *request.CreatePermissionGroupRequest, opts ...grpc.CallOption) (*response.CreatePermissionGroupResponse, error) {
+	out := new(response.CreatePermissionGroupResponse)
+	err := c.cc.Invoke(ctx, DBMS_CreatePermissionGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) DeletePermissionGroup(ctx context.Context, in *request.DeletePermissionGroupRequest, opts ...grpc.CallOption) (*response.DeletePermissionGroupResponse, error) {
+	out := new(response.DeletePermissionGroupResponse)
+	err := c.cc.Invoke(ctx, DBMS_DeletePermissionGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) UpdatePermissionGroup(ctx context.Context, in *request.UpdatePermissionGroupRequest, opts ...grpc.CallOption) (*response.UpdatePermissionGroupResponse, error) {
+	out := new(response.UpdatePermissionGroupResponse)
+	err := c.cc.Invoke(ctx, DBMS_UpdatePermissionGroup_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) GetProjectSwcNamesByProjectUuid(ctx context.Context, in *request.GetProjectSwcNamesByProjectUuidRequest, opts ...grpc.CallOption) (*response.GetProjectSwcNamesByProjectUuidResponse, error) {
+	out := new(response.GetProjectSwcNamesByProjectUuidResponse)
+	err := c.cc.Invoke(ctx, DBMS_GetProjectSwcNamesByProjectUuid_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DBMSServer is the server API for DBMS service.
 // All implementations must embed UnimplementedDBMSServer
 // for forward compatibility
@@ -605,13 +671,15 @@ type DBMSServer interface {
 	CreateUser(context.Context, *request.CreateUserRequest) (*response.CreateUserResponse, error)
 	DeleteUser(context.Context, *request.DeleteUserRequest) (*response.DeleteUserResponse, error)
 	UpdateUser(context.Context, *request.UpdateUserRequest) (*response.UpdateUserResponse, error)
-	GetUser(context.Context, *request.GetUserRequest) (*response.GetUserResponse, error)
+	GetUserByUuid(context.Context, *request.GetUserByUuidRequest) (*response.GetUserByUuidResponse, error)
+	GetUserByName(context.Context, *request.GetUserByNameRequest) (*response.GetUserByNameResponse, error)
 	GetAllUser(context.Context, *request.GetAllUserRequest) (*response.GetAllUserResponse, error)
 	UserLogin(context.Context, *request.UserLoginRequest) (*response.UserLoginResponse, error)
 	UserLogout(context.Context, *request.UserLogoutRequest) (*response.UserLogoutResponse, error)
 	UserOnlineHeartBeatNotifications(context.Context, *request.UserOnlineHeartBeatNotification) (*response.UserOnlineHeartBeatResponse, error)
 	GetUserPermissionGroup(context.Context, *request.GetUserPermissionGroupRequest) (*response.GetUserPermissionGroupResponse, error)
-	GetPermissionGroup(context.Context, *request.GetPermissionGroupRequest) (*response.GetPermissionGroupResponse, error)
+	GetPermissionGroupByUuid(context.Context, *request.GetPermissionGroupByUuidRequest) (*response.GetPermissionGroupByUuidResponse, error)
+	GetPermissionGroupByName(context.Context, *request.GetPermissionGroupByNameRequest) (*response.GetPermissionGroupByNameResponse, error)
 	GetAllPermissionGroup(context.Context, *request.GetAllPermissionGroupRequest) (*response.GetAllPermissionGroupResponse, error)
 	ChangeUserPermissionGroup(context.Context, *request.ChangeUserPermissionGroupRequest) (*response.ChangeUserPermissionGroupResponse, error)
 	CreateProject(context.Context, *request.CreateProjectRequest) (*response.CreateProjectResponse, error)
@@ -653,6 +721,10 @@ type DBMSServer interface {
 	DeleteSwcAttachmentSwc(context.Context, *request.DeleteSwcAttachmentSwcRequest) (*response.DeleteSwcAttachmentSwcResponse, error)
 	UpdateSwcAttachmentSwc(context.Context, *request.UpdateSwcAttachmentSwcRequest) (*response.UpdateSwcAttachmentSwcResponse, error)
 	GetSwcAttachmentSwc(context.Context, *request.GetSwcAttachmentSwcRequest) (*response.GetSwcAttachmentSwcResponse, error)
+	CreatePermissionGroup(context.Context, *request.CreatePermissionGroupRequest) (*response.CreatePermissionGroupResponse, error)
+	DeletePermissionGroup(context.Context, *request.DeletePermissionGroupRequest) (*response.DeletePermissionGroupResponse, error)
+	UpdatePermissionGroup(context.Context, *request.UpdatePermissionGroupRequest) (*response.UpdatePermissionGroupResponse, error)
+	GetProjectSwcNamesByProjectUuid(context.Context, *request.GetProjectSwcNamesByProjectUuidRequest) (*response.GetProjectSwcNamesByProjectUuidResponse, error)
 	mustEmbedUnimplementedDBMSServer()
 }
 
@@ -669,8 +741,11 @@ func (UnimplementedDBMSServer) DeleteUser(context.Context, *request.DeleteUserRe
 func (UnimplementedDBMSServer) UpdateUser(context.Context, *request.UpdateUserRequest) (*response.UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-func (UnimplementedDBMSServer) GetUser(context.Context, *request.GetUserRequest) (*response.GetUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+func (UnimplementedDBMSServer) GetUserByUuid(context.Context, *request.GetUserByUuidRequest) (*response.GetUserByUuidResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUuid not implemented")
+}
+func (UnimplementedDBMSServer) GetUserByName(context.Context, *request.GetUserByNameRequest) (*response.GetUserByNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByName not implemented")
 }
 func (UnimplementedDBMSServer) GetAllUser(context.Context, *request.GetAllUserRequest) (*response.GetAllUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllUser not implemented")
@@ -687,8 +762,11 @@ func (UnimplementedDBMSServer) UserOnlineHeartBeatNotifications(context.Context,
 func (UnimplementedDBMSServer) GetUserPermissionGroup(context.Context, *request.GetUserPermissionGroupRequest) (*response.GetUserPermissionGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserPermissionGroup not implemented")
 }
-func (UnimplementedDBMSServer) GetPermissionGroup(context.Context, *request.GetPermissionGroupRequest) (*response.GetPermissionGroupResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPermissionGroup not implemented")
+func (UnimplementedDBMSServer) GetPermissionGroupByUuid(context.Context, *request.GetPermissionGroupByUuidRequest) (*response.GetPermissionGroupByUuidResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPermissionGroupByUuid not implemented")
+}
+func (UnimplementedDBMSServer) GetPermissionGroupByName(context.Context, *request.GetPermissionGroupByNameRequest) (*response.GetPermissionGroupByNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPermissionGroupByName not implemented")
 }
 func (UnimplementedDBMSServer) GetAllPermissionGroup(context.Context, *request.GetAllPermissionGroupRequest) (*response.GetAllPermissionGroupResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllPermissionGroup not implemented")
@@ -813,6 +891,18 @@ func (UnimplementedDBMSServer) UpdateSwcAttachmentSwc(context.Context, *request.
 func (UnimplementedDBMSServer) GetSwcAttachmentSwc(context.Context, *request.GetSwcAttachmentSwcRequest) (*response.GetSwcAttachmentSwcResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSwcAttachmentSwc not implemented")
 }
+func (UnimplementedDBMSServer) CreatePermissionGroup(context.Context, *request.CreatePermissionGroupRequest) (*response.CreatePermissionGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePermissionGroup not implemented")
+}
+func (UnimplementedDBMSServer) DeletePermissionGroup(context.Context, *request.DeletePermissionGroupRequest) (*response.DeletePermissionGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePermissionGroup not implemented")
+}
+func (UnimplementedDBMSServer) UpdatePermissionGroup(context.Context, *request.UpdatePermissionGroupRequest) (*response.UpdatePermissionGroupResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePermissionGroup not implemented")
+}
+func (UnimplementedDBMSServer) GetProjectSwcNamesByProjectUuid(context.Context, *request.GetProjectSwcNamesByProjectUuidRequest) (*response.GetProjectSwcNamesByProjectUuidResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProjectSwcNamesByProjectUuid not implemented")
+}
 func (UnimplementedDBMSServer) mustEmbedUnimplementedDBMSServer() {}
 
 // UnsafeDBMSServer may be embedded to opt out of forward compatibility for this service.
@@ -880,20 +970,38 @@ func _DBMS_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DBMS_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(request.GetUserRequest)
+func _DBMS_GetUserByUuid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetUserByUuidRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DBMSServer).GetUser(ctx, in)
+		return srv.(DBMSServer).GetUserByUuid(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DBMS_GetUser_FullMethodName,
+		FullMethod: DBMS_GetUserByUuid_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DBMSServer).GetUser(ctx, req.(*request.GetUserRequest))
+		return srv.(DBMSServer).GetUserByUuid(ctx, req.(*request.GetUserByUuidRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_GetUserByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetUserByNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).GetUserByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_GetUserByName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).GetUserByName(ctx, req.(*request.GetUserByNameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -988,20 +1096,38 @@ func _DBMS_GetUserPermissionGroup_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DBMS_GetPermissionGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(request.GetPermissionGroupRequest)
+func _DBMS_GetPermissionGroupByUuid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetPermissionGroupByUuidRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DBMSServer).GetPermissionGroup(ctx, in)
+		return srv.(DBMSServer).GetPermissionGroupByUuid(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DBMS_GetPermissionGroup_FullMethodName,
+		FullMethod: DBMS_GetPermissionGroupByUuid_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DBMSServer).GetPermissionGroup(ctx, req.(*request.GetPermissionGroupRequest))
+		return srv.(DBMSServer).GetPermissionGroupByUuid(ctx, req.(*request.GetPermissionGroupByUuidRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_GetPermissionGroupByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetPermissionGroupByNameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).GetPermissionGroupByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_GetPermissionGroupByName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).GetPermissionGroupByName(ctx, req.(*request.GetPermissionGroupByNameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1744,6 +1870,78 @@ func _DBMS_GetSwcAttachmentSwc_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DBMS_CreatePermissionGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.CreatePermissionGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).CreatePermissionGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_CreatePermissionGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).CreatePermissionGroup(ctx, req.(*request.CreatePermissionGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_DeletePermissionGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.DeletePermissionGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).DeletePermissionGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_DeletePermissionGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).DeletePermissionGroup(ctx, req.(*request.DeletePermissionGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_UpdatePermissionGroup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdatePermissionGroupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).UpdatePermissionGroup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_UpdatePermissionGroup_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).UpdatePermissionGroup(ctx, req.(*request.UpdatePermissionGroupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_GetProjectSwcNamesByProjectUuid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.GetProjectSwcNamesByProjectUuidRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).GetProjectSwcNamesByProjectUuid(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_GetProjectSwcNamesByProjectUuid_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).GetProjectSwcNamesByProjectUuid(ctx, req.(*request.GetProjectSwcNamesByProjectUuidRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DBMS_ServiceDesc is the grpc.ServiceDesc for DBMS service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1764,8 +1962,12 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DBMS_UpdateUser_Handler,
 		},
 		{
-			MethodName: "GetUser",
-			Handler:    _DBMS_GetUser_Handler,
+			MethodName: "GetUserByUuid",
+			Handler:    _DBMS_GetUserByUuid_Handler,
+		},
+		{
+			MethodName: "GetUserByName",
+			Handler:    _DBMS_GetUserByName_Handler,
 		},
 		{
 			MethodName: "GetAllUser",
@@ -1788,8 +1990,12 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DBMS_GetUserPermissionGroup_Handler,
 		},
 		{
-			MethodName: "GetPermissionGroup",
-			Handler:    _DBMS_GetPermissionGroup_Handler,
+			MethodName: "GetPermissionGroupByUuid",
+			Handler:    _DBMS_GetPermissionGroupByUuid_Handler,
+		},
+		{
+			MethodName: "GetPermissionGroupByName",
+			Handler:    _DBMS_GetPermissionGroupByName_Handler,
 		},
 		{
 			MethodName: "GetAllPermissionGroup",
@@ -1954,6 +2160,22 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSwcAttachmentSwc",
 			Handler:    _DBMS_GetSwcAttachmentSwc_Handler,
+		},
+		{
+			MethodName: "CreatePermissionGroup",
+			Handler:    _DBMS_CreatePermissionGroup_Handler,
+		},
+		{
+			MethodName: "DeletePermissionGroup",
+			Handler:    _DBMS_DeletePermissionGroup_Handler,
+		},
+		{
+			MethodName: "UpdatePermissionGroup",
+			Handler:    _DBMS_UpdatePermissionGroup_Handler,
+		},
+		{
+			MethodName: "GetProjectSwcNamesByProjectUuid",
+			Handler:    _DBMS_GetProjectSwcNamesByProjectUuid_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

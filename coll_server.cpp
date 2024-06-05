@@ -39,15 +39,15 @@ CollServer* CollServer::curServer=nullptr;
 //QMutex CollServer::mutex;
 //QString CollServer::RES;
 
-CollServer::CollServer(QString port,QString image,QString neuron,QString anoname,QString prefix,int maxUserNumsInt,int modelDetectIntervals,QObject *parent)
-    :QTcpServer(parent),Port(port),Image(image),Neuron(neuron),AnoName(anoname),Prefix(prefix+"/testdata/"+image+"/"+neuron+"/"+anoname)
+CollServer::CollServer(QString port,QString project,QString image,QString neuron,QString anoname,QString prefix,int maxUserNumsInt,int modelDetectIntervals,QObject *parent)
+    :QTcpServer(parent),Port(port),Project(project),Image(image),Neuron(neuron),AnoName(anoname),Prefix(prefix+"/testdata/"+project+"/"+image+"/"+neuron+"/"+anoname)
     ,MaxUserNums(maxUserNumsInt),ModelDetectIntervals(modelDetectIntervals),timerForAutoSave(new QTimer(this)),timerForDetectLoops(new QTimer(this)), timerForDetectOthers(new QTimer(this)),timerForDetectTip(new QTimer(this)),
     timerForDetectCrossing(new QTimer(this)),timerForDetectBranching(new QTimer(this)),timerForAutoExit(new QTimer(this)),timerForDetectWhole(new QTimer(this))
 {
     qDebug()<<"MainThread:"<<QThread::currentThreadId();
     curServer=this;
 
-    Config::getInstance().initialize("config.json");
+    Config::getInstance().initialize("config_test.json");
     Config::getInstance().readConfig();
 
     serverIP = Config::getInstance().getConfig(Config::ConfigItem::eServerIP);
@@ -127,7 +127,7 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
     // If address is QHostAddress::Any, the server will listen on all network interfaces.
     if(!this->listen(QHostAddress::Any,Port.toInt())){
         std::cerr<<"Can not init server with port "<<Port.toInt()<<std::endl;
-        setexpire(Port.toInt(),AnoName.toStdString().c_str(),0);
+        setexpire(Project.toStdString().c_str(),Port.toInt(),AnoName.toStdString().c_str(),0);
         recoverPort(Port.toInt());
         std::cerr<<AnoName.toStdString()+" server is released\n";
         exit(-1);
@@ -155,20 +155,13 @@ CollServer::CollServer(QString port,QString image,QString neuron,QString anoname
     });
     startTimerForDetectWhole();
 
-    QString dbmsLogPath = prefix+"/log/"+anoname+"_dbms.log";
-//    additionalLogFile=new QFile(dbmsLogPath);
-//    if(!additionalLogFile->open(QIODevice::Append | QIODevice::Text)){
-//        qDebug() << "cannot open additionalLogFile";
-//    }
-//    additionalLogOut.setDevice(additionalLogFile);
-
 //    m_HeartBeatTimer->start();
 //    m_OnlineStatusTimer->start();
 }
 
 CollServer::~CollServer(){
     // change set expire time 60 -> 10
-    setexpire(Port.toInt(),AnoName.toStdString().c_str(),0);
+    setexpire(Project.toStdString().c_str(),Port.toInt(),AnoName.toStdString().c_str(),0);
     // recover port
     recoverPort(Port.toInt());
     std::cerr<<AnoName.toStdString()+" server is released\n";
@@ -183,9 +176,6 @@ CollServer::~CollServer(){
         list_thread[0]->deleteLater();//释放
         list_thread.removeAt(0);
     }
-//    additionalLogFile->flush();
-//    additionalLogFile->close();
-//    delete additionalLogFile;
 
     exit(0);
 }
@@ -195,7 +185,7 @@ CollServer* CollServer::getInstance(){
 }
 
 void CollServer::incomingConnection(qintptr handle){
-    setexpire(Port.toInt(),AnoName.toStdString().c_str(), 60);
+    setexpire(Project.toStdString().c_str(),Port.toInt(),AnoName.toStdString().c_str(), 60);
     list_thread.append(new CollThread(this));
     list_thread[list_thread.size()-1]->setServer(curServer);
     list_thread[list_thread.size()-1]->start();
@@ -244,7 +234,7 @@ void CollServer::autoSave()
 //    additionalLogFile->flush();
     logfile->flush();
     fsync(1);fsync(2);
-    setexpire(Port.toInt(), AnoName.toStdString().c_str(), 60);
+    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 60);
     if(hashmap.size()==0){
         std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
         std::for_each(markers.begin(), markers.end(), [&](CellAPO&val) {
@@ -268,7 +258,7 @@ void CollServer::autoSave()
         });
 
         proto::UpdateSwcAttachmentApoResponse response;
-        WrappedCall::updateSwcAttachmentApo(swcName, attachmentUuid, swcAttachmentApoData, response, cachedUserData);
+        WrappedCall::updateSwcAttachmentApo(swcUuid, attachmentUuid, swcAttachmentApoData, response, cachedUserData);
 
         this->close();
 //        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
@@ -448,6 +438,10 @@ void CollServer::delmarkers(const QString msg)
 
 QString CollServer::getAnoName(){
     return AnoName;
+}
+
+QString CollServer::getProject(){
+    return Project;
 }
 
 QString CollServer::getImage(){

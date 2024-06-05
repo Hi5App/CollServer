@@ -293,7 +293,7 @@ void CollClient::addseg(const QString msg)
     }
 
     proto::CreateSwcNodeDataResponse response;
-    if(!WrappedCall::addSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+    if(!WrappedCall::addSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_AddSwcNodeDataError:server";
         sendmsgs({msg});
         return;
@@ -303,11 +303,6 @@ void CollClient::addseg(const QString msg)
     for(int i=0; i<segs[0].row.size(); i++){
         myServer->segments.seg[myServer->segments.seg.size()-1].row[i].uuid = uuids.Get(i);
     }
-
-//    QString logMsg = QString("Add %1 node\n").arg(myServer->segments.nrows() - point_size);
-//    myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//    myServer->additionalLogFile->flush();
-//    fsync(myServer->additionalLogFile->handle());
 
     vector<V_NeuronSWC> tobeInputSegs;
     tobeInputSegs.push_back(segs[0]);
@@ -440,7 +435,7 @@ bool CollClient::addmanysegs(const QString msg){
     }
 
     proto::CreateSwcNodeDataResponse response;
-    if(!WrappedCall::addSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+    if(!WrappedCall::addSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_AddSwcNodeDataError:server";
         sendmsgs({msg});
     }
@@ -467,11 +462,6 @@ bool CollClient::addmanysegs(const QString msg){
         }
         myServer->segments.append(seg);
     }
-
-//    QString logMsg = QString("Add %1 node\n").arg(myServer->segments.nrows() - point_size);
-//    myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//    myServer->additionalLogFile->flush();
-//    fsync(myServer->additionalLogFile->handle());
 
     qDebug()<<"server addmanysegs";
 
@@ -564,17 +554,12 @@ void CollClient::delseg(const QString msg)
     }
 
     proto::DeleteSwcNodeDataResponse response;
-    if(!WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+    if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_DeleteSwcNodeDataError:server";
         sendmsgs({msg});
 //        return;
     }
-//    WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, cachedUserData);
-
-//    QString logMsg = QString("Delete %1 node\n").arg(point_size - myServer->segments.nrows());
-//    myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//    myServer->additionalLogFile->flush();
-//    fsync(myServer->additionalLogFile->handle());
+//    WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData);
 
     set<int> markerIndexs = getQCMarkerNearBy(tobeInputSegs, myServer->markers);
     for(auto it=markerIndexs.begin(); it!=markerIndexs.end(); it++){
@@ -801,7 +786,7 @@ void CollClient::connectseg(const QString msg){
     }
 
     proto::CreateSwcNodeDataResponse response;
-    if(!WrappedCall::addSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+    if(!WrappedCall::addSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_AddSwcNodeDataError:server";
         sendmsgs({msg});
         return;
@@ -816,11 +801,6 @@ void CollClient::connectseg(const QString msg){
         }
         myServer->segments.append(connectedSegDecomposed[i]);
     }
-
-//    QString logMsg = QString("Add %1 node\n").arg(myServer->segments.nrows() - point_size);
-//    myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//    myServer->additionalLogFile->flush();
-//    fsync(myServer->additionalLogFile->handle());
 
     std::vector<V_NeuronSWC>::iterator iter = myServer->segments.seg.begin();
     while (iter != myServer->segments.seg.end())
@@ -844,17 +824,12 @@ void CollClient::connectseg(const QString msg){
             }
 
             proto::DeleteSwcNodeDataResponse response;
-            if(!WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+            if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
                 QString msg = "/WARN_DeleteSwcNodeDataError:server";
                 sendmsgs({msg});
 //                return;
             }
             iter = myServer->segments.seg.erase(iter);
-
-//            QString logMsg = QString("Delete %1 node\n").arg(point_size - myServer->segments.nrows());
-//            myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//            myServer->additionalLogFile->flush();
-//            fsync(myServer->additionalLogFile->handle());
         }
         else
             ++iter;
@@ -919,17 +894,12 @@ void CollClient::splitseg(const QString msg){
         }
 
         proto::DeleteSwcNodeDataResponse response;
-        if(!WrappedCall::deleteSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+        if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
             QString msg = "/WARN_DeleteSwcNodeDataError:server";
             sendmsgs({msg});
 //            return;
         }
         myServer->segments.seg.erase(it);
-
-//        QString logMsg = QString("Delete %1 node\n").arg(point_size - myServer->segments.nrows());
-//        myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//        myServer->additionalLogFile->flush();
-//        fsync(myServer->additionalLogFile->handle());
     }
 
     else
@@ -1026,7 +996,7 @@ void CollClient::splitseg(const QString msg){
     }
 
     proto::CreateSwcNodeDataResponse response;
-    if(!WrappedCall::addSwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+    if(!WrappedCall::addSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_AddSwcNodeDataError:server";
         sendmsgs({msg});
         return;
@@ -1041,11 +1011,6 @@ void CollClient::splitseg(const QString msg){
         }
         myServer->segments.append(segs[i]);
     }
-
-//    QString logMsg = QString("Add %1 node\n").arg(myServer->segments.nrows() - point_size);
-//    myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//    myServer->additionalLogFile->flush();
-//    fsync(myServer->additionalLogFile->handle());
 
     myServer->mutexForDetectOthers.lock();
     for(int i=1;i<segs.size();i++){
@@ -1133,16 +1098,11 @@ void CollClient::retypesegment(const QString msg)
     }
 
     proto::UpdateSwcNodeDataResponse response;
-    if(!WrappedCall::modifySwcNodeData(myServer->swcName, swcData, response, cachedUserData)){
+    if(!WrappedCall::modifySwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_ModifySwcNodeDataError:server";
         sendmsgs({msg});
 //        return;
     }
-
-//    QString logMsg = QString("Retype %1 node\n").arg(retypeCount);
-//    myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//    myServer->additionalLogFile->flush();
-//    fsync(myServer->additionalLogFile->handle());
 
     set<int> markerIndexs = getQCMarkerNearBy(tobeInputSegs, myServer->markers);
     for(auto it=markerIndexs.begin(); it!=markerIndexs.end(); it++){
@@ -1394,7 +1354,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
         if(msg.contains("/login:"))
         {
             auto ps=msg.right(msg.size()-QString("/login:").size()).split(' ',Qt::SkipEmptyParts);
-            if (ps.size()>5){
+            if (ps.size()>6){
                 std::cerr<<"login in error:"<<msg.toStdString();
 //                this->disconnectFromHost();
 //                this->close();//关闭读
@@ -1425,7 +1385,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
                 return;
             }
             myServer->mutex.lock();
-            receiveuser(ps[1], ps[2], ps[3], myServer->isFirstClient);
+            receiveuser(ps[1], ps[2], ps[3], ps[4], myServer->isFirstClient);
             updateApoData(myServer->isFirstClient);
             getFileFromDBMSAndSend(myServer->isFirstClient);
             myServer->isFirstClient = false;
@@ -1607,7 +1567,7 @@ void CollClient::onError(QAbstractSocket::SocketError socketError){
 //    this->deleteLater();
 }
 
-void CollClient::receiveuser(const QString userName, QString passWord, QString RES, bool isFirstClient)
+void CollClient::receiveuser(const QString userName, QString passWord, QString RES, QString swcUuid, bool isFirstClient)
 {
     if(myServer->hashmap.contains(userName))
     {
@@ -1619,6 +1579,7 @@ void CollClient::receiveuser(const QString userName, QString passWord, QString R
     }
     myServer->hashmap[userName]=this;
     myServer->RES=RES;
+    myServer->swcUuid = swcUuid.toStdString();
     myServer->detectUtil->getImageMaxRES();
     updateuserlist();
 
@@ -1653,7 +1614,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
 
     //get apo
     proto::GetSwcMetaInfoResponse get_swc_meta_info_response;
-    if (!WrappedCall::getSwcMetaInfoByName(myServer->swcName, get_swc_meta_info_response, cachedUserData)) {
+    if (!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid, get_swc_meta_info_response, cachedUserData)) {
         QString msg = "/WARN_GetSwcMetaInfoError:server";
         sendmsgs({msg});
         return;
@@ -1669,7 +1630,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
 
     proto::GetSwcAttachmentApoResponse response;
     myServer->attachmentUuid = get_swc_meta_info_response.swcinfo().swcattachmentapometainfo().attachmentuuid();
-    if (!WrappedCall::getSwcAttachmentApo(myServer->swcName, myServer->attachmentUuid, response, cachedUserData)) {
+    if (!WrappedCall::getSwcAttachmentApo(myServer->swcUuid, myServer->attachmentUuid, response, cachedUserData)) {
         QString msg = "/WARN_GetApoDataError:server";
         sendmsgs({msg});
         return;
@@ -1710,14 +1671,14 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
 
     //get eswc
     proto::GetSwcMetaInfoResponse response1;
-    if(!WrappedCall::getSwcMetaInfoByName(myServer->swcName,response1,cachedUserData)){
+    if(!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid,response1,cachedUserData)){
         QString msg = "/WARN_GetSwcMetaInfoError:server";
         sendmsgs({msg});
         return;
     }
 
     proto::GetSwcFullNodeDataResponse response2;
-    if(!WrappedCall::getSwcFullNodeData(myServer->swcName, response2, cachedUserData)){
+    if(!WrappedCall::getSwcFullNodeData(myServer->swcUuid, response2, cachedUserData)){
         QString msg = "/WARN_GetSwcFullNodeDataError:server";
         sendmsgs({msg});
         return;
@@ -1839,7 +1800,7 @@ void CollClient::updateApoData(bool isFirstClient){
     });
 
     proto::UpdateSwcAttachmentApoResponse response;
-    if(!WrappedCall::updateSwcAttachmentApo(myServer->swcName, myServer->attachmentUuid, swcAttachmentApoData, response, cachedUserData)){
+    if(!WrappedCall::updateSwcAttachmentApo(myServer->swcUuid, myServer->attachmentUuid, swcAttachmentApoData, response, cachedUserData)){
         QString msg = "/WARN_UpdateSwcAttachmentApoError:server";
         sendmsgs({msg});
         return;
@@ -2133,7 +2094,7 @@ void CollClient::simpleConnectExecutor(V_NeuronSWC_list& segments, vector<segInf
         }
 
         proto::DeleteSwcNodeDataResponse deleteResponse;
-        if(!WrappedCall::deleteSwcNodeData(myServer->swcName, deleteSwcData, deleteResponse, cachedUserData)){
+        if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, deleteSwcData, deleteResponse, cachedUserData)){
             QString msg = "/WARN_DeleteSwcNodeDataError:server";
             sendmsgs({msg});
 //            return;
@@ -2164,7 +2125,7 @@ void CollClient::simpleConnectExecutor(V_NeuronSWC_list& segments, vector<segInf
         }
 
         proto::CreateSwcNodeDataResponse addResponse;
-        if(!WrappedCall::addSwcNodeData(myServer->swcName, addSwcData, addResponse, cachedUserData)){
+        if(!WrappedCall::addSwcNodeData(myServer->swcUuid, addSwcData, addResponse, cachedUserData)){
             QString msg = "/WARN_AddSwcNodeDataError:server";
             sendmsgs({msg});
 //            return;
@@ -2174,11 +2135,6 @@ void CollClient::simpleConnectExecutor(V_NeuronSWC_list& segments, vector<segInf
         for(int i=0; i<res_seg.row.size(); i++){
             myServer->segments.seg[mainSeg.segID].row[i].uuid = uuids.Get(i);
         }
-
-//        logMsg = QString("Add %1 node\n").arg(myServer->segments.nrows() - point_size);
-//        myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//        myServer->additionalLogFile->flush();
-//        fsync(myServer->additionalLogFile->handle());
     }
 
     return;
@@ -2216,13 +2172,18 @@ void CollClient::analyzeSomaNearBy(const QString msg){
         myServer->mutex.unlock();
         vector<int> counts=getMulfurcationsCountNearSoma(8, myServer->somaCoordinate, myServer->segments);
         QString tobeSendMsg="/FEEDBACK_ANALYZE_SomaNearBy:";
-        if((counts[1] + counts[2])==1){
+        // 2、3、>3
+        if(counts[1]==1 && counts[2]==0){
             qDebug()<<"the soma has been connected to one point";
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
-        }else if((counts[1] + counts[2])==0 && counts[0]==1){
+        }else if(counts[1]==0 && counts[2]==1){
             qDebug()<<"the soma has been connected to one point";
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
-        }else{
+        }else if(counts[1]==0 && counts[2]==0 && counts[0]==1){
+            qDebug()<<"the soma has been connected to one point";
+            tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+        }
+        else{
             qDebug()<<"the soma is not connected to one point!";
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
         }
@@ -2616,7 +2577,7 @@ void CollClient::defineSoma(const QString msg){
             }
 
             proto::UpdateSwcAttachmentSwcResponse response;
-            if(!WrappedCall::updateSwcAttachmentSwc(myServer->swcName, modelData, response, cachedUserData)){
+            if(!WrappedCall::updateSwcAttachmentSwc(myServer->swcUuid, modelData, response, cachedUserData)){
                 tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
                 tobeSendMsg += ",";
                 info = "UpdateSwcAttachmentSwcError from DBMS!";

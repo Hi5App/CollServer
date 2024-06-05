@@ -80,6 +80,38 @@
         ]
       }
     },
+    "/proto.DBMS/CreatePermissionGroup": {
+      "post": {
+        "operationId": "DBMS_CreatePermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoCreatePermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoCreatePermissionGroupRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
     "/proto.DBMS/CreateProject": {
       "post": {
         "operationId": "DBMS_CreateProject",
@@ -360,6 +392,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/protoDeleteDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/DeletePermissionGroup": {
+      "post": {
+        "operationId": "DBMS_DeletePermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoDeletePermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoDeletePermissionGroupRequest"
             }
           }
         ],
@@ -880,14 +944,14 @@
         ]
       }
     },
-    "/proto.DBMS/GetPermissionGroup": {
+    "/proto.DBMS/GetPermissionGroupByName": {
       "post": {
-        "operationId": "DBMS_GetPermissionGroup",
+        "operationId": "DBMS_GetPermissionGroupByName",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoGetPermissionGroupResponse"
+              "$ref": "#/definitions/protoGetPermissionGroupByNameResponse"
             }
           },
           "default": {
@@ -903,7 +967,39 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/protoGetPermissionGroupRequest"
+              "$ref": "#/definitions/protoGetPermissionGroupByNameRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetPermissionGroupByUuid": {
+      "post": {
+        "operationId": "DBMS_GetPermissionGroupByUuid",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetPermissionGroupByUuidResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetPermissionGroupByUuidRequest"
             }
           }
         ],
@@ -936,6 +1032,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/protoGetProjectRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetProjectSwcNamesByProjectUuid": {
+      "post": {
+        "operationId": "DBMS_GetProjectSwcNamesByProjectUuid",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetProjectSwcNamesByProjectUuidResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetProjectSwcNamesByProjectUuidRequest"
             }
           }
         ],
@@ -1200,14 +1328,14 @@
         ]
       }
     },
-    "/proto.DBMS/GetUser": {
+    "/proto.DBMS/GetUserByName": {
       "post": {
-        "operationId": "DBMS_GetUser",
+        "operationId": "DBMS_GetUserByName",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/protoGetUserResponse"
+              "$ref": "#/definitions/protoGetUserByNameResponse"
             }
           },
           "default": {
@@ -1223,7 +1351,39 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/protoGetUserRequest"
+              "$ref": "#/definitions/protoGetUserByNameRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/GetUserByUuid": {
+      "post": {
+        "operationId": "DBMS_GetUserByUuid",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoGetUserByUuidResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoGetUserByUuidRequest"
             }
           }
         ],
@@ -1320,6 +1480,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/protoUpdateDailyStatisticsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
+    "/proto.DBMS/UpdatePermissionGroup": {
+      "post": {
+        "operationId": "DBMS_UpdatePermissionGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdatePermissionGroupResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdatePermissionGroupRequest"
             }
           }
         ],
@@ -1722,6 +1914,31 @@
         }
       }
     },
+    "protoCreatePermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "PermissionGroupName": {
+          "type": "string"
+        },
+        "PermissionGroupDescription": {
+          "type": "string"
+        }
+      }
+    },
+    "protoCreatePermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        }
+      }
+    },
     "protoCreateProjectRequest": {
       "type": "object",
       "properties": {
@@ -1756,7 +1973,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcAttachmentAno": {
@@ -1784,7 +2001,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcAttachmentApo": {
@@ -1816,7 +2033,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcData": {
@@ -1848,7 +2065,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcData": {
@@ -1920,7 +2137,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         }
       }
@@ -2049,6 +2266,28 @@
         }
       }
     },
+    "protoDeletePermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "PermissionGroupUuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoDeletePermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        }
+      }
+    },
     "protoDeleteProjectRequest": {
       "type": "object",
       "properties": {
@@ -2058,7 +2297,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "ProjectName": {
+        "ProjectUuid": {
           "type": "string"
         }
       }
@@ -2083,7 +2322,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "AnoAttachmentUuid": {
@@ -2108,7 +2347,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "ApoAttachmentUuid": {
@@ -2133,7 +2372,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcAttachmentUuid": {
@@ -2158,7 +2397,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcData": {
@@ -2183,7 +2422,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         }
       }
@@ -2256,7 +2495,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         }
       }
@@ -2337,7 +2576,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         }
       }
@@ -2459,7 +2698,7 @@
         }
       }
     },
-    "protoGetPermissionGroupRequest": {
+    "protoGetPermissionGroupByNameRequest": {
       "type": "object",
       "properties": {
         "metaInfo": {
@@ -2468,12 +2707,37 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
+        "PermissionGroupName": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetPermissionGroupByNameResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
         "PermissionGroup": {
           "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
         }
       }
     },
-    "protoGetPermissionGroupResponse": {
+    "protoGetPermissionGroupByUuidRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "PermissionGroupUuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetPermissionGroupByUuidResponse": {
       "type": "object",
       "properties": {
         "metaInfo": {
@@ -2493,7 +2757,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "ProjectName": {
+        "ProjectUuid": {
           "type": "string"
         }
       }
@@ -2506,6 +2770,35 @@
         },
         "ProjectInfo": {
           "$ref": "#/definitions/protoProjectMetaInfoV1"
+        }
+      }
+    },
+    "protoGetProjectSwcNamesByProjectUuidRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "ProjectUuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetProjectSwcNamesByProjectUuidResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
+        "swcUuidName": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoSwcUuidName"
+          }
         }
       }
     },
@@ -2543,7 +2836,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "AnoAttachmentUuid": {
@@ -2571,7 +2864,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "ApoAttachmentUuid": {
@@ -2603,7 +2896,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcAttachmentUuid": {
@@ -2635,7 +2928,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         }
       }
@@ -2660,7 +2953,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         }
       }
@@ -2685,7 +2978,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "StartTime": {
@@ -2721,7 +3014,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcNodeData": {
@@ -2737,6 +3030,56 @@
         },
         "SwcNodeData": {
           "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoGetUserByNameRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "UserName": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetUserByNameResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
+        }
+      }
+    },
+    "protoGetUserByUuidRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "UserUuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoGetUserByUuidResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
+        "UserInfo": {
+          "$ref": "#/definitions/protoUserMetaInfoV1"
         }
       }
     },
@@ -2759,31 +3102,6 @@
         },
         "PermissionGroup": {
           "$ref": "#/definitions/protoPermissionGroupMetaInfoV1"
-        }
-      }
-    },
-    "protoGetUserRequest": {
-      "type": "object",
-      "properties": {
-        "metaInfo": {
-          "$ref": "#/definitions/protoRequestMetaInfoV1"
-        },
-        "UserVerifyInfo": {
-          "$ref": "#/definitions/protoUserVerifyInfoV1"
-        },
-        "UserName": {
-          "type": "string"
-        }
-      }
-    },
-    "protoGetUserResponse": {
-      "type": "object",
-      "properties": {
-        "metaInfo": {
-          "$ref": "#/definitions/protoResponseMetaInfoV1"
-        },
-        "UserInfo": {
-          "$ref": "#/definitions/protoUserMetaInfoV1"
         }
       }
     },
@@ -2825,9 +3143,6 @@
     "protoPermissionAceV1": {
       "type": "object",
       "properties": {
-        "WritePermissionCreateProject": {
-          "type": "boolean"
-        },
         "WritePermissionModifyProject": {
           "type": "boolean"
         },
@@ -2835,6 +3150,15 @@
           "type": "boolean"
         },
         "ReadPerimissionQueryProject": {
+          "type": "boolean"
+        },
+        "WritePermissionUpdateSwc": {
+          "type": "boolean"
+        },
+        "WritePermissionDeleteSwc": {
+          "type": "boolean"
+        },
+        "ReadPerimissionQuerySwc": {
           "type": "boolean"
         },
         "WritePermissionAddSwcData": {
@@ -2847,6 +3171,51 @@
           "type": "boolean"
         },
         "ReadPerimissionQuerySwcData": {
+          "type": "boolean"
+        },
+        "CreateSnapshotAndIncrementPermission": {
+          "type": "boolean"
+        },
+        "DeleteSnapshotAndIncrementPermission": {
+          "type": "boolean"
+        },
+        "QuerySnapshotAndIncrementPermission": {
+          "type": "boolean"
+        },
+        "CreateAnoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "DeleteAnoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "UpdateAnoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "QueryAnoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "CreateApoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "DeleteApoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "UpdateApoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "QueryApoAttachmentPermission": {
+          "type": "boolean"
+        },
+        "CreateSwcAttachmentPermission": {
+          "type": "boolean"
+        },
+        "DeleteSwcAttachmentPermission": {
+          "type": "boolean"
+        },
+        "UpdateSwcAttachmentPermission": {
+          "type": "boolean"
+        },
+        "QuerySwcAttachmentPermission": {
           "type": "boolean"
         }
       }
@@ -2867,6 +3236,12 @@
           "type": "boolean"
         },
         "AllDailyStatisticsManagementPermission": {
+          "type": "boolean"
+        },
+        "CreateProjectPermission": {
+          "type": "boolean"
+        },
+        "CreateSwcPermission": {
           "type": "boolean"
         }
       }
@@ -2978,7 +3353,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "VersionEndTime": {
@@ -3204,6 +3579,9 @@
         },
         "Permission": {
           "$ref": "#/definitions/protoPermissionMetaInfoV1"
+        },
+        "BelongingProjectUuid": {
+          "type": "string"
         }
       }
     },
@@ -3303,6 +3681,17 @@
         }
       }
     },
+    "protoSwcUuidName": {
+      "type": "object",
+      "properties": {
+        "SwcUuid": {
+          "type": "string"
+        },
+        "SwcName": {
+          "type": "string"
+        }
+      }
+    },
     "protoUpdateDailyStatisticsRequest": {
       "type": "object",
       "properties": {
@@ -3325,6 +3714,37 @@
         },
         "DailyStatisticsInfo": {
           "$ref": "#/definitions/protoDailyStatisticsMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdatePermissionGroupRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "PermissionGroupUuid": {
+          "type": "string"
+        },
+        "PermissionGroupName": {
+          "type": "string"
+        },
+        "PermissionGroupDescription": {
+          "type": "string"
+        },
+        "Ace": {
+          "$ref": "#/definitions/protoPermissionGroupAceV1"
+        }
+      }
+    },
+    "protoUpdatePermissionGroupResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
         }
       }
     },
@@ -3362,7 +3782,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "AnoAttachmentUuid": {
@@ -3390,7 +3810,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "ApoAttachmentUuid": {
@@ -3422,7 +3842,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcAttachmentUuid": {
@@ -3454,7 +3874,7 @@
         "UserVerifyInfo": {
           "$ref": "#/definitions/protoUserVerifyInfoV1"
         },
-        "SwcName": {
+        "SwcUuid": {
           "type": "string"
         },
         "SwcData": {

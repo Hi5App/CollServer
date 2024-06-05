@@ -38,6 +38,8 @@ message PermissionGroupAceV1{
 	bool AllProjectManagementPermission = 3;
 	bool AllSwcManagementPermission = 4;
 	bool AllDailyStatisticsManagementPermission = 5;
+    bool CreateProjectPermission = 6;
+    bool CreateSwcPermission = 7;
 }
 
 message PermissionGroupAclV1{
@@ -46,15 +48,37 @@ message PermissionGroupAclV1{
 }
 
 message PermissionAceV1{
-	bool WritePermissionCreateProject = 1;
-	bool WritePermissionModifyProject = 2;
-	bool WritePermissionDeleteProject = 3;
-	bool ReadPerimissionQueryProject = 4;
+	bool WritePermissionModifyProject = 1;
+	bool WritePermissionDeleteProject = 2;
+	bool ReadPerimissionQueryProject = 3;
 
-	bool WritePermissionAddSwcData = 5;
-	bool WritePermissionModifySwcData = 6;
-	bool WritePermissionDeleteSwcData = 7;
-	bool ReadPerimissionQuerySwcData = 8;
+    bool WritePermissionUpdateSwc = 4;
+    bool WritePermissionDeleteSwc = 5;
+    bool ReadPerimissionQuerySwc = 6;
+
+	bool WritePermissionAddSwcData = 7;
+	bool WritePermissionModifySwcData = 8;
+	bool WritePermissionDeleteSwcData = 9;
+	bool ReadPerimissionQuerySwcData = 10;
+
+    bool CreateSnapshotAndIncrementPermission = 11;
+    bool DeleteSnapshotAndIncrementPermission = 12;
+    bool QuerySnapshotAndIncrementPermission = 13;
+
+    bool CreateAnoAttachmentPermission = 14;
+    bool DeleteAnoAttachmentPermission = 15;
+    bool UpdateAnoAttachmentPermission = 16;
+    bool QueryAnoAttachmentPermission = 17;
+
+    bool CreateApoAttachmentPermission = 18;
+    bool DeleteApoAttachmentPermission = 19;
+    bool UpdateApoAttachmentPermission = 20;
+    bool QueryApoAttachmentPermission = 21;
+
+    bool CreateSwcAttachmentPermission = 22;
+    bool DeleteSwcAttachmentPermission = 23;
+    bool UpdateSwcAttachmentPermission = 24;
+    bool QuerySwcAttachmentPermission = 25;
 }
 
 message UserPermissionAclV1{
@@ -147,6 +171,7 @@ message SwcMetaInfoV1{
     SwcAttachmentApoMetaInfoV1 SwcAttachmentApoMetaInfo = 12;
     string SwcAttachmentSwcUuid = 13;
 	PermissionMetaInfoV1 Permission = 14;
+    string BelongingProjectUuid = 15;
 }
 
 message SwcNodeInternalDataV1{
@@ -236,4 +261,9 @@ message SwcAttachmentApoV1{
     int32 ColorR = 14;
     int32 ColorG = 15;
     int32 ColorB = 16;
+}
+
+message SwcUuidName{
+    string SwcUuid = 1;
+    string SwcName = 2;
 }

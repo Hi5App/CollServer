@@ -14,7 +14,7 @@ class CollServer:public QTcpServer
 {
     Q_OBJECT
 public:
-    CollServer(QString port,QString image,QString neuron,QString ananame,QString prefix,int maxUserNumsInt,int modelDetectIntervals,QObject *parent=nullptr);
+    CollServer(QString port,QString project,QString image,QString neuron,QString ananame,QString prefix,int maxUserNumsInt,int modelDetectIntervals,QObject *parent=nullptr);
     virtual ~CollServer();
     void incomingConnection(qintptr handle);
 
@@ -60,6 +60,7 @@ public:
     int currentUserNum=0;
 
     string attachmentUuid;
+    string swcUuid;
 
     QMutex mutex;
     QMutex mutexForDetectOthers;
@@ -104,6 +105,7 @@ public slots:
 private:
 //    qsizetype idxforprocessed=0;
     QString Port;
+    QString Project;
     QString Image;
     QString Neuron;
     QString AnoName;
@@ -128,6 +130,7 @@ private:
 
 public:
     QString getAnoName();
+    QString getProject();
     QString getImage();
     QTimer* getTimerForDetectLoops();
     QTimer* getTimerForDetectOthers();

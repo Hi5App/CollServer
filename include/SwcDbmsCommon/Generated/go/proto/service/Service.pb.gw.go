@@ -134,8 +134,8 @@ func local_request_DBMS_UpdateUser_0(ctx context.Context, marshaler runtime.Mars
 
 }
 
-func request_DBMS_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq request.GetUserRequest
+func request_DBMS_GetUserByUuid_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetUserByUuidRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -146,13 +146,13 @@ func request_DBMS_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, cl
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetUser(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetUserByUuid(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_DBMS_GetUser_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq request.GetUserRequest
+func local_request_DBMS_GetUserByUuid_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetUserByUuidRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -163,7 +163,41 @@ func local_request_DBMS_GetUser_0(ctx context.Context, marshaler runtime.Marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetUser(ctx, &protoReq)
+	msg, err := server.GetUserByUuid(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_DBMS_GetUserByName_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetUserByNameRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetUserByName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DBMS_GetUserByName_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetUserByNameRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetUserByName(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -338,8 +372,8 @@ func local_request_DBMS_GetUserPermissionGroup_0(ctx context.Context, marshaler 
 
 }
 
-func request_DBMS_GetPermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq request.GetPermissionGroupRequest
+func request_DBMS_GetPermissionGroupByUuid_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetPermissionGroupByUuidRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -350,13 +384,13 @@ func request_DBMS_GetPermissionGroup_0(ctx context.Context, marshaler runtime.Ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.GetPermissionGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.GetPermissionGroupByUuid(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_DBMS_GetPermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq request.GetPermissionGroupRequest
+func local_request_DBMS_GetPermissionGroupByUuid_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetPermissionGroupByUuidRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -367,7 +401,41 @@ func local_request_DBMS_GetPermissionGroup_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.GetPermissionGroup(ctx, &protoReq)
+	msg, err := server.GetPermissionGroupByUuid(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_DBMS_GetPermissionGroupByName_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetPermissionGroupByNameRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetPermissionGroupByName(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DBMS_GetPermissionGroupByName_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetPermissionGroupByNameRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetPermissionGroupByName(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1766,6 +1834,142 @@ func local_request_DBMS_GetSwcAttachmentSwc_0(ctx context.Context, marshaler run
 
 }
 
+func request_DBMS_CreatePermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.CreatePermissionGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreatePermissionGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DBMS_CreatePermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.CreatePermissionGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.CreatePermissionGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_DBMS_DeletePermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.DeletePermissionGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.DeletePermissionGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DBMS_DeletePermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.DeletePermissionGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.DeletePermissionGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_DBMS_UpdatePermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.UpdatePermissionGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.UpdatePermissionGroup(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DBMS_UpdatePermissionGroup_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.UpdatePermissionGroupRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.UpdatePermissionGroup(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_DBMS_GetProjectSwcNamesByProjectUuid_0(ctx context.Context, marshaler runtime.Marshaler, client DBMSClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetProjectSwcNamesByProjectUuidRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetProjectSwcNamesByProjectUuid(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_DBMS_GetProjectSwcNamesByProjectUuid_0(ctx context.Context, marshaler runtime.Marshaler, server DBMSServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq request.GetProjectSwcNamesByProjectUuidRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetProjectSwcNamesByProjectUuid(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 // RegisterDBMSHandlerServer registers the http handlers for service DBMS to "mux".
 // UnaryRPC     :call DBMSServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -1847,7 +2051,7 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("POST", pattern_DBMS_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DBMS_GetUserByUuid_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1855,12 +2059,12 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetUser", runtime.WithHTTPPathPattern("/proto.DBMS/GetUser"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetUserByUuid", runtime.WithHTTPPathPattern("/proto.DBMS/GetUserByUuid"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DBMS_GetUser_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DBMS_GetUserByUuid_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1868,7 +2072,32 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_DBMS_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DBMS_GetUserByUuid_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_GetUserByName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetUserByName", runtime.WithHTTPPathPattern("/proto.DBMS/GetUserByName"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DBMS_GetUserByName_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_GetUserByName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1997,7 +2226,7 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("POST", pattern_DBMS_GetPermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DBMS_GetPermissionGroupByUuid_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2005,12 +2234,12 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetPermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/GetPermissionGroup"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetPermissionGroupByUuid", runtime.WithHTTPPathPattern("/proto.DBMS/GetPermissionGroupByUuid"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_DBMS_GetPermissionGroup_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_DBMS_GetPermissionGroupByUuid_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2018,7 +2247,32 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_DBMS_GetPermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DBMS_GetPermissionGroupByUuid_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_GetPermissionGroupByName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetPermissionGroupByName", runtime.WithHTTPPathPattern("/proto.DBMS/GetPermissionGroupByName"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DBMS_GetPermissionGroupByName_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_GetPermissionGroupByName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3047,6 +3301,106 @@ func RegisterDBMSHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
+	mux.Handle("POST", pattern_DBMS_CreatePermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/CreatePermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/CreatePermissionGroup"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DBMS_CreatePermissionGroup_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_CreatePermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_DeletePermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/DeletePermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/DeletePermissionGroup"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DBMS_DeletePermissionGroup_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_DeletePermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_UpdatePermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/UpdatePermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/UpdatePermissionGroup"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DBMS_UpdatePermissionGroup_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_UpdatePermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_GetProjectSwcNamesByProjectUuid_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/proto.DBMS/GetProjectSwcNamesByProjectUuid", runtime.WithHTTPPathPattern("/proto.DBMS/GetProjectSwcNamesByProjectUuid"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_DBMS_GetProjectSwcNamesByProjectUuid_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_GetProjectSwcNamesByProjectUuid_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -3154,25 +3508,47 @@ func RegisterDBMSHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("POST", pattern_DBMS_GetUser_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DBMS_GetUserByUuid_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetUser", runtime.WithHTTPPathPattern("/proto.DBMS/GetUser"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetUserByUuid", runtime.WithHTTPPathPattern("/proto.DBMS/GetUserByUuid"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DBMS_GetUser_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DBMS_GetUserByUuid_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DBMS_GetUser_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DBMS_GetUserByUuid_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_GetUserByName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetUserByName", runtime.WithHTTPPathPattern("/proto.DBMS/GetUserByName"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DBMS_GetUserByName_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_GetUserByName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3286,25 +3662,47 @@ func RegisterDBMSHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("POST", pattern_DBMS_GetPermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_DBMS_GetPermissionGroupByUuid_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetPermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/GetPermissionGroup"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetPermissionGroupByUuid", runtime.WithHTTPPathPattern("/proto.DBMS/GetPermissionGroupByUuid"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_DBMS_GetPermissionGroup_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_DBMS_GetPermissionGroupByUuid_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_DBMS_GetPermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DBMS_GetPermissionGroupByUuid_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_GetPermissionGroupByName_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetPermissionGroupByName", runtime.WithHTTPPathPattern("/proto.DBMS/GetPermissionGroupByName"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DBMS_GetPermissionGroupByName_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_GetPermissionGroupByName_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -4210,6 +4608,94 @@ func RegisterDBMSHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
+	mux.Handle("POST", pattern_DBMS_CreatePermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/CreatePermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/CreatePermissionGroup"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DBMS_CreatePermissionGroup_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_CreatePermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_DeletePermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/DeletePermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/DeletePermissionGroup"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DBMS_DeletePermissionGroup_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_DeletePermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_UpdatePermissionGroup_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/UpdatePermissionGroup", runtime.WithHTTPPathPattern("/proto.DBMS/UpdatePermissionGroup"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DBMS_UpdatePermissionGroup_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_UpdatePermissionGroup_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("POST", pattern_DBMS_GetProjectSwcNamesByProjectUuid_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/proto.DBMS/GetProjectSwcNamesByProjectUuid", runtime.WithHTTPPathPattern("/proto.DBMS/GetProjectSwcNamesByProjectUuid"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_DBMS_GetProjectSwcNamesByProjectUuid_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DBMS_GetProjectSwcNamesByProjectUuid_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -4220,7 +4706,9 @@ var (
 
 	pattern_DBMS_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "UpdateUser"}, ""))
 
-	pattern_DBMS_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetUser"}, ""))
+	pattern_DBMS_GetUserByUuid_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetUserByUuid"}, ""))
+
+	pattern_DBMS_GetUserByName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetUserByName"}, ""))
 
 	pattern_DBMS_GetAllUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetAllUser"}, ""))
 
@@ -4232,7 +4720,9 @@ var (
 
 	pattern_DBMS_GetUserPermissionGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetUserPermissionGroup"}, ""))
 
-	pattern_DBMS_GetPermissionGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetPermissionGroup"}, ""))
+	pattern_DBMS_GetPermissionGroupByUuid_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetPermissionGroupByUuid"}, ""))
+
+	pattern_DBMS_GetPermissionGroupByName_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetPermissionGroupByName"}, ""))
 
 	pattern_DBMS_GetAllPermissionGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetAllPermissionGroup"}, ""))
 
@@ -4315,6 +4805,14 @@ var (
 	pattern_DBMS_UpdateSwcAttachmentSwc_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "UpdateSwcAttachmentSwc"}, ""))
 
 	pattern_DBMS_GetSwcAttachmentSwc_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetSwcAttachmentSwc"}, ""))
+
+	pattern_DBMS_CreatePermissionGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "CreatePermissionGroup"}, ""))
+
+	pattern_DBMS_DeletePermissionGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "DeletePermissionGroup"}, ""))
+
+	pattern_DBMS_UpdatePermissionGroup_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "UpdatePermissionGroup"}, ""))
+
+	pattern_DBMS_GetProjectSwcNamesByProjectUuid_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"proto.DBMS", "GetProjectSwcNamesByProjectUuid"}, ""))
 )
 
 var (
@@ -4324,7 +4822,9 @@ var (
 
 	forward_DBMS_UpdateUser_0 = runtime.ForwardResponseMessage
 
-	forward_DBMS_GetUser_0 = runtime.ForwardResponseMessage
+	forward_DBMS_GetUserByUuid_0 = runtime.ForwardResponseMessage
+
+	forward_DBMS_GetUserByName_0 = runtime.ForwardResponseMessage
 
 	forward_DBMS_GetAllUser_0 = runtime.ForwardResponseMessage
 
@@ -4336,7 +4836,9 @@ var (
 
 	forward_DBMS_GetUserPermissionGroup_0 = runtime.ForwardResponseMessage
 
-	forward_DBMS_GetPermissionGroup_0 = runtime.ForwardResponseMessage
+	forward_DBMS_GetPermissionGroupByUuid_0 = runtime.ForwardResponseMessage
+
+	forward_DBMS_GetPermissionGroupByName_0 = runtime.ForwardResponseMessage
 
 	forward_DBMS_GetAllPermissionGroup_0 = runtime.ForwardResponseMessage
 
@@ -4419,4 +4921,12 @@ var (
 	forward_DBMS_UpdateSwcAttachmentSwc_0 = runtime.ForwardResponseMessage
 
 	forward_DBMS_GetSwcAttachmentSwc_0 = runtime.ForwardResponseMessage
+
+	forward_DBMS_CreatePermissionGroup_0 = runtime.ForwardResponseMessage
+
+	forward_DBMS_DeletePermissionGroup_0 = runtime.ForwardResponseMessage
+
+	forward_DBMS_UpdatePermissionGroup_0 = runtime.ForwardResponseMessage
+
+	forward_DBMS_GetProjectSwcNamesByProjectUuid_0 = runtime.ForwardResponseMessage
 )
