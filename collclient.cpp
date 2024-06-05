@@ -1479,6 +1479,8 @@ void CollClient::onread()
                     }
                     datatype.isFile=ps[0].toUInt();
                     datatype.datasize=ps[1].toUInt();
+                    if(datatype.isFile==2)
+                        datatype.filesize=ps[2].toUInt();
                 }else{
                     break;
                 }
@@ -1506,11 +1508,63 @@ void CollClient::onread()
                     break;
                 }
             }
-        }else{
-            break;
-        }
+        }else if(datatype.isFile==1){
+            //已经接收了头，数据
+            if(this->bytesAvailable()>=datatype.datasize+datatype.filesize){
+//                char *data=new char[datatype.datasize+1];
+//                this->read(data,datatype.datasize);
+//                data[datatype.datasize]='\0';
+//                // std::cout<<QDateTime::currentDateTime().toString(" yyyy/MM/dd hh:mm:ss ").toStdString()<<(++receivedcnt)<<" receive from "<<username.toStdString()<<" :"<<data<<std::endl;
+//                //只会接收刚开始协作时同步的文件，开始加载同步数据由服务器发出消息通知
+//                char *filedata=new char[datatype.filesize];
+//                QDir dir(QCoreApplication::applicationDirPath()+"/loaddata");
+//                if(!dir.exists()){
+//                    dir.mkdir(QCoreApplication::applicationDirPath()+"/loaddata");
+//                }
+//                QFile f(QCoreApplication::applicationDirPath()+"/loaddata/"+data);
+//                this->read(filedata,datatype.filesize);
+//                if(f.open(QIODevice::WriteOnly)){
+//                    f.write(filedata,datatype.filesize);
+//                }
+
+//                delete [] filedata;
+//                delete [] data;
+
+//                resetdatatype();
+            }else{
+                break;
+            }
+        }else if(datatype.isFile==2){
+            //已经接收了头，数据
+            if(this->bytesAvailable()>=datatype.datasize+datatype.filesize){
+                char *data=new char[datatype.datasize+1];
+                this->read(data,datatype.datasize);
+                data[datatype.datasize]='\0';
+                // std::cout<<QDateTime::currentDateTime().toString(" yyyy/MM/dd hh:mm:ss ").toStdString()<<(++receivedcnt)<<" receive from "<<username.toStdString()<<" :"<<data<<std::endl;
+                //只会接收刚开始协作时同步的文件，开始加载同步数据由服务器发出消息通知
+
+                QDir dir(QCoreApplication::applicationDirPath()+"/eegdata");
+                if(!dir.exists()){
+                    dir.mkdir(QCoreApplication::applicationDirPath()+"/eegdata");
+                }
+                QFile f(QCoreApplication::applicationDirPath()+"/eegdata/"+data);
+                QByteArray fileData = this->read(datatype.filesize);
+                if(f.open(QIODevice::WriteOnly)){
+                    f.write(fileData,datatype.filesize);
+                    f.close();
+                }
+
+
+                delete [] data;
+
+                resetdatatype();
+            }else{
+                break;
+            }
+
     }
 
+}
 }
 
 void CollClient::ondisconnect()
@@ -1867,6 +1921,8 @@ void CollClient::resetdatatype()
 {
     datatype.isFile=false;
     datatype.datasize=0;
+    datatype.filesize=0;
+
 }
 
 void CollClient::quit(){
