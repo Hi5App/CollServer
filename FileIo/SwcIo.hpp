@@ -132,6 +132,7 @@ public:
         std::ofstream outfile;
         outfile.open(m_FilePath);
         if (!outfile.is_open()) {
+            qDebug()<<"cannot open swc file";
             return false;
         }
 

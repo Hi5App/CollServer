@@ -43,5 +43,4 @@ int main(int argc, char *argv[])
     logfile=new QFile(prefix+"/orders/"+project+"/"+anoname+".txt",server);
     logfile->open(QIODevice::Append);
     return a.exec();
-
 }
