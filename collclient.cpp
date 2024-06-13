@@ -1846,7 +1846,7 @@ void CollClient::updatesendmsgcnt2processed()
 void CollClient::sendmsgs2client(int maxsize)
 {
     if(myServer->msglist.size()<=sendmsgcnt){
-        qDebug()<<"msglist.size="<<myServer->msglist.size()<<" sendmsgcnt="<<sendmsgcnt;
+//        qDebug()<<"msglist.size="<<myServer->msglist.size()<<" sendmsgcnt="<<sendmsgcnt;
         return;
     }
     auto end=MIN(int(myServer->msglist.size()),int(this->sendmsgcnt+maxsize));

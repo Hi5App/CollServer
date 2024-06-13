@@ -143,9 +143,9 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     connect(timerForAutoSave,&QTimer::timeout,this,&CollServer::autoSave);
     connect(timerForAutoExit,&QTimer::timeout,this,&CollServer::autoExit);
     connect(&CollClient::timerforupdatemsg,&QTimer::timeout,[this]{
-        for (auto iter=hashmap.begin();iter!=hashmap.end();iter++){
-            qDebug()<<"user:"<<iter.key()<<" state:"<<iter.value()->state();
-        }
+//        for (auto iter=hashmap.begin();iter!=hashmap.end();iter++){
+//            qDebug()<<"user:"<<iter.key()<<" state:"<<iter.value()->state();
+//        }
 //        auto sockets=hashmap.values();
 //        for(auto &socket:sockets){
 //            socket->sendmsgs2client(10);
