@@ -6,17 +6,9 @@
 #include "utils.h"
 #include "basic_c_fun/basic_surf_objs.h"
 #include "neuron_editing/neuron_format_converter.h"
-#include <QNetworkRequest>
-#include <QEventLoop>
 #include <QNetworkReply>
-#include <QHttpMultiPart>
-#include <QFile>
 #include "json.hpp"
 #include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <algorithm>
-#include <cmath>
 
 class CollServer;
 class CollDetection : public QObject

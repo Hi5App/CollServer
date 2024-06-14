@@ -11,15 +11,9 @@
 
 //#include <windows.h>
 
-#include <QtGlobal>
-#include <math.h>
-//#include <unistd.h> //remove the unnecessary include file. //by PHC 20131228
 #include "basic_c_fun/basic_surf_objs.h"
 #include "neuron_editing/neuron_format_converter.h"
-#include <string.h>
 #include <vector>
-#include <iostream>
-#include "fstream"
 #include <set>
 
 using namespace std;

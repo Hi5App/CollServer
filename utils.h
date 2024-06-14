@@ -2,10 +2,8 @@
 #define UTILS_H
 
 #include <QCoreApplication>
-#include <QDir>
 #include <set>
 #include "neuron_editing/neuron_format_converter.h"
-#include "include/hiredis/hiredis.h"
 const int neuron_type_color[21][3] = {
     {255, 255, 255},  // white,   0-undefined
     {20,  20,  20 },  // black,   1-soma

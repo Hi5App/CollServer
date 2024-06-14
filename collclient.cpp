@@ -1,4 +1,7 @@
-﻿#include "collclient.h"
+﻿#ifdef _WIN32
+#include <Windows.h>
+#endif
+#include "collclient.h"
 #include "coll_server.h"
 #include "utils.h"
 #include <cmath>
@@ -10,9 +13,7 @@
 #include "grpcpp/grpcpp.h"
 #include "FileIo/AnoIo.hpp"
 #include "FileIo/ApoIo.hpp"
-#include "FileIo/FileIoInterface.hpp"
 #include "FileIo/SwcIo.hpp"
-//#include <algorithm>
 
 extern QFile* logfile;
 

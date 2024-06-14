@@ -6,7 +6,6 @@
 #include "neuron_editing/neuron_format_converter.h"
 #include "service/CachedProtoData.h"
 #include <iostream>
-#include <QFile>
 
 class CollServer;
 class CollClient : public QTcpSocket

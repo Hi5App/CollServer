@@ -3,11 +3,9 @@
 
 #include <QTimer>
 #include <QTcpServer>
-#include <vector>
 #include <set>
 #include "collclient.h"
 #include "collthread.h"
-#include <QNetworkAccessManager>
 #include "colldetection.h"
 
 class CollServer:public QTcpServer

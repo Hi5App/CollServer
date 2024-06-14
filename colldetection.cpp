@@ -1,11 +1,14 @@
-﻿#include "colldetection.h"
+﻿#ifdef _WIN32
+#include <Windows.h>
+#endif
+#include "colldetection.h"
 #include "coll_server.h"
 #include "sort_swc.h"
 #include <iostream>
 #include <vector>
+#include <QHttpMultiPart>
 #include "detect_crossing/utilities.h"
 #include "detect_crossing/SwcReader.h"
-#include <mutex>
 #include <filesystem>
 #include "detect_crossing/CrossingDetect.h"
 #include "detect_crossing/ResultWriter.h"
