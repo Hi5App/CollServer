@@ -12,7 +12,9 @@ QFile *logfile=nullptr;
 void sighandle(int sig){
     logfile->flush();
     //fsync的功能是确保文件fd所有已修改的内容已经正确同步到硬盘上，该调用会阻塞等待直到设备报告IO完成。
-    // fsync(1);fsync(2);
+#ifdef __linux__
+    fsync(1);fsync(2);
+#endif
     exit(0);
 }
 
