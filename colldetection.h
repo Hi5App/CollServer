@@ -40,7 +40,7 @@ public:
     explicit CollDetection(CollServer* curServer, string serverIp, string brainServerPort, string superuserServerPort, QObject* parent=nullptr);
     ~CollDetection(){}
     XYZ getSomaCoordinate(QString apoPath);
-    vector<NeuronSWC> specStructsDetection(V_NeuronSWC_list& inputSegList, double dist_thresh=2);
+    vector<NeuronSWC> specStructsDetection(V_NeuronSWC_list& inputSegList, double dist_thresh=1.2);
     vector<NeuronSWC> loopDetection(V_NeuronSWC_list& inputSegList, double dist_thresh=8);
     vector<NeuronSWC> tipDetection(V_NeuronSWC_list inputSegList, bool removeFlag, map<string, set<size_t>> allPoint2SegIdMap, double dist_thresh=30);
     QJsonArray crossingDetection();

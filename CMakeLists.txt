@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(CollServerWithDBMS)
+project(CollServerTest)
 
 
 set(CMAKE_CXX_STANDARD 20)

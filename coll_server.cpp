@@ -234,7 +234,7 @@ void CollServer::autoSave()
 //    additionalLogFile->flush();
     logfile->flush();
     fsync(1);fsync(2);
-    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 60);
+    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 180);
     if(hashmap.size()==0){
         std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
         std::for_each(markers.begin(), markers.end(), [&](CellAPO&val) {

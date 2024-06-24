@@ -53,7 +53,7 @@ CollClient:: CollClient(qintptr handle, CollServer* curServer, QObject *parent):
         cachedUserData.OnlineStatus = false;
     });
 
-//    如果一分钟内没有登陆好，则断开连接
+    //    如果一分钟内没有登陆好，则断开连接
     QTimer::singleShot(60*1000,this,[this]{
         if(userid==""){
             emit exitNow();
@@ -72,7 +72,7 @@ void CollClient::updateuserlist()
         qDebug()<<"user:"<<iter.key()<<" state:"<<iter.value()->state();
     }
 
-//    emit myServer->clientSendMsgs({msg});
+    //    emit myServer->clientSendMsgs({msg});
 
 }
 
@@ -117,16 +117,16 @@ void CollClient::addseg(const QString msg)
 
     auto addnt=convertMsg2NT(pointlist,clienttype,useridx,1,clienttype);
     auto segs=NeuronTree__2__V_NeuronSWC_list(addnt).seg;
-//    segs[0].printInfo();
+    //    segs[0].printInfo();
 
-//    bool flag;
-//    if(fabs(point1.x-segs[0].row[0].x)<1e-4&&fabs(point1.y-segs[0].row[0].y)<1e-4&&fabs(point1.z-segs[0].row[0].z)<1e-4)
-//        flag=true;
-//    else
-//        flag=false;
+    //    bool flag;
+    //    if(fabs(point1.x-segs[0].row[0].x)<1e-4&&fabs(point1.y-segs[0].row[0].y)<1e-4&&fabs(point1.z-segs[0].row[0].z)<1e-4)
+    //        flag=true;
+    //    else
+    //        flag=false;
 
     QMutexLocker locker(&myServer->mutex);
-//    myServer->segments.append(NeuronTree__2__V_NeuronSWC_list(addnt).seg[0]);
+    //    myServer->segments.append(NeuronTree__2__V_NeuronSWC_list(addnt).seg[0]);
     bool isNeedReverse = false;
     if(segs.size()==2){
         int comparedIndex=0;
@@ -137,7 +137,7 @@ void CollClient::addseg(const QString msg)
         }
 
         auto it=findseg(myServer->segments.seg.begin(),myServer->segments.seg.end(),segs[1]);
-//        it->printInfo();
+        //        it->printInfo();
         if(it!=myServer->segments.seg.end())
         {
             int index = -1;
@@ -173,12 +173,12 @@ void CollClient::addseg(const QString msg)
     }
 
     if(segs.size()==3){
-//        set<size_t> segIds1;
-//        set<size_t> segIds2;
-//        int firstIndex = -1;
-//        int firstEndIndex = -1;
+        //        set<size_t> segIds1;
+        //        set<size_t> segIds2;
+        //        int firstIndex = -1;
+        //        int firstEndIndex = -1;
         auto it=findseg(myServer->segments.seg.begin(),myServer->segments.seg.end(),segs[1]);
-//        it->printInfo();
+        //        it->printInfo();
         if(it!=myServer->segments.seg.end())
         {
             int index = -1;
@@ -200,15 +200,15 @@ void CollClient::addseg(const QString msg)
                 segs[0].row[segs[0].row.size()-1].x=it->row[index].x;
                 segs[0].row[segs[0].row.size()-1].y=it->row[index].y;
                 segs[0].row[segs[0].row.size()-1].z=it->row[index].z;
-//                float xLabel = it->row[index].x;
-//                float yLabel = it->row[index].y;
-//                float zLabel = it->row[index].z;
-//                QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
-//                string gridKey = gridKeyQ.toStdString();
-//                map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
-//                segIds1 = wholeGrid2SegIDMap[gridKey];
-//                firstIndex = index;
-//                firstEndIndex = it->row.size()-1;
+                //                float xLabel = it->row[index].x;
+                //                float yLabel = it->row[index].y;
+                //                float zLabel = it->row[index].z;
+                //                QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
+                //                string gridKey = gridKeyQ.toStdString();
+                //                map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
+                //                segIds1 = wholeGrid2SegIDMap[gridKey];
+                //                firstIndex = index;
+                //                firstEndIndex = it->row.size()-1;
             }
         }
         else
@@ -217,7 +217,7 @@ void CollClient::addseg(const QString msg)
         }
 
         it=findseg(myServer->segments.seg.begin(),myServer->segments.seg.end(),segs[2]);
-//        it->printInfo();
+        //        it->printInfo();
         if(it!=myServer->segments.seg.end())
         {
             int index = -1;
@@ -239,13 +239,13 @@ void CollClient::addseg(const QString msg)
                 segs[0].row[0].x=it->row[index].x;
                 segs[0].row[0].y=it->row[index].y;
                 segs[0].row[0].z=it->row[index].z;
-//                float xLabel = it->row[index].x;
-//                float yLabel = it->row[index].y;
-//                float zLabel = it->row[index].z;
-//                QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
-//                string gridKey = gridKeyQ.toStdString();
-//                map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
-//                segIds2 = wholeGrid2SegIDMap[gridKey];
+                //                float xLabel = it->row[index].x;
+                //                float yLabel = it->row[index].y;
+                //                float zLabel = it->row[index].z;
+                //                QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
+                //                string gridKey = gridKeyQ.toStdString();
+                //                map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
+                //                segIds2 = wholeGrid2SegIDMap[gridKey];
             }
         }
         else
@@ -253,12 +253,12 @@ void CollClient::addseg(const QString msg)
             std::cerr<<"INFO:not find connected seg ,"<<msg.toStdString()<<std::endl;
         }
 
-//        if(segIds1.size()==1 && segIds2.size()==1 && firstIndex==firstEndIndex && firstEndIndex!=-1 )
-//            isNeedReverse = true;
-//        if(segIds1.size()==1 && segIds2.size()>1)
-//            isNeedReverse = true;
-//        if(isNeedReverse)
-//            reverseSeg(segs[0]);
+        //        if(segIds1.size()==1 && segIds2.size()==1 && firstIndex==firstEndIndex && firstEndIndex!=-1 )
+        //            isNeedReverse = true;
+        //        if(segIds1.size()==1 && segIds2.size()>1)
+        //            isNeedReverse = true;
+        //        if(isNeedReverse)
+        //            reverseSeg(segs[0]);
     }
 
     V3DLONG point_size = myServer->segments.nrows();
@@ -314,9 +314,9 @@ void CollClient::addseg(const QString msg)
     removeQCMarker(tobeRemovedMarkers);
 
     qDebug()<<"server addseg";
-//    for(int i=0;i<myServer->segments.seg.size();i++){
-//        myServer->segments.seg[i].printInfo();
-//    }
+    //    for(int i=0;i<myServer->segments.seg.size();i++){
+    //        myServer->segments.seg[i].printInfo();
+    //    }
 }
 
 bool CollClient::addmanysegs(const QString msg){
@@ -518,8 +518,8 @@ void CollClient::delseg(const QString msg)
     QMutexLocker locker(&myServer->mutex);
     vector<V_NeuronSWC> tobeInputSegs;
     QList<CellAPO> tobeRemovedMarkers;
-//    for(int i=0; i<myServer->segments.seg.size(); i++)
-//        myServer->segments.seg[i].printInfo();
+    //    for(int i=0; i<myServer->segments.seg.size(); i++)
+    //        myServer->segments.seg[i].printInfo();
     int point_size = myServer->segments.nrows();
 
     proto::SwcDataV1 swcData;
@@ -557,9 +557,9 @@ void CollClient::delseg(const QString msg)
     if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_DeleteSwcNodeDataError:server";
         sendmsgs({msg});
-//        return;
+        //        return;
     }
-//    WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData);
+    //    WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData);
 
     set<int> markerIndexs = getQCMarkerNearBy(tobeInputSegs, myServer->markers);
     for(auto it=markerIndexs.begin(); it!=markerIndexs.end(); it++){
@@ -587,9 +587,9 @@ void CollClient::delseg(const QString msg)
     }
     myServer->mutexForDetectMissing.unlock();
 
-//    for(int i=0;i<myServer->segments.seg.size();i++){
-//        myServer->segments.seg[i].printInfo();
-//    }
+    //    for(int i=0;i<myServer->segments.seg.size();i++){
+    //        myServer->segments.seg[i].printInfo();
+    //    }
 }
 
 void CollClient::connectseg(const QString msg){
@@ -622,9 +622,9 @@ void CollClient::connectseg(const QString msg){
 
     auto segnt=convertMsg2NT(pointlist,clienttype,useridx,1,clienttype);
     auto connectsegs=NeuronTree__2__V_NeuronSWC_list(segnt).seg;
-//    for(int i=0;i<connectsegs.size();i++){
-//        connectsegs[i].printInfo();
-//    }
+    //    for(int i=0;i<connectsegs.size();i++){
+    //        connectsegs[i].printInfo();
+    //    }
 
     vector<segInfoUnit> segInfo;
 
@@ -726,7 +726,7 @@ void CollClient::connectseg(const QString msg){
 
         else{
             std::cerr<<"INFO:not find connect seg ,"<<msg.toStdString()<<std::endl;
-//            myServer->mutex.unlock();
+            //            myServer->mutex.unlock();
             QString warnMsg = "/WARN_ReloadFile:cannot find connect seg";
             emit myServer->clientSendMsgs({warnMsg});
             return;
@@ -743,8 +743,8 @@ void CollClient::connectseg(const QString msg){
         qDebug()<<"enter tracedNeuron.seg[segInfo[0]]";
         connectedSegDecomposed = decompose_V_NeuronSWC(myServer->segments.seg[segInfo[1].segID], isSuccess);
         qDebug()<<"connectedSegDecomposed_size: "<<connectedSegDecomposed.size();
-//        for (vector<V_NeuronSWC>::iterator addedIt = connectedSegDecomposed.begin(); addedIt != connectedSegDecomposed.end(); ++addedIt)
-//            myServer->segments.seg.push_back(*addedIt);
+        //        for (vector<V_NeuronSWC>::iterator addedIt = connectedSegDecomposed.begin(); addedIt != connectedSegDecomposed.end(); ++addedIt)
+        //            myServer->segments.seg.push_back(*addedIt);
 
         myServer->segments.seg[segInfo[1].segID].to_be_deleted = true;
         myServer->segments.seg[segInfo[1].segID].on = false;
@@ -754,8 +754,8 @@ void CollClient::connectseg(const QString msg){
     {
         qDebug()<<"enter tracedNeuron.seg[segInfo[1]]";
         connectedSegDecomposed = decompose_V_NeuronSWC(myServer->segments.seg[segInfo[0].segID], isSuccess);
-//        for (vector<V_NeuronSWC>::iterator addedIt = connectedSegDecomposed.begin(); addedIt != connectedSegDecomposed.end(); ++addedIt)
-//            myServer->segments.seg.push_back(*addedIt);
+        //        for (vector<V_NeuronSWC>::iterator addedIt = connectedSegDecomposed.begin(); addedIt != connectedSegDecomposed.end(); ++addedIt)
+        //            myServer->segments.seg.push_back(*addedIt);
 
         myServer->segments.seg[segInfo[0].segID].to_be_deleted = true;
         myServer->segments.seg[segInfo[0].segID].on = false;
@@ -827,7 +827,7 @@ void CollClient::connectseg(const QString msg){
             if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
                 QString msg = "/WARN_DeleteSwcNodeDataError:server";
                 sendmsgs({msg});
-//                return;
+                //                return;
             }
             iter = myServer->segments.seg.erase(iter);
         }
@@ -897,7 +897,7 @@ void CollClient::splitseg(const QString msg){
         if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
             QString msg = "/WARN_DeleteSwcNodeDataError:server";
             sendmsgs({msg});
-//            return;
+            //            return;
         }
         myServer->segments.seg.erase(it);
     }
@@ -1101,7 +1101,7 @@ void CollClient::retypesegment(const QString msg)
     if(!WrappedCall::modifySwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_ModifySwcNodeDataError:server";
         sendmsgs({msg});
-//        return;
+        //        return;
     }
 
     set<int> markerIndexs = getQCMarkerNearBy(tobeInputSegs, myServer->markers);
@@ -1159,7 +1159,7 @@ void CollClient::addmarkers(const QString msg)
             if(fabs(it->x-marker.x)<1&&fabs(it->y-marker.y)<1&&fabs(it->z-marker.z)<1)
             {
                 qDebug()<<"the marker has already existed";
-//                myServer->mutex.unlock();
+                //                myServer->mutex.unlock();
                 flag = false;
                 break;
             }
@@ -1230,14 +1230,14 @@ void CollClient::delmarkers(const QString msg)
         marker.x=markerinfo[3].toDouble();
         marker.y=markerinfo[4].toDouble();
         marker.z=markerinfo[5].toDouble();
-//        if(myServer->isSomaExists&&sqrt((marker.x-myServer->somaCoordinate.x)*(marker.x-myServer->somaCoordinate.x)+
-//                (marker.y-myServer->somaCoordinate.y)*(marker.y-myServer->somaCoordinate.y)+
-//                (marker.z-myServer->somaCoordinate.z)*(marker.z-myServer->somaCoordinate.z))<1)
-//        {
-//            qDebug()<<"cannot delete the soma marker";
-////            myServer->mutex.unlock();
-//            return;
-//        }
+        //        if(myServer->isSomaExists&&sqrt((marker.x-myServer->somaCoordinate.x)*(marker.x-myServer->somaCoordinate.x)+
+        //                (marker.y-myServer->somaCoordinate.y)*(marker.y-myServer->somaCoordinate.y)+
+        //                (marker.z-myServer->somaCoordinate.z)*(marker.z-myServer->somaCoordinate.z))<1)
+        //        {
+        //            qDebug()<<"cannot delete the soma marker";
+        ////            myServer->mutex.unlock();
+        //            return;
+        //        }
         idx=findnearest(marker,myServer->markers);
         if(idx!=-1) {
             myServer->markers.removeAt(idx);
@@ -1282,13 +1282,13 @@ void CollClient::retypemarker(const QString msg){
         marker.x=markerinfo[3].toDouble();
         marker.y=markerinfo[4].toDouble();
         marker.z=markerinfo[5].toDouble();
-//        if(isSomaExists&&sqrt((marker.x-somaCoordinate.x)*(marker.x-somaCoordinate.x)+
-//                                 (marker.y-somaCoordinate.y)*(marker.y-somaCoordinate.y)+
-//                                 (marker.z-somaCoordinate.z)*(marker.z-somaCoordinate.z))<1)
-//        {
-//            qDebug()<<"cannot delete the soma marker";
-//            return;
-//        }
+        //        if(isSomaExists&&sqrt((marker.x-somaCoordinate.x)*(marker.x-somaCoordinate.x)+
+        //                                 (marker.y-somaCoordinate.y)*(marker.y-somaCoordinate.y)+
+        //                                 (marker.z-somaCoordinate.z)*(marker.z-somaCoordinate.z))<1)
+        //        {
+        //            qDebug()<<"cannot delete the soma marker";
+        //            return;
+        //        }
         idx=findnearest(marker,myServer->markers);
         if(idx!=-1) {
             myServer->markers[idx].color.r=marker.color.r;
@@ -1306,10 +1306,10 @@ void CollClient::retypemarker(const QString msg){
 
 void CollClient::sendmsgs(const QStringList &msgs)
 {
-//    if(!this) return;
+    //    if(!this) return;
     if(this->state()!=QAbstractSocket::ConnectedState){
         qDebug()<<"error: send msg to "<<this->userid<<",but connect is "<<this->state();
-//        ondisconnect();
+        //        ondisconnect();
         return;
     }
     qDebug()<<"server send msgs";
@@ -1356,8 +1356,8 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
             auto ps=msg.right(msg.size()-QString("/login:").size()).split(' ',Qt::SkipEmptyParts);
             if (ps.size()>6){
                 std::cerr<<"login in error:"<<msg.toStdString();
-//                this->disconnectFromHost();
-//                this->close();//关闭读
+                //                this->disconnectFromHost();
+                //                this->close();//关闭读
                 emit exitNow();
                 return;
             }
@@ -1376,8 +1376,8 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
 
             bool result=connectToDBMS();
             if(result){
-//                m_HeartBeatTimer->start();
-//                m_OnlineStatusTimer->start();
+                //                m_HeartBeatTimer->start();
+                //                m_OnlineStatusTimer->start();
             }else{
                 QString msg = "/WARN_DisconnectError:server";
                 sendmsgs({msg});
@@ -1479,8 +1479,6 @@ void CollClient::onread()
                     }
                     datatype.isFile=ps[0].toUInt();
                     datatype.datasize=ps[1].toUInt();
-                    if(datatype.isFile==2)
-                        datatype.filesize=ps[2].toUInt();
                 }else{
                     break;
                 }
@@ -1500,7 +1498,7 @@ void CollClient::onread()
                     log=QDateTime::currentDateTime().toString(" yyyy/MM/dd hh:mm:ss ") + QString::number(myServer->receivedcnt) + " receive from " + username + " :" + QString(data);
 
                     qDebug()<<log;
-//                    qDebug()<<QString("client read message %1, %2").arg(username).arg(data).toStdString().c_str();
+                    //                    qDebug()<<QString("client read message %1, %2").arg(username).arg(data).toStdString().c_str();
                     preprocessmsgs(QString(data).trimmed().split(';',Qt::SkipEmptyParts));
                     resetdatatype();
                     delete [] data;
@@ -1508,63 +1506,11 @@ void CollClient::onread()
                     break;
                 }
             }
-        }else if(datatype.isFile==1){
-            //已经接收了头，数据
-            if(this->bytesAvailable()>=datatype.datasize+datatype.filesize){
-//                char *data=new char[datatype.datasize+1];
-//                this->read(data,datatype.datasize);
-//                data[datatype.datasize]='\0';
-//                // std::cout<<QDateTime::currentDateTime().toString(" yyyy/MM/dd hh:mm:ss ").toStdString()<<(++receivedcnt)<<" receive from "<<username.toStdString()<<" :"<<data<<std::endl;
-//                //只会接收刚开始协作时同步的文件，开始加载同步数据由服务器发出消息通知
-//                char *filedata=new char[datatype.filesize];
-//                QDir dir(QCoreApplication::applicationDirPath()+"/loaddata");
-//                if(!dir.exists()){
-//                    dir.mkdir(QCoreApplication::applicationDirPath()+"/loaddata");
-//                }
-//                QFile f(QCoreApplication::applicationDirPath()+"/loaddata/"+data);
-//                this->read(filedata,datatype.filesize);
-//                if(f.open(QIODevice::WriteOnly)){
-//                    f.write(filedata,datatype.filesize);
-//                }
-
-//                delete [] filedata;
-//                delete [] data;
-
-//                resetdatatype();
-            }else{
-                break;
-            }
-        }else if(datatype.isFile==2){
-            //已经接收了头，数据
-            if(this->bytesAvailable()>=datatype.datasize+datatype.filesize){
-                char *data=new char[datatype.datasize+1];
-                this->read(data,datatype.datasize);
-                data[datatype.datasize]='\0';
-                // std::cout<<QDateTime::currentDateTime().toString(" yyyy/MM/dd hh:mm:ss ").toStdString()<<(++receivedcnt)<<" receive from "<<username.toStdString()<<" :"<<data<<std::endl;
-                //只会接收刚开始协作时同步的文件，开始加载同步数据由服务器发出消息通知
-
-                QDir dir(QCoreApplication::applicationDirPath()+"/eegdata");
-                if(!dir.exists()){
-                    dir.mkdir(QCoreApplication::applicationDirPath()+"/eegdata");
-                }
-                QFile f(QCoreApplication::applicationDirPath()+"/eegdata/"+data);
-                QByteArray fileData = this->read(datatype.filesize);
-                if(f.open(QIODevice::WriteOnly)){
-                    f.write(fileData,datatype.filesize);
-                    f.close();
-                }
-
-
-                delete [] data;
-
-                resetdatatype();
-            }else{
-                break;
-            }
-
+        }else{
+            break;
+        }
     }
 
-}
 }
 
 void CollClient::ondisconnect()
@@ -1598,7 +1544,7 @@ void CollClient::ondisconnect()
 
     qDebug()<<"subthread "<<QThread::currentThreadId()<<" will quit";
     emit removeList(thread());
-    this->deleteLater();  
+    this->deleteLater();
 }
 
 void CollClient::onError(QAbstractSocket::SocketError socketError){
@@ -1606,19 +1552,19 @@ void CollClient::onError(QAbstractSocket::SocketError socketError){
     QMetaEnum me = mo.enumerator(mo.indexOfEnumerator("SocketError"));
     qDebug()<<me.valueToKey(socketError);
     qDebug()<<username<<QString(" client occurs error").toStdString().c_str();
-//    this->flush();
-//    while(this->bytesAvailable())
-//        onread();
-//    this->close();//关闭读
-//    if(CollClient::hashmap.contains(username)&&CollClient::hashmap[username]==this)
-//        CollClient::hashmap.remove(username);
-//    if(CollClient::hashmap.size()==0)
-//    {
-//        curClient=this;
-//        emit noUsers();
-//    }
-//    CollClient::updateuserlist();
-//    this->deleteLater();
+    //    this->flush();
+    //    while(this->bytesAvailable())
+    //        onread();
+    //    this->close();//关闭读
+    //    if(CollClient::hashmap.contains(username)&&CollClient::hashmap[username]==this)
+    //        CollClient::hashmap.remove(username);
+    //    if(CollClient::hashmap.size()==0)
+    //    {
+    //        curClient=this;
+    //        emit noUsers();
+    //    }
+    //    CollClient::updateuserlist();
+    //    this->deleteLater();
 }
 
 void CollClient::receiveuser(const QString userName, QString passWord, QString RES, QString swcUuid, bool isFirstClient)
@@ -1668,7 +1614,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
 
     //get apo
     proto::GetSwcMetaInfoResponse get_swc_meta_info_response;
-    if (!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid, get_swc_meta_info_response, cachedUserData)) {
+    if (!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid, get_swc_meta_info_response, myServer->cachedUserData)) {
         QString msg = "/WARN_GetSwcMetaInfoError:server";
         sendmsgs({msg});
         return;
@@ -1684,7 +1630,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
 
     proto::GetSwcAttachmentApoResponse response;
     myServer->attachmentUuid = get_swc_meta_info_response.swcinfo().swcattachmentapometainfo().attachmentuuid();
-    if (!WrappedCall::getSwcAttachmentApo(myServer->swcUuid, myServer->attachmentUuid, response, cachedUserData)) {
+    if (!WrappedCall::getSwcAttachmentApo(myServer->swcUuid, myServer->attachmentUuid, response, myServer->cachedUserData)) {
         QString msg = "/WARN_GetApoDataError:server";
         sendmsgs({msg});
         return;
@@ -1725,14 +1671,14 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
 
     //get eswc
     proto::GetSwcMetaInfoResponse response1;
-    if(!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid,response1,cachedUserData)){
+    if(!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid,response1,myServer->cachedUserData)){
         QString msg = "/WARN_GetSwcMetaInfoError:server";
         sendmsgs({msg});
         return;
     }
 
     proto::GetSwcFullNodeDataResponse response2;
-    if(!WrappedCall::getSwcFullNodeData(myServer->swcUuid, response2, cachedUserData)){
+    if(!WrappedCall::getSwcFullNodeData(myServer->swcUuid, response2, myServer->cachedUserData)){
         QString msg = "/WARN_GetSwcFullNodeDataError:server";
         sendmsgs({msg});
         return;
@@ -1791,7 +1737,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
         eSwc.WriteToFile();
     }
 
-//    if(isFirstClient){
+    //    if(isFirstClient){
     auto nt=readSWC_file(myServer->tmp_swcpath);
     myServer->segments=NeuronTree__2__V_NeuronSWC_list(nt, uuidVec);
     if(myServer->segments.name == "invalid_swc"){
@@ -1799,7 +1745,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
     }
     myServer->markers=readAPO_file(myServer->tmp_apopath);
     myServer->somaCoordinate=myServer->detectUtil->getSomaCoordinate(myServer->tmp_apopath);
-//    }
+    //    }
 
     //发送保存的文件
     sendfiles({myServer->tmp_anopath,myServer->tmp_apopath,myServer->tmp_swcpath},
@@ -1854,7 +1800,7 @@ void CollClient::updateApoData(bool isFirstClient){
     });
 
     proto::UpdateSwcAttachmentApoResponse response;
-    if(!WrappedCall::updateSwcAttachmentApo(myServer->swcUuid, myServer->attachmentUuid, swcAttachmentApoData, response, cachedUserData)){
+    if(!WrappedCall::updateSwcAttachmentApo(myServer->swcUuid, myServer->attachmentUuid, swcAttachmentApoData, response, myServer->cachedUserData)){
         QString msg = "/WARN_UpdateSwcAttachmentApoError:server";
         sendmsgs({msg});
         return;
@@ -1894,7 +1840,7 @@ void CollClient::updatesendmsgcnt2processed()
                              myServer->msglist.begin()+myServer->processedmsgcnt));
         sendmsgcnt=myServer->processedmsgcnt;
     }
-//    sendmsgcnt-=CollClient::processedmsgcnt;
+    //    sendmsgcnt-=CollClient::processedmsgcnt;
 }
 
 void CollClient::sendmsgs2client(int maxsize)
@@ -1904,16 +1850,16 @@ void CollClient::sendmsgs2client(int maxsize)
         return;
     }
     auto end=MIN(int(myServer->msglist.size()),int(this->sendmsgcnt+maxsize));
-//    if(maxsize>0)
-//        maxsize=MIN(maxsize,CollClient::msglist.size()-sendmsgcnt);
-//    else
-//        maxsize=CollClient::msglist.size()-sendmsgcnt;
-//    qDebug()<<"send to "<< this->username<<" :("<<myServer->msglist.begin()+this->sendmsgcnt
-//           <<","<<myServer->msglist.begin()+end<<")/"<<myServer->msglist.size();
+    //    if(maxsize>0)
+    //        maxsize=MIN(maxsize,CollClient::msglist.size()-sendmsgcnt);
+    //    else
+    //        maxsize=CollClient::msglist.size()-sendmsgcnt;
+    //    qDebug()<<"send to "<< this->username<<" :("<<myServer->msglist.begin()+this->sendmsgcnt
+    //           <<","<<myServer->msglist.begin()+end<<")/"<<myServer->msglist.size();
     //左闭右开
     sendmsgs(QStringList(myServer->msglist.begin()+this->sendmsgcnt,
                          myServer->msglist.begin()+end));
-//    this->sendmsgcnt+=maxsize;
+    //    this->sendmsgcnt+=maxsize;
     this->sendmsgcnt=end;
 }
 
@@ -1921,8 +1867,6 @@ void CollClient::resetdatatype()
 {
     datatype.isFile=false;
     datatype.datasize=0;
-    datatype.filesize=0;
-
 }
 
 void CollClient::quit(){
@@ -2153,12 +2097,12 @@ void CollClient::simpleConnectExecutor(V_NeuronSWC_list& segments, vector<segInf
         if(!WrappedCall::deleteSwcNodeData(myServer->swcUuid, deleteSwcData, deleteResponse, cachedUserData)){
             QString msg = "/WARN_DeleteSwcNodeDataError:server";
             sendmsgs({msg});
-//            return;
+            //            return;
         }
-//        QString logMsg = QString("Delete %1 node\n").arg(beforeDelPoint_size - myServer->segments.nrows());
-//        myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
-//        myServer->additionalLogFile->flush();
-//        fsync(myServer->additionalLogFile->handle());
+        //        QString logMsg = QString("Delete %1 node\n").arg(beforeDelPoint_size - myServer->segments.nrows());
+        //        myServer->additionalLogOut << getCurrentDateTime() <<": " << logMsg;
+        //        myServer->additionalLogFile->flush();
+        //        fsync(myServer->additionalLogFile->handle());
 
         proto::SwcDataV1 addSwcData;
 
@@ -2184,7 +2128,7 @@ void CollClient::simpleConnectExecutor(V_NeuronSWC_list& segments, vector<segInf
         if(!WrappedCall::addSwcNodeData(myServer->swcUuid, addSwcData, addResponse, cachedUserData)){
             QString msg = "/WARN_AddSwcNodeDataError:server";
             sendmsgs({msg});
-//            return;
+            //            return;
         }
 
         auto uuids = addResponse.creatednodesuuid();
@@ -2634,11 +2578,11 @@ void CollClient::defineSoma(const QString msg){
 
             proto::UpdateSwcAttachmentSwcResponse response;
             if(!WrappedCall::updateSwcAttachmentSwc(myServer->swcUuid, modelData, response, cachedUserData)){
-                tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+                tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
                 tobeSendMsg += ",";
                 info = "UpdateSwcAttachmentSwcError from DBMS!";
                 tobeSendMsg += info;
-                sendmsgs({msg});
+                sendmsgs({tobeSendMsg});
                 return;
             }
 
