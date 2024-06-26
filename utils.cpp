@@ -561,13 +561,13 @@ int isOverlapOfTwoSegs(V_NeuronSWC& seg1, V_NeuronSWC& seg2){
     double minDensity = min(length1/seg1.row.size(), length2/seg2.row.size());
     double minLength = min(length1, length2);
     //    double mindist = 3.5 - 3.5 * 1.0 / minLength;
-    double mindist = 1 + 3 * sqrt(minLength)/(sqrt(minLength) + 1);
+    double mindist = 0.3 + 4 * sqrt(minLength)/(sqrt(minLength) + 9);
     //    double mindist_thres = 3.5 - 3.5 * 1.0 / minLength;
-    double mindist_thres = 1 + 3 * sqrt(minLength)/(sqrt(minLength) + 1);
+    double mindist_thres = 0.3 + 4 * sqrt(minLength)/(sqrt(minLength) + 9);
 
     if(minDensity < 5){
-        mindist = 0.2 + 0.4 * sqrt(minLength)/(sqrt(minLength) + 1);
-        mindist_thres = 0.2 + 0.4 * sqrt(minLength)/(sqrt(minLength) + 1);
+        mindist = 0.1 + 1.4 * sqrt(minLength)/(sqrt(minLength) + 9);
+        mindist_thres = 0.1 + 1.4 * sqrt(minLength)/(sqrt(minLength) + 9);
     }
 
     if(seg1.row.size() == seg2.row.size()){
