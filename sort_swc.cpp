@@ -1,4 +1,8 @@
 ﻿#include "sort_swc.h"
+
+#include <fstream>
+#include <iostream>
+
 #include "utils.h"
 
 bool fexists(QString filename)

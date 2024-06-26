@@ -2,9 +2,7 @@
 #define ANALYZE_H
 
 #include <set>
-#include <QtMath>
 #include <QVector3D>
-#include "utils.h"
 #include "colldetection.h"
 
 //获取soma附近的二分叉和多分叉

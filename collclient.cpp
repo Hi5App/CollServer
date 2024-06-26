@@ -1,4 +1,7 @@
-﻿#include "collclient.h"
+﻿#ifdef _WIN32
+#include <Windows.h>
+#endif
+#include "collclient.h"
 #include "coll_server.h"
 #include "utils.h"
 #include <cmath>
@@ -10,9 +13,7 @@
 #include "grpcpp/grpcpp.h"
 #include "FileIo/AnoIo.hpp"
 #include "FileIo/ApoIo.hpp"
-#include "FileIo/FileIoInterface.hpp"
 #include "FileIo/SwcIo.hpp"
-//#include <algorithm>
 
 extern QFile* logfile;
 
@@ -1637,6 +1638,7 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
     }
 
     vector<proto::SwcAttachmentApoV1> m_SwcAttachmentApoData;
+    m_SwcAttachmentApoData.reserve(response.swcattachmentapo().size() + 1);
 
     for (auto&data: response.swcattachmentapo()) {
         m_SwcAttachmentApoData.push_back(data);
@@ -1645,25 +1647,26 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
     std::filesystem::path apoPath(myServer->tmp_apopath.toStdString());
     ApoIo apoIo(apoPath.string());
     std::vector<ApoUnit> units;
+    units.reserve(m_SwcAttachmentApoData.size() + 1);
     std::for_each(m_SwcAttachmentApoData.begin(), m_SwcAttachmentApoData.end(),
                   [&](proto::SwcAttachmentApoV1&val) {
-                      ApoUnit unit;
-                      unit.n = val.n();
-                      unit.orderinfo = val.orderinfo();
-                      unit.name = val.name();
-                      unit.comment = val.comment();
-                      unit.z = val.z();
-                      unit.x = val.x();
-                      unit.y = val.y();
-                      unit.pixmax = val.pixmax();
-                      unit.intensity = val.intensity();
-                      unit.sdev = val.sdev();
-                      unit.volsize = val.volsize();
-                      unit.mass = val.mass();
-                      unit.color_r = val.colorr();
-                      unit.color_g = val.colorg();
-                      unit.color_b = val.colorb();
-                      units.push_back(unit);
+                      ApoUnit apo_unit;
+                      apo_unit.n = val.n();
+                      apo_unit.orderinfo = val.orderinfo();
+                      apo_unit.name = val.name();
+                      apo_unit.comment = val.comment();
+                      apo_unit.z = val.z();
+                      apo_unit.x = val.x();
+                      apo_unit.y = val.y();
+                      apo_unit.pixmax = val.pixmax();
+                      apo_unit.intensity = val.intensity();
+                      apo_unit.sdev = val.sdev();
+                      apo_unit.volsize = val.volsize();
+                      apo_unit.mass = val.mass();
+                      apo_unit.color_r = val.colorr();
+                      apo_unit.color_g = val.colorg();
+                      apo_unit.color_b = val.colorb();
+                      units.push_back(apo_unit);
                   });
 
     apoIo.setValue(units);
@@ -1694,15 +1697,15 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
         vector<NeuronUnit> neurons;
         auto swcData = exportSwcData.swcData;
         for (int j = 0; j < swcData.swcdata_size(); j++) {
-            NeuronUnit unit;
-            unit.n = swcData.swcdata(j).swcnodeinternaldata().n();
-            unit.type = swcData.swcdata(j).swcnodeinternaldata().type();
-            unit.x = swcData.swcdata(j).swcnodeinternaldata().x();
-            unit.y = swcData.swcdata(j).swcnodeinternaldata().y();
-            unit.z = swcData.swcdata(j).swcnodeinternaldata().z();
-            unit.radius = swcData.swcdata(j).swcnodeinternaldata().radius();
-            unit.parent = swcData.swcdata(j).swcnodeinternaldata().parent();
-            neurons.push_back(unit);
+            NeuronUnit neuron_unit;
+            neuron_unit.n = swcData.swcdata(j).swcnodeinternaldata().n();
+            neuron_unit.type = swcData.swcdata(j).swcnodeinternaldata().type();
+            neuron_unit.x = swcData.swcdata(j).swcnodeinternaldata().x();
+            neuron_unit.y = swcData.swcdata(j).swcnodeinternaldata().y();
+            neuron_unit.z = swcData.swcdata(j).swcnodeinternaldata().z();
+            neuron_unit.radius = swcData.swcdata(j).swcnodeinternaldata().radius();
+            neuron_unit.parent = swcData.swcdata(j).swcnodeinternaldata().parent();
+            neurons.push_back(neuron_unit);
             uuidVec.push_back(swcData.swcdata(j).base().uuid());
         }
 
@@ -1715,20 +1718,20 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
         std::vector<NeuronUnit> neurons;
         auto swcData = exportSwcData.swcData;
         for (int j = 0; j < swcData.swcdata_size(); j++) {
-            NeuronUnit unit;
-            unit.n = swcData.swcdata(j).swcnodeinternaldata().n();
-            unit.type = swcData.swcdata(j).swcnodeinternaldata().type();
-            unit.x = swcData.swcdata(j).swcnodeinternaldata().x();
-            unit.y = swcData.swcdata(j).swcnodeinternaldata().y();
-            unit.z = swcData.swcdata(j).swcnodeinternaldata().z();
-            unit.radius = swcData.swcdata(j).swcnodeinternaldata().radius();
-            unit.parent = swcData.swcdata(j).swcnodeinternaldata().parent();
-            unit.seg_id = swcData.swcdata(j).swcnodeinternaldata().seg_id();
-            unit.level = swcData.swcdata(j).swcnodeinternaldata().level();
-            unit.mode = swcData.swcdata(j).swcnodeinternaldata().mode();
-            unit.timestamp = swcData.swcdata(j).swcnodeinternaldata().timestamp();
-            unit.feature_value = swcData.swcdata(j).swcnodeinternaldata().feature_value();
-            neurons.push_back(unit);
+            NeuronUnit neuron_unit;
+            neuron_unit.n = swcData.swcdata(j).swcnodeinternaldata().n();
+            neuron_unit.type = swcData.swcdata(j).swcnodeinternaldata().type();
+            neuron_unit.x = swcData.swcdata(j).swcnodeinternaldata().x();
+            neuron_unit.y = swcData.swcdata(j).swcnodeinternaldata().y();
+            neuron_unit.z = swcData.swcdata(j).swcnodeinternaldata().z();
+            neuron_unit.radius = swcData.swcdata(j).swcnodeinternaldata().radius();
+            neuron_unit.parent = swcData.swcdata(j).swcnodeinternaldata().parent();
+            neuron_unit.seg_id = swcData.swcdata(j).swcnodeinternaldata().seg_id();
+            neuron_unit.level = swcData.swcdata(j).swcnodeinternaldata().level();
+            neuron_unit.mode = swcData.swcdata(j).swcnodeinternaldata().mode();
+            neuron_unit.timestamp = swcData.swcdata(j).swcnodeinternaldata().timestamp();
+            neuron_unit.feature_value = swcData.swcdata(j).swcnodeinternaldata().feature_value();
+            neurons.push_back(neuron_unit);
             uuidVec.push_back(swcData.swcdata(j).base().uuid());
         }
 

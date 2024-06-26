@@ -1,9 +1,7 @@
 ﻿#include <QCoreApplication>
-#include <QDir>
 #include "include/hiredis/hiredis.h"
 #include "neuron_editing/neuron_format_converter.h"
 #include "utils.h"
-#include "include/hiredis/hiredis.h"
 
 extern string redisIp;
 void dirCheck(QString dirBaseName)

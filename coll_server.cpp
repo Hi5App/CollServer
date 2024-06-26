@@ -1,17 +1,12 @@
 ﻿#include "coll_server.h"
+#ifdef __linux__
 #include <unistd.h>
+#endif
 #include "utils.h"
-#include <thread>
 #include <QThread>
 #include <chrono>
-#include <QNetworkRequest>
-#include <QEventLoop>
 #include <QNetworkReply>
-#include <QHttpMultiPart>
 #include <QFile>
-#include <QJsonArray>
-#include <QJsonObject>
-#include <QJsonDocument>
 #include <algorithm>
 #include "grpcpp/grpcpp.h"
 #include "Service/Service.grpc.pb.h"
@@ -233,7 +228,9 @@ void CollServer::autoSave()
     std::cout<<"auto save\n"<<std::endl;
 //    additionalLogFile->flush();
     logfile->flush();
+#ifdef __linux__
     fsync(1);fsync(2);
+#endif
     setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 180);
     if(hashmap.size()==0){
         std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
