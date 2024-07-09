@@ -31,6 +31,32 @@ public:
         return false;
     }
 
+    static bool updateSwcNParentInfo(proto::UpdateSwcNParentInfoResponse&response, CachedProtoData& cachedUserData,
+                                     const std::string&swcUuid, std::vector<proto::NodeNParentV1>&nodesNParent){
+        proto::UpdateSwcNParentInfoRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcuuid(swcUuid);
+        for(auto&nodeData: nodesNParent){
+            request.add_nodenparentvec()->CopyFrom(nodeData);
+        }
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->UpdateSwcNParentInfo(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
+    static bool overwriteSwcNodeData(proto::OverwriteSwcNodeDataResponse&response, CachedProtoData& cachedUserData,
+                                     const std::string&swcUuid, proto::SwcDataV1&swcData){
+        proto::OverwriteSwcNodeDataRequest request;
+        setCommonRequestField(request, cachedUserData);
+        request.set_swcuuid(swcUuid);
+        request.mutable_swcdata()->CopyFrom(swcData);
+
+        grpc::ClientContext context;
+        auto status = RpcCall::getInstance().Stub()->OverwriteSwcNodeData(&context, request, &response);
+        return defaultErrorHandler(__func__, status, response.metainfo());
+    }
+
     static bool getAllProjectMetaInfo(proto::GetAllProjectResponse&response, CachedProtoData& cachedUserData) {
         proto::GetAllProjectRequest request;
         setCommonRequestField(request, cachedUserData);

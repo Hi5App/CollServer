@@ -1672,6 +1672,19 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
     apoIo.setValue(units);
     apoIo.WriteToFile();
 
+    if(!isFirstClient){
+        // 创建事件循环
+        QEventLoop loop;
+
+        // 连接信号和事件循环的退出槽
+        connect(myServer, &CollServer::overwriteSwcNodeDataDone, &loop, &QEventLoop::quit);
+
+        emit serverOverwriteSwcNodeData(true);
+
+        // 等待事件循环退出
+        loop.exec();
+    }
+
     //get eswc
     proto::GetSwcMetaInfoResponse response1;
     if(!WrappedCall::getSwcMetaInfoByUuid(myServer->swcUuid,response1,myServer->cachedUserData)){
@@ -1745,6 +1758,10 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
     myServer->segments=NeuronTree__2__V_NeuronSWC_list(nt, uuidVec);
     if(myServer->segments.name == "invalid_swc"){
         emit exitNow();
+    }
+    if(uuidVec.size() != myServer->segments.nrows()){
+        qDebug() << "Warn: the size of uuid from dbms is: " << uuidVec.size();
+        qDebug() << "Warn: the size of segments is: " << myServer->segments.nrows();
     }
     myServer->markers=readAPO_file(myServer->tmp_apopath);
     myServer->somaCoordinate=myServer->detectUtil->getSomaCoordinate(myServer->tmp_apopath);
@@ -2350,7 +2367,7 @@ void CollClient::analyzeColorMutation(const QString msg){
             int count = 0;
             QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
             qDebug()<<"color mutation exists";
-            QStringList result;
+            QStringList resultMarkers;
             QString comment = "Color mutation";
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
             tobeSendMsg +=",";
@@ -2364,16 +2381,243 @@ void CollClient::analyzeColorMutation(const QString msg){
                 QString msg = tobeSendMsg + curMarker;
                 bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/FEEDBACK_ANALYZE_ColorMutation:").size()), comment);
                 if(isSucess){
-                    result.push_back(curMarker);
+                    resultMarkers.push_back(curMarker);
                     count++;
                 }
             }
 
-            tobeSendMsg = tobeSendMsg + result.join(",");
+            tobeSendMsg = tobeSendMsg + resultMarkers.join(",");
 
             emit myServer->clientSendMsgs({tobeSendMsg});
         }
         //        sendmsgs({tobeSendMsg});
+    }
+}
+
+void CollClient::analyzeColorMutationForHB(const QString msg){
+    QStringList headerlist=msg.split(' ',Qt::SkipEmptyParts);
+    int clienttype=headerlist[0].toUInt();
+    int useridx=headerlist[1].toUInt();
+    qDebug()<<QString("analyzeColorMutation: clienttype=%1, useridx=%2").arg(clienttype).arg(useridx);
+
+    bool result=true;
+    if(!myServer->isSomaExists){
+        qDebug()<<"soma not detected!";
+        QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
+        tobeSendMsg += QString("server %1 %2").arg(useridx).arg(-1);
+        sendmsgs({tobeSendMsg});
+        return;
+    }
+    vector<CellAPO> errorMarkers;
+
+    map<string,set<int>> specPointsMap=getColorChangedPoints(myServer->segments);
+    set<string> resultSet;
+    for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+        int size = 0;
+        for(auto it2=it->second.begin(); it2!=it->second.end(); it2++){
+            if(*it2!=2 && *it2!=3 && *it2!=4 && *it2!=1)
+                size++;
+        }
+        if(size!=0){
+            resultSet.insert(it->first);
+        }
+    }
+    //    for(auto it=resultSet.begin();it!=resultSet.end();){
+    //        NeuronSWC s;
+    //        stringToXYZ(*it, s.x, s.y, s.z);
+    //        if(distance(s.x, somaCoordinate.x, s.y, somaCoordinate.y,
+    //                     s.z, somaCoordinate.z)<dist_thre)
+    //        {
+    //            it=resultSet.erase(it);
+    //        }else{
+    //            it++;
+    //        }
+    //    }
+    if(resultSet.size()!=0){
+        for(auto it=resultSet.begin(); it!=resultSet.end(); it++){
+            NeuronSWC s;
+            stringToXYZ(*it, s.x, s.y, s.z);
+            CellAPO marker;
+            marker.name="";
+            marker.comment="Color mutation";
+            marker.orderinfo="";
+            marker.color.r=200;
+            marker.color.g=20;
+            marker.color.b=0;
+            marker.x=s.x;
+            marker.y=s.y;
+            marker.z=s.z;
+            errorMarkers.push_back(marker);
+        }
+        //        return errorMarkers;
+    }
+    set<string> otherTypesCoor = resultSet;
+    resultSet.clear();
+
+    int case_type=0;
+    for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+        if(it->second.find(2)!=it->second.end() && it->second.find(3)!=it->second.end()){
+            resultSet.insert(it->first);
+        }
+    }
+    if(resultSet.size() > 1)
+        result=false;
+    else if(resultSet.size() == 1){
+        string gridKey=*resultSet.begin();
+        XYZ coor;
+        stringToXYZ(gridKey, coor.x, coor.y, coor.z);
+        if(distance(coor.x, myServer->somaCoordinate.x, coor.y, myServer->somaCoordinate.y,
+                     coor.z, myServer->somaCoordinate.z) < 8)
+            case_type=1;
+        else
+            case_type=2;
+    }
+    else{
+        case_type = 4;
+    }
+
+    if(case_type==0){
+        qDebug()<< "axons not connected or the number of axons is more than 1";
+    }
+    else if(case_type==1){
+        for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+            if(it->second.find(2)!=it->second.end() && it->second.find(4)!=it->second.end()){
+                resultSet.insert(it->first);
+            }
+            if(it->second.find(4)!=it->second.end() && it->second.find(3)!=it->second.end()){
+                resultSet.insert(it->first);
+            }
+        }
+        if(resultSet.size()!=1)
+            result=false;
+    }
+    else if(case_type==2){
+        string gridKey;
+        for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+            if(it->second.find(4)!=it->second.end() && it->second.find(3)!=it->second.end()){
+                resultSet.insert(it->first);
+                gridKey=it->first;
+            }
+        }
+        if(resultSet.size()>2)
+        {
+            result=false;
+        }
+        else if(resultSet.size()==2){
+            XYZ coor;
+            stringToXYZ(gridKey, coor.x, coor.y, coor.z);
+            if(distance(coor.x, myServer->somaCoordinate.x, coor.y, myServer->somaCoordinate.y,
+                         coor.z, myServer->somaCoordinate.z) > 8)
+                result=false;
+        }
+
+        int curCount=resultSet.size();
+        for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+            if(it->second.find(4)!=it->second.end() && it->second.find(2)!=it->second.end()){
+                resultSet.insert(it->first);
+            }
+        }
+        if(curCount!=resultSet.size())
+            result=false;
+
+    }
+    else if(case_type == 4){
+        string gridKey;
+        for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+            if(it->second.find(2)!=it->second.end() && it->second.find(4)!=it->second.end()){
+                resultSet.insert(it->first);
+            }
+        }
+        if(resultSet.size()!=0)
+            result=false;
+        else{
+            for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
+                if(it->second.find(3)!=it->second.end() && it->second.find(4)!=it->second.end()){
+                    resultSet.insert(it->first);
+                    gridKey=it->first;
+                }
+            }
+            if(resultSet.size()==0){
+                result = true;
+            }
+            else{
+                if(resultSet.size() == 1){
+                    XYZ coor;
+                    stringToXYZ(gridKey, coor.x, coor.y, coor.z);
+                    if(distance(coor.x, myServer->somaCoordinate.x, coor.y, myServer->somaCoordinate.y,
+                                 coor.z, myServer->somaCoordinate.z) > 8){
+                        result = false;
+                    }
+                }
+                else{
+                    result = false;
+                }
+            }
+        }
+    }
+
+    //    for(auto it=resultSet.begin();it!=resultSet.end();){
+    //        NeuronSWC s;
+    //        stringToXYZ(*it, s.x, s.y, s.z);
+    //        if(distance(s.x, somaCoordinate.x, s.y, somaCoordinate.y,
+    //                     s.z, somaCoordinate.z)<dist_thre)
+    //        {
+    //            it=resultSet.erase(it);
+    //        }else{
+    //            it++;
+    //        }
+    //    }
+
+    if(result){
+        qDebug() << "no color mutation\n";
+    }else{
+        qDebug() << "color mutation exists\n";
+        for(auto it=resultSet.begin(); it!=resultSet.end(); it++){
+            if(otherTypesCoor.find(*it) != otherTypesCoor.end()){
+                continue;
+            }
+            NeuronSWC s;
+            stringToXYZ(*it, s.x, s.y, s.z);
+
+            CellAPO marker;
+            marker.name="";
+            marker.comment="Color mutation";
+            marker.orderinfo="";
+            marker.color.r=200;
+            marker.color.g=20;
+            marker.color.b=0;
+            marker.x=s.x;
+            marker.y=s.y;
+            marker.z=s.z;
+            errorMarkers.push_back(marker);
+        }
+    }
+
+    QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
+    if(result){
+        tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+        sendmsgs({tobeSendMsg});
+    }else{
+        int count = 0;
+        QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
+        QStringList resultMarkers;
+        QString comment = "Color mutation";
+        tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
+        tobeSendMsg +=",";
+
+        for(auto it=errorMarkers.begin(); it!=errorMarkers.end(); it++){
+            QString curMarker = QString("%1 %2 %3 %4 %5 %6").arg(it->color.r).arg(it->color.g).arg(it->color.b).arg(it->x).arg(it->y).arg(it->z);
+            QString msg = tobeSendMsg + curMarker;
+            bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/FEEDBACK_ANALYZE_ColorMutation:").size()), comment);
+            if(isSucess){
+                resultMarkers.push_back(curMarker);
+                count++;
+            }
+        }
+
+        tobeSendMsg = tobeSendMsg + resultMarkers.join(",");
+
+        emit myServer->clientSendMsgs({tobeSendMsg});
     }
 }
 

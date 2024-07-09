@@ -136,6 +136,7 @@ struct NeuronSWC : public BasicSurfObj
 	V3DLONG pn;				// previous point index (-1 for the first point)
     V3DLONG parent;				// previous point index (-1 for the first point)
     };
+    std::string uuid;
     
     V3DLONG level; //20120217, by PHC. for ESWC format
     QList<float> fea_val; //20120217, by PHC. for ESWC format

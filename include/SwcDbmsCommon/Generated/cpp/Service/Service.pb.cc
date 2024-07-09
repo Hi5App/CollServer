@@ -32,7 +32,7 @@ const char descriptor_table_protodef_Service_2fService_2eproto[] PROTOBUF_SECTIO
   "\n\025Service/Service.proto\022\005proto\032\037google/p"
   "rotobuf/timestamp.proto\032\025Message/Message"
   ".proto\032\025Message/Request.proto\032\026Message/R"
-  "esponse.proto2\312)\n\004DBMS\022C\n\nCreateUser\022\030.p"
+  "esponse.proto2\336+\n\004DBMS\022C\n\nCreateUser\022\030.p"
   "roto.CreateUserRequest\032\031.proto.CreateUse"
   "rResponse\"\000\022C\n\nDeleteUser\022\030.proto.Delete"
   "UserRequest\032\031.proto.DeleteUserResponse\"\000"
@@ -165,8 +165,15 @@ const char descriptor_table_protodef_Service_2fService_2eproto[] PROTOBUF_SECTIO
   "nse\"\000\022\202\001\n\037GetProjectSwcNamesByProjectUui"
   "d\022-.proto.GetProjectSwcNamesByProjectUui"
   "dRequest\032..proto.GetProjectSwcNamesByPro"
-  "jectUuidResponse\"\000B/Z-DBMS/SwcDbmsCommon"
-  "/Generated/go/proto/serviceP\000b\006proto3"
+  "jectUuidResponse\"\000\022a\n\024UpdateSwcNParentIn"
+  "fo\022\".proto.UpdateSwcNParentInfoRequest\032#"
+  ".proto.UpdateSwcNParentInfoResponse\"\000\022L\n"
+  "\rClearAllNodes\022\033.proto.ClearAllNodesRequ"
+  "est\032\034.proto.ClearAllNodesResponse\"\000\022a\n\024O"
+  "verwriteSwcNodeData\022\".proto.OverwriteSwc"
+  "NodeDataRequest\032#.proto.OverwriteSwcNode"
+  "DataResponse\"\000B/Z-DBMS/SwcDbmsCommon/Gen"
+  "erated/go/proto/serviceP\000b\006proto3"
   ;
 static const ::_pbi::DescriptorTable* const descriptor_table_Service_2fService_2eproto_deps[4] = {
   &::descriptor_table_Message_2fMessage_2eproto,
@@ -176,7 +183,7 @@ static const ::_pbi::DescriptorTable* const descriptor_table_Service_2fService_2
 };
 static ::_pbi::once_flag descriptor_table_Service_2fService_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_Service_2fService_2eproto = {
-    false, false, 5517, descriptor_table_protodef_Service_2fService_2eproto,
+    false, false, 5793, descriptor_table_protodef_Service_2fService_2eproto,
     "Service/Service.proto",
     &descriptor_table_Service_2fService_2eproto_once, descriptor_table_Service_2fService_2eproto_deps, 4, 0,
     schemas, file_default_instances, TableStruct_Service_2fService_2eproto::offsets,

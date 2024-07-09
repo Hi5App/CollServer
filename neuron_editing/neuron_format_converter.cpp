@@ -70,6 +70,7 @@ NeuronTree V_NeuronSWC__2__NeuronTree(V_NeuronSWC & seg) // convert V_NeuronSWC 
             S.creatmode = seg.row.at(k).creatmode;
             S.timestamp = seg.row.at(k).timestamp;
             S.tfresindex = seg.row.at(k).tfresindex;
+            S.uuid = seg.row.at(k).uuid;
 			
 			//qDebug("%s  ///  %d %d (%g %g %g) %g %d", buf, S.n, S.type, S.x, S.y, S.z, S.r, S.pn);
 			

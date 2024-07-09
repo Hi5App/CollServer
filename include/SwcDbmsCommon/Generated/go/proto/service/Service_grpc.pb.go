@@ -78,6 +78,9 @@ const (
 	DBMS_DeletePermissionGroup_FullMethodName            = "/proto.DBMS/DeletePermissionGroup"
 	DBMS_UpdatePermissionGroup_FullMethodName            = "/proto.DBMS/UpdatePermissionGroup"
 	DBMS_GetProjectSwcNamesByProjectUuid_FullMethodName  = "/proto.DBMS/GetProjectSwcNamesByProjectUuid"
+	DBMS_UpdateSwcNParentInfo_FullMethodName             = "/proto.DBMS/UpdateSwcNParentInfo"
+	DBMS_ClearAllNodes_FullMethodName                    = "/proto.DBMS/ClearAllNodes"
+	DBMS_OverwriteSwcNodeData_FullMethodName             = "/proto.DBMS/OverwriteSwcNodeData"
 )
 
 // DBMSClient is the client API for DBMS service.
@@ -141,6 +144,9 @@ type DBMSClient interface {
 	DeletePermissionGroup(ctx context.Context, in *request.DeletePermissionGroupRequest, opts ...grpc.CallOption) (*response.DeletePermissionGroupResponse, error)
 	UpdatePermissionGroup(ctx context.Context, in *request.UpdatePermissionGroupRequest, opts ...grpc.CallOption) (*response.UpdatePermissionGroupResponse, error)
 	GetProjectSwcNamesByProjectUuid(ctx context.Context, in *request.GetProjectSwcNamesByProjectUuidRequest, opts ...grpc.CallOption) (*response.GetProjectSwcNamesByProjectUuidResponse, error)
+	UpdateSwcNParentInfo(ctx context.Context, in *request.UpdateSwcNParentInfoRequest, opts ...grpc.CallOption) (*response.UpdateSwcNParentInfoResponse, error)
+	ClearAllNodes(ctx context.Context, in *request.ClearAllNodesRequest, opts ...grpc.CallOption) (*response.ClearAllNodesResponse, error)
+	OverwriteSwcNodeData(ctx context.Context, in *request.OverwriteSwcNodeDataRequest, opts ...grpc.CallOption) (*response.OverwriteSwcNodeDataResponse, error)
 }
 
 type dBMSClient struct {
@@ -664,6 +670,33 @@ func (c *dBMSClient) GetProjectSwcNamesByProjectUuid(ctx context.Context, in *re
 	return out, nil
 }
 
+func (c *dBMSClient) UpdateSwcNParentInfo(ctx context.Context, in *request.UpdateSwcNParentInfoRequest, opts ...grpc.CallOption) (*response.UpdateSwcNParentInfoResponse, error) {
+	out := new(response.UpdateSwcNParentInfoResponse)
+	err := c.cc.Invoke(ctx, DBMS_UpdateSwcNParentInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) ClearAllNodes(ctx context.Context, in *request.ClearAllNodesRequest, opts ...grpc.CallOption) (*response.ClearAllNodesResponse, error) {
+	out := new(response.ClearAllNodesResponse)
+	err := c.cc.Invoke(ctx, DBMS_ClearAllNodes_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dBMSClient) OverwriteSwcNodeData(ctx context.Context, in *request.OverwriteSwcNodeDataRequest, opts ...grpc.CallOption) (*response.OverwriteSwcNodeDataResponse, error) {
+	out := new(response.OverwriteSwcNodeDataResponse)
+	err := c.cc.Invoke(ctx, DBMS_OverwriteSwcNodeData_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DBMSServer is the server API for DBMS service.
 // All implementations must embed UnimplementedDBMSServer
 // for forward compatibility
@@ -725,6 +758,9 @@ type DBMSServer interface {
 	DeletePermissionGroup(context.Context, *request.DeletePermissionGroupRequest) (*response.DeletePermissionGroupResponse, error)
 	UpdatePermissionGroup(context.Context, *request.UpdatePermissionGroupRequest) (*response.UpdatePermissionGroupResponse, error)
 	GetProjectSwcNamesByProjectUuid(context.Context, *request.GetProjectSwcNamesByProjectUuidRequest) (*response.GetProjectSwcNamesByProjectUuidResponse, error)
+	UpdateSwcNParentInfo(context.Context, *request.UpdateSwcNParentInfoRequest) (*response.UpdateSwcNParentInfoResponse, error)
+	ClearAllNodes(context.Context, *request.ClearAllNodesRequest) (*response.ClearAllNodesResponse, error)
+	OverwriteSwcNodeData(context.Context, *request.OverwriteSwcNodeDataRequest) (*response.OverwriteSwcNodeDataResponse, error)
 	mustEmbedUnimplementedDBMSServer()
 }
 
@@ -902,6 +938,15 @@ func (UnimplementedDBMSServer) UpdatePermissionGroup(context.Context, *request.U
 }
 func (UnimplementedDBMSServer) GetProjectSwcNamesByProjectUuid(context.Context, *request.GetProjectSwcNamesByProjectUuidRequest) (*response.GetProjectSwcNamesByProjectUuidResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProjectSwcNamesByProjectUuid not implemented")
+}
+func (UnimplementedDBMSServer) UpdateSwcNParentInfo(context.Context, *request.UpdateSwcNParentInfoRequest) (*response.UpdateSwcNParentInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSwcNParentInfo not implemented")
+}
+func (UnimplementedDBMSServer) ClearAllNodes(context.Context, *request.ClearAllNodesRequest) (*response.ClearAllNodesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClearAllNodes not implemented")
+}
+func (UnimplementedDBMSServer) OverwriteSwcNodeData(context.Context, *request.OverwriteSwcNodeDataRequest) (*response.OverwriteSwcNodeDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OverwriteSwcNodeData not implemented")
 }
 func (UnimplementedDBMSServer) mustEmbedUnimplementedDBMSServer() {}
 
@@ -1942,6 +1987,60 @@ func _DBMS_GetProjectSwcNamesByProjectUuid_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DBMS_UpdateSwcNParentInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.UpdateSwcNParentInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).UpdateSwcNParentInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_UpdateSwcNParentInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).UpdateSwcNParentInfo(ctx, req.(*request.UpdateSwcNParentInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_ClearAllNodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.ClearAllNodesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).ClearAllNodes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_ClearAllNodes_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).ClearAllNodes(ctx, req.(*request.ClearAllNodesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DBMS_OverwriteSwcNodeData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(request.OverwriteSwcNodeDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DBMSServer).OverwriteSwcNodeData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DBMS_OverwriteSwcNodeData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DBMSServer).OverwriteSwcNodeData(ctx, req.(*request.OverwriteSwcNodeDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DBMS_ServiceDesc is the grpc.ServiceDesc for DBMS service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -2176,6 +2275,18 @@ var DBMS_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProjectSwcNamesByProjectUuid",
 			Handler:    _DBMS_GetProjectSwcNamesByProjectUuid_Handler,
+		},
+		{
+			MethodName: "UpdateSwcNParentInfo",
+			Handler:    _DBMS_UpdateSwcNParentInfo_Handler,
+		},
+		{
+			MethodName: "ClearAllNodes",
+			Handler:    _DBMS_ClearAllNodes_Handler,
+		},
+		{
+			MethodName: "OverwriteSwcNodeData",
+			Handler:    _DBMS_OverwriteSwcNodeData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

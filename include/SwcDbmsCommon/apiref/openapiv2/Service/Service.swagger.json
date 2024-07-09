@@ -48,6 +48,38 @@
         ]
       }
     },
+    "/proto.DBMS/ClearAllNodes": {
+      "post": {
+        "operationId": "DBMS_ClearAllNodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoClearAllNodesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoClearAllNodesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
     "/proto.DBMS/CreateDailyStatistics": {
       "post": {
         "operationId": "DBMS_CreateDailyStatistics",
@@ -1424,6 +1456,38 @@
         ]
       }
     },
+    "/proto.DBMS/OverwriteSwcNodeData": {
+      "post": {
+        "operationId": "DBMS_OverwriteSwcNodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoOverwriteSwcNodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoOverwriteSwcNodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
     "/proto.DBMS/RevertSwcVersion": {
       "post": {
         "operationId": "DBMS_RevertSwcVersion",
@@ -1680,6 +1744,38 @@
         ]
       }
     },
+    "/proto.DBMS/UpdateSwcNParentInfo": {
+      "post": {
+        "operationId": "DBMS_UpdateSwcNParentInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoUpdateSwcNParentInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoUpdateSwcNParentInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "DBMS"
+        ]
+      }
+    },
     "/proto.DBMS/UpdateSwcNodeData": {
       "post": {
         "operationId": "DBMS_UpdateSwcNodeData",
@@ -1886,6 +1982,32 @@
       "properties": {
         "metaInfo": {
           "$ref": "#/definitions/protoResponseMetaInfoV1"
+        }
+      }
+    },
+    "protoClearAllNodesRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "SwcUuid": {
+          "type": "string"
+        }
+      }
+    },
+    "protoClearAllNodesResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
+        "ClearNodesNumber": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -3122,7 +3244,10 @@
         "Unknown",
         "Create",
         "Delete",
-        "Update"
+        "Update",
+        "UpdateNParent",
+        "ClearAll",
+        "OverwriteAll"
       ],
       "default": "Unknown"
     },
@@ -3137,6 +3262,53 @@
         },
         "Uuid": {
           "type": "string"
+        }
+      }
+    },
+    "protoNodeNParentV1": {
+      "type": "object",
+      "properties": {
+        "NodeUuid": {
+          "type": "string"
+        },
+        "N": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Parent": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protoOverwriteSwcNodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "SwcUuid": {
+          "type": "string"
+        },
+        "SwcData": {
+          "$ref": "#/definitions/protoSwcDataV1"
+        }
+      }
+    },
+    "protoOverwriteSwcNodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
+        "CreatedNodesUuid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -3522,6 +3694,13 @@
         },
         "SwcData": {
           "$ref": "#/definitions/protoSwcDataV1"
+        },
+        "NodeNParent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoNodeNParentV1"
+          }
         }
       }
     },
@@ -3862,6 +4041,51 @@
       "properties": {
         "metaInfo": {
           "$ref": "#/definitions/protoResponseMetaInfoV1"
+        }
+      }
+    },
+    "protoUpdateSwcNParentInfoRequest": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoRequestMetaInfoV1"
+        },
+        "UserVerifyInfo": {
+          "$ref": "#/definitions/protoUserVerifyInfoV1"
+        },
+        "SwcUuid": {
+          "type": "string"
+        },
+        "NodeNParentVec": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protoNodeNParentV1"
+          }
+        }
+      }
+    },
+    "protoUpdateSwcNParentInfoResponse": {
+      "type": "object",
+      "properties": {
+        "metaInfo": {
+          "$ref": "#/definitions/protoResponseMetaInfoV1"
+        },
+        "SameNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "UpdateNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DiffDBMissing": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DiffIncomingMissing": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },

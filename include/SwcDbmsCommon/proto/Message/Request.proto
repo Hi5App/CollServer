@@ -370,3 +370,23 @@ message GetProjectSwcNamesByProjectUuidRequest{
     UserVerifyInfoV1 UserVerifyInfo = 2;
     string ProjectUuid = 3;
 }
+
+message UpdateSwcNParentInfoRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcUuid = 3;
+    repeated NodeNParentV1 NodeNParentVec = 4;
+}
+
+message ClearAllNodesRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcUuid = 3;
+}
+
+message OverwriteSwcNodeDataRequest{
+    RequestMetaInfoV1 metaInfo = 1;
+    UserVerifyInfoV1 UserVerifyInfo = 2;
+    string SwcUuid = 3;
+    SwcDataV1 SwcData = 4;
+}

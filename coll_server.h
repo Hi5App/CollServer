@@ -84,11 +84,14 @@ signals:
     void clientDeleteLater();
     void clientDisconnectFromHost(CollClient*);
     void imediateSaveDone();
+    void overwriteSwcNodeDataDone();
 
 public slots:
     void imediateSave(bool);
     void autoSave();
     void autoExit();
+    void updateNParentInfo();
+    void overwriteSwcNodeData(bool);
 
     void RemoveList(QThread* thread);
 
@@ -117,6 +120,7 @@ private:
     QTimer *timerForDetectBranching;
     QTimer *timerForDetectCrossing;
     QTimer *timerForAutoExit;
+    QTimer *timerForUpdateNParentInfo;
 
     static CollServer* curServer;
     QList<CollThread*> list_thread;

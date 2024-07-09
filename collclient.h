@@ -62,6 +62,7 @@ public:
     //analyze
     void analyzeSomaNearBy(const QString msg);//分析soma处是否连接至一点
     void analyzeColorMutation(const QString msg);//分析是否存在颜色突变
+    void analyzeColorMutationForHB(QString msg);//分析人脑神经元是否存在颜色突变,需要知道soma位置
     void analyzeDissociativeSegs(const QString msg);//分析是否存在游离的线段
     void analyzeAngles(const QString msg);//分析树突分叉的角度是否合理
 
@@ -112,6 +113,7 @@ private:
 signals:
     void removeList(QThread*);
     void serverImediateSave(bool);
+    void serverOverwriteSwcNodeData(bool);
     void exitNow();
 
     void serverStartTimerForDetectLoops();
@@ -122,7 +124,6 @@ signals:
     void serverStartTimerForDetectCrossing();
     void detectUtilRemoveErrorSegs(bool);
     void detectUtilTuneErrorSegs(bool);
-
 };
 
 #endif // COLLCLIENT_H

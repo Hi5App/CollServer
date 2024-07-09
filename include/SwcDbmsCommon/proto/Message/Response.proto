@@ -278,3 +278,21 @@ message GetProjectSwcNamesByProjectUuidResponse{
     ResponseMetaInfoV1 metaInfo = 1;
     repeated SwcUuidName swcUuidName = 2;
 }
+
+message UpdateSwcNParentInfoResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+    int32 SameNumber = 2;
+    int32 UpdateNumber = 3;
+    int32 DiffDBMissing = 4;
+    int32 DiffIncomingMissing = 5;
+}
+
+message ClearAllNodesResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+    int32 ClearNodesNumber = 2;
+}
+
+message OverwriteSwcNodeDataResponse{
+    ResponseMetaInfoV1 metaInfo = 1;
+    repeated string CreatedNodesUuid = 2;
+}

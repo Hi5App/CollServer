@@ -586,7 +586,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
         }
         angle2 /= count2;
 
-        if((angle1>0 && angle1<50) || (angle2>0 && angle2<50)){
+        if((angle1>0 && angle1<30) || (angle2>0 && angle2<30)){
             angleErrPoints.insert(it->first);
         }
     }

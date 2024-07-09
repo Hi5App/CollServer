@@ -135,13 +135,24 @@ enum IncrementOperationV1{
     Create = 1;
     Delete = 2;
     Update = 3;
+    UpdateNParent = 4;
+    ClearAll = 5;
+    OverwriteAll = 6;
 }
+
+message NodeNParentV1{
+    string NodeUuid = 1;
+    int32 N = 2;
+    int32 Parent = 3;
+}
+
 
 message SwcIncrementOperationV1{
     MetaInfoBase Base = 1;
     google.protobuf.Timestamp CreateTime = 2;
     IncrementOperationV1 IncrementOperation = 3;
     SwcDataV1 SwcData = 4;
+    repeated NodeNParentV1 NodeNParent = 5;
 }
 
 message SwcIncrementOperationListV1{

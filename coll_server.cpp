@@ -36,11 +36,20 @@ CollServer* CollServer::curServer=nullptr;
 
 CollServer::CollServer(QString port,QString project,QString image,QString neuron,QString anoname,QString prefix,int maxUserNumsInt,int modelDetectIntervals,QObject *parent)
     :QTcpServer(parent),Port(port),Project(project),Image(image),Neuron(neuron),AnoName(anoname),Prefix(prefix+"/testdata/"+project+"/"+image+"/"+neuron+"/"+anoname)
-    ,MaxUserNums(maxUserNumsInt),ModelDetectIntervals(modelDetectIntervals),timerForAutoSave(new QTimer(this)),timerForDetectLoops(new QTimer(this)), timerForDetectOthers(new QTimer(this)),timerForDetectTip(new QTimer(this)),
-    timerForDetectCrossing(new QTimer(this)),timerForDetectBranching(new QTimer(this)),timerForAutoExit(new QTimer(this)),timerForDetectWhole(new QTimer(this))
+    ,MaxUserNums(maxUserNumsInt),ModelDetectIntervals(modelDetectIntervals)
 {
     qDebug()<<"MainThread:"<<QThread::currentThreadId();
     curServer=this;
+
+    timerForAutoSave = new QTimer(this);
+    timerForDetectLoops = new QTimer(this);
+    timerForDetectOthers = new QTimer(this);
+    timerForDetectTip = new QTimer(this);
+    timerForDetectCrossing = new QTimer(this);
+    timerForDetectBranching = new QTimer(this);
+    timerForAutoExit = new QTimer(this);
+    timerForDetectWhole = new QTimer(this);
+    timerForUpdateNParentInfo = new QTimer(this);
 
     Config::getInstance().initialize("config.json");
     Config::getInstance().readConfig();
@@ -51,7 +60,7 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     superuserServerPort = Config::getInstance().getConfig(Config::ConfigItem::superuserServerPort);
     apiVersion = Config::getInstance().getConfig(Config::ConfigItem::apiVersion);
     redisIp = Config::getInstance().getConfig(Config::ConfigItem::redisServerIP);
-    std::cout<<serverIP<<" "<<dbmsServerPort<<" "<<brainServerPort<<" "<<apiVersion<<" "<<redisIp;
+    std::cout<<serverIP<<" "<<dbmsServerPort<<" "<<brainServerPort<<" "<<apiVersion<<" "<<redisIp<<endl;
 
     detectUtil=new CollDetection(this, serverIP, brainServerPort, superuserServerPort, this);
 //    string serverIP = "114.117.165.134";
@@ -111,11 +120,12 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
 
 //    somaCoordinate=detectUtil->getSomaCoordinate(apopath);
 //    detectUtil->getImageRES();
-    // 30s执行一次
-    timerForAutoSave->start(30*1000);
+    // 60s执行一次
+    timerForAutoSave->start(60*1000);
 //    timerForDetectTip->setSingleShot(true);
     timerForAutoExit->start(24*60*60*1000);
     CollClient::timerforupdatemsg.start(0.5*1000);
+    timerForUpdateNParentInfo->start(5*60*1000);
     // 为msglist这个列表分配内存
     msglist.reserve(5000);
 
@@ -148,6 +158,8 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
         if(hashmap.size()!=0)
             emit curServer->clientSendmsgs2client(10);
     });
+    connect(timerForUpdateNParentInfo,&QTimer::timeout,this,&CollServer::updateNParentInfo);
+
     startTimerForDetectWhole();
 
 //    m_HeartBeatTimer->start();
@@ -191,6 +203,7 @@ void CollServer::incomingConnection(qintptr handle){
     connect(client,&QTcpSocket::disconnected,client,&CollClient::ondisconnect);
     connect(client,&QAbstractSocket::errorOccurred,client,&CollClient::onError);
     connect(client,&CollClient::serverImediateSave,this,&CollServer::imediateSave);
+    connect(client,&CollClient::serverOverwriteSwcNodeData,this,&CollServer::overwriteSwcNodeData);
     connect(client,&CollClient::removeList,this,&CollServer::RemoveList);
     connect(client,&CollClient::exitNow,this,&CollServer::autoExit);
 
@@ -256,6 +269,7 @@ void CollServer::autoSave()
 
         proto::UpdateSwcAttachmentApoResponse response;
         WrappedCall::updateSwcAttachmentApo(swcUuid, attachmentUuid, swcAttachmentApoData, response, cachedUserData);
+        overwriteSwcNodeData(false);
 
         this->close();
 //        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
@@ -281,6 +295,72 @@ void CollServer::autoSave()
 //        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
 
     }
+}
+
+void CollServer::updateNParentInfo(){
+    QMutexLocker locker(&mutex);
+    auto nt = V_NeuronSWC_list__2__NeuronTree(segments);
+    std::vector<proto::NodeNParentV1> nodesNParent;
+    for(auto it = nt.listNeuron.begin(); it != nt.listNeuron.end(); it++){
+        proto::NodeNParentV1 nodeNParent;
+        nodeNParent.set_nodeuuid(it->uuid);
+        nodeNParent.set_n(it->n);
+        nodeNParent.set_parent(it->pn);
+        nodesNParent.push_back(nodeNParent);
+    }
+    proto::UpdateSwcNParentInfoResponse response;
+    WrappedCall::updateSwcNParentInfo(response, cachedUserData, swcUuid, nodesNParent);
+
+    int sameNumber = response.samenumber();
+    int updateNumber = response.updatenumber();
+    int diffDBMissing = response.diffdbmissing();
+    int diffIncomingMissing = response.diffincomingmissing();
+    qDebug()<<"SameNumber: "<<sameNumber;
+    qDebug()<<"UpdateNumber: "<<updateNumber;
+    qDebug()<<"DiffDBMissing: "<<diffDBMissing;
+    qDebug()<<"DiffIncomingMissing: "<<diffIncomingMissing;
+    if(diffDBMissing != 0 || diffIncomingMissing != 0){
+        overwriteSwcNodeData(false);
+    }
+}
+
+void CollServer::overwriteSwcNodeData(bool flag){
+    auto nt = V_NeuronSWC_list__2__NeuronTree(segments);
+    proto::SwcDataV1 swcData;
+    for(auto it = nt.listNeuron.begin(); it != nt.listNeuron.end(); it++){
+        proto::SwcNodeInternalDataV1 swcNodeInternalData;
+        swcNodeInternalData.set_n(it->n);
+        swcNodeInternalData.set_parent(it->pn);
+        swcNodeInternalData.set_x(it->x);
+        swcNodeInternalData.set_y(it->y);
+        swcNodeInternalData.set_z(it->z);
+        swcNodeInternalData.set_radius(it->r);
+        swcNodeInternalData.set_type(it->type);
+        swcNodeInternalData.set_mode(it->creatmode);
+
+        auto* newData = swcData.add_swcdata();
+        newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+    }
+
+    proto::OverwriteSwcNodeDataResponse response;
+    WrappedCall::overwriteSwcNodeData(response, cachedUserData, swcUuid, swcData);
+    auto uuids = response.creatednodesuuid();
+    std::vector<string> uuidVec;
+    for(auto it = uuids.begin(); it != uuids.end(); it++){
+        uuidVec.push_back(*it);
+    }
+    if(uuidVec.size() != segments.nrows()){
+        qDebug() << "Warn: the size of uuid from dbms is: " << uuidVec.size();
+        qDebug() << "Warn: the size of segments is: " << segments.nrows();
+    }
+    int count = 0;
+    for(int i = 0; i < segments.seg.size(); i++){
+        for(int j = 0; j < segments.seg[i].row.size(); j++){
+            segments.seg[i].row[j].uuid = uuidVec[count++];
+        }
+    }
+    if(flag)
+        emit overwriteSwcNodeDataDone();
 }
 
 void CollServer::autoExit(){

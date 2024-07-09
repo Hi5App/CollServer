@@ -81,4 +81,9 @@ service DBMS {
     rpc UpdatePermissionGroup(UpdatePermissionGroupRequest) returns (UpdatePermissionGroupResponse){}
 
     rpc GetProjectSwcNamesByProjectUuid(GetProjectSwcNamesByProjectUuidRequest) returns (GetProjectSwcNamesByProjectUuidResponse){}
+
+    rpc UpdateSwcNParentInfo(UpdateSwcNParentInfoRequest) returns (UpdateSwcNParentInfoResponse){}
+    rpc ClearAllNodes(ClearAllNodesRequest) returns (ClearAllNodesResponse){}
+    rpc OverwriteSwcNodeData(OverwriteSwcNodeDataRequest) returns (OverwriteSwcNodeDataResponse){}
+
 }

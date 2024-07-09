@@ -3793,6 +3793,211 @@ func (x *GetProjectSwcNamesByProjectUuidRequest) GetProjectUuid() string {
 	return ""
 }
 
+type UpdateSwcNParentInfoRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MetaInfo       *message.RequestMetaInfoV1 `protobuf:"bytes,1,opt,name=metaInfo,proto3" json:"metaInfo,omitempty"`
+	UserVerifyInfo *message.UserVerifyInfoV1  `protobuf:"bytes,2,opt,name=UserVerifyInfo,proto3" json:"UserVerifyInfo,omitempty"`
+	SwcUuid        string                     `protobuf:"bytes,3,opt,name=SwcUuid,proto3" json:"SwcUuid,omitempty"`
+	NodeNParentVec []*message.NodeNParentV1   `protobuf:"bytes,4,rep,name=NodeNParentVec,proto3" json:"NodeNParentVec,omitempty"`
+}
+
+func (x *UpdateSwcNParentInfoRequest) Reset() {
+	*x = UpdateSwcNParentInfoRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Message_Request_proto_msgTypes[57]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateSwcNParentInfoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateSwcNParentInfoRequest) ProtoMessage() {}
+
+func (x *UpdateSwcNParentInfoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_Message_Request_proto_msgTypes[57]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateSwcNParentInfoRequest.ProtoReflect.Descriptor instead.
+func (*UpdateSwcNParentInfoRequest) Descriptor() ([]byte, []int) {
+	return file_Message_Request_proto_rawDescGZIP(), []int{57}
+}
+
+func (x *UpdateSwcNParentInfoRequest) GetMetaInfo() *message.RequestMetaInfoV1 {
+	if x != nil {
+		return x.MetaInfo
+	}
+	return nil
+}
+
+func (x *UpdateSwcNParentInfoRequest) GetUserVerifyInfo() *message.UserVerifyInfoV1 {
+	if x != nil {
+		return x.UserVerifyInfo
+	}
+	return nil
+}
+
+func (x *UpdateSwcNParentInfoRequest) GetSwcUuid() string {
+	if x != nil {
+		return x.SwcUuid
+	}
+	return ""
+}
+
+func (x *UpdateSwcNParentInfoRequest) GetNodeNParentVec() []*message.NodeNParentV1 {
+	if x != nil {
+		return x.NodeNParentVec
+	}
+	return nil
+}
+
+type ClearAllNodesRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MetaInfo       *message.RequestMetaInfoV1 `protobuf:"bytes,1,opt,name=metaInfo,proto3" json:"metaInfo,omitempty"`
+	UserVerifyInfo *message.UserVerifyInfoV1  `protobuf:"bytes,2,opt,name=UserVerifyInfo,proto3" json:"UserVerifyInfo,omitempty"`
+	SwcUuid        string                     `protobuf:"bytes,3,opt,name=SwcUuid,proto3" json:"SwcUuid,omitempty"`
+}
+
+func (x *ClearAllNodesRequest) Reset() {
+	*x = ClearAllNodesRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Message_Request_proto_msgTypes[58]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ClearAllNodesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ClearAllNodesRequest) ProtoMessage() {}
+
+func (x *ClearAllNodesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_Message_Request_proto_msgTypes[58]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ClearAllNodesRequest.ProtoReflect.Descriptor instead.
+func (*ClearAllNodesRequest) Descriptor() ([]byte, []int) {
+	return file_Message_Request_proto_rawDescGZIP(), []int{58}
+}
+
+func (x *ClearAllNodesRequest) GetMetaInfo() *message.RequestMetaInfoV1 {
+	if x != nil {
+		return x.MetaInfo
+	}
+	return nil
+}
+
+func (x *ClearAllNodesRequest) GetUserVerifyInfo() *message.UserVerifyInfoV1 {
+	if x != nil {
+		return x.UserVerifyInfo
+	}
+	return nil
+}
+
+func (x *ClearAllNodesRequest) GetSwcUuid() string {
+	if x != nil {
+		return x.SwcUuid
+	}
+	return ""
+}
+
+type OverwriteSwcNodeDataRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MetaInfo       *message.RequestMetaInfoV1 `protobuf:"bytes,1,opt,name=metaInfo,proto3" json:"metaInfo,omitempty"`
+	UserVerifyInfo *message.UserVerifyInfoV1  `protobuf:"bytes,2,opt,name=UserVerifyInfo,proto3" json:"UserVerifyInfo,omitempty"`
+	SwcUuid        string                     `protobuf:"bytes,3,opt,name=SwcUuid,proto3" json:"SwcUuid,omitempty"`
+	SwcData        *message.SwcDataV1         `protobuf:"bytes,4,opt,name=SwcData,proto3" json:"SwcData,omitempty"`
+}
+
+func (x *OverwriteSwcNodeDataRequest) Reset() {
+	*x = OverwriteSwcNodeDataRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_Message_Request_proto_msgTypes[59]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *OverwriteSwcNodeDataRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OverwriteSwcNodeDataRequest) ProtoMessage() {}
+
+func (x *OverwriteSwcNodeDataRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_Message_Request_proto_msgTypes[59]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OverwriteSwcNodeDataRequest.ProtoReflect.Descriptor instead.
+func (*OverwriteSwcNodeDataRequest) Descriptor() ([]byte, []int) {
+	return file_Message_Request_proto_rawDescGZIP(), []int{59}
+}
+
+func (x *OverwriteSwcNodeDataRequest) GetMetaInfo() *message.RequestMetaInfoV1 {
+	if x != nil {
+		return x.MetaInfo
+	}
+	return nil
+}
+
+func (x *OverwriteSwcNodeDataRequest) GetUserVerifyInfo() *message.UserVerifyInfoV1 {
+	if x != nil {
+		return x.UserVerifyInfo
+	}
+	return nil
+}
+
+func (x *OverwriteSwcNodeDataRequest) GetSwcUuid() string {
+	if x != nil {
+		return x.SwcUuid
+	}
+	return ""
+}
+
+func (x *OverwriteSwcNodeDataRequest) GetSwcData() *message.SwcDataV1 {
+	if x != nil {
+		return x.SwcData
+	}
+	return nil
+}
+
 var File_Message_Request_proto protoreflect.FileDescriptor
 
 var file_Message_Request_proto_rawDesc = []byte{
@@ -4545,11 +4750,50 @@ var file_Message_Request_proto_rawDesc = []byte{
 	0x66, 0x6f, 0x56, 0x31, 0x52, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79,
 	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x20, 0x0a, 0x0b, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x55,
 	0x75, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x50, 0x72, 0x6f, 0x6a, 0x65,
-	0x63, 0x74, 0x55, 0x75, 0x69, 0x64, 0x42, 0x2f, 0x5a, 0x2d, 0x44, 0x42, 0x4d, 0x53, 0x2f, 0x53,
-	0x77, 0x63, 0x44, 0x62, 0x6d, 0x73, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x47, 0x65, 0x6e,
-	0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f,
-	0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x50, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x63, 0x74, 0x55, 0x75, 0x69, 0x64, 0x22, 0xec, 0x01, 0x0a, 0x1b, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x53, 0x77, 0x63, 0x4e, 0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x34, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x49, 0x6e,
+	0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f,
+	0x56, 0x31, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x3f, 0x0a, 0x0e,
+	0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x73, 0x65,
+	0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x56, 0x31, 0x52, 0x0e, 0x55,
+	0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x0a,
+	0x07, 0x53, 0x77, 0x63, 0x55, 0x75, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
+	0x53, 0x77, 0x63, 0x55, 0x75, 0x69, 0x64, 0x12, 0x3c, 0x0a, 0x0e, 0x4e, 0x6f, 0x64, 0x65, 0x4e,
+	0x50, 0x61, 0x72, 0x65, 0x6e, 0x74, 0x56, 0x65, 0x63, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x50, 0x61, 0x72,
+	0x65, 0x6e, 0x74, 0x56, 0x31, 0x52, 0x0e, 0x4e, 0x6f, 0x64, 0x65, 0x4e, 0x50, 0x61, 0x72, 0x65,
+	0x6e, 0x74, 0x56, 0x65, 0x63, 0x22, 0xa7, 0x01, 0x0a, 0x14, 0x43, 0x6c, 0x65, 0x61, 0x72, 0x41,
+	0x6c, 0x6c, 0x4e, 0x6f, 0x64, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x34,
+	0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x4d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x56, 0x31, 0x52, 0x08, 0x6d, 0x65, 0x74, 0x61,
+	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x3f, 0x0a, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x49,
+	0x6e, 0x66, 0x6f, 0x56, 0x31, 0x52, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66,
+	0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x0a, 0x07, 0x53, 0x77, 0x63, 0x55, 0x75, 0x69, 0x64,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x53, 0x77, 0x63, 0x55, 0x75, 0x69, 0x64, 0x22,
+	0xda, 0x01, 0x0a, 0x1b, 0x4f, 0x76, 0x65, 0x72, 0x77, 0x72, 0x69, 0x74, 0x65, 0x53, 0x77, 0x63,
+	0x4e, 0x6f, 0x64, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x34, 0x0a, 0x08, 0x6d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x4d, 0x65, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x6f, 0x56, 0x31, 0x52, 0x08, 0x6d, 0x65, 0x74,
+	0x61, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x3f, 0x0a, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72,
+	0x69, 0x66, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79,
+	0x49, 0x6e, 0x66, 0x6f, 0x56, 0x31, 0x52, 0x0e, 0x55, 0x73, 0x65, 0x72, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x79, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x18, 0x0a, 0x07, 0x53, 0x77, 0x63, 0x55, 0x75, 0x69,
+	0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x53, 0x77, 0x63, 0x55, 0x75, 0x69, 0x64,
+	0x12, 0x2a, 0x0a, 0x07, 0x53, 0x77, 0x63, 0x44, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x77, 0x63, 0x44, 0x61, 0x74,
+	0x61, 0x56, 0x31, 0x52, 0x07, 0x53, 0x77, 0x63, 0x44, 0x61, 0x74, 0x61, 0x42, 0x2f, 0x5a, 0x2d,
+	0x44, 0x42, 0x4d, 0x53, 0x2f, 0x53, 0x77, 0x63, 0x44, 0x62, 0x6d, 0x73, 0x43, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x2f, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x64, 0x2f, 0x67, 0x6f, 0x2f,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x72, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x50, 0x00, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4564,7 +4808,7 @@ func file_Message_Request_proto_rawDescGZIP() []byte {
 	return file_Message_Request_proto_rawDescData
 }
 
-var file_Message_Request_proto_msgTypes = make([]protoimpl.MessageInfo, 57)
+var file_Message_Request_proto_msgTypes = make([]protoimpl.MessageInfo, 60)
 var file_Message_Request_proto_goTypes = []interface{}{
 	(*CreateUserRequest)(nil),                       // 0: proto.CreateUserRequest
 	(*DeleteUserRequest)(nil),                       // 1: proto.DeleteUserRequest
@@ -4623,161 +4867,173 @@ var file_Message_Request_proto_goTypes = []interface{}{
 	(*DeletePermissionGroupRequest)(nil),            // 54: proto.DeletePermissionGroupRequest
 	(*UpdatePermissionGroupRequest)(nil),            // 55: proto.UpdatePermissionGroupRequest
 	(*GetProjectSwcNamesByProjectUuidRequest)(nil),  // 56: proto.GetProjectSwcNamesByProjectUuidRequest
-	(*message.RequestMetaInfoV1)(nil),               // 57: proto.RequestMetaInfoV1
-	(*message.UserMetaInfoV1)(nil),                  // 58: proto.UserMetaInfoV1
-	(*message.UserVerifyInfoV1)(nil),                // 59: proto.UserVerifyInfoV1
-	(*message.ProjectMetaInfoV1)(nil),               // 60: proto.ProjectMetaInfoV1
-	(*message.SwcMetaInfoV1)(nil),                   // 61: proto.SwcMetaInfoV1
-	(*message.SwcAttachmentAnoV1)(nil),              // 62: proto.SwcAttachmentAnoV1
-	(*message.SwcAttachmentApoV1)(nil),              // 63: proto.SwcAttachmentApoV1
-	(*message.SwcDataV1)(nil),                       // 64: proto.SwcDataV1
-	(*timestamppb.Timestamp)(nil),                   // 65: google.protobuf.Timestamp
-	(*message.DailyStatisticsMetaInfoV1)(nil),       // 66: proto.DailyStatisticsMetaInfoV1
-	(*message.SwcNodeDataV1)(nil),                   // 67: proto.SwcNodeDataV1
-	(*message.PermissionGroupAceV1)(nil),            // 68: proto.PermissionGroupAceV1
+	(*UpdateSwcNParentInfoRequest)(nil),             // 57: proto.UpdateSwcNParentInfoRequest
+	(*ClearAllNodesRequest)(nil),                    // 58: proto.ClearAllNodesRequest
+	(*OverwriteSwcNodeDataRequest)(nil),             // 59: proto.OverwriteSwcNodeDataRequest
+	(*message.RequestMetaInfoV1)(nil),               // 60: proto.RequestMetaInfoV1
+	(*message.UserMetaInfoV1)(nil),                  // 61: proto.UserMetaInfoV1
+	(*message.UserVerifyInfoV1)(nil),                // 62: proto.UserVerifyInfoV1
+	(*message.ProjectMetaInfoV1)(nil),               // 63: proto.ProjectMetaInfoV1
+	(*message.SwcMetaInfoV1)(nil),                   // 64: proto.SwcMetaInfoV1
+	(*message.SwcAttachmentAnoV1)(nil),              // 65: proto.SwcAttachmentAnoV1
+	(*message.SwcAttachmentApoV1)(nil),              // 66: proto.SwcAttachmentApoV1
+	(*message.SwcDataV1)(nil),                       // 67: proto.SwcDataV1
+	(*timestamppb.Timestamp)(nil),                   // 68: google.protobuf.Timestamp
+	(*message.DailyStatisticsMetaInfoV1)(nil),       // 69: proto.DailyStatisticsMetaInfoV1
+	(*message.SwcNodeDataV1)(nil),                   // 70: proto.SwcNodeDataV1
+	(*message.PermissionGroupAceV1)(nil),            // 71: proto.PermissionGroupAceV1
+	(*message.NodeNParentV1)(nil),                   // 72: proto.NodeNParentV1
 }
 var file_Message_Request_proto_depIdxs = []int32{
-	57,  // 0: proto.CreateUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	58,  // 1: proto.CreateUserRequest.UserInfo:type_name -> proto.UserMetaInfoV1
-	57,  // 2: proto.DeleteUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 3: proto.DeleteUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 4: proto.UpdateUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 5: proto.UpdateUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	58,  // 6: proto.UpdateUserRequest.UserInfo:type_name -> proto.UserMetaInfoV1
-	57,  // 7: proto.GetUserByUuidRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 8: proto.GetUserByUuidRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 9: proto.GetUserByNameRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 10: proto.GetUserByNameRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 11: proto.GetAllUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 12: proto.GetAllUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 13: proto.UserLoginRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	57,  // 14: proto.UserLogoutRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 15: proto.UserLogoutRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 16: proto.UserOnlineHeartBeatNotification.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 17: proto.UserOnlineHeartBeatNotification.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 18: proto.GetUserPermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 19: proto.GetUserPermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 20: proto.GetPermissionGroupByUuidRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 21: proto.GetPermissionGroupByUuidRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 22: proto.GetPermissionGroupByNameRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 23: proto.GetPermissionGroupByNameRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 24: proto.GetAllPermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 25: proto.GetAllPermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 26: proto.ChangeUserPermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 27: proto.ChangeUserPermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 28: proto.CreateProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 29: proto.CreateProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	60,  // 30: proto.CreateProjectRequest.ProjectInfo:type_name -> proto.ProjectMetaInfoV1
-	57,  // 31: proto.DeleteProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 32: proto.DeleteProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 33: proto.UpdateProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 34: proto.UpdateProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	60,  // 35: proto.UpdateProjectRequest.ProjectInfo:type_name -> proto.ProjectMetaInfoV1
-	57,  // 36: proto.GetProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 37: proto.GetProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 38: proto.GetAllProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 39: proto.GetAllProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 40: proto.CreateSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 41: proto.CreateSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	61,  // 42: proto.CreateSwcRequest.SwcInfo:type_name -> proto.SwcMetaInfoV1
-	62,  // 43: proto.CreateSwcRequest.SwcAttachmentAno:type_name -> proto.SwcAttachmentAnoV1
-	63,  // 44: proto.CreateSwcRequest.SwcAttachmentApo:type_name -> proto.SwcAttachmentApoV1
-	57,  // 45: proto.DeleteSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 46: proto.DeleteSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 47: proto.UpdateSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 48: proto.UpdateSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	61,  // 49: proto.UpdateSwcRequest.SwcInfo:type_name -> proto.SwcMetaInfoV1
-	57,  // 50: proto.GetSwcMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 51: proto.GetSwcMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 52: proto.GetAllSwcMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 53: proto.GetAllSwcMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 54: proto.CreateSwcSnapshotRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 55: proto.CreateSwcSnapshotRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 56: proto.GetAllSnapshotMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 57: proto.GetAllSnapshotMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 58: proto.GetSnapshotRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 59: proto.GetSnapshotRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 60: proto.GetAllIncrementOperationMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 61: proto.GetAllIncrementOperationMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 62: proto.GetIncrementOperationRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 63: proto.GetIncrementOperationRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 64: proto.CreateSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 65: proto.CreateSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	64,  // 66: proto.CreateSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
-	57,  // 67: proto.DeleteSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 68: proto.DeleteSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	64,  // 69: proto.DeleteSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
-	57,  // 70: proto.UpdateSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 71: proto.UpdateSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	64,  // 72: proto.UpdateSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
-	57,  // 73: proto.GetSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 74: proto.GetSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	64,  // 75: proto.GetSwcNodeDataRequest.SwcNodeData:type_name -> proto.SwcDataV1
-	57,  // 76: proto.GetSwcFullNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 77: proto.GetSwcFullNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 78: proto.GetSwcNodeDataListByTimeAndUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 79: proto.GetSwcNodeDataListByTimeAndUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	65,  // 80: proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime:type_name -> google.protobuf.Timestamp
-	65,  // 81: proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime:type_name -> google.protobuf.Timestamp
-	57,  // 82: proto.CreateDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 83: proto.CreateDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	66,  // 84: proto.CreateDailyStatisticsRequest.DailyStatisticsInfo:type_name -> proto.DailyStatisticsMetaInfoV1
-	57,  // 85: proto.DeleteDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 86: proto.DeleteDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 87: proto.UpdateDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 88: proto.UpdateDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	66,  // 89: proto.UpdateDailyStatisticsRequest.DailyStatisticsInfo:type_name -> proto.DailyStatisticsMetaInfoV1
-	57,  // 90: proto.GetDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 91: proto.GetDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 92: proto.GetAllDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 93: proto.GetAllDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 94: proto.CreateSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 95: proto.CreateSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	62,  // 96: proto.CreateSwcAttachmentAnoRequest.SwcAttachmentAno:type_name -> proto.SwcAttachmentAnoV1
-	57,  // 97: proto.DeleteSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 98: proto.DeleteSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 99: proto.UpdateSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 100: proto.UpdateSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	62,  // 101: proto.UpdateSwcAttachmentAnoRequest.NewSwcAttachmentAno:type_name -> proto.SwcAttachmentAnoV1
-	57,  // 102: proto.GetSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 103: proto.GetSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 104: proto.CreateSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 105: proto.CreateSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	63,  // 106: proto.CreateSwcAttachmentApoRequest.SwcAttachmentApo:type_name -> proto.SwcAttachmentApoV1
-	57,  // 107: proto.DeleteSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 108: proto.DeleteSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 109: proto.UpdateSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 110: proto.UpdateSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	63,  // 111: proto.UpdateSwcAttachmentApoRequest.NewSwcAttachmentApo:type_name -> proto.SwcAttachmentApoV1
-	57,  // 112: proto.GetSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 113: proto.GetSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 114: proto.RevertSwcVersionRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 115: proto.RevertSwcVersionRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	65,  // 116: proto.RevertSwcVersionRequest.VersionEndTime:type_name -> google.protobuf.Timestamp
-	57,  // 117: proto.CreateSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 118: proto.CreateSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	67,  // 119: proto.CreateSwcAttachmentSwcRequest.SwcData:type_name -> proto.SwcNodeDataV1
-	57,  // 120: proto.DeleteSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 121: proto.DeleteSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 122: proto.UpdateSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 123: proto.UpdateSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	67,  // 124: proto.UpdateSwcAttachmentSwcRequest.NewSwcData:type_name -> proto.SwcNodeDataV1
-	57,  // 125: proto.GetSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 126: proto.GetSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 127: proto.CreatePermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 128: proto.CreatePermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 129: proto.DeletePermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 130: proto.DeletePermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	57,  // 131: proto.UpdatePermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 132: proto.UpdatePermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	68,  // 133: proto.UpdatePermissionGroupRequest.Ace:type_name -> proto.PermissionGroupAceV1
-	57,  // 134: proto.GetProjectSwcNamesByProjectUuidRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
-	59,  // 135: proto.GetProjectSwcNamesByProjectUuidRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
-	136, // [136:136] is the sub-list for method output_type
-	136, // [136:136] is the sub-list for method input_type
-	136, // [136:136] is the sub-list for extension type_name
-	136, // [136:136] is the sub-list for extension extendee
-	0,   // [0:136] is the sub-list for field type_name
+	60,  // 0: proto.CreateUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	61,  // 1: proto.CreateUserRequest.UserInfo:type_name -> proto.UserMetaInfoV1
+	60,  // 2: proto.DeleteUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 3: proto.DeleteUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 4: proto.UpdateUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 5: proto.UpdateUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	61,  // 6: proto.UpdateUserRequest.UserInfo:type_name -> proto.UserMetaInfoV1
+	60,  // 7: proto.GetUserByUuidRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 8: proto.GetUserByUuidRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 9: proto.GetUserByNameRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 10: proto.GetUserByNameRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 11: proto.GetAllUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 12: proto.GetAllUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 13: proto.UserLoginRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	60,  // 14: proto.UserLogoutRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 15: proto.UserLogoutRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 16: proto.UserOnlineHeartBeatNotification.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 17: proto.UserOnlineHeartBeatNotification.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 18: proto.GetUserPermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 19: proto.GetUserPermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 20: proto.GetPermissionGroupByUuidRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 21: proto.GetPermissionGroupByUuidRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 22: proto.GetPermissionGroupByNameRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 23: proto.GetPermissionGroupByNameRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 24: proto.GetAllPermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 25: proto.GetAllPermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 26: proto.ChangeUserPermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 27: proto.ChangeUserPermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 28: proto.CreateProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 29: proto.CreateProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	63,  // 30: proto.CreateProjectRequest.ProjectInfo:type_name -> proto.ProjectMetaInfoV1
+	60,  // 31: proto.DeleteProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 32: proto.DeleteProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 33: proto.UpdateProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 34: proto.UpdateProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	63,  // 35: proto.UpdateProjectRequest.ProjectInfo:type_name -> proto.ProjectMetaInfoV1
+	60,  // 36: proto.GetProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 37: proto.GetProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 38: proto.GetAllProjectRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 39: proto.GetAllProjectRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 40: proto.CreateSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 41: proto.CreateSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	64,  // 42: proto.CreateSwcRequest.SwcInfo:type_name -> proto.SwcMetaInfoV1
+	65,  // 43: proto.CreateSwcRequest.SwcAttachmentAno:type_name -> proto.SwcAttachmentAnoV1
+	66,  // 44: proto.CreateSwcRequest.SwcAttachmentApo:type_name -> proto.SwcAttachmentApoV1
+	60,  // 45: proto.DeleteSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 46: proto.DeleteSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 47: proto.UpdateSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 48: proto.UpdateSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	64,  // 49: proto.UpdateSwcRequest.SwcInfo:type_name -> proto.SwcMetaInfoV1
+	60,  // 50: proto.GetSwcMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 51: proto.GetSwcMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 52: proto.GetAllSwcMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 53: proto.GetAllSwcMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 54: proto.CreateSwcSnapshotRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 55: proto.CreateSwcSnapshotRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 56: proto.GetAllSnapshotMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 57: proto.GetAllSnapshotMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 58: proto.GetSnapshotRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 59: proto.GetSnapshotRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 60: proto.GetAllIncrementOperationMetaInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 61: proto.GetAllIncrementOperationMetaInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 62: proto.GetIncrementOperationRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 63: proto.GetIncrementOperationRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 64: proto.CreateSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 65: proto.CreateSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	67,  // 66: proto.CreateSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
+	60,  // 67: proto.DeleteSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 68: proto.DeleteSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	67,  // 69: proto.DeleteSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
+	60,  // 70: proto.UpdateSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 71: proto.UpdateSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	67,  // 72: proto.UpdateSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
+	60,  // 73: proto.GetSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 74: proto.GetSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	67,  // 75: proto.GetSwcNodeDataRequest.SwcNodeData:type_name -> proto.SwcDataV1
+	60,  // 76: proto.GetSwcFullNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 77: proto.GetSwcFullNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 78: proto.GetSwcNodeDataListByTimeAndUserRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 79: proto.GetSwcNodeDataListByTimeAndUserRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	68,  // 80: proto.GetSwcNodeDataListByTimeAndUserRequest.StartTime:type_name -> google.protobuf.Timestamp
+	68,  // 81: proto.GetSwcNodeDataListByTimeAndUserRequest.EndTime:type_name -> google.protobuf.Timestamp
+	60,  // 82: proto.CreateDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 83: proto.CreateDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	69,  // 84: proto.CreateDailyStatisticsRequest.DailyStatisticsInfo:type_name -> proto.DailyStatisticsMetaInfoV1
+	60,  // 85: proto.DeleteDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 86: proto.DeleteDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 87: proto.UpdateDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 88: proto.UpdateDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	69,  // 89: proto.UpdateDailyStatisticsRequest.DailyStatisticsInfo:type_name -> proto.DailyStatisticsMetaInfoV1
+	60,  // 90: proto.GetDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 91: proto.GetDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 92: proto.GetAllDailyStatisticsRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 93: proto.GetAllDailyStatisticsRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 94: proto.CreateSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 95: proto.CreateSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	65,  // 96: proto.CreateSwcAttachmentAnoRequest.SwcAttachmentAno:type_name -> proto.SwcAttachmentAnoV1
+	60,  // 97: proto.DeleteSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 98: proto.DeleteSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 99: proto.UpdateSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 100: proto.UpdateSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	65,  // 101: proto.UpdateSwcAttachmentAnoRequest.NewSwcAttachmentAno:type_name -> proto.SwcAttachmentAnoV1
+	60,  // 102: proto.GetSwcAttachmentAnoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 103: proto.GetSwcAttachmentAnoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 104: proto.CreateSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 105: proto.CreateSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	66,  // 106: proto.CreateSwcAttachmentApoRequest.SwcAttachmentApo:type_name -> proto.SwcAttachmentApoV1
+	60,  // 107: proto.DeleteSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 108: proto.DeleteSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 109: proto.UpdateSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 110: proto.UpdateSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	66,  // 111: proto.UpdateSwcAttachmentApoRequest.NewSwcAttachmentApo:type_name -> proto.SwcAttachmentApoV1
+	60,  // 112: proto.GetSwcAttachmentApoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 113: proto.GetSwcAttachmentApoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 114: proto.RevertSwcVersionRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 115: proto.RevertSwcVersionRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	68,  // 116: proto.RevertSwcVersionRequest.VersionEndTime:type_name -> google.protobuf.Timestamp
+	60,  // 117: proto.CreateSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 118: proto.CreateSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	70,  // 119: proto.CreateSwcAttachmentSwcRequest.SwcData:type_name -> proto.SwcNodeDataV1
+	60,  // 120: proto.DeleteSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 121: proto.DeleteSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 122: proto.UpdateSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 123: proto.UpdateSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	70,  // 124: proto.UpdateSwcAttachmentSwcRequest.NewSwcData:type_name -> proto.SwcNodeDataV1
+	60,  // 125: proto.GetSwcAttachmentSwcRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 126: proto.GetSwcAttachmentSwcRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 127: proto.CreatePermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 128: proto.CreatePermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 129: proto.DeletePermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 130: proto.DeletePermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 131: proto.UpdatePermissionGroupRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 132: proto.UpdatePermissionGroupRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	71,  // 133: proto.UpdatePermissionGroupRequest.Ace:type_name -> proto.PermissionGroupAceV1
+	60,  // 134: proto.GetProjectSwcNamesByProjectUuidRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 135: proto.GetProjectSwcNamesByProjectUuidRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 136: proto.UpdateSwcNParentInfoRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 137: proto.UpdateSwcNParentInfoRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	72,  // 138: proto.UpdateSwcNParentInfoRequest.NodeNParentVec:type_name -> proto.NodeNParentV1
+	60,  // 139: proto.ClearAllNodesRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 140: proto.ClearAllNodesRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	60,  // 141: proto.OverwriteSwcNodeDataRequest.metaInfo:type_name -> proto.RequestMetaInfoV1
+	62,  // 142: proto.OverwriteSwcNodeDataRequest.UserVerifyInfo:type_name -> proto.UserVerifyInfoV1
+	67,  // 143: proto.OverwriteSwcNodeDataRequest.SwcData:type_name -> proto.SwcDataV1
+	144, // [144:144] is the sub-list for method output_type
+	144, // [144:144] is the sub-list for method input_type
+	144, // [144:144] is the sub-list for extension type_name
+	144, // [144:144] is the sub-list for extension extendee
+	0,   // [0:144] is the sub-list for field type_name
 }
 
 func init() { file_Message_Request_proto_init() }
@@ -5470,6 +5726,42 @@ func file_Message_Request_proto_init() {
 				return nil
 			}
 		}
+		file_Message_Request_proto_msgTypes[57].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateSwcNParentInfoRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Message_Request_proto_msgTypes[58].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ClearAllNodesRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_Message_Request_proto_msgTypes[59].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*OverwriteSwcNodeDataRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -5477,7 +5769,7 @@ func file_Message_Request_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_Message_Request_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   57,
+			NumMessages:   60,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
