@@ -353,6 +353,14 @@ double getPartOfSegLength(V_NeuronSWC &seg, int index){
     return sum;
 }
 
+double getPartOfSegLength(V_NeuronSWC &seg, int index1, int index2){
+    double sum=0;
+    for(int i=index1; i<index2; i++){
+        sum+=distance(seg.row[i].x,seg.row[i+1].x,seg.row[i].y,seg.row[i+1].y,seg.row[i].z,seg.row[i+1].z);
+    }
+    return sum;
+}
+
 double getSegLengthBetweenIndexs(V_NeuronSWC &seg, int low, int high){
     double sum=0;
     for(int i=low; i<high; i++){
@@ -559,13 +567,13 @@ int isOverlapOfTwoSegs(V_NeuronSWC& seg1, V_NeuronSWC& seg2){
     double minDensity = min(length1/seg1.row.size(), length2/seg2.row.size());
     double minLength = min(length1, length2);
     //    double mindist = 3.5 - 3.5 * 1.0 / minLength;
-    double mindist = 0.3 + 4 * sqrt(minLength)/(sqrt(minLength) + 9);
+    double mindist = 0.1 + 5 * sqrt(minLength)/(sqrt(minLength) + 11);
     //    double mindist_thres = 3.5 - 3.5 * 1.0 / minLength;
-    double mindist_thres = 0.3 + 4 * sqrt(minLength)/(sqrt(minLength) + 9);
+    double mindist_thres = 0.1 + 5 * sqrt(minLength)/(sqrt(minLength) + 11);
 
     if(minDensity < 5){
-        mindist = 0.1 + 1.4 * sqrt(minLength)/(sqrt(minLength) + 9);
-        mindist_thres = 0.1 + 1.4 * sqrt(minLength)/(sqrt(minLength) + 9);
+        mindist = 0.03 + 1.8 * sqrt(minLength)/(sqrt(minLength) + 11);
+        mindist_thres = 0.03 + 1.8 * sqrt(minLength)/(sqrt(minLength) + 11);
     }
 
     if(seg1.row.size() == seg2.row.size()){

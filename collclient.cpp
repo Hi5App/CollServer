@@ -1371,7 +1371,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
             {
                 QString msg = "/WARN_FullNumberError:server";
                 sendmsgs({msg});
-                emit myServer->clientDisconnectFromHost(this);
+                emit myServer->clientDisconnectFromHost(this, false);
                 return;
             }
 
@@ -1382,7 +1382,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
             }else{
                 QString msg = "/WARN_DisconnectError:server";
                 sendmsgs({msg});
-                emit myServer->clientDisconnectFromHost(this);
+                emit myServer->clientDisconnectFromHost(this, false);
                 return;
             }
             myServer->mutex.lock();
@@ -1573,11 +1573,18 @@ void CollClient::receiveuser(const QString userName, QString passWord, QString R
     if(myServer->hashmap.contains(userName))
     {
         std::cerr<<"ERROR:"+userName.toStdString()+" is duolicate,will remove the first\n";
-        emit myServer->clientDisconnectFromHost(myServer->hashmap[userName]);
+        emit myServer->clientDisconnectFromHost(myServer->hashmap[userName], true);
     }
     else{
         myServer->currentUserNum += 1;
     }
+    bool success = myServer->semaphore.tryAcquire(1, 2000);
+    if(success){
+        qDebug() << "pre same user disconnect done";
+    }else{
+        qDebug() << "timeout waiting for pre same user disconnect";
+    }
+
     myServer->hashmap[userName]=this;
     myServer->RES=RES;
     myServer->swcUuid = swcUuid.toStdString();
@@ -1893,10 +1900,41 @@ void CollClient::quit(){
     this->deleteLater();
 }
 
-void CollClient::disconnectByServer(CollClient* collclient){
+void CollClient::disconnectByServer(CollClient* collclient, bool flag){
     if(collclient==this){
         qDebug()<<"client will disconnectFromHost";
-        this->disconnectFromHost();
+//        this->disconnectFromHost();
+        qDebug()<<username<<QString(" client disconnect").toStdString().c_str();
+        this->flush();
+        int count=0;
+        while(this->bytesAvailable()){
+            count++;
+            if(count>10)
+                break;
+            onread();
+        }
+        this->close();//关闭读
+        myServer->mutex.lock();
+        if(myServer->hashmap.contains(username)&&myServer->hashmap[username]==this)
+            myServer->hashmap.remove(username);
+
+        QString onlineUserMsg = "/onlineusers:";
+        for(auto it = myServer->hashmap.begin(); it != myServer->hashmap.end(); it++){
+            onlineUserMsg += it.key();
+            onlineUserMsg += ",";
+        }
+        onlineUserMsg.chop(1);
+        emit myServer->clientSendMsgs({onlineUserMsg});
+
+        myServer->currentUserNum -= 1;
+        myServer->mutex.unlock();
+        updateuserlist();
+
+        qDebug()<<"subthread "<<QThread::currentThreadId()<<" will quit";
+        emit removeList(thread());
+        this->deleteLater();
+        if(flag)
+            myServer->semaphore.release();
     }
 }
 

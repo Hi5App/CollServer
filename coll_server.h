@@ -63,6 +63,7 @@ public:
     QMutex mutex;
     QMutex mutexForDetectOthers;
     QMutex mutexForDetectMissing;
+    QSemaphore semaphore = QSemaphore(0);
     QString RES;
 
     bool isSomaExists;
@@ -82,7 +83,7 @@ signals:
     void clientUpdatesendmsgcnt();
     void clientSendmsgs2client(int);
     void clientDeleteLater();
-    void clientDisconnectFromHost(CollClient*);
+    void clientDisconnectFromHost(CollClient*,bool);
     void imediateSaveDone();
     void overwriteSwcNodeDataDone();
 

@@ -394,7 +394,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
 
                 for(auto segIt=segIds.begin(); segIt!=segIds.end(); segIt++){
                     double length = getSegLength(segments.seg[*segIt]);
-                    if(length < 20){
+                    if(length < 15){
                         //                            it = bifurcationPoints.erase(it);
                         isVaild=false;
                         break;
@@ -464,7 +464,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
 
                 for(auto segIt=segIds.begin(); segIt!=segIds.end(); segIt++){
                     double length = getSegLength(segments.seg[*segIt]);
-                    if(length < 20){
+                    if(length < 15){
                         //                            it = bifurcationPoints.erase(it);
                         isVaild=false;
                         break;
@@ -507,38 +507,63 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
         }
         XYZ parCoor_real = parCoor, chiCoor1_real = chiCoors[0], chiCoor2_real = chiCoors[1];
 
-        float angle1, angle2;
-        int count1 = 0;
-        int count2 = 0;
-        QVector3D vector1(parCoor_real.x-curCoor.x, parCoor_real.y-curCoor.y, parCoor_real.z-curCoor.z);
+        float angle1 = 0.0, angle2 = 0.0;
 
+        QVector3D vector1(parCoor_real.x-curCoor.x, parCoor_real.y-curCoor.y, parCoor_real.z-curCoor.z);
+        double parent_dist = getPartOfSegLength(segments.seg[it->second[0]], 0, 1);
+        int parent_vector_count = 1;
+        for(int j = 2; j < segments.seg[it->second[0]].row.size(); j++){
+            QVector3D tmp_vector(segments.seg[it->second[0]].row[j].x - segments.seg[it->second[0]].row[j - 1].x,
+                                 segments.seg[it->second[0]].row[j].y - segments.seg[it->second[0]].row[j - 1].y,
+                                 segments.seg[it->second[0]].row[j].z - segments.seg[it->second[0]].row[j - 1].z);
+            vector1 += tmp_vector;
+            parent_vector_count++;
+            parent_dist += getPartOfSegLength(segments.seg[it->second[0]], j - 1, j);
+            if(parent_dist >= 26){
+                break;
+            }
+        }
+
+        V_NeuronSWC_unit pre_unit;
+        double child1_dist = 0.0;
+        int child1_vector_count = 0;
         for(auto coorIt = segments.seg[it->second[1]].row.rbegin(); coorIt != segments.seg[it->second[1]].row.rend(); coorIt++)
         {
-            if(coorIt == segments.seg[it->second[1]].row.rbegin())
+            if(coorIt == segments.seg[it->second[1]].row.rbegin()){
+                pre_unit = *coorIt;
                 continue;
-            QVector3D vector2(coorIt->x-curCoor.x, coorIt->y-curCoor.y, coorIt->z-curCoor.z);
+            }
+            QVector3D vector2(coorIt->x-pre_unit.x, coorIt->y-pre_unit.y, coorIt->z-pre_unit.z);
+            child1_dist += distance(coorIt->x, pre_unit.x, coorIt->y, pre_unit.y, coorIt->z, pre_unit.z);
+            pre_unit = *coorIt;
             angle1 += calculateAngleofVecs(vector1, vector2);
-            count1++;
-            if(count1 == 5){
+            child1_vector_count++;
+            if(child1_dist >= 26){
                 break;
             }
         }
-        angle1 /= count1;
+        angle1 /= child1_vector_count;
 
+        double child2_dist = 0.0;
+        int child2_vector_count = 0;
         for(auto coorIt = segments.seg[it->second[2]].row.rbegin(); coorIt != segments.seg[it->second[2]].row.rend(); coorIt++)
         {
-            if(coorIt == segments.seg[it->second[2]].row.rbegin())
+            if(coorIt == segments.seg[it->second[2]].row.rbegin()){
+                pre_unit = *coorIt;
                 continue;
-            QVector3D vector3(coorIt->x-curCoor.x, coorIt->y-curCoor.y, coorIt->z-curCoor.z);
+            }
+            QVector3D vector3(coorIt->x-pre_unit.x, coorIt->y-pre_unit.y, coorIt->z-pre_unit.z);
+            child2_dist += distance(coorIt->x, pre_unit.x, coorIt->y, pre_unit.y, coorIt->z, pre_unit.z);
+            pre_unit = *coorIt;
             angle2 += calculateAngleofVecs(vector1, vector3);
-            count2++;
-            if(count2 == 5){
+            child2_vector_count++;
+            if(child2_dist >= 26){
                 break;
             }
         }
-        angle2 /= count2;
+        angle2 /= child2_vector_count;
 
-        if((angle1>0 && angle1<50) || (angle2>0 && angle2<50)){
+        if((angle1>0 && angle1<60) || (angle2>0 && angle2<60)){
             angleErrPoints.insert(it->first);
         }
 
@@ -556,37 +581,66 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
 
         XYZ parCoor_real = parCoor, chiCoor1_real = chiCoors[0], chiCoor2_real = chiCoors[1];
 
-        float angle1, angle2;
-        int count1 = 0;
-        int count2 = 0;
-        QVector3D vector1(parCoor_real.x-curCoor.x, parCoor_real.y-curCoor.y, parCoor_real.z-curCoor.z);
+        float angle1 = 0.0, angle2 = 0.0;
 
-        for(auto coorIt = segments.seg[it->second[1]].row.rbegin(); coorIt != segments.seg[it->second[1]].row.rend(); coorIt++)
-        {
-            if(coorIt == segments.seg[it->second[1]].row.rbegin())
-                continue;
-            QVector3D vector2(coorIt->x-curCoor.x, coorIt->y-curCoor.y, coorIt->z-curCoor.z);
-            angle1 += calculateAngleofVecs(vector1, vector2);
-            count1++;
-            if(count1 == 5){
+        QVector3D vector1(parCoor_real.x-curCoor.x, parCoor_real.y-curCoor.y, parCoor_real.z-curCoor.z);
+        double parent_dist = getPartOfSegLength(segments.seg[it->second[0]], index, index + 1);
+        int parent_vector_count = 1;
+        for(int j = index + 2; j < segments.seg[it->second[0]].row.size(); j++){
+            QVector3D tmp_vector(segments.seg[it->second[0]].row[j].x - segments.seg[it->second[0]].row[j - 1].x,
+                                 segments.seg[it->second[0]].row[j].y - segments.seg[it->second[0]].row[j - 1].y,
+                                 segments.seg[it->second[0]].row[j].z - segments.seg[it->second[0]].row[j - 1].z);
+            vector1 += tmp_vector;
+            parent_vector_count++;
+            parent_dist += getPartOfSegLength(segments.seg[it->second[0]], j - 1, j);
+            if(parent_dist >= 26){
                 break;
             }
         }
-        angle1 /= count1;
 
+        V_NeuronSWC_unit pre_unit;
+        double child1_dist = 0.0;
+        int child1_vector_count = 0;
+        for(auto coorIt = segments.seg[it->second[1]].row.rbegin(); coorIt != segments.seg[it->second[1]].row.rend(); coorIt++)
+        {
+            if(coorIt == segments.seg[it->second[1]].row.rbegin()){
+                pre_unit = *coorIt;
+                continue;
+            }
+            QVector3D vector2(coorIt->x-pre_unit.x, coorIt->y-pre_unit.y, coorIt->z-pre_unit.z);
+            child1_dist += distance(coorIt->x, pre_unit.x, coorIt->y, pre_unit.y, coorIt->z, pre_unit.z);
+            pre_unit = *coorIt;
+            angle1 += calculateAngleofVecs(vector1, vector2);
+            child1_vector_count++;
+            if(child1_dist >= 26){
+                break;
+            }
+        }
+        angle1 /= child1_vector_count;
+
+        pre_unit.x = curCoor.x;
+        pre_unit.y = curCoor.y;
+        pre_unit.z = curCoor.z;
+        double child2_dist = 0.0;
+        int child2_vector_count = 0;
         for(int i = index - 1; i >= 0; i--)
         {
             XYZ coor = segments.seg[it->second[0]].row[i];
-            QVector3D vector3(coor.x-curCoor.x, coor.y-curCoor.y, coor.z-curCoor.z);
+            QVector3D vector3(coor.x-pre_unit.x, coor.y-pre_unit.y, coor.z-pre_unit.z);
+            child2_dist += distance(coor.x, pre_unit.x, coor.y, pre_unit.y, coor.z, pre_unit.z);
+            pre_unit.x = coor.x;
+            pre_unit.y = coor.y;
+            pre_unit.z = coor.z;
+
             angle2 += calculateAngleofVecs(vector1, vector3);
-            count2++;
-            if(count2 == 5){
+            child2_vector_count++;
+            if(child2_dist >= 26){
                 break;
             }
         }
-        angle2 /= count2;
+        angle2 /= child2_vector_count;
 
-        if((angle1>0 && angle1<30) || (angle2>0 && angle2<30)){
+        if((angle1>0 && angle1<60) || (angle2>0 && angle2<60)){
             angleErrPoints.insert(it->first);
         }
     }
