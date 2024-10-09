@@ -89,7 +89,7 @@ public slots:
     void updatesendmsgcnt2processed();//将自动保存时已处理还未发送的消息发送
     void sendmsgs2client(const int maxsize=0);//发送信息给客户端
     void quit();
-    void disconnectByServer(CollClient* collclient, bool flag);
+    void disconnectByServer(CollClient* collclient);
 private:
     CollServer* myServer;
     CachedProtoData cachedUserData;

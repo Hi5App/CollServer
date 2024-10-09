@@ -50,6 +50,10 @@ public:
     QString tmp_apopath;
     QString tmp_anopath;
 
+    QString branching_points_bin_path;
+    QString tip_points_bin_path;
+    QString crossing_points_bin_path;
+
     string apoName;
     string swcName;
 
@@ -83,13 +87,13 @@ signals:
     void clientUpdatesendmsgcnt();
     void clientSendmsgs2client(int);
     void clientDeleteLater();
-    void clientDisconnectFromHost(CollClient*,bool);
+    void clientDisconnectFromHost(CollClient*);
     void imediateSaveDone();
     void overwriteSwcNodeDataDone();
 
 public slots:
     void imediateSave(bool);
-    void autoSave();
+    void reneWalAndSync();
     void autoExit();
     void updateNParentInfo();
     void overwriteSwcNodeData(bool);

@@ -1309,7 +1309,8 @@ void CollClient::sendmsgs(const QStringList &msgs)
 {
 //    if(!this) return;
     if(this->state()!=QAbstractSocket::ConnectedState){
-        qDebug()<<"error: send msg to "<<this->userid<<",but connect is "<<this->state();
+        qDebug()<<"error: send msg to "<<this->username<<",but connect is "<<this->state();
+        qDebug()<<this->thread();
 //        ondisconnect();
         return;
     }
@@ -1362,7 +1363,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
                 emit exitNow();
                 return;
             }
-            qDebug()<<"subThread:"<<QThread::currentThreadId();
+            qDebug()<<"subThread:"<<this->thread();
 
             userid=ps[0];
             username=ps[1];
@@ -1371,7 +1372,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
             {
                 QString msg = "/WARN_FullNumberError:server";
                 sendmsgs({msg});
-                emit myServer->clientDisconnectFromHost(this, false);
+                emit myServer->clientDisconnectFromHost(this);
                 return;
             }
 
@@ -1382,7 +1383,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
             }else{
                 QString msg = "/WARN_DisconnectError:server";
                 sendmsgs({msg});
-                emit myServer->clientDisconnectFromHost(this, false);
+                emit myServer->clientDisconnectFromHost(this);
                 return;
             }
             myServer->mutex.lock();
@@ -1398,7 +1399,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
                 analyzeSomaNearBy(msg.right(msg.size()-QString("/ANALYZE_SomaNearBy:").size()));
             }
             else if(msg.startsWith("/ANALYZE_ColorMutation:")){
-                analyzeColorMutation(msg.right(msg.size()-QString("/ANALYZE_ColorMutation:").size()));
+                analyzeColorMutationForHB(msg.right(msg.size()-QString("/ANALYZE_ColorMutation:").size()));
             }
             else if(msg.startsWith("/ANALYZE_Dissociative:")){
                 analyzeDissociativeSegs(msg.right(msg.size()-QString("/ANALYZE_Dissociative:").size()));
@@ -1543,7 +1544,7 @@ void CollClient::ondisconnect()
     myServer->mutex.unlock();
     updateuserlist();
 
-    qDebug()<<"subthread "<<QThread::currentThreadId()<<" will quit";
+    qDebug()<<"subthread "<<this->thread()<<" will quit";
     emit removeList(thread());
     this->deleteLater();
 }
@@ -1570,22 +1571,30 @@ void CollClient::onError(QAbstractSocket::SocketError socketError){
 
 void CollClient::receiveuser(const QString userName, QString passWord, QString RES, QString swcUuid, bool isFirstClient)
 {
-    if(myServer->hashmap.contains(userName))
+    bool isDupUserExists = false;
+    if(myServer->hashmap.contains(userName) && myServer->hashmap[userName]->thread() != this->thread())
     {
-        std::cerr<<"ERROR:"+userName.toStdString()+" is duolicate,will remove the first\n";
-        emit myServer->clientDisconnectFromHost(myServer->hashmap[userName], true);
+        isDupUserExists = true;
+        myServer->mutex.unlock();
+        qDebug()<<"old: " << myServer->hashmap[userName]->thread();
+        std::cerr<<"ERROR:"+userName.toStdString()+" is duplicate,will remove the first\n";
+        emit myServer->clientDisconnectFromHost(myServer->hashmap[userName]);
     }
-    else{
+    else if(!myServer->hashmap.contains(userName)){
         myServer->currentUserNum += 1;
     }
-    bool success = myServer->semaphore.tryAcquire(1, 2000);
-    if(success){
-        qDebug() << "pre same user disconnect done";
-    }else{
-        qDebug() << "timeout waiting for pre same user disconnect";
+//    bool success = myServer->semaphore.tryAcquire(1, 2000);
+//    if(success){
+//        qDebug() << "pre same user disconnect done";
+//    }else{
+//        qDebug() << "timeout waiting for pre same user disconnect";
+//    }
+    if(isDupUserExists){
+        QThread::sleep(1);
+        myServer->mutex.lock();
     }
-
     myServer->hashmap[userName]=this;
+//    qDebug()<<"new: " << myServer->hashmap[userName]->thread();
     myServer->RES=RES;
     myServer->swcUuid = swcUuid.toStdString();
     myServer->detectUtil->getImageMaxRES();
@@ -1832,6 +1841,7 @@ void CollClient::updateApoData(bool isFirstClient){
         sendmsgs({msg});
         return;
     }
+    qDebug()<<"updateApo finished";
 }
 
 void CollClient::startCollaborate(){
@@ -1900,41 +1910,10 @@ void CollClient::quit(){
     this->deleteLater();
 }
 
-void CollClient::disconnectByServer(CollClient* collclient, bool flag){
+void CollClient::disconnectByServer(CollClient* collclient){
     if(collclient==this){
         qDebug()<<"client will disconnectFromHost";
-//        this->disconnectFromHost();
-        qDebug()<<username<<QString(" client disconnect").toStdString().c_str();
-        this->flush();
-        int count=0;
-        while(this->bytesAvailable()){
-            count++;
-            if(count>10)
-                break;
-            onread();
-        }
-        this->close();//关闭读
-        myServer->mutex.lock();
-        if(myServer->hashmap.contains(username)&&myServer->hashmap[username]==this)
-            myServer->hashmap.remove(username);
-
-        QString onlineUserMsg = "/onlineusers:";
-        for(auto it = myServer->hashmap.begin(); it != myServer->hashmap.end(); it++){
-            onlineUserMsg += it.key();
-            onlineUserMsg += ",";
-        }
-        onlineUserMsg.chop(1);
-        emit myServer->clientSendMsgs({onlineUserMsg});
-
-        myServer->currentUserNum -= 1;
-        myServer->mutex.unlock();
-        updateuserlist();
-
-        qDebug()<<"subthread "<<QThread::currentThreadId()<<" will quit";
-        emit removeList(thread());
-        this->deleteLater();
-        if(flag)
-            myServer->semaphore.release();
+        this->disconnectFromHost();
     }
 }
 
@@ -2676,7 +2655,7 @@ void CollClient::analyzeDissociativeSegs(const QString msg){
         qDebug()<<"dissociative seg exists";
         int count = 0;
         QStringList result;
-        QString comment = "Dissociative seg";
+        QString comment = "Isolated branch";
         tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
         tobeSendMsg +=",";
 

@@ -19,15 +19,15 @@ private:
     QNetworkAccessManager* accessManager;
     QString SuperUserHostAddress;
     QString BrainTellHostAddress;
-    unordered_set<string> detectedTipPoints;
-    unordered_set<string> detectedBranchingPoints;
-    set<set<string>> detectedCrossingPoints;
     vector<NeuronSWC> tipPoints;
 
 public:
     static XYZ maxRes;
     static XYZ subMaxRes;
     QTimer *timerForFilterTip;
+    unordered_set<string> detectedTipPoints;
+    unordered_set<string> detectedBranchingPoints;
+    set<set<string>> detectedCrossingPoints;
 
     explicit CollDetection(CollServer* curServer, string serverIp, string brainServerPort, string superuserServerPort, QObject* parent=nullptr);
     ~CollDetection(){}
