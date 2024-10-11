@@ -4,6 +4,20 @@
 #include <QCoreApplication>
 #include <set>
 #include "neuron_editing/neuron_format_converter.h"
+
+inline std::string clientTypeIdToString(int clientType) {
+    switch (clientType) {
+    case 0:
+      return "PC";
+    case 1:
+      return "Mobile";
+    case 2:
+      return "VR";
+    default:
+        return "Unknown";
+    }
+}
+
 const int neuron_type_color[21][3] = {
     {255, 255, 255},  // white,   0-undefined
     {20,  20,  20 },  // black,   1-soma
