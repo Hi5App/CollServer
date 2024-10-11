@@ -111,9 +111,31 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     apopath=Prefix+"/"+AnoName+".ano.apo";
     anopath=Prefix+"/"+AnoName+".ano";
 
-    tmp_swcpath = Prefix+"/"+AnoName+"_tmp.ano.eswc";
+    tmp_swcpath=Prefix+"/"+AnoName+"_tmp.ano.eswc";
     tmp_apopath=Prefix+"/"+AnoName+"_tmp.ano.apo";
     tmp_anopath=Prefix+"/"+AnoName+"_tmp.ano";
+
+    branching_points_bin_path = Prefix+"/"+AnoName+"_detected_branching_points.bin";
+    tip_points_bin_path = Prefix+"/"+AnoName+"_detected_tip_points.bin";
+    crossing_points_bin_path = Prefix+"/"+AnoName+"_detected_crossing_points.bin";
+
+    if(filesystem::exists(branching_points_bin_path.toStdString()))
+        detectUtil->detectedBranchingPoints = loadUnorderedSetFromBinaryFile(branching_points_bin_path.toStdString());
+    if(filesystem::exists(tip_points_bin_path.toStdString()))
+        detectUtil->detectedTipPoints = loadUnorderedSetFromBinaryFile(tip_points_bin_path.toStdString());
+    if(filesystem::exists(crossing_points_bin_path.toStdString()))
+        detectUtil->detectedCrossingPoints = loadSetOfSetsFromBinaryFile(crossing_points_bin_path.toStdString());
+
+//    for(auto it = detectUtil->detectedBranchingPoints.begin(); it != detectUtil->detectedBranchingPoints.end(); it++){
+//        std::cout<<*it<<" ";
+//    }
+//    std::cout<<endl;
+//    for(auto it = detectUtil->detectedCrossingPoints.begin(); it != detectUtil->detectedCrossingPoints.end(); it++){
+//        for(auto it2 = it->begin(); it2 != it->end(); it2++){
+//            std::cout<<*it2<<" ";
+//        }
+//        std::cout<<endl;
+//    }
 
     swcName = (AnoName + ".ano.eswc").toStdString();
     apoName = (AnoName + ".ano.apo").toStdString();
@@ -121,10 +143,10 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
 //    somaCoordinate=detectUtil->getSomaCoordinate(apopath);
 //    detectUtil->getImageRES();
     // 60s执行一次
-    timerForAutoSave->start(60*1000);
+    timerForAutoSave->start(30*1000);
 //    timerForDetectTip->setSingleShot(true);
     timerForAutoExit->start(24*60*60*1000);
-    CollClient::timerforupdatemsg.start(0.5*1000);
+    CollClient::timerforupdatemsg.start(0.3*1000);
     timerForUpdateNParentInfo->start(5*60*1000);
     // 为msglist这个列表分配内存
     msglist.reserve(5000);
@@ -145,7 +167,7 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     connect(timerForDetectBranching,&QTimer::timeout,detectUtil,&CollDetection::detectBranchingPoints);
     connect(timerForDetectCrossing,&QTimer::timeout,detectUtil,&CollDetection::detectCrossings);
 
-    connect(timerForAutoSave,&QTimer::timeout,this,&CollServer::autoSave);
+    connect(timerForAutoSave,&QTimer::timeout,this,&CollServer::reneWalAndSync);
     connect(timerForAutoExit,&QTimer::timeout,this,&CollServer::autoExit);
     connect(&CollClient::timerforupdatemsg,&QTimer::timeout,[this]{
 //        for (auto iter=hashmap.begin();iter!=hashmap.end();iter++){
@@ -236,7 +258,7 @@ void CollServer::imediateSave(bool flag){
         emit imediateSaveDone();
 }
 
-void CollServer::autoSave()
+void CollServer::reneWalAndSync()
 {
     std::cout<<"auto save\n"<<std::endl;
 //    additionalLogFile->flush();
@@ -244,36 +266,45 @@ void CollServer::autoSave()
 #ifdef __linux__
     fsync(1);fsync(2);
 #endif
-    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 180);
+//    for(auto it = hashmap.begin(); it != hashmap.end(); it++){
+//        if(it.value()->state()!=QAbstractSocket::ConnectedState){
+//            RemoveList(it.value()->thread());
+//        }
+//    }
+    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 80);
+    std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
+    std::for_each(markers.begin(), markers.end(), [&](CellAPO&val) {
+        proto::SwcAttachmentApoV1 data;
+        data.set_n(val.n);
+        data.set_orderinfo(val.orderinfo.toStdString());
+        data.set_name(val.name.toStdString());
+        data.set_comment(val.comment.toStdString());
+        data.set_z(val.z);
+        data.set_x(val.x);
+        data.set_y(val.y);
+        data.set_pixmax(val.pixmax);
+        data.set_intensity(val.intensity);
+        data.set_sdev(val.sdev);
+        data.set_volsize(val.volsize);
+        data.set_mass(val.mass);
+        data.set_colorr(val.color.r);
+        data.set_colorg(val.color.g);
+        data.set_colorb(val.color.b);
+        swcAttachmentApoData.push_back(data);
+    });
+
+    proto::UpdateSwcAttachmentApoResponse response;
+    WrappedCall::updateSwcAttachmentApo(swcUuid, attachmentUuid, swcAttachmentApoData, response, cachedUserData);
+
     if(hashmap.size()==0){
-        std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
-        std::for_each(markers.begin(), markers.end(), [&](CellAPO&val) {
-            proto::SwcAttachmentApoV1 data;
-            data.set_n(val.n);
-            data.set_orderinfo(val.orderinfo.toStdString());
-            data.set_name(val.name.toStdString());
-            data.set_comment(val.comment.toStdString());
-            data.set_z(val.z);
-            data.set_x(val.x);
-            data.set_y(val.y);
-            data.set_pixmax(val.pixmax);
-            data.set_intensity(val.intensity);
-            data.set_sdev(val.sdev);
-            data.set_volsize(val.volsize);
-            data.set_mass(val.mass);
-            data.set_colorr(val.color.r);
-            data.set_colorg(val.color.g);
-            data.set_colorb(val.color.b);
-            swcAttachmentApoData.push_back(data);
-        });
-
-        proto::UpdateSwcAttachmentApoResponse response;
-        WrappedCall::updateSwcAttachmentApo(swcUuid, attachmentUuid, swcAttachmentApoData, response, cachedUserData);
         overwriteSwcNodeData(false);
-
         this->close();
 //        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
 //        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
+
+        saveUnorderedSetToBinaryFile(detectUtil->detectedBranchingPoints, branching_points_bin_path.toStdString());
+        saveUnorderedSetToBinaryFile(detectUtil->detectedBranchingPoints, tip_points_bin_path.toStdString());
+        saveSetOfSetsToBinaryFile(detectUtil->detectedCrossingPoints, crossing_points_bin_path.toStdString());
         // 延迟析构对象
         deleteLater();
     }else{
@@ -293,7 +324,6 @@ void CollServer::autoSave()
         mutex.unlock();
 //        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
 //        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
-
     }
 }
 
@@ -393,11 +423,11 @@ void CollServer::RemoveList(QThread* thread){
 }
 
 void CollServer::startTimerForDetectLoops(){
-    timerForDetectLoops->start(60*1000);
+    timerForDetectLoops->start(30*1000);
 }
 
 void CollServer::startTimerForDetectOthers(){
-    timerForDetectOthers->start(60*1000);
+    timerForDetectOthers->start(30*1000);
 }
 
 void CollServer::startTimerForDetectWhole(){

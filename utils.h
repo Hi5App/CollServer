@@ -3,6 +3,7 @@
 
 #include <QCoreApplication>
 #include <set>
+#include <unordered_set>
 #include "neuron_editing/neuron_format_converter.h"
 
 inline std::string clientTypeIdToString(int clientType) {
@@ -52,7 +53,7 @@ const vector<QString> quality_control_types = {
     "Missing",
     "Crossing error",
     "Color mutation",
-    "Dissociative seg",
+    "Isolated branch",
     "Angle error"
 };
 
@@ -89,5 +90,10 @@ RGB8 getColorFromType(int type);
 std::vector<std::string> stringSplit(const std::string&str, char delim);
 set<int> getQCMarkerNearBy(vector<V_NeuronSWC> &segs, const QList<CellAPO> &markers);
 QString getCurrentDateTime();
+
+void saveUnorderedSetToBinaryFile(const unordered_set<string>& mySet, const string& filename);
+std::unordered_set<std::string> loadUnorderedSetFromBinaryFile(const std::string& filename);
+void saveSetOfSetsToBinaryFile(const std::set<std::set<std::string>>& setOfSets, const std::string& filename);
+std::set<std::set<std::string>> loadSetOfSetsFromBinaryFile(const std::string& filename);
 
 #endif // UTILS_H

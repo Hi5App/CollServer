@@ -2,6 +2,8 @@
 #include "include/hiredis/hiredis.h"
 #include "neuron_editing/neuron_format_converter.h"
 #include "utils.h"
+#include <fstream>
+#include <iostream>
 
 extern string redisIp;
 void dirCheck(QString dirBaseName)
@@ -213,8 +215,10 @@ NeuronTree convertMsg2NT(QStringList pointlist,int client,int user, int isMany, 
             S.z=nodelist[3].toFloat();
             switch (mode) {
             case 0:S.r=user*10+client;break;
-            case 1:S.r=user;break;
-            case 2:S.r=client;break;
+//            case 1:S.r=user;break;
+//            case 2:S.r=client;break;
+            case 1:S.r=user*10+client;break;
+            case 2:S.r=user*10+client;
             }
             S.creatmode=mode;
 
@@ -241,8 +245,8 @@ NeuronTree convertMsg2NT(QStringList pointlist,int client,int user, int isMany, 
                 S.z=nodelist[3].toFloat();
                 switch (mode) {
                 case 0:S.r=user*10+client;break;
-                case 1:S.r=user;break;
-                case 2:S.r=client;break;
+                case 1:S.r=user*10+client;break;
+                case 2:S.r=user*10+client;
                 }
                 S.creatmode=mode;
 
@@ -824,5 +828,95 @@ QString getCurrentDateTime()
 
     // 返回格式化后的字符串
     return QString::fromStdString(std::string(buffer));
+}
+
+void saveUnorderedSetToBinaryFile(const unordered_set<string>& mySet, const string& filename) {
+    std::ofstream outFile(filename, std::ios::binary);
+    if (outFile.is_open()) {
+        size_t setSize = mySet.size();
+        outFile.write(reinterpret_cast<const char*>(&setSize), sizeof(size_t));  // 写入集合大小
+        for (const auto& element : mySet) {
+            size_t strSize = element.size();
+            outFile.write(reinterpret_cast<const char*>(&strSize), sizeof(size_t));  // 写入字符串长度
+            outFile.write(element.c_str(), strSize);  // 写入字符串内容
+        }
+        outFile.close();
+        std::cout << "Unordered set saved to binary file.\n";
+    } else {
+        std::cerr << "Could not open binary file for writing.\n";
+    }
+}
+
+std::unordered_set<std::string> loadUnorderedSetFromBinaryFile(const std::string& filename) {
+    std::unordered_set<std::string> mySet;
+    std::ifstream inFile(filename, std::ios::binary);
+    if (inFile.is_open()) {
+        size_t setSize;
+        inFile.read(reinterpret_cast<char*>(&setSize), sizeof(size_t));  // 读取集合大小
+        for (size_t i = 0; i < setSize; ++i) {
+            size_t strSize;
+            inFile.read(reinterpret_cast<char*>(&strSize), sizeof(size_t));  // 读取字符串长度
+            std::string element(strSize, ' ');
+            inFile.read(&element[0], strSize);  // 读取字符串内容
+            mySet.insert(element);
+        }
+        inFile.close();
+        std::cout << "Unordered set loaded from binary file.\n";
+    } else {
+        std::cerr << "Could not open binary file for reading.\n";
+    }
+    return mySet;
+}
+
+void saveSetOfSetsToBinaryFile(const std::set<std::set<std::string>>& setOfSets, const std::string& filename) {
+    std::ofstream outFile(filename, std::ios::binary);
+    if (outFile.is_open()) {
+        size_t outerSetSize = setOfSets.size();
+        outFile.write(reinterpret_cast<const char*>(&outerSetSize), sizeof(size_t));  // 写入外部 set 大小
+
+        for (const auto& innerSet : setOfSets) {
+            size_t innerSetSize = innerSet.size();
+            outFile.write(reinterpret_cast<const char*>(&innerSetSize), sizeof(size_t));  // 写入内部 set 大小
+
+            for (const auto& element : innerSet) {
+                size_t strSize = element.size();
+                outFile.write(reinterpret_cast<const char*>(&strSize), sizeof(size_t));  // 写入字符串大小
+                outFile.write(element.c_str(), strSize);  // 写入字符串内容
+            }
+        }
+        outFile.close();
+        std::cout << "Set of sets saved to binary file.\n";
+    } else {
+        std::cerr << "Could not open binary file for writing.\n";
+    }
+}
+
+std::set<std::set<std::string>> loadSetOfSetsFromBinaryFile(const std::string& filename) {
+    std::set<std::set<std::string>> setOfSets;
+    std::ifstream inFile(filename, std::ios::binary);
+    if (inFile.is_open()) {
+        size_t outerSetSize;
+        inFile.read(reinterpret_cast<char*>(&outerSetSize), sizeof(size_t));  // 读取外部 set 大小
+
+        for (size_t i = 0; i < outerSetSize; ++i) {
+            std::set<std::string> innerSet;
+            size_t innerSetSize;
+            inFile.read(reinterpret_cast<char*>(&innerSetSize), sizeof(size_t));  // 读取内部 set 大小
+
+            for (size_t j = 0; j < innerSetSize; ++j) {
+                size_t strSize;
+                inFile.read(reinterpret_cast<char*>(&strSize), sizeof(size_t));  // 读取字符串大小
+                std::string element(strSize, ' ');
+                inFile.read(&element[0], strSize);  // 读取字符串内容
+                innerSet.insert(element);
+            }
+            setOfSets.insert(innerSet);  // 将内部 set 插入外部 set
+        }
+        inFile.close();
+        std::cout << "Set of sets loaded from binary file.\n";
+    } else {
+        std::cerr << "Could not open binary file for reading.\n";
+    }
+    return setOfSets;
 }
 
