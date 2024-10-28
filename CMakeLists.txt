@@ -1,4 +1,8 @@
 cmake_minimum_required(VERSION 3.26)
+
+#引入 vcpkg
+set(CMAKE_TOOLCHAIN_FILE "C:/Dev/vcpkg/scripts/buildsystems/vcpkg.cmake")
+
 project(CollServerWithDBMS)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -9,8 +13,11 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-#引入 vcpkg
-set(CMAKE_TOOLCHAIN_FILE "/home/seu/vcpkg/scripts/buildsystems/vcpkg.cmake")
+
+find_package(protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
+
+set(CMAKE_PREFIX_PATH "C:/Qt/6.6.0/msvc2019_64")
 
 find_package(Qt6 COMPONENTS
         Core
@@ -19,8 +26,6 @@ find_package(Qt6 COMPONENTS
         Network
         REQUIRED)
 
-find_package(protobuf CONFIG REQUIRED)
-find_package(gRPC CONFIG REQUIRED)
 
 include_directories(
         include
@@ -146,4 +151,4 @@ elseif (APPLE)
             PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite
             PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts
     )
-endif (UNIX)
+endif()

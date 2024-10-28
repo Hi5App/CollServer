@@ -289,7 +289,8 @@ void CollClient::addseg(const QString msg)
         swcNodeInternalData.set_type(segs[0].row[i].type);
         swcNodeInternalData.set_mode(segs[0].row[i].creatmode);
 
-        auto* newData = swcData.add_swcdata();
+        auto *newData = swcData.add_swcdata();
+        newData->set_devicetype(clientTypeIdToString(clienttype));
         newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
     }
 
@@ -428,7 +429,8 @@ bool CollClient::addmanysegs(const QString msg){
             swcNodeInternalData.set_type(seg.row[i].type);
             swcNodeInternalData.set_mode(seg.row[i].creatmode);
 
-            auto* newData = swcData.add_swcdata();
+            auto *newData = swcData.add_swcdata();
+            newData->set_devicetype(clientTypeIdToString(clienttype));
             newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
             count++;
         }
@@ -537,7 +539,8 @@ void CollClient::delseg(const QString msg)
                 swcNodeInternalData.set_type(it->row[j].type);
                 swcNodeInternalData.set_mode(it->row[j].creatmode);
 
-                auto* newData = swcData.add_swcdata();
+                auto *newData = swcData.add_swcdata();
+                newData->set_devicetype(clientTypeIdToString(clienttype));
                 newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
                 newData->mutable_base()->set_uuid(it->row[j].uuid);
             }
@@ -781,7 +784,8 @@ void CollClient::connectseg(const QString msg){
             swcNodeInternalData.set_mode(seg.row[i].creatmode);
             count++;
 
-            auto* newData = swcData.add_swcdata();
+            auto *newData = swcData.add_swcdata();
+            newData->set_devicetype(clientTypeIdToString(clienttype));
             newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
         }
     }
@@ -819,7 +823,8 @@ void CollClient::connectseg(const QString msg){
                 swcNodeInternalData.set_type(seg.row[i].type);
                 swcNodeInternalData.set_mode(seg.row[i].creatmode);
 
-                auto* newData = swcData.add_swcdata();
+                auto *newData = swcData.add_swcdata();
+                newData->set_devicetype(clientTypeIdToString(clienttype));
                 newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
                 newData->mutable_base()->set_uuid(seg.row[i].uuid);
             }
@@ -889,7 +894,8 @@ void CollClient::splitseg(const QString msg){
             swcNodeInternalData.set_type(it->row[i].type);
             swcNodeInternalData.set_mode(it->row[i].creatmode);
 
-            auto* newData = swcData.add_swcdata();
+            auto *newData = swcData.add_swcdata();
+            newData->set_devicetype(clientTypeIdToString(clienttype));
             newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
             newData->mutable_base()->set_uuid(it->row[i].uuid);
         }
@@ -991,7 +997,8 @@ void CollClient::splitseg(const QString msg){
             swcNodeInternalData.set_mode(segs[i].row[j].creatmode);
 
             count++;
-            auto* newData = swcData.add_swcdata();
+            auto *newData = swcData.add_swcdata();
+            newData->set_devicetype(clientTypeIdToString(clienttype));
             newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
         }
     }
@@ -1088,7 +1095,8 @@ void CollClient::retypesegment(const QString msg)
             swcNodeInternalData.set_type(it->row[j].type);
             swcNodeInternalData.set_mode(it->row[j].creatmode);
 
-            auto* newData = swcData.add_swcdata();
+            auto *newData = swcData.add_swcdata();
+            newData->set_devicetype(clientTypeIdToString(clienttype));
             newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
             newData->mutable_base()->set_uuid(it->row[j].uuid);
         }

@@ -3786,6 +3786,9 @@
         },
         "CheckerUserUuid": {
           "type": "string"
+        },
+        "DeviceType": {
+          "type": "string"
         }
       }
     },

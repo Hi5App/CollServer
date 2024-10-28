@@ -207,6 +207,7 @@ message SwcNodeDataV1{
     google.protobuf.Timestamp CreateTime = 4;
     google.protobuf.Timestamp LastModifiedTime = 5;
     string CheckerUserUuid = 6;
+    string DeviceType = 7;
 }
 
 message SwcDataV1{
