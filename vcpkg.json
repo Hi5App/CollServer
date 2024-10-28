@@ -1,7 +1,7 @@
 {
-  "name": "collserver",
-  "dependencies": [
-    "protobuf",
-    "grpc"
-  ]
+    "name": "collserver",
+    "dependencies": [
+        "protobuf",
+        "grpc"
+    ]
 }

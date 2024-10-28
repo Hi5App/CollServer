@@ -17,7 +17,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/6.6.0/msvc2019_64")
+set(CMAKE_PREFIX_PATH "C:/Qt/6.8.0/msvc2022_64")
 
 find_package(Qt6 COMPONENTS
         Core
