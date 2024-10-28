@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.26)
 
 #引入 vcpkg
-set(CMAKE_TOOLCHAIN_FILE "C:/Dev/vcpkg/scripts/buildsystems/vcpkg.cmake")
+set(CMAKE_TOOLCHAIN_FILE "/home/seu/vcpkg/scripts/buildsystems/vcpkg.cmake")
 
 project(CollServerWithDBMS)
 
