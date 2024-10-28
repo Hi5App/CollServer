@@ -346,7 +346,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
                 it = bifurcationPoints.erase(it); // 通过迭代器去除元素，并返回下一个有效迭代器
                 flag = false;
             }
-            else if(*types.begin()!=3){
+            else if(*types.begin()!=3 && *types.begin()!=4){
                 it = bifurcationPoints.erase(it);
                 flag = false;
             }
@@ -664,7 +664,7 @@ float calculateAngleofVecs(QVector3D vector1, QVector3D vector2){
 }
 
 //将soma点的半径设置为1.234
-bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ somaCoordinate, double dist_thre, double bifur_dist_thre, CollDetection* detectUtil, QString& msg){
+bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ somaCoordinate, double dist_thre, CollDetection* detectUtil, QString& msg){
     map<string, set<size_t> > wholeGrid2SegIDMap;
     map<string, bool> isEndPointMap;
 
@@ -788,90 +788,19 @@ bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ som
         }
     }
 
-    vector<vector<size_t>> pairs;
-    set<size_t> pset;
-
-    size_t pre_tip_id=-1;
-    size_t cur_tip_id=-1;
-
-    double soma_radius=30;
-    for(size_t i=0; i<points.size(); i++){
-        if(linksIndex[i].size() == 3){
-            pre_tip_id=cur_tip_id;
-            cur_tip_id=i;
-            if(pre_tip_id!=-1){
-                NeuronSWC n1;
-                stringToXYZ(points[pre_tip_id],n1.x,n1.y,n1.z);
-                n1.type=6;
-                NeuronSWC n2;
-                stringToXYZ(points[cur_tip_id],n2.x,n2.y,n2.z);
-                n2.type=6;
-                set<size_t> n1Segs=wholeGrid2SegIDMap[points[pre_tip_id]];
-                set<size_t> n2Segs=wholeGrid2SegIDMap[points[cur_tip_id]];
-                int count1=0,count2=0;
-                for(auto it1=n1Segs.begin();it1!=n1Segs.end();it1++)
-                {
-                    //                    qDebug()<<*it1;
-                    //                    qDebug()<<getSegLength(inputSegList.seg[*it1]);
-                    if(getSegLength(segments.seg[*it1])>40)
-                        count1++;
-                }
-
-                for(auto it2=n2Segs.begin();it2!=n2Segs.end();it2++)
-                {
-                    //                    qDebug()<<*it2;
-                    //                    qDebug()<<getSegLength(inputSegList.seg[*it2]);
-                    if(getSegLength(segments.seg[*it2])>40)
-                        count2++;
-                }
-                //                qDebug()<<"n2Segs end";
-                if(!(count1>=2&&count2>=2)){
-                    continue;
-                }
-
-                if(distance(n1.x,somaCoordinate.x,n1.y,somaCoordinate.y,n1.z,somaCoordinate.z)>soma_radius
-                    &&distance(n2.x,somaCoordinate.x,n2.y,somaCoordinate.y,n2.z,somaCoordinate.z)>soma_radius){
-                    double dist=distance(n1.x,n2.x,n1.y,n2.y,n1.z,n2.z);
-                    if(distance((n1.x+n2.x)/2,somaCoordinate.x,(n1.y+n2.y)/2,somaCoordinate.y,(n1.z+n2.z)/2,somaCoordinate.z)>1e-7&&dist<bifur_dist_thre){
-                        vector<size_t> v={pre_tip_id,cur_tip_id};
-                        pairs.push_back(v);
-                        pset.insert(pre_tip_id);
-                        pset.insert(cur_tip_id);
-                    }
-                }
-            }
-        }
-    }
-
-    qDebug()<<pairs;
-    //    qDebug()<<points;
-
-    for(auto it=pset.begin(); it!=pset.end(); it++){
-        qDebug()<<*it;
-        NeuronSWC n;
-        stringToXYZ(points[*it],n.x,n.y,n.z);
-        n.type=6;
-        outputSpecialPoints.push_back(n);
-    }
-
-    vector<NeuronSWC> bifurPoints;
     vector<NeuronSWC> mulfurPoints;
 
     for(int i=0;i<outputSpecialPoints.size();i++){
-        if(outputSpecialPoints[i].type == 6)
-            bifurPoints.push_back(outputSpecialPoints[i]);
-        else if(outputSpecialPoints[i].type == 8)
+        if(outputSpecialPoints[i].type == 8)
             mulfurPoints.push_back(outputSpecialPoints[i]);
     }
 
     int count1=0;
-    int count2=0;
     detectUtil->handleMulFurcation(mulfurPoints, count1);
-    detectUtil->handleNearBifurcation(bifurPoints, count2);
 
     if(outputSpecialPoints.size()!=0){
-        qDebug()<<"swc exists MulFurcation or NearBifurcation, notice the brown or yellow markers!";
-        msg = "swc exists MulFurcation or NearBifurcation, notice the brown or yellow markers!";
+        qDebug()<<"swc exists Multifurcation, notice the brown markers!";
+        msg = "swc exists Multifurcation, notice the brown markers!";
         return false;
     }
 

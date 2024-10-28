@@ -2695,7 +2695,7 @@ void CollClient::analyzeAngles(const QString msg){
     }
     else{
         myServer->mutex.lock();
-        set<string> angleErrPoints=getAngleErrPoints(8, myServer->isSomaExists, myServer->somaCoordinate, myServer->segments, false);
+        set<string> angleErrPoints=getAngleErrPoints(8, myServer->isSomaExists, myServer->somaCoordinate, myServer->segments, true);
         myServer->mutex.unlock();
 
         QString tobeSendMsg="/FEEDBACK_ANALYZE_Angle:";
@@ -2769,7 +2769,7 @@ void CollClient::defineSoma(const QString msg){
         myServer->mutexForDetectOthers.unlock();
         myServer->mutex.unlock();
         QString fileSaveName = myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_somadefined.ano.eswc";
-        bool result = setSomaPointRadius(fileSaveName, myServer->segments, myServer->somaCoordinate, 8, 2, myServer->detectUtil, info);
+        bool result = setSomaPointRadius(fileSaveName, myServer->segments, myServer->somaCoordinate, 8, myServer->detectUtil, info);
         if(!result){
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
             tobeSendMsg += ",";
