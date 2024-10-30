@@ -6,10 +6,25 @@
 
 3. 在include/SwcDbmsCommon目录下找到GenCpp.ps1脚本文件，命令行执行pwsh进入Powershell命令行
 
-4. 在Powershell命令行终端，执行命令 ./GenCpp.ps1 -ProtobufPath "{你的vcpkg_installed所在路径}/x64-windows/tools/protobuf" -gRPCPath "{你的vcpkg_installed所在路径}/x64-windows/tools/grpc"
+4. 在Powershell命令行终端，执行命令
 
-例如：
+Windows:
+
+./GenCppWin.ps1 -ProtobufPath "{你的vcpkg_installed所在路径}/x64-windows/tools/protobuf" -gRPCPath "{你的vcpkg_installed所在路径}/x64-windows/tools/grpc"
+
+例如(For Windows)：
 
 ```pwsh
-./GenCpp.ps1 -ProtobufPath "../../build/Debug/vcpkg_installed/x64-windows/tools/protobuf" -gRPCPath "../../build/Debug/vcpkg_installed/x64-windows/tools/grpc"
+./GenCppWin.ps1 -ProtobufPath "../../build/Debug/vcpkg_installed/x64-windows/tools/protobuf" -gRPCPath "../../build/Debug/vcpkg_installed/x64-windows/tools/grpc"
 ```
+
+Linux:
+
+./GenCppLinux.ps1 -ProtobufPath "{你的vcpkg_installed所在路径}/x64-windows/tools/protobuf" -gRPCPath "{你的vcpkg_installed所在路径}/x64-windows/tools/grpc"
+
+例如(For Linux)：
+
+```pwsh
+./GenCppLinux.ps1 -ProtobufPath "../../build/vcpkg_installed/x64-linux/tools/protobuf" -gRPCPath "../../build/vcpkg_installed/x64-linux/tools/grpc"
+```
+
