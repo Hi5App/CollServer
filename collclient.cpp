@@ -345,8 +345,8 @@ bool CollClient::addmanysegs(const QString msg){
     auto segs=NeuronTree__2__V_NeuronSWC_list(addnt).seg;
 
     QMutexLocker locker(&myServer->mutex);
-    myServer->mutexForDetectOthers.lock();
-    myServer->mutexForDetectMissing.lock();
+    QMutexLocker locker2(&myServer->mutexForDetectOthers);
+    QMutexLocker locker3(&myServer->mutexForDetectMissing);
 
     bool isValid = true;
     for(auto seg:segs){
@@ -1407,7 +1407,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
                 analyzeSomaNearBy(msg.right(msg.size()-QString("/ANALYZE_SomaNearBy:").size()));
             }
             else if(msg.startsWith("/ANALYZE_ColorMutation:")){
-                analyzeColorMutationForHB(msg.right(msg.size()-QString("/ANALYZE_ColorMutation:").size()));
+                analyzeColorMutation(msg.right(msg.size()-QString("/ANALYZE_ColorMutation:").size()));
             }
             else if(msg.startsWith("/ANALYZE_Dissociative:")){
                 analyzeDissociativeSegs(msg.right(msg.size()-QString("/ANALYZE_Dissociative:").size()));
@@ -2251,6 +2251,7 @@ void CollClient::analyzeColorMutation(const QString msg){
         return;
     }
     else{
+        vector<CellAPO> errorMarkers;
         map<string,set<int>> specPointsMap=getColorChangedPoints(myServer->segments);
         set<string> resultSet;
         for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
@@ -2263,47 +2264,38 @@ void CollClient::analyzeColorMutation(const QString msg){
                 resultSet.insert(it->first);
             }
         }
-        for(auto it=resultSet.begin();it!=resultSet.end();){
-            NeuronSWC s;
-            stringToXYZ(*it, s.x, s.y, s.z);
-            if(distance(s.x, myServer->somaCoordinate.x, s.y, myServer->somaCoordinate.y,
-                         s.z, myServer->somaCoordinate.z)<8)
-            {
-                it=resultSet.erase(it);
-            }else{
-                it++;
-            }
-        }
-        if(resultSet.size()!=0){
-            int count = 0;
-            QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
-            qDebug()<<"color mutation exists";
-            QStringList result;
-            QString comment = "Color mutation";
-            tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
-            tobeSendMsg +=",";
+//        for(auto it=resultSet.begin();it!=resultSet.end();){
+//            NeuronSWC s;
+//            stringToXYZ(*it, s.x, s.y, s.z);
+//            if(distance(s.x, myServer->somaCoordinate.x, s.y, myServer->somaCoordinate.y,
+//                         s.z, myServer->somaCoordinate.z)<8)
+//            {
+//                it=resultSet.erase(it);
+//            }else{
+//                it++;
+//            }
+//        }
 
+        if(resultSet.size()!=0){
             for(auto it=resultSet.begin(); it!=resultSet.end(); it++){
                 NeuronSWC s;
                 stringToXYZ(*it, s.x, s.y, s.z);
-                //                tobeSendMsg += QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
-                //                tobeSendMsg += ",";
-                QString curMarker = QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
-                QString msg = tobeSendMsg + curMarker;
-                bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/FEEDBACK_ANALYZE_ColorMutation:").size()), comment);
-                if(isSucess){
-                    result.push_back(curMarker);
-                    count++;
-                }
+                CellAPO marker;
+                marker.name="";
+                marker.comment="Color mutation";
+                marker.orderinfo="";
+                marker.color.r=200;
+                marker.color.g=20;
+                marker.color.b=0;
+                marker.x=s.x;
+                marker.y=s.y;
+                marker.z=s.z;
+                errorMarkers.push_back(marker);
             }
-
-            tobeSendMsg = tobeSendMsg + result.join(",");
-
-            emit myServer->clientSendMsgs({tobeSendMsg});
-
-            //            sendmsgs({tobeSendMsg});
-            return;
+            //        return errorMarkers;
         }
+        set<string> otherTypesCoor = resultSet;
+        resultSet.clear();
 
         int case_type=0;
         for(auto it=specPointsMap.begin();it!=specPointsMap.end();it++){
@@ -2370,39 +2362,62 @@ void CollClient::analyzeColorMutation(const QString msg){
 
         }
 
-        for(auto it=resultSet.begin();it!=resultSet.end();){
-            NeuronSWC s;
-            stringToXYZ(*it, s.x, s.y, s.z);
-            if(distance(s.x, myServer->somaCoordinate.x, s.y, myServer->somaCoordinate.y,
-                         s.z, myServer->somaCoordinate.z)<8)
-            {
-                it=resultSet.erase(it);
-            }else{
-                it++;
+//        for(auto it=resultSet.begin();it!=resultSet.end();){
+//            NeuronSWC s;
+//            stringToXYZ(*it, s.x, s.y, s.z);
+//            if(distance(s.x, myServer->somaCoordinate.x, s.y, myServer->somaCoordinate.y,
+//                         s.z, myServer->somaCoordinate.z)<8)
+//            {
+//                it=resultSet.erase(it);
+//            }else{
+//                it++;
+//            }
+//        }
+
+        if(!result){
+            for(auto it=resultSet.begin(); it!=resultSet.end(); it++){
+                if(otherTypesCoor.find(*it) != otherTypesCoor.end()){
+                    continue;
+                }
+                NeuronSWC s;
+                stringToXYZ(*it, s.x, s.y, s.z);
+
+                CellAPO marker;
+                marker.name="";
+                marker.comment="Color mutation";
+                marker.orderinfo="";
+                marker.color.r=200;
+                marker.color.g=20;
+                marker.color.b=0;
+                marker.x=s.x;
+                marker.y=s.y;
+                marker.z=s.z;
+                errorMarkers.push_back(marker);
             }
         }
 
+        if(errorMarkers.size() == 0){
+            qDebug() << "no color mutation\n";
+        }else{
+            qDebug() << "color mutation exists\n";
+        }
+
         QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
-        if(result){
-            qDebug()<<"no color mutation";
+        if(errorMarkers.size() == 0){
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
             sendmsgs({tobeSendMsg});
-        }else{
-            qDebug()<<"color mutation exists";
+            return;
+        }
+        else{
             int count = 0;
             QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
-            qDebug()<<"color mutation exists";
             QStringList resultMarkers;
             QString comment = "Color mutation";
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
             tobeSendMsg +=",";
 
-            for(auto it=resultSet.begin(); it!=resultSet.end(); it++){
-                NeuronSWC s;
-                stringToXYZ(*it, s.x, s.y, s.z);
-                //                tobeSendMsg += QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
-                //                tobeSendMsg += ",";
-                QString curMarker = QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
+            for(auto it=errorMarkers.begin(); it!=errorMarkers.end(); it++){
+                QString curMarker = QString("%1 %2 %3 %4 %5 %6").arg(it->color.r).arg(it->color.g).arg(it->color.b).arg(it->x).arg(it->y).arg(it->z);
                 QString msg = tobeSendMsg + curMarker;
                 bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/FEEDBACK_ANALYZE_ColorMutation:").size()), comment);
                 if(isSucess){
@@ -2415,7 +2430,6 @@ void CollClient::analyzeColorMutation(const QString msg){
 
             emit myServer->clientSendMsgs({tobeSendMsg});
         }
-        //        sendmsgs({tobeSendMsg});
     }
 }
 
@@ -2593,10 +2607,7 @@ void CollClient::analyzeColorMutationForHB(const QString msg){
     //        }
     //    }
 
-    if(result){
-        qDebug() << "no color mutation\n";
-    }else{
-        qDebug() << "color mutation exists\n";
+    if(!result){
         for(auto it=resultSet.begin(); it!=resultSet.end(); it++){
             if(otherTypesCoor.find(*it) != otherTypesCoor.end()){
                 continue;
@@ -2618,11 +2629,19 @@ void CollClient::analyzeColorMutationForHB(const QString msg){
         }
     }
 
+    if(errorMarkers.size() == 0){
+        qDebug() << "no color mutation\n";
+    }else{
+        qDebug() << "color mutation exists\n";
+    }
+
     QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
-    if(result){
+    if(errorMarkers.size() == 0){
         tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
         sendmsgs({tobeSendMsg});
-    }else{
+        return;
+    }
+    else{
         int count = 0;
         QString tobeSendMsg="/FEEDBACK_ANALYZE_ColorMutation:";
         QStringList resultMarkers;

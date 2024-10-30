@@ -2361,7 +2361,6 @@ void CollDetection::tuneErrorSegs(bool flag){
 
         if(coors.size() < seg.row.size())
         {
-            myServer->removedErrSegNum++;
             pair<V_NeuronSWC, V_NeuronSWC> segPair;
             segPair.first = seg;
 
@@ -2401,8 +2400,12 @@ void CollDetection::tuneErrorSegs(bool flag){
             seg.row[seg.row.size() - 1].parent = -1;
             segPair.second = seg;
 
-            myServer->segments.seg[i].to_be_deleted = true;
+            if(segPair.first.row.size() == segPair.second.row.size()){
+                continue;
+            }
 
+            myServer->segments.seg[i].to_be_deleted = true;
+            myServer->removedErrSegNum++;
             errorSegPairVec.push_back(segPair);
         }
     }
@@ -2463,7 +2466,7 @@ void CollDetection::tuneErrorSegs(bool flag){
     result.insert(0, QString("%1 server error %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
     if(count != 0){
         QString msg=QString("/delline_norm:"+result.join(","));
-        qDebug()<<"removeErrorSegs: "<<msg;
+//        qDebug()<<"removeErrorSegs: "<<msg;
         emit myServer->clientSendMsgs({msg});
     }
 
@@ -2569,7 +2572,7 @@ void CollDetection::tuneErrorSegs(bool flag){
             }
 
             QString msg=QString("/drawline_norm:"+addMsgList.join(","));
-            qDebug()<<"drawline for correcting error seg: "<<msg;
+//            qDebug()<<"drawline for correcting error seg: "<<msg;
             emit myServer->clientSendMsgs({msg});
         }
     }

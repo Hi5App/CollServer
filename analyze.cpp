@@ -207,6 +207,7 @@ set<string> getDissociativeSegMarkerPoints(QList<NeuronSWC> neuron){
 
 set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordinate, V_NeuronSWC_list& segments, bool needConsiderType){
     set<string> angleErrPoints;
+    return angleErrPoints;
 
     if(!isSomaExists){
         return angleErrPoints;

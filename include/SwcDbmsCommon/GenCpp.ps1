@@ -16,16 +16,16 @@ function Remove-Directory {
 Remove-Directory "Generated/cpp"
 New-Item -Path "Generated/cpp" -ItemType Directory -Force
 
-& "$ProtobufPath/protoc.exe" `
+& "$ProtobufPath/protoc" `
     -I=Bin/protobuf/include `
     -I=proto proto/Message/* `
-    --plugin=protoc-gen-grpc=$gRPCPath/grpc_cpp_plugin.exe `
+    --plugin=protoc-gen-grpc=$gRPCPath/grpc_cpp_plugin `
     --cpp_out=Generated/cpp `
     --grpc_out=Generated/cpp
 
-& "$ProtobufPath/protoc.exe" `
+& "$ProtobufPath/protoc" `
     -I=Bin/protobuf/include `
     -I=proto proto/Service/* `
-    --plugin=protoc-gen-grpc=$gRPCPath/grpc_cpp_plugin.exe `
+    --plugin=protoc-gen-grpc=$gRPCPath/grpc_cpp_plugin `
     --cpp_out=Generated/cpp `
     --grpc_out=Generated/cpp

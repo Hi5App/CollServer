@@ -213,13 +213,14 @@ NeuronTree convertMsg2NT(QStringList pointlist,int client,int user, int isMany, 
             S.x=nodelist[1].toFloat();
             S.y=nodelist[2].toFloat();
             S.z=nodelist[3].toFloat();
-            switch (mode) {
-            case 0:S.r=user*10+client;break;
-//            case 1:S.r=user;break;
-//            case 2:S.r=client;break;
-            case 1:S.r=user*10+client;break;
-            case 2:S.r=user*10+client;
-            }
+//            switch (mode) {
+//            case 0:S.r=user*10+client;break;
+////            case 1:S.r=user;break;
+////            case 2:S.r=client;break;
+//            case 1:S.r=user*10+client;break;
+//            case 2:S.r=user*10+client;
+//            }
+            S.r=1;
             S.creatmode=mode;
 
             if(i==0) S.pn=-1;
@@ -243,11 +244,12 @@ NeuronTree convertMsg2NT(QStringList pointlist,int client,int user, int isMany, 
                 S.x=nodelist[1].toFloat();
                 S.y=nodelist[2].toFloat();
                 S.z=nodelist[3].toFloat();
-                switch (mode) {
-                case 0:S.r=user*10+client;break;
-                case 1:S.r=user*10+client;break;
-                case 2:S.r=user*10+client;
-                }
+//                switch (mode) {
+//                case 0:S.r=user*10+client;break;
+//                case 1:S.r=user*10+client;break;
+//                case 2:S.r=user*10+client;
+//                }
+                S.r=1;
                 S.creatmode=mode;
 
                 if(index==0) S.pn=-1;

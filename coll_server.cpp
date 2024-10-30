@@ -146,7 +146,7 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     timerForAutoSave->start(30*1000);
 //    timerForDetectTip->setSingleShot(true);
     timerForAutoExit->start(24*60*60*1000);
-    CollClient::timerforupdatemsg.start(0.3*1000);
+    CollClient::timerforupdatemsg.start(0.5*1000);
     timerForUpdateNParentInfo->start(5*60*1000);
     // 为msglist这个列表分配内存
     msglist.reserve(5000);
@@ -193,19 +193,19 @@ CollServer::~CollServer(){
     setexpire(Project.toStdString().c_str(),Port.toInt(),AnoName.toStdString().c_str(),0);
     // recover port
     recoverPort(Port.toInt());
-    std::cerr<<AnoName.toStdString()+" server is released\n";
     logfile->flush();
     logfile->close();
     delete logfile;
 
     while(list_thread.count()>0)
     {
-        list_thread[0]->quit();
-        list_thread[0]->wait();//等待退出
+        list_thread[0]->terminate();
+//        list_thread[0]->wait();//等待退出
         list_thread[0]->deleteLater();//释放
         list_thread.removeAt(0);
     }
 
+    std::cerr<<AnoName.toStdString()+" server is released\n";
     exit(0);
 }
 
@@ -308,22 +308,7 @@ void CollServer::reneWalAndSync()
         // 延迟析构对象
         deleteLater();
     }else{
-//        if(hashmap.size()!=0)
-//            emit clientUpdatesendmsgcnt();
-
-        //        msglist.erase(msglist.begin(),msglist.begin()+processedmsgcnt);
-        //        msglist.reserve(5000);
-//        savedmsgcnt=processedmsgcnt;
-        //        processedmsgcnt=0;
-        //        msglist.erase(msglist.begin(),msglist.begin()+processedmsgcnt);
-        //        msglist.reserve(5000);
-        //        savedmsgcnt+=processedmsgcnt;
-        //        processedmsgcnt=0;
-        mutex.lock();
         savedmsgcnt = processedmsgcnt;
-        mutex.unlock();
-//        writeESWC_file(Prefix+"/"+AnoName+".ano.eswc",V_NeuronSWC_list__2__NeuronTree(segments));
-//        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
     }
 }
 
@@ -423,11 +408,11 @@ void CollServer::RemoveList(QThread* thread){
 }
 
 void CollServer::startTimerForDetectLoops(){
-    timerForDetectLoops->start(30*1000);
+    timerForDetectLoops->start(60*1000);
 }
 
 void CollServer::startTimerForDetectOthers(){
-    timerForDetectOthers->start(30*1000);
+    timerForDetectOthers->start(60*1000);
 }
 
 void CollServer::startTimerForDetectWhole(){
