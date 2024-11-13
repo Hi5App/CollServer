@@ -15,8 +15,6 @@ class CollClient : public QTcpSocket
         int isFile=0;//0 msg,1 file,2 data
         qint64 datasize=0;
         qint64 filesize = 0;
-
-
     };
 
     struct segInfoUnit

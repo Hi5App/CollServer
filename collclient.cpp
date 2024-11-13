@@ -62,8 +62,6 @@ CollClient:: CollClient(qintptr handle, CollServer* curServer, QObject *parent):
     });
     // 检测客户端是否掉线，并作相应处理
     setSocketOption(QAbstractSocket::KeepAliveOption,1);//keepalive
-
-
 }
 
 void CollClient::updateuserlist()
@@ -344,9 +342,12 @@ bool CollClient::addmanysegs(const QString msg){
     auto addnt=convertMsg2NT(pointlist,clienttype,useridx,1,clienttype);
     auto segs=NeuronTree__2__V_NeuronSWC_list(addnt).seg;
 
-    QMutexLocker locker(&myServer->mutex);
-    QMutexLocker locker2(&myServer->mutexForDetectOthers);
-    QMutexLocker locker3(&myServer->mutexForDetectMissing);
+//    QMutexLocker locker(&myServer->mutex);
+//    QMutexLocker locker2(&myServer->mutexForDetectOthers);
+//    QMutexLocker locker3(&myServer->mutexForDetectMissing);
+    myServer->mutex.lock();
+    myServer->mutexForDetectOthers.lock();
+    myServer->mutexForDetectMissing.lock();
 
     bool isValid = true;
     for(auto seg:segs){
@@ -366,6 +367,9 @@ bool CollClient::addmanysegs(const QString msg){
     }
 
     if(!isValid){
+        myServer->mutexForDetectMissing.unlock();
+        myServer->mutexForDetectOthers.unlock();
+        myServer->mutex.unlock();
         QString warnMsg = "/WARN_ReloadFile:outbound swcnode";
         emit myServer->clientSendMsgs({warnMsg});
         qDebug()<<"reject invalid segs";
@@ -391,8 +395,6 @@ bool CollClient::addmanysegs(const QString msg){
         myServer->last3MinSegments.append(seg);
     }
 
-    myServer->mutexForDetectMissing.unlock();
-    myServer->mutexForDetectOthers.unlock();
     V3DLONG point_size = myServer->segments.nrows();
 
     vector<V_NeuronSWC> tobeRemovedSeg;
@@ -465,6 +467,9 @@ bool CollClient::addmanysegs(const QString msg){
         }
         myServer->segments.append(seg);
     }
+    myServer->mutexForDetectMissing.unlock();
+    myServer->mutexForDetectOthers.unlock();
+    myServer->mutex.unlock();
 
     qDebug()<<"server addmanysegs";
 
@@ -632,7 +637,7 @@ void CollClient::connectseg(const QString msg){
 
     vector<segInfoUnit> segInfo;
 
-    QMutexLocker locker(&myServer->mutex);
+    myServer->mutex.lock();
     for(int i=0;i<connectsegs.size();i++){
         auto it=findseg(myServer->segments.seg.begin(),myServer->segments.seg.end(),connectsegs[i]);
         if(it!=myServer->segments.seg.end())
@@ -732,6 +737,7 @@ void CollClient::connectseg(const QString msg){
             std::cerr<<"INFO:not find connect seg ,"<<msg.toStdString()<<std::endl;
 //            myServer->mutex.unlock();
             QString warnMsg = "/WARN_ReloadFile:cannot find connect seg";
+            myServer->mutex.unlock();
             emit myServer->clientSendMsgs({warnMsg});
             return;
         }
@@ -794,6 +800,7 @@ void CollClient::connectseg(const QString msg){
     if(!WrappedCall::addSwcNodeData(myServer->swcUuid, swcData, response, cachedUserData)){
         QString msg = "/WARN_AddSwcNodeDataError:server";
         sendmsgs({msg});
+        myServer->mutex.unlock();
         return;
     }
 
@@ -840,6 +847,7 @@ void CollClient::connectseg(const QString msg){
         else
             ++iter;
 
+    myServer->mutex.unlock();
     qDebug()<<"server connectseg";
 }
 
@@ -1117,7 +1125,7 @@ void CollClient::retypesegment(const QString msg)
     for(auto it=markerIndexs.begin(); it!=markerIndexs.end(); it++){
         tobeRemovedMarkers.append(myServer->markers[*it]);
     }
-    removeQCMarker(tobeRemovedMarkers);
+//    removeQCMarker(tobeRemovedMarkers);
 
 }
 
@@ -1151,7 +1159,7 @@ void CollClient::addmarkers(const QString msg)
 
     vector<CellAPO> errorMarkers;
 
-    QMutexLocker locker(&myServer->mutex);
+    myServer->mutex.lock();
     for(auto &msg:pointlist){
         bool flag = true;
         auto markerinfo=msg.split(' ',Qt::SkipEmptyParts);
@@ -1189,6 +1197,7 @@ void CollClient::addmarkers(const QString msg)
         }
     }
 
+    myServer->mutex.unlock();
     QStringList result;
     result.push_back(QString("%1 server %2 %3 %4").arg(0).arg(123).arg(123).arg(123));
     for(int i=0;i<errorMarkers.size();i++){
@@ -1407,7 +1416,7 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
                 analyzeSomaNearBy(msg.right(msg.size()-QString("/ANALYZE_SomaNearBy:").size()));
             }
             else if(msg.startsWith("/ANALYZE_ColorMutation:")){
-                analyzeColorMutation(msg.right(msg.size()-QString("/ANALYZE_ColorMutation:").size()));
+                analyzeColorMutationForHB(msg.right(msg.size()-QString("/ANALYZE_ColorMutation:").size()));
             }
             else if(msg.startsWith("/ANALYZE_Dissociative:")){
                 analyzeDissociativeSegs(msg.right(msg.size()-QString("/ANALYZE_Dissociative:").size()));
@@ -1500,9 +1509,7 @@ void CollClient::onread()
                     this->read(data,datatype.datasize);
                     data[datatype.datasize]='\0';
 
-                    myServer->mutex.lock();
                     myServer->receivedcnt+=1;
-                    myServer->mutex.unlock();
 
                     QString log;
                     log=QDateTime::currentDateTime().toString(" yyyy/MM/dd hh:mm:ss ") + QString::number(myServer->receivedcnt) + " receive from " + username + " :" + QString(data);
@@ -1536,7 +1543,7 @@ void CollClient::ondisconnect()
         onread();
     }
     this->close();//关闭读
-    myServer->mutex.lock();
+//    myServer->mutex.lock();
     if(myServer->hashmap.contains(username)&&myServer->hashmap[username]==this)
         myServer->hashmap.remove(username);
 
@@ -1549,7 +1556,7 @@ void CollClient::ondisconnect()
     emit myServer->clientSendMsgs({onlineUserMsg});
 
     myServer->currentUserNum -= 1;
-    myServer->mutex.unlock();
+//    myServer->mutex.unlock();
     updateuserlist();
 
     qDebug()<<"subthread "<<this->thread()<<" will quit";
@@ -1750,7 +1757,6 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
         swc.setValue(neurons);
         swc.WriteToFile();
     }
-
     else if(exportSwcData.swcMetaInfo.swctype() == "eswc"){
         std::vector<NeuronUnit> neurons;
         auto swcData = exportSwcData.swcData;
@@ -1781,11 +1787,15 @@ void CollClient::getFileFromDBMSAndSend(bool isFirstClient){
     auto nt=readSWC_file(myServer->tmp_swcpath);
     myServer->segments=NeuronTree__2__V_NeuronSWC_list(nt, uuidVec);
     if(myServer->segments.name == "invalid_swc"){
+        myServer->mutex.unlock();
         emit exitNow();
     }
     if(uuidVec.size() != myServer->segments.nrows()){
         qDebug() << "Warn: the size of uuid from dbms is: " << uuidVec.size();
         qDebug() << "Warn: the size of segments is: " << myServer->segments.nrows();
+        myServer->mutex.unlock();
+        QString warnMsg = "/WARN_ReloadFile:unknown error";
+        emit myServer->clientSendMsgs({warnMsg});
     }
     myServer->markers=readAPO_file(myServer->tmp_apopath);
     myServer->somaCoordinate=myServer->detectUtil->getSomaCoordinate(myServer->tmp_apopath);
@@ -2199,22 +2209,22 @@ void CollClient::analyzeSomaNearBy(const QString msg){
         return;
     }
     else{
-        myServer->mutex.lock();
-        myServer->mutexForDetectOthers.lock();
-        myServer->mutexForDetectMissing.lock();
-        // 创建事件循环
-        QEventLoop loop;
+//        myServer->mutex.lock();
+//        myServer->mutexForDetectOthers.lock();
+//        myServer->mutexForDetectMissing.lock();
+//        // 创建事件循环
+//        QEventLoop loop;
 
-        // 连接信号和事件循环的退出槽
-        connect(myServer->detectUtil, &CollDetection::tuneErrorSegsDone, &loop, &QEventLoop::quit);
+//        // 连接信号和事件循环的退出槽
+//        connect(myServer->detectUtil, &CollDetection::tuneErrorSegsDone, &loop, &QEventLoop::quit);
 
-        emit detectUtilTuneErrorSegs(true);
+//        emit detectUtilTuneErrorSegs(true);
 
-        // 等待事件循环退出
-        loop.exec();
-        myServer->mutexForDetectMissing.unlock();
-        myServer->mutexForDetectOthers.unlock();
-        myServer->mutex.unlock();
+//        // 等待事件循环退出
+//        loop.exec();
+//        myServer->mutexForDetectMissing.unlock();
+//        myServer->mutexForDetectOthers.unlock();
+//        myServer->mutex.unlock();
         vector<int> counts=getMulfurcationsCountNearSoma(8, myServer->somaCoordinate, myServer->segments);
         QString tobeSendMsg="/FEEDBACK_ANALYZE_SomaNearBy:";
         // 2、3、>3
@@ -2779,22 +2789,22 @@ void CollClient::defineSoma(const QString msg){
         return;
     }
     else{
-        myServer->mutex.lock();
-        myServer->mutexForDetectOthers.lock();
-        myServer->mutexForDetectMissing.lock();
-        // 创建事件循环
-        QEventLoop loop;
+//        myServer->mutex.lock();
+//        myServer->mutexForDetectOthers.lock();
+//        myServer->mutexForDetectMissing.lock();
+//        // 创建事件循环
+//        QEventLoop loop;
 
-        // 连接信号和事件循环的退出槽
-        connect(myServer->detectUtil, &CollDetection::tuneErrorSegsDone, &loop, &QEventLoop::quit);
+//        // 连接信号和事件循环的退出槽
+//        connect(myServer->detectUtil, &CollDetection::tuneErrorSegsDone, &loop, &QEventLoop::quit);
 
-        emit detectUtilTuneErrorSegs(true);
+//        emit detectUtilTuneErrorSegs(true);
 
-        // 等待事件循环退出
-        loop.exec();
-        myServer->mutexForDetectMissing.unlock();
-        myServer->mutexForDetectOthers.unlock();
-        myServer->mutex.unlock();
+//        // 等待事件循环退出
+//        loop.exec();
+//        myServer->mutexForDetectMissing.unlock();
+//        myServer->mutexForDetectOthers.unlock();
+//        myServer->mutex.unlock();
         QString fileSaveName = myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_somadefined.ano.eswc";
         bool result = setSomaPointRadius(fileSaveName, myServer->segments, myServer->somaCoordinate, 8, myServer->detectUtil, info);
         if(!result){

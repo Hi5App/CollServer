@@ -659,6 +659,33 @@ vector<NeuronSWC> CollDetection::loopDetection(V_NeuronSWC_list& inputSegList, d
         }
     }
 
+    //检测线段相交导致的环
+    for(auto it = wholeGrid2segIDmap.begin(); it != wholeGrid2segIDmap.end(); it++){
+        if(it->second.size() == 2){
+            bool isLoopExists = true;
+            string coor = it->first;
+            for(auto segIt = it->second.begin(); segIt != it->second.end(); segIt++){
+                V_NeuronSWC seg = inputSegList.seg[*segIt];
+                float xLabel1 = seg.row[0].x;
+                float yLabel1 = seg.row[0].y;
+                float zLabel1 = seg.row[0].z;
+                float xLabel2=seg.row[seg.row.size()-1].x;
+                float yLabel2=seg.row[seg.row.size()-1].y;
+                float zLabel2=seg.row[seg.row.size()-1].z;
+                QString gridKeyQ1 = QString::number(xLabel1) + "_" + QString::number(yLabel1) + "_" + QString::number(zLabel1);
+                string gridKey1 = gridKeyQ1.toStdString();
+                QString gridKeyQ2 = QString::number(xLabel2) + "_" + QString::number(yLabel2) + "_" + QString::number(zLabel2);
+                string gridKey2 = gridKeyQ2.toStdString();
+                if(coor == gridKey1 || coor == gridKey2){
+                    isLoopExists = false;
+                }
+            }
+            if(isLoopExists){
+                specPoints.insert(coor);
+            }
+        }
+    }
+
     auto iter = myServer->last1MinSegments.seg.begin();
     while (iter != myServer->last1MinSegments.seg.end())
         if (iter->to_be_deleted){
@@ -2349,65 +2376,52 @@ void CollDetection::tuneErrorSegs(bool flag){
             continue;
         }
 
-        set<string> coors;
-        for(size_t j=0; j<seg.row.size(); j++){
-            float xLabel = seg.row[j].x;
-            float yLabel = seg.row[j].y;
-            float zLabel = seg.row[j].z;
-            QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
-            string gridKey = gridKeyQ.toStdString();
-            coors.insert(gridKey);
-        }
+//        set<string> coors;
+//        for(size_t j=0; j<seg.row.size(); j++){
+//            float xLabel = seg.row[j].x;
+//            float yLabel = seg.row[j].y;
+//            float zLabel = seg.row[j].z;
+//            QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
+//            string gridKey = gridKeyQ.toStdString();
+//            coors.insert(gridKey);
+//        }
 
-        if(coors.size() < seg.row.size())
-        {
-            pair<V_NeuronSWC, V_NeuronSWC> segPair;
-            segPair.first = seg;
+//        if(coors.size() < seg.row.size())
+//        {
+//            pair<V_NeuronSWC, V_NeuronSWC> segPair;
+//            segPair.first = seg;
 
-            //            for(int j=0; j<seg.row.size(); j++){
-            //                proto::SwcNodeInternalDataV1 swcNodeInternalData;
-            //                swcNodeInternalData.set_x(seg.row[j].x);
-            //                swcNodeInternalData.set_y(seg.row[j].y);
-            //                swcNodeInternalData.set_z(seg.row[j].z);
-            //                swcNodeInternalData.set_radius(seg.row[j].r);
-            //                swcNodeInternalData.set_type(seg.row[j].type);
-            //                swcNodeInternalData.set_mode(seg.row[j].creatmode);
+//            for (auto it = seg.row.begin(); it!=seg.row.end() - 1 && it!=seg.row.end();)
+//            {
+//                V_NeuronSWC_unit v1 = *it;
+//                V_NeuronSWC_unit v2 = *(it+1);
+//                if((fabs(v1.x - v2.x) > 1e-2) || (fabs(v1.y - v2.y) > 1e-2) || (fabs(v1.z - v2.z) > 1e-2)){
+//                    it++;
+//                }
+//                else{
+//                    it = seg.row.erase(it);
+//                }
+//            }
 
-            //                auto* newData = delSwcData.add_swcdata();
-            //                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
-            //                newData->mutable_base()->set_uuid(seg.row[j].uuid);
-            //            }
+//            int count = 1;
+//            for (V3DLONG p=0;p<seg.row.size();p++)
+//            {
+//                V_NeuronSWC_unit& v = seg.row.at(p);
+//                v.n = count++;
+//                v.parent = count;
+//            }
+//            seg.row[seg.row.size() - 1].parent = -1;
+//            segPair.second = seg;
 
-            for (auto it = seg.row.begin(); it!=seg.row.end() - 1 && it!=seg.row.end();)
-            {
-                V_NeuronSWC_unit v1 = *it;
-                V_NeuronSWC_unit v2 = *(it+1);
-                if(!(fabs(v1.x - v2.x) < 1e-5) || !(fabs(v1.y - v2.y) < 1e-5) || !(fabs(v1.z - v2.z) < 1e-5)){
-                    it++;
-                }
-                else{
-                    it = seg.row.erase(it);
-                }
-            }
+//            if(segPair.first.row.size() == segPair.second.row.size()){
+//                continue;
+//            }
 
-            int count = 1;
-            for (V3DLONG p=0;p<seg.row.size();p++)
-            {
-                V_NeuronSWC_unit& v = seg.row.at(p);
-                v.n = count++;
-                v.parent = count;
-            }
-            seg.row[seg.row.size() - 1].parent = -1;
-            segPair.second = seg;
-
-            if(segPair.first.row.size() == segPair.second.row.size()){
-                continue;
-            }
-
-            myServer->segments.seg[i].to_be_deleted = true;
-            myServer->removedErrSegNum++;
-            errorSegPairVec.push_back(segPair);
-        }
+////            qDebug() << "1111111111111111111111";
+//            myServer->segments.seg[i].to_be_deleted = true;
+////            myServer->removedErrSegNum++;
+//            errorSegPairVec.push_back(segPair);
+//        }
     }
 
     QStringList result;

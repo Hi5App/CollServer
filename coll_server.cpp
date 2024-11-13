@@ -143,7 +143,7 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
 //    somaCoordinate=detectUtil->getSomaCoordinate(apopath);
 //    detectUtil->getImageRES();
     // 60s执行一次
-    timerForAutoSave->start(30*1000);
+    timerForAutoSave->start(60*1000);
 //    timerForDetectTip->setSingleShot(true);
     timerForAutoExit->start(24*60*60*1000);
     CollClient::timerforupdatemsg.start(0.5*1000);
@@ -271,7 +271,7 @@ void CollServer::reneWalAndSync()
 //            RemoveList(it.value()->thread());
 //        }
 //    }
-    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 80);
+    setexpire(Project.toStdString().c_str(), Port.toInt(), AnoName.toStdString().c_str(), 100);
     std::vector<proto::SwcAttachmentApoV1> swcAttachmentApoData;
     std::for_each(markers.begin(), markers.end(), [&](CellAPO&val) {
         proto::SwcAttachmentApoV1 data;
@@ -313,7 +313,8 @@ void CollServer::reneWalAndSync()
 }
 
 void CollServer::updateNParentInfo(){
-    QMutexLocker locker(&mutex);
+//    QMutexLocker locker(&mutex);
+    mutex.lock();
     auto nt = V_NeuronSWC_list__2__NeuronTree(segments);
     std::vector<proto::NodeNParentV1> nodesNParent;
     for(auto it = nt.listNeuron.begin(); it != nt.listNeuron.end(); it++){
@@ -325,6 +326,7 @@ void CollServer::updateNParentInfo(){
     }
     proto::UpdateSwcNParentInfoResponse response;
     WrappedCall::updateSwcNParentInfo(response, cachedUserData, swcUuid, nodesNParent);
+    mutex.unlock();
 
     int sameNumber = response.samenumber();
     int updateNumber = response.updatenumber();

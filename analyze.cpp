@@ -884,6 +884,33 @@ bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ som
         }
     }
 
+    //检测线段相交导致的环
+    for(auto it = wholeGrid2SegIDMap.begin(); it != wholeGrid2SegIDMap.end(); it++){
+        if(it->second.size() == 2){
+            bool isLoopExists = true;
+            string coor = it->first;
+            for(auto segIt = it->second.begin(); segIt != it->second.end(); segIt++){
+                V_NeuronSWC seg = segments.seg[*segIt];
+                float xLabel1 = seg.row[0].x;
+                float yLabel1 = seg.row[0].y;
+                float zLabel1 = seg.row[0].z;
+                float xLabel2=seg.row[seg.row.size()-1].x;
+                float yLabel2=seg.row[seg.row.size()-1].y;
+                float zLabel2=seg.row[seg.row.size()-1].z;
+                QString gridKeyQ1 = QString::number(xLabel1) + "_" + QString::number(yLabel1) + "_" + QString::number(zLabel1);
+                string gridKey1 = gridKeyQ1.toStdString();
+                QString gridKeyQ2 = QString::number(xLabel2) + "_" + QString::number(yLabel2) + "_" + QString::number(zLabel2);
+                string gridKey2 = gridKeyQ2.toStdString();
+                if(coor == gridKey1 || coor == gridKey2){
+                    isLoopExists = false;
+                }
+            }
+            if(isLoopExists){
+                specPoints.insert(coor);
+            }
+        }
+    }
+
     outputSpecialPoints.clear();
     int count =0;
     for(auto it=specPoints.begin(); it!=specPoints.end(); it++){

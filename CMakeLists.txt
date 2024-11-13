@@ -43,7 +43,6 @@ link_directories(
 )
 
 set(PROJECT_HEADERS
-        backward.hpp
         analyze.h
         basic_c_fun/basic_surf_objs.h
         basic_c_fun/c_array_struct.hpp
@@ -77,7 +76,6 @@ set(PROJECT_HEADERS
 )
 
 set(PROJECT_SOURCES
-        backward.cpp
         analyze.cpp
         basic_c_fun/basic_surf_objs.cpp
         basic_c_fun/v3d_message.cpp

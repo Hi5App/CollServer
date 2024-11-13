@@ -36,17 +36,21 @@ QVector< QVector<V3DLONG> > get_neighbors(QList<NeuronSWC> &neurons, const QHash
     {
         // Find parent node
         //        qDebug()<<i;
-        int pid_old = nlist.lastIndexOf(neurons.at(i).pn);
+//        int pid_old = nlist.lastIndexOf(neurons.at(i).pn);
+        int pid_old = neurons.at(i).pn;
         if(pid_old<0){
             continue;  // Skip root nodes
         }
         else{
-            int pname_old = neurons.at(pid_old).n;
+            int pname_old = pid_old;
             int cname_old = neurons.at(i).n;
             int pid_new = LUT.value(pname_old);
             int cid_new = LUT.value(cname_old);
             if((pid_new>=siz) || (cid_new>=siz)){
                 qDebug()<<QString("Out of range [0, %1]: pid:%2; cid:%3").arg(siz).arg(pid_new).arg(cid_new);
+            }
+            if(pid_new == cid_new){
+                continue;
             }
             // add a new neighbor for the child node
             if(!neighbors.at(cid_new).contains(pid_new)){
@@ -95,6 +99,7 @@ QHash<V3DLONG, V3DLONG> getUniqueLUT(QList<NeuronSWC> &neurons, QHash<V3DLONG, N
 QHash<V3DLONG, V3DLONG> getUniqueLUT_updated(QList<NeuronSWC> &neurons, QHash<V3DLONG, NeuronSWC> & LUT_newid_to_node)
 {
     // Range of LUT values: [0, # deduplicated neuron list)
+    // n->id
     QHash<V3DLONG,V3DLONG> LUT;
     V3DLONG cur_id=0;
     QHash<QString, V3DLONG> coord2IdHash;
@@ -530,6 +535,7 @@ bool SortSWCSimplify(QList<NeuronSWC> & neurons, V_NeuronSWC_list segments, QLis
 
     //create a LUT, from the original id to the position in the listNeuron, different neurons with the same x,y,z & r are merged into one position
     QHash<V3DLONG, NeuronSWC> LUT_newid_to_node;
+    // n -> id
     QHash<V3DLONG, V3DLONG> LUT = getUniqueLUT_updated(neurons, LUT_newid_to_node);
 
     //    qDebug()<<LUT.values();
@@ -618,10 +624,11 @@ bool SortSWCSimplify(QList<NeuronSWC> & neurons, V_NeuronSWC_list segments, QLis
 
     for(int i=0; i<specificPathNums.size(); i++){
         if(neighbors[i].size() - specificPathNums[i] != 1){
-            float x = LUT_newid_to_node.value(i).x;
+            float x =LUT_newid_to_node.value(i).x;
             float y=LUT_newid_to_node.value(i).y;
             float z=LUT_newid_to_node.value(i).z;
             QString gridKeyQ = QString::number(x) + "_" + QString::number(y) + "_" + QString::number(z);
+            qDebug() << neighbors[i].size() << " " << specificPathNums[i];
             string gridKey = gridKeyQ.toStdString();
             auto segIdSet = wholeGrid2SegIdMap[gridKey];
             bool flag = true;
