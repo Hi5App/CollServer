@@ -36,7 +36,7 @@ public:
     vector<NeuronSWC> loopDetection(V_NeuronSWC_list& inputSegList, double dist_thresh=8);
     vector<NeuronSWC> tipDetection(V_NeuronSWC_list inputSegList, bool removeFlag, map<string, set<size_t>> allPoint2SegIdMap, double dist_thresh=30);
     QJsonArray crossingDetection();
-    vector<NeuronSWC> branchingDetection(V_NeuronSWC_list inputSegList, double dist_thresh=10);
+    vector<NeuronSWC> branchingDetection(V_NeuronSWC_list inputSegList, double dist_thresh=12);
     void handleMulFurcation(vector<NeuronSWC>& outputSpecialPoints, int& count, double dist_thre=8);
     void handleLoop(vector<NeuronSWC>& outputSpecialPoints, int& count);
     void handleNearBifurcation(vector<NeuronSWC>& bifurPoints, int& count);

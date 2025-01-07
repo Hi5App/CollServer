@@ -337,7 +337,9 @@ void CollServer::updateNParentInfo(){
     qDebug()<<"DiffDBMissing: "<<diffDBMissing;
     qDebug()<<"DiffIncomingMissing: "<<diffIncomingMissing;
     if(diffDBMissing != 0 || diffIncomingMissing != 0){
+        mutex.lock();
         overwriteSwcNodeData(false);
+        mutex.unlock();
     }
 }
 

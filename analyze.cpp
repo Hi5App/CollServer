@@ -873,6 +873,9 @@ bool setSomaPointRadius(QString fileSaveName, V_NeuronSWC_list segments, XYZ som
         string gridKey1 = gridKeyQ1.toStdString();
         QString gridKeyQ2 = QString::number(xLabel2) + "_" + QString::number(yLabel2) + "_" + QString::number(zLabel2);
         string gridKey2 = gridKeyQ2.toStdString();
+        if(gridKey1 == gridKey2){
+            continue;
+        }
         set<size_t> segSet1=wholeGrid2SegIDMap[gridKey1];
         set<size_t> segSet2=wholeGrid2SegIDMap[gridKey2];
         set<size_t> intersectionSet;
