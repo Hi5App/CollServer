@@ -73,6 +73,7 @@ typedef void* v3dhandle;
 
 #endif
 
+enum ImagePixelType {V3D_UNKNOWN, V3D_UINT8, V3D_UINT16, V3D_THREEBYTE, V3D_FLOAT32};
 enum TimePackType {TIME_PACK_NONE,TIME_PACK_Z,TIME_PACK_C}; 
 
 

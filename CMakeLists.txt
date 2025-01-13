@@ -36,6 +36,11 @@ include_directories(
         include/nlohmann_json
         include/octree
         include/SwcDbmsCommon/Generated/cpp
+        include/lib
+        basic_c_fun/
+        neuron_editing/
+        worm_straighten_c/
+        neurontracing_vn2/
 )
 
 link_directories(
@@ -73,12 +78,24 @@ set(PROJECT_HEADERS
         detect_crossing/SwcReader.h
         detect_crossing/ResultWriter.h
         config/config.h
+        neurontracing_vn2/common_value.h
+        neurontracing_vn2/vn_imgpreprocess.h
+        neurontracing_vn2/vn.h
+        neurontracing_vn2/vn_app2.h
+        neurontracing_vn2/vn_app1.h
+        neurontracing_vn2/app1/v3dneuron_gd_tracing.h
+        neurontracing_vn2/app1/gd.h
+        neurontracing_vn2/app2/fastmarching_tree.h
+        neurontracing_vn2/app2/hierarchy_prune.h
+        neurontracing_vn2/app2/fastmarching_dt.h
+        neurontracing_vn2/app2/marker_radius.h
 )
 
 set(PROJECT_SOURCES
         analyze.cpp
         basic_c_fun/basic_surf_objs.cpp
         basic_c_fun/v3d_message.cpp
+        basic_c_fun/basic_4dimage_create.cpp
         coll_server.cpp
         collclient.cpp
         colldetection.cpp
@@ -89,6 +106,7 @@ set(PROJECT_SOURCES
         neuron_editing/neuron_format_converter.cpp
         neuron_editing/neuron_xforms.cpp
         neuron_editing/v_neuronswc.cpp
+        neuron_editing/neuron_sim_scores.cpp
         sort_swc.cpp
         utils.cpp
         detect_crossing/ConfigManager.cpp
@@ -113,6 +131,19 @@ set(PROJECT_SOURCES
         FileIo/ApoIo.hpp
         FileIo/SwcIo.hpp
         FileIo/FileIoInterface.hpp
+        neurontracing_vn2/vn_imgpreprocess.cpp
+        neurontracing_vn2/app2_connector.cpp
+        neurontracing_vn2/app1_connector.cpp
+#        neurontracing_vn2/vaa3dneuron2_plugin.cpp
+        neurontracing_vn2/swc_convert.cpp
+        neurontracing_vn2/app2/my_surf_objs.cpp
+        neurontracing_vn2/app1/v3dneuron_gd_tracing.cpp
+        neurontracing_vn2/app1/gd.cpp
+        neurontracing_vn2/app1/calculate_cover_scores.cpp
+        worm_straighten_c/bdb_minus.cpp
+        worm_straighten_c/mst_prim_c.cpp
+        worm_straighten_c/bfs_1root.cpp
+        graph/dijk.cpp
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_HEADERS} ${PROJECT_SOURCES})
@@ -134,6 +165,7 @@ elseif (UNIX)
             Qt::Widgets
             Qt::Network
             libhiredis.so
+            ${CMAKE_SOURCE_DIR}/include/lib/libv3dnewmat.a
             pthread
             PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite
             PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts

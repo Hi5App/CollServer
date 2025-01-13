@@ -1487,14 +1487,18 @@ void CollClient::onread()
                         this->write("Socket Receive ERROR!");
                         // 这里要进行相应处理后break吧
                         std::cerr<<userid.toStdString()+" receive not match format\n";
-                        emit exitNow();
+//                        emit exitNow();
+                        resetdatatype();
+                        return;
                     }
 
                     auto ps=msg.right(msg.size()-QString("DataTypeWithSize:").size()).split(' ');
                     if (ps[0].toInt()!=0){
                         this->write("Socket Receive ERROR!");
                         std::cerr<<userid.toStdString()+" receive not match format\n";
-                        emit exitNow();
+//                        emit exitNow();
+                        resetdatatype();
+                        return;
                     }
                     datatype.isFile=ps[0].toUInt();
                     datatype.datasize=ps[1].toUInt();

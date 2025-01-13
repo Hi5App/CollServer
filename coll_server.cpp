@@ -60,7 +60,7 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     superuserServerPort = Config::getInstance().getConfig(Config::ConfigItem::superuserServerPort);
     apiVersion = Config::getInstance().getConfig(Config::ConfigItem::apiVersion);
     redisIp = Config::getInstance().getConfig(Config::ConfigItem::redisServerIP);
-    std::cout<<serverIP<<" "<<dbmsServerPort<<" "<<brainServerPort<<" "<<apiVersion<<" "<<redisIp<<endl;
+//    std::cout<<serverIP<<" "<<dbmsServerPort<<" "<<brainServerPort<<" "<<apiVersion<<" "<<redisIp<<endl;
 
     detectUtil=new CollDetection(this, serverIP, brainServerPort, superuserServerPort, this);
 //    string serverIP = "114.117.165.134";
@@ -147,7 +147,7 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
 //    timerForDetectTip->setSingleShot(true);
     timerForAutoExit->start(24*60*60*1000);
     CollClient::timerforupdatemsg.start(0.5*1000);
-    timerForUpdateNParentInfo->start(5*60*1000);
+    timerForUpdateNParentInfo->start(3*60*1000);
     // 为msglist这个列表分配内存
     msglist.reserve(5000);
 
