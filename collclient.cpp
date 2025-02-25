@@ -2694,6 +2694,74 @@ void CollClient::analyzeDissociativeSegs(const QString msg){
         sendmsgs({tobeSendMsg});
     }else{
         qDebug()<<"dissociative seg exists";
+
+        map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
+        if(myServer->detectUtil->isAutoCorrect){
+            qDebug() << "auto remove isolated branches";
+
+            int count = 0;
+            proto::SwcDataV1 delSwcData;
+            for(auto it = dissociativePoints.begin(); it != dissociativePoints.end(); it++){
+                set<size_t> tmpSet;
+                if (wholeGrid2SegIDMap[*it].size() > 0){
+                    tmpSet.insert(*wholeGrid2SegIDMap[*it].begin());
+                    root2ConnectedSegIDsMap[QString::fromStdString(*it)] = tmpSet;
+                    rc_findConnectedSegs(wholeGrid2SegIDMap, myServer->segments, *wholeGrid2SegIDMap[*it].begin(), QString::fromStdString(*it));
+                }
+            }
+            // 删除segments中的线、数据库中的线、客户端的线
+            QStringList result;
+            for (auto iter = root2ConnectedSegIDsMap.begin(); iter != root2ConnectedSegIDsMap.end(); iter++){
+                for (auto segIt = iter->second.begin(); segIt != iter->second.end(); segIt++){
+                    result += V_NeuronSWCToSendMSG(myServer->segments.seg[*segIt]);
+                    result.push_back("$");
+
+                    myServer->segments.seg[*segIt].to_be_deleted = true;
+
+                    V_NeuronSWC & seg = myServer->segments.seg[*segIt];
+                    for(int j=0; j<seg.row.size(); j++){
+                        proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                        swcNodeInternalData.set_x(seg.row[j].x);
+                        swcNodeInternalData.set_y(seg.row[j].y);
+                        swcNodeInternalData.set_z(seg.row[j].z);
+                        swcNodeInternalData.set_radius(seg.row[j].r);
+                        swcNodeInternalData.set_type(seg.row[j].type);
+                        swcNodeInternalData.set_mode(seg.row[j].creatmode);
+
+                        auto* newData = delSwcData.add_swcdata();
+                        newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                        newData->mutable_base()->set_uuid(seg.row[j].uuid);
+                    }
+
+                    count++;
+                }
+            }
+
+            if(delSwcData.swcdata_size() > 0){
+                proto::DeleteSwcNodeDataResponse response;
+                WrappedCall::deleteSwcNodeData(myServer->swcUuid, delSwcData, response, myServer->cachedUserData);
+            }
+
+            //最后的1表示多条线
+            result.insert(0, QString("%1 server isolated %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
+            if(count != 0){
+                QString msg=QString("/delline_norm:" + result.join(","));
+                emit myServer->clientSendMsgs({msg});
+            }
+
+            auto iter = myServer->segments.seg.begin();
+            while (iter != myServer->segments.seg.end())
+                if (iter->to_be_deleted){
+                    iter = myServer->segments.seg.erase(iter);
+                }
+                else
+                    ++iter;
+
+            root2ConnectedSegIDsMap.clear();
+
+            return;
+        }
+
         int count = 0;
         QStringList result;
         QString comment = "Isolated branch";
@@ -2735,42 +2803,70 @@ void CollClient::analyzeAngles(const QString msg){
         return;
     }
     else{
-        myServer->mutex.lock();
-        set<string> angleErrPoints=getAngleErrPoints(8, myServer->isSomaExists, myServer->somaCoordinate, myServer->segments, true);
-        myServer->mutex.unlock();
-
+        QString fileSaveName = myServer->swcpath.left(myServer->swcpath.size()-QString(".ano.eswc").size())+"_tmpfordetectangle.ano.eswc";
         QString tobeSendMsg="/FEEDBACK_ANALYZE_Angle:";
-        if(angleErrPoints.size()==0){
-            qDebug()<<"no angle-error dendrite bifurcations";
+        QString info;
+        bool result = setSomaPointRadius(fileSaveName, myServer->segments, myServer->somaCoordinate, 8, myServer->detectUtil, info);
+        if(!result){
             tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+            qDebug() << info;
             sendmsgs({tobeSendMsg});
-        }else{
-            qDebug()<<"angle-error dendrite bifurcation exists";
-            int count = 0;
-            QStringList result;
-            QString comment = "Angle error";
-            tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
-            tobeSendMsg +=",";
-
-            for(auto it=angleErrPoints.begin(); it!=angleErrPoints.end(); it++){
-                NeuronSWC s;
-                stringToXYZ(*it, s.x, s.y, s.z);
-                //                tobeSendMsg += QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
-                //                tobeSendMsg += ",";
-                QString curMarker = QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
-                QString msg = tobeSendMsg + curMarker;
-                bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/FEEDBACK_ANALYZE_Angle:").size()), comment);
-                if(isSucess){
-                    result.push_back(curMarker);
-                    count++;
-                }
-            }
-
-            tobeSendMsg = tobeSendMsg + result.join(",");
-
-            emit myServer->clientSendMsgs({tobeSendMsg});
+            return;
         }
-        //        sendmsgs({tobeSendMsg});
+        int number = getSomaNumberFromSwcFile(fileSaveName, 1.234, info);
+        if(number == -2){
+            tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+            qDebug() << info;
+            sendmsgs({tobeSendMsg});
+            return;
+        }else if(number == -1){
+            tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+            info = "cannot find the \'n\' of soma point!";
+            qDebug() << info;
+            sendmsgs({tobeSendMsg});
+            return;
+        }else{
+            QList<NeuronSWC> neuron, result;
+            auto nt = readSWC_file(fileSaveName);
+            neuron = nt.listNeuron;
+            map<string, int> steps = getPoint2SomaStep(neuron, number);
+
+            myServer->mutex.lock();
+            set<string> angleErrPoints=getAngleErrPoints(8, myServer->isSomaExists, myServer->somaCoordinate, myServer->segments, true, steps);
+            myServer->mutex.unlock();
+
+            if(angleErrPoints.size()==0){
+                qDebug()<<"no angle-error dendrite bifurcations";
+                tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+                sendmsgs({tobeSendMsg});
+            }else{
+                qDebug()<<"angle-error dendrite bifurcation exists";
+                int count = 0;
+                QStringList result;
+                QString comment = "Angle error";
+                tobeSendMsg += QString("server %1 %2").arg(useridx).arg(0);
+                tobeSendMsg +=",";
+
+                for(auto it=angleErrPoints.begin(); it!=angleErrPoints.end(); it++){
+                    NeuronSWC s;
+                    stringToXYZ(*it, s.x, s.y, s.z);
+                    //                tobeSendMsg += QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
+                    //                tobeSendMsg += ",";
+                    QString curMarker = QString("%1 %2 %3 %4 %5 %6").arg(200).arg(20).arg(0).arg(s.x).arg(s.y).arg(s.z);
+                    QString msg = tobeSendMsg + curMarker;
+                    bool isSucess=myServer->addmarkers(msg.trimmed().right(msg.size()-QString("/FEEDBACK_ANALYZE_Angle:").size()), comment);
+                    if(isSucess){
+                        result.push_back(curMarker);
+                        count++;
+                    }
+                }
+
+                tobeSendMsg = tobeSendMsg + result.join(",");
+
+                emit myServer->clientSendMsgs({tobeSendMsg});
+            }
+            //        sendmsgs({tobeSendMsg});
+        }
     }
 }
 
@@ -2985,4 +3081,129 @@ void CollClient::removeQCMarker(QList<CellAPO>& markers){
 
     qDebug()<<"removeQCMarkers: "<<msg;
     emit myServer->clientSendMsgs({msg});
+}
+
+void CollClient::rc_findConnectedSegs(map<string, set<size_t>> wholeGrid2SegIDMap, V_NeuronSWC_list segments, size_t inputSegID, QString rootCoor)
+{
+    // -- obtaining inputSegID head gridKey and tail gridKey
+    double xLabelTail = segments.seg[inputSegID].row.begin()->x;
+    double yLabelTail = segments.seg[inputSegID].row.begin()->y;
+    double zLabelTail = segments.seg[inputSegID].row.begin()->z;
+    double xLabelHead = (segments.seg[inputSegID].row.end() - 1)->x;
+    double yLabelHead = (segments.seg[inputSegID].row.end() - 1)->y;
+    double zLabelHead = (segments.seg[inputSegID].row.end() - 1)->z;
+    QString key1Q = QString::number(xLabelTail) + "_" + QString::number(yLabelTail) + "_" + QString::number(zLabelTail);
+    string key1 = key1Q.toStdString();
+    QString key2Q = QString::number(xLabelHead) + "_" + QString::number(yLabelHead) + "_" + QString::number(zLabelHead);
+    string key2 = key2Q.toStdString();
+
+    /* --------- Find segments that are connected in the middle of input segment --------- */
+    if (segments.seg[inputSegID].row.size() > 2)
+    {
+        for (vector<V_NeuronSWC_unit>::iterator unitIt = segments.seg[inputSegID].row.begin() + 1; unitIt != segments.seg[inputSegID].row.end() - 1; ++unitIt)
+        {
+            double middleX = unitIt->x;
+            double middleY = unitIt->y;
+            double middleZ = unitIt->z;
+            QString middleNodeKeyQ = QString::number(middleX) + "_" + QString::number(middleY) + "_" + QString::number(middleZ);
+            string middleNodeKey = middleNodeKeyQ.toStdString();
+
+            set<size_t> connectedSegIDs = wholeGrid2SegIDMap[middleNodeKey];
+            for (auto segIDIt = connectedSegIDs.begin(); segIDIt != connectedSegIDs.end(); ++segIDIt)
+            {
+                if (*segIDIt == inputSegID) continue;
+                else if (root2ConnectedSegIDsMap[rootCoor].find(*segIDIt) != root2ConnectedSegIDsMap[rootCoor].end())
+                {
+                    //cout << "  --> already picked, move to the next." << endl;
+                    continue;
+                }
+
+                this->root2ConnectedSegIDsMap[rootCoor].insert(*segIDIt);
+                this->rc_findConnectedSegs(wholeGrid2SegIDMap, segments, *segIDIt, rootCoor);
+            }
+        }
+    }
+    /* ------- END of [Find segments that are connected in the middle of input segment] ------- */
+
+    /* --------- Find segments that are connected to the head or tail of input segment --------- */
+    set<size_t> curSegEndRegionSegs;
+    curSegEndRegionSegs.clear();
+    curSegEndRegionSegs = this->segEndRegionCheck(wholeGrid2SegIDMap, segments, inputSegID);
+    //cout << curSegEndRegionSegs.size() << endl;
+    if (!curSegEndRegionSegs.empty())
+    {
+        for (set<size_t>::iterator regionSegIt = curSegEndRegionSegs.begin(); regionSegIt != curSegEndRegionSegs.end(); ++regionSegIt)
+        {
+            //cout << "  testing segs at the end region:" << *regionSegIt << endl;
+            if (*regionSegIt == inputSegID) continue;
+            else if (root2ConnectedSegIDsMap[rootCoor].find(*regionSegIt) != root2ConnectedSegIDsMap[rootCoor].end())
+            {
+                //cout << "  --> already picked, move to the next." << endl;
+                continue;
+            }
+            else
+            {
+                root2ConnectedSegIDsMap[rootCoor].insert(*regionSegIt);
+                this->rc_findConnectedSegs(wholeGrid2SegIDMap, segments, *regionSegIt, rootCoor);
+            }
+        }
+    }
+}
+
+set<size_t> CollClient::segEndRegionCheck(map<string, set<size_t>> wholeGrid2SegIDMap, V_NeuronSWC_list segments, size_t inputSegID)
+{
+    // This method picks up any segments that run through the head or tail of input segment using grid-seg approach.
+    // -- MK, June 2018
+
+    set<size_t> otherConnectedSegs;
+    otherConnectedSegs.clear();
+
+    double xHead = (segments.seg[inputSegID].row.end() - 1)->x;
+    double yHead = (segments.seg[inputSegID].row.end() - 1)->y;
+    double zHead = (segments.seg[inputSegID].row.end() - 1)->z;
+    double xTail = segments.seg[inputSegID].row.begin()->x;
+    double yTail = segments.seg[inputSegID].row.begin()->y;
+    double zTail = segments.seg[inputSegID].row.begin()->z;
+    QString gridKeyHeadQ = QString::number(xHead) + "_" + QString::number(yHead) + "_" + QString::number(zHead);
+    string gridKeyHead = gridKeyHeadQ.toStdString();
+    QString gridKeyTailQ = QString::number(xTail) + "_" + QString::number(yTail) + "_" + QString::number(zTail);
+    string gridKeyTail = gridKeyTailQ.toStdString();
+
+    set<size_t> headRegionSegs = wholeGrid2SegIDMap[gridKeyHead];
+    set<size_t> tailRegionSegs = wholeGrid2SegIDMap[gridKeyTail];
+
+    //cout << " Head region segs:";
+    for (set<size_t>::iterator headIt = headRegionSegs.begin(); headIt != headRegionSegs.end(); ++headIt)
+    {
+        if(*headIt < 0 || *headIt >= segments.seg.size())
+        {
+            continue;
+        }
+        if (*headIt == inputSegID) continue;
+        for (vector<V_NeuronSWC_unit>::iterator nodeIt = segments.seg[*headIt].row.begin(); nodeIt != segments.seg[*headIt].row.end(); ++nodeIt)
+        {
+            //			if (nodeIt->x == (curImg->tracedNeuron.seg[inputSegID].row.end() - 1)->x && nodeIt->y == (curImg->tracedNeuron.seg[inputSegID].row.end() - 1)->y && nodeIt->z == (curImg->tracedNeuron.seg[inputSegID].row.end() - 1)->z)
+            if (fabs(nodeIt->x - (segments.seg[inputSegID].row.end() - 1)->x) < 1e-5 && fabs(nodeIt->y - (segments.seg[inputSegID].row.end() - 1)->y) < 1e-5 && fabs(nodeIt->z - (segments.seg[inputSegID].row.end() - 1)->z) < 1e-5)
+                otherConnectedSegs.insert(*headIt);
+        }
+    }
+    //cout << endl << " Tail region segs:";
+    for (set<size_t>::iterator tailIt = tailRegionSegs.begin(); tailIt != tailRegionSegs.end(); ++tailIt)
+    {
+        if(*tailIt < 0 || *tailIt >=segments.seg.size())
+        {
+            continue;
+        }
+        if (*tailIt == inputSegID) continue;
+        //cout << *tailIt << " ";
+        for (vector<V_NeuronSWC_unit>::iterator nodeIt = segments.seg[*tailIt].row.begin(); nodeIt != segments.seg[*tailIt].row.end(); ++nodeIt)
+        {
+            //			if (nodeIt->x == curImg->tracedNeuron.seg[inputSegID].row.begin()->x && nodeIt->y == curImg->tracedNeuron.seg[inputSegID].row.begin()->y && nodeIt->z == curImg->tracedNeuron.seg[inputSegID].row.begin()->z)
+            if (fabs(nodeIt->x - segments.seg[inputSegID].row.begin()->x) < 1e-5 && fabs(nodeIt->y - segments.seg[inputSegID].row.begin()->y) < 1e-5 && fabs(nodeIt->z - segments.seg[inputSegID].row.begin()->z) < 1e-5)
+                otherConnectedSegs.insert(*tailIt);
+        }
+    }
+    //cout << endl;
+
+    return otherConnectedSegs;
 }

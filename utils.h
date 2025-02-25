@@ -95,5 +95,4 @@ void saveUnorderedSetToBinaryFile(const unordered_set<string>& mySet, const stri
 std::unordered_set<std::string> loadUnorderedSetFromBinaryFile(const std::string& filename);
 void saveSetOfSetsToBinaryFile(const std::set<std::set<std::string>>& setOfSets, const std::string& filename);
 std::set<std::set<std::string>> loadSetOfSetsFromBinaryFile(const std::string& filename);
-
 #endif // UTILS_H

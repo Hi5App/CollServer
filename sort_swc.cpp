@@ -265,6 +265,45 @@ QList<V3DLONG> DFS(QVector< QVector<V3DLONG> > neighbors, V3DLONG newrootid, V3D
     return neworder;
 };
 
+void BFS(QVector<QVector<V3DLONG>>& neighbors, V3DLONG rootId, V3DLONG siz, QHash<V3DLONG, NeuronSWC>& LUT_newid_to_node, map<string, int>& steps)
+{
+    // Initialization
+    QQueue<int> queue;
+    QList<int> visited;
+    for(int i=0;i<siz; i++){visited.append(0);}
+    visited[rootId]=1;
+    queue.enqueue(rootId);
+
+    // Tree traverse
+    int pid;
+    int step = -1;
+    while(!queue.isEmpty()){
+        int cur_quque_size = queue.size();
+        step++;
+        for(int i = 0; i < cur_quque_size; i++){
+            pid = queue.dequeue();
+            float x=LUT_newid_to_node.value(pid).x;
+            float y=LUT_newid_to_node.value(pid).y;
+            float z=LUT_newid_to_node.value(pid).z;
+            QString gridKeyQ = QString::number(x) + "_" + QString::number(y) + "_" + QString::number(z);
+            string gridKey = gridKeyQ.toStdString();
+            steps[gridKey] = step;
+
+            QVector<V3DLONG>::iterator it;
+            QVector<V3DLONG> cur_neighbors = neighbors.at(pid);
+
+            for(it=cur_neighbors.begin(); it!=cur_neighbors.end(); ++it)
+            {
+                if(visited.at(*it)==0)
+                {
+                    queue.enqueue(*it);
+                    visited[*it] = 1;
+                }
+            }
+        }
+    }
+};
+
 bool SortSWC(QList<NeuronSWC> & neurons, QList<NeuronSWC> & result, V3DLONG newrootid, double thres)
 {
     // modified by Sujun
@@ -624,7 +663,7 @@ bool SortSWCSimplify(QList<NeuronSWC> & neurons, V_NeuronSWC_list segments, QLis
 
     for(int i=0; i<specificPathNums.size(); i++){
         if(neighbors[i].size() - specificPathNums[i] != 1){
-            float x =LUT_newid_to_node.value(i).x;
+            float x=LUT_newid_to_node.value(i).x;
             float y=LUT_newid_to_node.value(i).y;
             float z=LUT_newid_to_node.value(i).z;
             QString gridKeyQ = QString::number(x) + "_" + QString::number(y) + "_" + QString::number(z);
@@ -946,6 +985,58 @@ set<string> getTreeMarkerPoints(QList<NeuronSWC> & neurons){
     }
 
     return resultSet;
+}
+
+bool getStepFromSoma(QList<NeuronSWC> neurons, V3DLONG rootN, map<string, int>& steps){
+    // node name list of
+    QList<V3DLONG> nlist;
+    for(int i=0; i<neurons.size(); i++){
+        nlist.append(neurons.at(i).n);
+    }
+
+    //create a LUT, from the original id to the position in the listNeuron, different neurons with the same x,y,z & r are merged into one position
+    QHash<V3DLONG, NeuronSWC> LUT_newid_to_node;
+    // n -> id
+    QHash<V3DLONG, V3DLONG> LUT = getUniqueLUT_updated(neurons, LUT_newid_to_node);
+
+    //    qDebug()<<LUT.values();
+    //create a new id list to give every different neuron a new id
+    QSet<V3DLONG> tmpSet;
+    for(auto it=LUT.begin();it!=LUT.end();it++){
+        tmpSet.insert(it.value());
+    }
+    QList<V3DLONG> idlist;
+    for(auto it=tmpSet.begin();it!=tmpSet.end();it++){
+        idlist.append(*it);
+    }
+
+    V3DLONG siz = idlist.size();
+    qDebug()<<"size: "<<siz;
+    sort(idlist.begin(),idlist.end());
+
+    // create a vector to keep neighbors of each node
+    QVector< QVector<V3DLONG> > neighbors = get_neighbors(neurons, LUT);
+
+    // Find the new id of the new root
+    V3DLONG rootId = 0;
+    if (rootN==VOID)  // If unspecified, use the 1st root as new root.
+    {
+        for (V3DLONG i=0;i<neurons.size();i++)
+            if (neurons.at(i).pn==-1){
+                rootId = idlist.indexOf(LUT.value(neurons.at(i).n));
+                break;
+            }
+    }
+    else{
+        rootId = idlist.indexOf(LUT.value(rootN));
+        if (LUT.keys().indexOf(rootN)==-1)
+        {
+            qDebug()<<QString("The new root id you have chosen does not exist in the SWC file.");
+            return false;
+        }
+    }
+    BFS(neighbors, rootId, siz, LUT_newid_to_node, steps);
+    return true;
 }
 
 //bool SortSWC(QList<NeuronSWC> & neurons, QList<NeuronSWC> & result, V3DLONG newrootid, double thres)

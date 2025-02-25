@@ -78,6 +78,10 @@ public:
     void updateApoData(bool isFirstClient);//将最新的apo数据同步到mongodb
     void startCollaborate();//发送协作消息，开启检测
 
+    //检测连接在一起的分支
+    void rc_findConnectedSegs(map<string, set<size_t>> wholeGrid2SegIDMap, V_NeuronSWC_list segments, size_t inputSegID, QString rootCoor);
+    set<size_t> segEndRegionCheck(map<string, set<size_t>> wholeGrid2SegIDMap, V_NeuronSWC_list segments, size_t inputSegID);
+
 public slots:
     void sendmsgs(const QStringList &msgs);//发送消息
     void ondisconnect();//连接断开
@@ -107,6 +111,7 @@ private:
     QTimer* m_HeartBeatTimer;
     QTimer* m_OnlineStatusTimer;
 
+    map<QString, set<size_t>> root2ConnectedSegIDsMap;
 
 signals:
     void removeList(QThread*);

@@ -77,6 +77,8 @@ bool SortSWCSimplify(QList<NeuronSWC> & neurons, V_NeuronSWC_list segments, QLis
 
 set<string> getTreeMarkerPoints(QList<NeuronSWC> & neurons);
 
+bool getStepFromSoma(QList<NeuronSWC> neurons, V3DLONG rootN, map<string, int>& steps);
+
 bool export_list2file(QList<NeuronSWC> & lN, QString fileSaveName, QString fileOpenName);
 
 void connect_swc(NeuronTree nt,QList<NeuronSWC>& newNeuron, double disThr,double angThr);

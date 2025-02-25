@@ -27,6 +27,9 @@ CollDetection::CollDetection(CollServer* curServer, string serverIp, string brai
 //    BrainTellHostAddress="http://114.117.165.134:26000/dynamic";
     SuperUserHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(superuserServerPort)+"/SuperUser";
     BrainTellHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(brainServerPort)+"/dynamic";
+    neuronFiberSegUrl="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(brainServerPort)+"/neuronfiber/inference/api/inference";
+    tipDirPath="/home/BrainTellServer/tmpDirForPredict/tip";
+    segDirPath="/home/BrainTellServer/tmpDirForPredict/neuron_fiber";
 }
 
 XYZ CollDetection::getSomaCoordinate(QString apoPath){
@@ -1593,6 +1596,8 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
         qDebug()<<"handleTip"<<code;
         QByteArray responseData = reply->readAll();
         vector<NeuronSWC> markPoints;
+        vector<TipCoorPredictedResult> coorResults;
+        QString relPath;
         if(code==200)
         {
             //解析json
@@ -1620,41 +1625,34 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
                     }
                     if (obj.contains("data")&&objCode=="200") {
                         QJsonValue value = obj.value("data");
-                        if (value.isArray()) {  // Version 的 value 是数组
-                            QJsonArray array = value.toArray();
-                            int nSize = array.size();
-                            for (int i = 0; i < nSize; ++i) {
-                                QJsonValue mapValue = array.at(i);
-                                if (mapValue.isObject()) {
-                                    QJsonObject info = mapValue.toObject();
-                                    float x,y,z;
-                                    int y_pred;
-                                    if (info.contains("coors")) {
-                                        QJsonValue listValue = info.value("coors");
-                                        if (listValue.isArray()) {
-                                            QJsonArray listArray = listValue.toArray();
-                                            QJsonValue xValue = listArray.at(0);
-                                            QJsonValue yValue = listArray.at(1);
-                                            QJsonValue zValue = listArray.at(2);
-                                            x=xValue.toDouble();
-                                            y=yValue.toDouble();
-                                            z=zValue.toDouble();
-                                        }
-                                    }
-                                    if (info.contains("y_pred")) {
-                                        QJsonValue predValue = info.value("y_pred");
-                                        y_pred = predValue.toInt();
-                                        if(y_pred == 1)
-                                            qDebug()<<i<<": "<<y_pred;
-                                    }
-                                    if(y_pred==1){
-                                        NeuronSWC s;
-                                        s.x=x;
-                                        s.y=y;
-                                        s.z=z;
-                                        s.type=10;
-                                        markPoints.push_back(s);
-                                    }
+                        if (value.isObject()) {  // Version 的 value 是数组
+                            QJsonObject resData = value.toObject();
+                            if (resData.contains("relPath")){
+                                relPath = resData.value("relPath").toString();
+                            }
+                            if (resData.contains("coorPredictedResultList")){
+                                QJsonArray coorPredictedResList = resData.value("coorPredictedResultList").toArray();
+                                for (int i = 0; i < coorPredictedResList.size(); i++){
+                                    TipCoorPredictedResult coorResult;
+                                    QJsonObject coorResultObj = coorPredictedResList.at(i).toObject();
+                                    QJsonObject maxResCoorObj = coorResultObj.value("maxResCoor").toObject();
+                                    QString storeDirName = coorResultObj.value("storeDirName").toString();
+                                    int y_pred = coorResultObj.value("y_pred").toInt();
+                                    coorResult.maxResCoor = XYZ(maxResCoorObj.value("x").toDouble(), maxResCoorObj.value("y").toDouble(),
+                                                                maxResCoorObj.value("z").toDouble());
+                                    coorResult.storeDirName = storeDirName;
+                                    coorResult.y_pred = y_pred;
+                                    coorResults.push_back(coorResult);
+                                }
+                            }
+                            for (auto it = coorResults.begin(); it != coorResults.end(); it++){
+                                if (it->y_pred == 1){
+                                    NeuronSWC s;
+                                    s.x = it->maxResCoor.x;
+                                    s.y = it->maxResCoor.y;
+                                    s.z = it->maxResCoor.z;
+                                    s.type=10;
+                                    markPoints.push_back(s);
                                 }
                             }
                         }
@@ -1665,6 +1663,27 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
         else
         {
             std::cerr<<"handle tip error!";
+        }
+
+        if(isAutoCorrect){
+            vector<TipCoorPredictedResult> missingPart = getMissingPart(coorResults);
+            vector<QString> coorList;
+            vector<MissingForSegData> segDataVec;
+            for(auto it = missingPart.begin(); it != missingPart.end(); it++){
+                XYZ maxResCoor = it->maxResCoor;
+                QString maxResCoorStr = QString::number(maxResCoor.x) + "_" + QString::number(maxResCoor.y) + "_" + QString::number(maxResCoor.z);
+                MissingForSegData segData = tipInfoMap[maxResCoorStr];
+                segData.storeDirName = it->storeDirName;
+                segDataVec.push_back(segData);
+                coorList.push_back(it->storeDirName);
+            }
+
+            QString result_relpath = "";
+            requestForSeg(relPath, coorList, result_relpath);
+            getApp2TracingResult();
+            autoCorrectMissing();
+
+            return;
         }
 
         QString tobeSendMsg=QString("/WARN_TipUndone:server,");
@@ -1716,6 +1735,89 @@ void CollDetection::filterTip(vector<NeuronSWC>& markPoints){
             iter++;
         }
     }
+}
+
+vector<CollDetection::TipCoorPredictedResult> CollDetection::getMissingPart(vector<TipCoorPredictedResult> tipCoorResults){
+    vector<TipCoorPredictedResult> missingPart;
+    for (auto it = tipCoorResults.begin(); it != tipCoorResults.end(); it++){
+        if (it->y_pred == 1){
+            missingPart.push_back(*it);
+        }
+    }
+    return missingPart;
+}
+
+bool CollDetection::requestForSeg(QString relPath, vector<QString> coorList, QString& result_relpath){
+    QJsonObject json;
+    QString image=myServer->getImage();
+    QString methodName = "HumanNeuronFiberSegment";
+    if (image.startsWith("17") || image.startsWith("18") || image.startsWith("19") || image.startsWith("pre")){
+        methodName = "MouseNeuronFiberSegment";
+    }
+    json.insert("method_name", methodName);
+    json.insert("swc_name", QString::fromStdString(myServer->swcName));
+    QJsonArray coor_list;
+    for(int i=0; i<coorList.size();i++){
+        coor_list.append(coorList[i]);
+    }
+    json.insert("coor_list", coor_list);
+    json.insert("relpath", relPath);
+
+    QJsonDocument document;
+    document.setObject(json);
+    QString str = QString(document.toJson());
+    QByteArray byteArray = str.toUtf8();
+
+    // 创建一个QNetworkRequest对象，设置URL和请求方法
+    QNetworkRequest request((QUrl(neuronFiberSegUrl)));
+    request.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+    //        request.setRawHeader("Content-Type", "multipart/form-data; boundary=" + multiPart->boundary());
+
+    // 发送HTTP POST请求
+    QNetworkReply* reply = accessManager->post(request, byteArray);
+
+    QEventLoop eventLoop;
+    connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec(QEventLoop::ExcludeUserInputEvents);
+
+    if (reply->error())
+    {
+        qDebug() << "ERROR!";
+        qDebug() << reply->errorString();
+    }
+    int code=reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+    qDebug()<<"requestForSeg "<<code;
+    QByteArray responseData = reply->readAll();
+
+    if (code == 200){
+        //解析json
+        QJsonParseError json_error;
+        QJsonDocument doucment = QJsonDocument::fromJson(responseData, &json_error);
+        if (json_error.error == QJsonParseError::NoError) {
+            if (doucment.isObject()){
+                QJsonObject obj = doucment.object();
+                QJsonObject responseObj = obj.value("response").toObject();
+                QString status = responseObj.value("status").toString();
+                QString message = responseObj.value("message").toString();
+                if (status != "ok"){
+                    qDebug() << message;
+                    return false;
+                }
+                else {
+                    result_relpath = responseObj.value("result_relpath").toString();
+                    return true;
+                }
+            }
+        }
+    }
+}
+
+void CollDetection::getApp2TracingResult(){
+
+}
+
+void CollDetection::autoCorrectMissing(){
+
 }
 
 void CollDetection::handleBranchingPoints(vector<NeuronSWC>& brainchingPoints, int& count){

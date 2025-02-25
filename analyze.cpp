@@ -205,9 +205,21 @@ set<string> getDissociativeSegMarkerPoints(QList<NeuronSWC> neuron){
     return getTreeMarkerPoints(neuron);
 }
 
-set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordinate, V_NeuronSWC_list& segments, bool needConsiderType){
+map<string, int> getPoint2SomaStep(QList<NeuronSWC> neuron, V3DLONG rootN){
+    map<string, int> steps;
+
+    bool result = getStepFromSoma(neuron, rootN, steps);
+    if(result){
+        qDebug()<< "getPoint2SomaStep executed success";
+    }
+    else{
+        qDebug()<< "getPoint2SomaStep failed to execute";
+    }
+    return steps;
+}
+
+set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordinate, V_NeuronSWC_list& segments, bool needConsiderType, map<string, int> steps){
     set<string> angleErrPoints;
-    return angleErrPoints;
 
     if(!isSomaExists){
         return angleErrPoints;
@@ -359,8 +371,8 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
             if(segIds.size() == 3){
                 map<int, int> segId2CoorIndex;
                 int parentSegId;
-                double minDist = 100000;
-                //先找到离soma最近的点
+                double minStep = 100000;
+                //先找到离soma step最小的点
                 if(isSomaExists){
                     for(auto segIt=segIds.begin(); segIt!=segIds.end(); segIt++){
                         V_NeuronSWC seg = segments.seg[*segIt];
@@ -368,15 +380,23 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
                         segId2CoorIndex[*segIt] = index;
                         if(index==0){
                             XYZ coor = seg.row[1];
-                            if(distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z) < minDist){
-                                minDist = distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z);
+                            QString gridKeyQ = QString::number(coor.x) + "_" + QString::number(coor.y) + "_" + QString::number(coor.z);
+                            string gridKey = gridKeyQ.toStdString();
+                            int step = steps[gridKey];
+
+                            if(step < minStep){
+                                minStep = step;
                                 parentSegId = *segIt;
                             }
                         }
                         else if(index==seg.row.size()-1){
                             XYZ coor = seg.row[seg.row.size()-2];
-                            if(distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z) < minDist){
-                                minDist = distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z);
+                            QString gridKeyQ = QString::number(coor.x) + "_" + QString::number(coor.y) + "_" + QString::number(coor.z);
+                            string gridKey = gridKeyQ.toStdString();
+                            int step = steps[gridKey];
+
+                            if(step < minStep){
+                                minStep = step;
                                 parentSegId = *segIt;
                             }
                         }
@@ -414,48 +434,64 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
                 int countNoParent=0;
                 map<int, int> segId2CoorIndex;
                 int parentSegId;
-                XYZ minDistCoor;
-                double minDist = 100000;
-                //先找到离soma最近的点
+                XYZ minStepCoor;
+                double minStep = 100000;
+                //先找到离soma step最小的点
                 for(auto segIt=segIds.begin(); segIt!=segIds.end(); segIt++){
                     V_NeuronSWC seg = segments.seg[*segIt];
                     int index = getPointInSegIndex(*it, seg);
                     segId2CoorIndex[*segIt] = index;
                     if(index==0){
                         XYZ coor = seg.row[1];
-                        if(distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z) < minDist){
-                            minDist = distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z);
+                        QString gridKeyQ = QString::number(coor.x) + "_" + QString::number(coor.y) + "_" + QString::number(coor.z);
+                        string gridKey = gridKeyQ.toStdString();
+                        int step = steps[gridKey];
+
+                        if(step < minStep){
+                            minStep = step;
                             parentSegId = *segIt;
-                            minDistCoor = coor;
+                            minStepCoor = coor;
                         }
                     }
                     else if(index==seg.row.size()-1){
                         XYZ coor = seg.row[seg.row.size()-2];
-                        if(distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z) < minDist){
-                            minDist = distance(coor.x, somaCoordinate.x, coor.y, somaCoordinate.y, coor.z, somaCoordinate.z);
+                        QString gridKeyQ = QString::number(coor.x) + "_" + QString::number(coor.y) + "_" + QString::number(coor.z);
+                        string gridKey = gridKeyQ.toStdString();
+                        int step = steps[gridKey];
+
+                        if(step < minStep){
+                            minStep = step;
                             parentSegId = *segIt;
-                            minDistCoor = coor;
+                            minStepCoor = coor;
                         }
                     }
                     else{
                         XYZ coor1 = seg.row[index + 1];
                         XYZ coor2 = seg.row[index - 1];
-                        if(distance(coor1.x, somaCoordinate.x, coor1.y, somaCoordinate.y, coor1.z, somaCoordinate.z) < minDist){
-                            minDist = distance(coor1.x, somaCoordinate.x, coor1.y, somaCoordinate.y, coor1.z, somaCoordinate.z);
+                        QString gridKeyQ1 = QString::number(coor1.x) + "_" + QString::number(coor1.y) + "_" + QString::number(coor1.z);
+                        string gridKey1 = gridKeyQ1.toStdString();
+                        int step1 = steps[gridKey1];
+
+                        if(step1 < minStep){
+                            minStep = step1;
                             parentSegId = *segIt;
-                            minDistCoor = coor1;
+                            minStepCoor = coor1;
                         }
-                        if(distance(coor2.x, somaCoordinate.x, coor2.y, somaCoordinate.y, coor2.z, somaCoordinate.z) < minDist){
-                            minDist = distance(coor2.x, somaCoordinate.x, coor2.y, somaCoordinate.y, coor2.z, somaCoordinate.z);
+                        QString gridKeyQ2 = QString::number(coor2.x) + "_" + QString::number(coor2.y) + "_" + QString::number(coor2.z);
+                        string gridKey2 = gridKeyQ2.toStdString();
+                        int step2 = steps[gridKey2];
+
+                        if(step2 < minStep){
+                            minStep = step2;
                             parentSegId = *segIt;
-                            minDistCoor = coor2;
+                            minStepCoor = coor2;
                         }
                     }
                 }
 
                 //调整线段走向
                 for(auto mapIt = segId2CoorIndex.begin(); mapIt != segId2CoorIndex.end(); mapIt++){
-                    if(parentSegId == mapIt->first && minDistCoor != segments.seg[mapIt->first].row[mapIt->second + 1]){
+                    if(parentSegId == mapIt->first && minStepCoor != segments.seg[mapIt->first].row[mapIt->second + 1]){
                         reverseSeg(segments.seg[mapIt->first]);
                     }
                     if(parentSegId != mapIt->first && mapIt->second != segments.seg[mapIt->first].row.size() - 1){
@@ -641,7 +677,7 @@ set<string> getAngleErrPoints(float dist_thre, bool isSomaExists, XYZ somaCoordi
         }
         angle2 /= child2_vector_count;
 
-        if((angle1>0 && angle1<60) || (angle2>0 && angle2<60)){
+        if((angle1>0 && angle1<90) || (angle2>0 && angle2<90)){
             angleErrPoints.insert(it->first);
         }
     }

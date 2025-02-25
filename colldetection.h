@@ -19,9 +19,29 @@ private:
     QNetworkAccessManager* accessManager;
     QString SuperUserHostAddress;
     QString BrainTellHostAddress;
+    QString neuronFiberSegUrl;
+    QString tipDirPath;
+    QString segDirPath;
     vector<NeuronSWC> tipPoints;
 
 public:
+    struct TipCoorPredictedResult{
+        QString storeDirName;
+        XYZ maxResCoor;
+        int y_pred;
+        TipCoorPredictedResult(){storeDirName=""; maxResCoor=XYZ(); y_pred=-1;}
+    };
+
+    struct MissingForSegData{
+        XYZ maxResCoor;
+        QString storeDirName;
+        XYZ centerCoor;
+        XYZ edgeCoor;
+        MissingForSegData(){maxResCoor=XYZ(); storeDirName=""; centerCoor=XYZ(); edgeCoor=XYZ();}
+    };
+    map<QString, MissingForSegData> tipInfoMap;
+    bool isAutoCorrect = true;
+
     static XYZ maxRes;
     static XYZ subMaxRes;
     QTimer *timerForFilterTip;
@@ -42,6 +62,11 @@ public:
     void handleNearBifurcation(vector<NeuronSWC>& bifurPoints, int& count);
     void handleTip(vector<NeuronSWC>& tipPoints);
     void filterTip(vector<NeuronSWC>& markpoints);
+    vector<TipCoorPredictedResult> getMissingPart(vector<TipCoorPredictedResult> tipCoorResults);
+    bool requestForSeg(QString relPath, vector<QString> coorList, QString& result_relpath);
+    void getApp2TracingResult();
+    void autoCorrectMissing();
+
     void handleBranchingPoints(vector<NeuronSWC>& brainchingPoints, int& count);
     void handleCrossing(QJsonArray& json);
 
