@@ -55,6 +55,7 @@ set(PROJECT_HEADERS
         basic_c_fun/v3d_basicdatatype.h
         basic_c_fun/v3d_message.h
         basic_c_fun/v_neuronswc.h
+        basic_c_fun/basic_4dimage.h
         coll_server.h
         collclient.h
         colldetection.h
@@ -64,6 +65,7 @@ set(PROJECT_HEADERS
         neuron_editing/neuron_format_converter.h
         neuron_editing/neuron_xforms.h
         neuron_editing/v_neuronswc.h
+        neuron_annotator/utility/ImageLoaderBasic.h
         sort_swc.h
         utils.h
         ./include/hiredis/hiredis.h
@@ -96,6 +98,10 @@ set(PROJECT_SOURCES
         basic_c_fun/basic_surf_objs.cpp
         basic_c_fun/v3d_message.cpp
         basic_c_fun/basic_4dimage_create.cpp
+        basic_c_fun/basic_4dimage.cpp
+        basic_c_fun/stackutil.cpp
+        basic_c_fun/mg_utilities.cpp
+        basic_c_fun/mg_image_lib.cpp
         coll_server.cpp
         collclient.cpp
         colldetection.cpp
@@ -107,6 +113,7 @@ set(PROJECT_SOURCES
         neuron_editing/neuron_xforms.cpp
         neuron_editing/v_neuronswc.cpp
         neuron_editing/neuron_sim_scores.cpp
+        neuron_annotator/utility/ImageLoaderBasic.cpp
         sort_swc.cpp
         utils.cpp
         detect_crossing/ConfigManager.cpp
@@ -166,6 +173,10 @@ elseif (UNIX)
             Qt::Network
             libhiredis.so
             ${CMAKE_SOURCE_DIR}/include/lib/libv3dnewmat.a
+            ${CMAKE_SOURCE_DIR}/include/lib_ubuntu/libtiff.so.5
+            ${CMAKE_SOURCE_DIR}/include/lib_ubuntu/libv3dfftw3f.a
+            ${CMAKE_SOURCE_DIR}/include/lib_ubuntu/libv3dtiff.a
+            ${CMAKE_SOURCE_DIR}/include/lib_ubuntu/libv3dtiff.so
             pthread
             PRIVATE protobuf::libprotoc protobuf::libprotobuf protobuf::libprotobuf-lite
             PRIVATE gRPC::gpr gRPC::grpc gRPC::grpc++ gRPC::grpc++_alts

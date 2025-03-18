@@ -1433,6 +1433,11 @@ void CollClient::preprocessmsgs(const QStringList &msgs)
                 getSomaPos(msg.right(msg.size()-QString("/SEND_SomaPos:").size()));
             }
         }
+        else if(msg.contains("SWITCH")){
+            if(msg.startsWith("/SWITCH_AutoCorrectionState:")){
+                switchAutoCorrectionState(msg.right(msg.size()-QString("/SWITCH_AutoCorrectionState:").size()));
+            }
+        }
         else{
             bool isSuccess = true;
             if(msg.startsWith("/drawline_norm:")||msg.startsWith("/drawline_undo:")||msg.startsWith("/drawline_redo:")){
@@ -3027,6 +3032,34 @@ void CollClient::getSomaPos(const QString msg){
         tobeSendMsg += info;
         sendmsgs({tobeSendMsg});
     }
+}
+
+void CollClient::switchAutoCorrectionState(const QString msg){
+    QStringList headerlist=msg.split(' ',Qt::SkipEmptyParts);
+    int clienttype=headerlist[0].toUInt();
+    int useridx=headerlist[1].toUInt();
+    int state=headerlist[2].toUInt();
+    qDebug()<<QString("switch autocorrection state: clienttype=%1, useridx=%2, state=%3").arg(clienttype).arg(useridx).arg(state);
+    if (state == 1){
+        myServer->detectUtil->isAutoCorrect = true;
+    }
+    else {
+        myServer->detectUtil->isAutoCorrect = false;
+    }
+
+    QString tobeSendMsg="/FEEDBACK_SWITCH_AutoCorrectionState:";
+    QString info;
+
+    tobeSendMsg += QString("server %1 %2").arg(useridx).arg(1);
+    tobeSendMsg += ",";
+    if (myServer->detectUtil->isAutoCorrect){
+        info="Auto-Correction is on";
+    }
+    else {
+        info="Auto-Correction is off";
+    }
+    tobeSendMsg += info;
+    sendmsgs({tobeSendMsg});
 }
 
 bool CollClient::connectToDBMS(){

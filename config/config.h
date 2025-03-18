@@ -10,10 +10,14 @@
 class Config {
 public:
     enum class ConfigItem {
-        eServerIP,
+        dbmsServerIP,
         dbmsServerPort,
+        brainServerIP,
         brainServerPort,
+        superuserServerIP,
         superuserServerPort,
+        neuronfiberSegServerIP,
+        neuronfiberSegServerPort,
         apiVersion,
         redisServerIP
     };
@@ -46,9 +50,9 @@ public:
 
     std::string getConfig(ConfigItem configItem) {
         switch (configItem) {
-        case ConfigItem::eServerIP: {
-            if (m_AppConfig.contains("eServerIP")) {
-                return m_AppConfig["eServerIP"];
+        case ConfigItem::dbmsServerIP: {
+            if (m_AppConfig.contains("dbmsServerIP")) {
+                return m_AppConfig["dbmsServerIP"];
             } else {
                 return "";
             }
@@ -60,6 +64,13 @@ public:
                 return "";
             }
         }
+        case ConfigItem::brainServerIP: {
+            if (m_AppConfig.contains("brainServerIP")) {
+                return m_AppConfig["brainServerIP"];
+            } else {
+                return "";
+            }
+        }
         case ConfigItem::brainServerPort: {
             if(m_AppConfig.contains("brainServerPort")){
                 return m_AppConfig["brainServerPort"];
@@ -67,9 +78,30 @@ public:
                 return "";
             }
         }
+        case ConfigItem::superuserServerIP: {
+            if(m_AppConfig.contains("superuserServerIP")){
+                return m_AppConfig["superuserServerIP"];
+            } else{
+                return "";
+            }
+        }
         case ConfigItem::superuserServerPort: {
             if(m_AppConfig.contains("superuserServerPort")){
                 return m_AppConfig["superuserServerPort"];
+            } else{
+                return "";
+            }
+        }
+        case ConfigItem::neuronfiberSegServerIP: {
+            if(m_AppConfig.contains("neuronfiberSegServerIP")){
+                return m_AppConfig["neuronfiberSegServerIP"];
+            } else{
+                return "";
+            }
+        }
+        case ConfigItem::neuronfiberSegServerPort: {
+            if(m_AppConfig.contains("neuronfiberSegServerPort")){
+                return m_AppConfig["neuronfiberSegServerPort"];
             } else{
                 return "";
             }

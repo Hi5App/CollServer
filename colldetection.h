@@ -37,9 +37,27 @@ public:
         QString storeDirName;
         XYZ centerCoor;
         XYZ edgeCoor;
+        int type;
+        V_NeuronSWC addedSeg;
         MissingForSegData(){maxResCoor=XYZ(); storeDirName=""; centerCoor=XYZ(); edgeCoor=XYZ();}
     };
+
+    struct CrossingInfo{
+        pair<pair<QString, int>, pair<QString, int>> coor2SegIndexPair;
+        pair<pair<QString, pair<int, int>>, pair<QString, pair<int, int>>> coor2RowIndexRangePair;
+        pair<pair<QString, vector<XYZ>>, pair<QString, vector<XYZ>>> fiberCoorInfoPair;
+        bool isAbleCorrect = true;
+    };
+
+    struct FiberCoorData{
+        int segID;
+        pair<int, int> rangePair;
+        vector<XYZ> coorVec;
+        V_NeuronSWC addedSeg;
+    };
+
     map<QString, MissingForSegData> tipInfoMap;
+    map<QString, CrossingInfo> crossingInfoMap;
     bool isAutoCorrect = true;
 
     static XYZ maxRes;
@@ -49,7 +67,7 @@ public:
     unordered_set<string> detectedBranchingPoints;
     set<set<string>> detectedCrossingPoints;
 
-    explicit CollDetection(CollServer* curServer, string serverIp, string brainServerPort, string superuserServerPort, QObject* parent=nullptr);
+    explicit CollDetection(CollServer* curServer, string brainServerIP, string superuserServerIP, string neuronfiberSegServerIP, string brainServerPort, string superuserServerPort, string neuronfiberSegServerPort, QObject* parent=nullptr);
     ~CollDetection(){}
     XYZ getSomaCoordinate(QString apoPath);
     vector<NeuronSWC> specStructsDetection(V_NeuronSWC_list& inputSegList, double dist_thresh=0.2);
@@ -62,10 +80,19 @@ public:
     void handleNearBifurcation(vector<NeuronSWC>& bifurPoints, int& count);
     void handleTip(vector<NeuronSWC>& tipPoints);
     void filterTip(vector<NeuronSWC>& markpoints);
+    void fliterTip(map<QString, MissingForSegData>& segDataMap);
+    void fliterCrossing();
+
     vector<TipCoorPredictedResult> getMissingPart(vector<TipCoorPredictedResult> tipCoorResults);
     bool requestForSeg(QString relPath, vector<QString> coorList, QString& result_relpath);
-    void getApp2TracingResult();
-    void autoCorrectMissing();
+    void getApp2TracingResult(map<QString, MissingForSegData>& segDataMap, QString relpath);
+    vector<V_NeuronSWC> convertLocal2Global(V_NeuronSWC_list& inputSegList, float x_ratio, float y_ratio, float z_ratio, XYZ startCoor);
+    XYZ convertLocal2Global(XYZ inputCoor, float x_ratio, float y_ratio, float z_ratio, XYZ startCoor);
+    V_NeuronSWC extractAddedSeg(vector<V_NeuronSWC>& maxResSegVec, XYZ edgeCoorMaxResGlobal, XYZ centerCoorMaxResGlobal);
+    void autoCorrectMissing(map<QString, MissingForSegData>& segDataMap);
+    void updateCrossingInfoMap(QJsonArray infos);
+    vector<V_NeuronSWC> getCrossingCorrectedSegs();
+    void autoCorrectCrossing(vector<V_NeuronSWC> addedSegs);
 
     void handleBranchingPoints(vector<NeuronSWC>& brainchingPoints, int& count);
     void handleCrossing(QJsonArray& json);

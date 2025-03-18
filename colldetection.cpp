@@ -1,4 +1,5 @@
-﻿#ifdef _WIN32
+﻿#include "vn_app2.h"
+#ifdef _WIN32
 #include <Windows.h>
 #endif
 #include "colldetection.h"
@@ -19,15 +20,15 @@
 XYZ CollDetection::maxRes = XYZ(0, 0, 0);
 XYZ CollDetection::subMaxRes;
 
-CollDetection::CollDetection(CollServer* curServer, string serverIp, string brainServerPort, string superuserServerPort, QObject* parent):myServer(static_cast<CollServer*>(parent)){
+CollDetection::CollDetection(CollServer* curServer, string brainServerIP, string superuserServerIP, string neuronfiberSegServerIP, string brainServerPort, string superuserServerPort, string neuronfiberSegServerPort, QObject* parent):myServer(static_cast<CollServer*>(parent)){
     myServer=curServer;
     accessManager=new QNetworkAccessManager(this);
     timerForFilterTip=new QTimer(this);
 //    SuperUserHostAddress="http://114.117.165.134:26000/SuperUser";
 //    BrainTellHostAddress="http://114.117.165.134:26000/dynamic";
-    SuperUserHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(superuserServerPort)+"/SuperUser";
-    BrainTellHostAddress="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(brainServerPort)+"/dynamic";
-    neuronFiberSegUrl="http://"+QString::fromStdString(serverIp)+":"+QString::fromStdString(brainServerPort)+"/neuronfiber/inference/api/inference";
+    SuperUserHostAddress="http://"+QString::fromStdString(superuserServerIP)+":"+QString::fromStdString(superuserServerPort)+"/SuperUser";
+    BrainTellHostAddress="http://"+QString::fromStdString(brainServerIP)+":"+QString::fromStdString(brainServerPort)+"/release";
+    neuronFiberSegUrl="http://"+QString::fromStdString(neuronfiberSegServerIP)+":"+QString::fromStdString(neuronfiberSegServerPort)+"/api/inference";
     tipDirPath="/home/BrainTellServer/tmpDirForPredict/tip";
     segDirPath="/home/BrainTellServer/tmpDirForPredict/neuron_fiber";
 }
@@ -89,7 +90,7 @@ XYZ CollDetection::getSomaCoordinate(QString apoPath){
 void CollDetection::detectWholeAtStart(){
     detectOthersWhole();
     detectLoops();
-//    detectTipsWhole();
+    detectTipsWhole();
 //    detectBranchingPoints();
 }
 
@@ -787,7 +788,7 @@ vector<NeuronSWC> CollDetection::tipDetection(V_NeuronSWC_list inputSegList, boo
         }
     }
 
-    //末端点和分叉点
+    // 每条线的两个末端点
     vector<string> points;
     vector<set<int>> linksIndex;
     //    vector<vector<int>> linksIndexVec;
@@ -899,53 +900,74 @@ vector<NeuronSWC> CollDetection::tipDetection(V_NeuronSWC_list inputSegList, boo
         float zLabel0 = seg.row[0].z;
         QString gridKeyQ0 = QString::number(xLabel0) + "_" + QString::number(yLabel0) + "_" + QString::number(zLabel0);
         string gridKey0 = gridKeyQ0.toStdString();
-        float tipBranchLength=0;
-        bool isReverse=false;
-        if(wholeGrid2segIDmap[gridKey0].size()!=1)
+
+        float tipBranchLength = 0;
+        bool isReverse = false;
+        XYZ tipCoor = XYZ(xLabel0, yLabel0, zLabel0);
+        if(wholeGrid2segIDmap[gridKey0].size() != 1)
         {
-            isReverse=true;
+            isReverse = true;
+            tipCoor = XYZ(seg.row[seg.row.size() - 1].x, seg.row[seg.row.size() - 1].y, seg.row[seg.row.size() - 1].z);
         }
-        bool flag=true;
+        bool flag = true;
+
+        MissingForSegData segData;
+        segData.centerCoor = XYZ(16.0, 16.0, 16.0);
+        segData.edgeCoor = XYZ(16.0, 16.0, 16.0);
+        segData.type = seg.row[0].type;
+        segData.maxResCoor = tipCoor;
+        double maxEdge2CenterDist = 0;
+
         while(true){
-            int size=seg.row.size();
+            int size = seg.row.size();
             vector<int> indexs(size);
-            for(int m=0;m<size;m++)
-                indexs[m]=m;
+            for(int m = 0; m < size;  m++)
+                indexs[m] = m;
             if(isReverse)
-                reverse(indexs.begin(),indexs.end());
-            for(int i=0;i<size;i++){
-                int index=indexs[i];
-                float xLabel = seg.row[index].x;
-                float yLabel = seg.row[index].y;
-                float zLabel = seg.row[index].z;
+                reverse(indexs.begin(), indexs.end());
+            for(int i = 0; i< size; i++){
+                int curIndex = indexs[i];
+                int nextIndex;
+                if (i != size - 1){
+                    nextIndex = indexs[i + 1];
+                }
+
+                float xLabel = seg.row[curIndex].x;
+                float yLabel = seg.row[curIndex].y;
+                float zLabel = seg.row[curIndex].z;
                 QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
                 string gridKey = gridKeyQ.toStdString();
-                vector<string>::iterator it2=find(points.begin(),points.end(),gridKey);
-                if(it2!=points.end()){
-                    int index2=it2-points.begin();
-                    if(linksIndex[index2].size()>=3){
-                        flag=false;
+                vector<string>::iterator it2 = find(points.begin(), points.end(), gridKey);
+                // 当前点是线的末端点
+                if(it2 != points.end()){
+                    int index2 = it2 - points.begin();
+                    if(linksIndex[index2].size() >= 3){
+                        flag = false;
                         break;
                     }
                     else{
-                        if(index==seg.row.size()-1)
+                        if(i == size - 1)
                             break;
-                        tipBranchLength+=distance(xLabel,seg.row[index+1].x,
-                                                    yLabel,seg.row[index+1].y,
-                                                    zLabel,seg.row[index+1].z);
-                        if(tipBranchLength>=dist_thresh)
-                            break;
-                        continue;
                     }
                 }
-                tipBranchLength+=distance(xLabel,seg.row[index+1].x,
-                                            yLabel,seg.row[index+1].y,
-                                            zLabel,seg.row[index+1].z);
-                if(tipBranchLength>=dist_thresh)
+
+                tipBranchLength += distance(xLabel, seg.row[nextIndex].x,
+                                            yLabel, seg.row[nextIndex].y,
+                                            zLabel, seg.row[nextIndex].z);
+                double curDist = distance(seg.row[nextIndex].x, int(tipCoor.x), seg.row[nextIndex].y, int(tipCoor.y), seg.row[nextIndex].z, int(tipCoor.z));
+                XYZ curRelCoor = XYZ((seg.row[nextIndex].x - int(tipCoor.x)) / 2, (seg.row[nextIndex].y - int(tipCoor.y)) / 2, (seg.row[nextIndex].z - int(tipCoor.z)) / 2);
+                if(curDist > maxEdge2CenterDist && curRelCoor.x >= -16 && curRelCoor.x <= 15
+                    && curRelCoor.y >= -16 && curRelCoor.y <= 15 && curRelCoor.z >= -16 && curRelCoor.z <= 15){
+
+                    maxEdge2CenterDist = curDist;
+                    segData.edgeCoor = XYZ(curRelCoor.x + 16, curRelCoor.y + 16, curRelCoor.z + 16);
+                }
+
+                if(tipBranchLength >= dist_thresh)
                     break;
             }
 
-            if(tipBranchLength>=dist_thresh||!flag)
+            if(tipBranchLength >= dist_thresh || !flag)
                 break;
             float xLabel = seg.row[indexs[size-1]].x;
             float yLabel = seg.row[indexs[size-1]].y;
@@ -954,10 +976,10 @@ vector<NeuronSWC> CollDetection::tipDetection(V_NeuronSWC_list inputSegList, boo
             string gridKey = gridKeyQ.toStdString();
             if(wholeGrid2segIDmap[gridKey].size()!=2)
             {
-                tipBranchLength=0;
+                tipBranchLength = 0;
                 break;
             }
-            for(auto segIt=wholeGrid2segIDmap[gridKey].begin(); segIt!=wholeGrid2segIDmap[gridKey].end(); segIt++){
+            for(auto segIt = wholeGrid2segIDmap[gridKey].begin(); segIt != wholeGrid2segIDmap[gridKey].end(); segIt++){
                 if(segId != *segIt)
                 {
                     segId = *segIt;
@@ -965,11 +987,11 @@ vector<NeuronSWC> CollDetection::tipDetection(V_NeuronSWC_list inputSegList, boo
                 }
             }
 
-            if(find(visitedSegIds.begin(),visitedSegIds.end(),segId)==visitedSegIds.end())
+            if(find(visitedSegIds.begin(),visitedSegIds.end(),segId) == visitedSegIds.end())
                 visitedSegIds.push_back(segId);
             else
             {
-                tipBranchLength=0;
+                tipBranchLength = 0;
                 break;
             }
             seg = inputSegList.seg[segId];
@@ -978,16 +1000,17 @@ vector<NeuronSWC> CollDetection::tipDetection(V_NeuronSWC_list inputSegList, boo
             float zLabel2 = seg.row[0].z;
             QString gridKeyQ2 = QString::number(xLabel2) + "_" + QString::number(yLabel2) + "_" + QString::number(zLabel2);
             string gridKey2 = gridKeyQ2.toStdString();
-            if(gridKey2!=gridKey)
-                isReverse=true;
+            if(gridKey2 != gridKey)
+                isReverse = true;
             else
-                isReverse=false;
+                isReverse = false;
         }
-        if(tipBranchLength>=dist_thresh){
+
+        if(tipBranchLength >= dist_thresh){
             NeuronSWC s;
-            stringToXYZ(*it,s.x,s.y,s.z);
+            stringToXYZ(*it, s.x, s.y, s.z);
             s.type = 10;
-            if(s.x>33&&s.x+33<maxRes.x&&s.y>33&&s.y+33<maxRes.y&&s.z>33&&s.z+33<maxRes.z)
+            if(s.x > 33 && s.x + 33 <maxRes.x && s.y > 33 && s.y + 33 < maxRes.y && s.z > 33 && s.z + 33 < maxRes.z)
             {
                 QString qKey = QString::number(s.x) + "_" + QString::number(s.y) + "_" + QString::number(s.z);
                 string key = qKey.toStdString();
@@ -995,10 +1018,10 @@ vector<NeuronSWC> CollDetection::tipDetection(V_NeuronSWC_list inputSegList, boo
                 {
                     detectedTipPoints.insert(key);
                     outputSpecialPoints.push_back(s);
+                    tipInfoMap[QString::fromStdString(*it)] = segData;
                 }
             }
         }
-
     }
 
     if(!removeFlag)
@@ -1398,6 +1421,8 @@ QJsonArray CollDetection::crossingDetection(){
 
     ResultWriter writer("", "");
     QJsonArray infos = writer.getData(keypointsList, selectedBranchesList);
+    updateCrossingInfoMap(infos);
+
     auto endTime = std::chrono::high_resolution_clock::now();
     auto duration = endTime - startTime;
 
@@ -1405,6 +1430,87 @@ QJsonArray CollDetection::crossingDetection(){
     std::cout << "Using time:"<<std::chrono::duration_cast<std::chrono::milliseconds>(duration).count()<<"ms\n";
     std::cout << "--------------------------\n";
     return infos;
+}
+
+void CollDetection::updateCrossingInfoMap(QJsonArray infos){
+    map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
+    for (auto info : infos) {
+        QString centerCoorStrRep;
+        pair<pair<QString, int>, pair<QString, int>> coor2SegIndexPair;
+        pair<pair<QString, pair<int, int>>, pair<QString, pair<int, int>>> coor2RowIndexRangePair;
+        QJsonArray infoJA = info.toArray();
+        for (int i = 0; i < infoJA.size(); i++) {
+            auto allPointInfo = infoJA.at(i);
+            QJsonObject allPOintInfoJO = allPointInfo.toObject();
+            float x = allPOintInfoJO.value("x").toDouble();
+            float y = allPOintInfoJO.value("y").toDouble();
+            float z = allPOintInfoJO.value("z").toDouble();
+            QString centerCoorStr = QString::number(x) + "_" + QString::number(y) + "_" + QString::number(z);
+            if (i == 0) {
+                centerCoorStrRep = centerCoorStr;
+                crossingInfoMap[centerCoorStrRep] = CrossingInfo();
+            }
+
+            set<size_t> oneSegIDSet;
+            string parentBeginCoorStdStr, offspringEndCoorStdStr;
+            QJsonArray parentsCoorsJA = allPOintInfoJO.value("parentsCoors").toArray();
+            QJsonArray offspringsCoorsJA = allPOintInfoJO.value("offspringsCoors").toArray();
+            for (auto parentCoor : parentsCoorsJA) {
+                QJsonObject parentCoorJO = parentCoor.toObject();
+                float coor_x = parentCoorJO.value("x").toDouble();
+                float coor_y = parentCoorJO.value("y").toDouble();
+                float coor_z = parentCoorJO.value("z").toDouble();
+                QString coorStr = QString::number(coor_x) + "_" + QString::number(coor_y) + "_" + QString::number(coor_z);
+                string coorStdStr = coorStr.toStdString();
+                set<size_t> tmpSegIDSet = wholeGrid2SegIDMap[coorStdStr];
+                for (auto it = tmpSegIDSet.begin(); it != tmpSegIDSet.end(); it++){
+                    oneSegIDSet.insert(*it);
+                }
+            }
+            for (auto offspringCoor : offspringsCoorsJA) {
+                QJsonObject offspringCoorJO = offspringCoor.toObject();
+                float coor_x = offspringCoorJO.value("x").toDouble();
+                float coor_y = offspringCoorJO.value("y").toDouble();
+                float coor_z = offspringCoorJO.value("z").toDouble();
+                QString coorStr = QString::number(coor_x) + "_" + QString::number(coor_y) + "_" + QString::number(coor_z);
+                string coorStdStr = coorStr.toStdString();
+                set<size_t> tmpSegIDSet = wholeGrid2SegIDMap[coorStdStr];
+                for (auto it = tmpSegIDSet.begin(); it != tmpSegIDSet.end(); it++){
+                    oneSegIDSet.insert(*it);
+                }
+            }
+
+            if (oneSegIDSet.size() != 1) {
+                crossingInfoMap[centerCoorStrRep].isAbleCorrect = false;
+                break;
+            }
+
+            QJsonObject parentBeginJO = parentsCoorsJA.at(0).toObject();
+            float parentX = parentBeginJO.value("x").toDouble();
+            float parentY = parentBeginJO.value("y").toDouble();
+            float parentZ = parentBeginJO.value("z").toDouble();
+            parentBeginCoorStdStr = (QString::number(parentX) + "_" + QString::number(parentY) + "_" + QString::number(parentZ)).toStdString();
+            QJsonObject offspringEndJO = offspringsCoorsJA.at(offspringsCoorsJA.size() - 1).toObject();
+            float offspringX = offspringEndJO.value("x").toDouble();
+            float offspringY = offspringEndJO.value("y").toDouble();
+            float offspringZ = offspringEndJO.value("z").toDouble();
+            offspringEndCoorStdStr = (QString::number(offspringX) + "_" + QString::number(offspringY) + "_" + QString::number(offspringZ)).toStdString();
+            int minIndex = getPointInSegIndex(offspringEndCoorStdStr, myServer->segments.seg[*oneSegIDSet.begin()]);
+            int maxIndex = getPointInSegIndex(parentBeginCoorStdStr, myServer->segments.seg[*oneSegIDSet.begin()]);
+
+            if (i == 0) {
+                coor2SegIndexPair.first = make_pair(centerCoorStr, *oneSegIDSet.begin());
+                coor2RowIndexRangePair.first = make_pair(centerCoorStr, make_pair(minIndex, maxIndex));
+            }
+            if (i == 1) {
+                coor2SegIndexPair.second = make_pair(centerCoorStr, *oneSegIDSet.begin());
+                coor2RowIndexRangePair.second = make_pair(centerCoorStr, make_pair(minIndex, maxIndex));
+            }
+
+        }
+        crossingInfoMap[centerCoorStrRep].coor2SegIndexPair = coor2SegIndexPair;
+        crossingInfoMap[centerCoorStrRep].coor2RowIndexRangePair = coor2RowIndexRangePair;
+    }
 }
 
 void CollDetection::handleMulFurcation(vector<NeuronSWC>& outputSpecialPoints, int& count, double dist_thre){
@@ -1668,21 +1774,29 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
         if(isAutoCorrect){
             vector<TipCoorPredictedResult> missingPart = getMissingPart(coorResults);
             vector<QString> coorList;
-            vector<MissingForSegData> segDataVec;
+            map<QString, MissingForSegData> segDataMap;
+
             for(auto it = missingPart.begin(); it != missingPart.end(); it++){
                 XYZ maxResCoor = it->maxResCoor;
                 QString maxResCoorStr = QString::number(maxResCoor.x) + "_" + QString::number(maxResCoor.y) + "_" + QString::number(maxResCoor.z);
                 MissingForSegData segData = tipInfoMap[maxResCoorStr];
                 segData.storeDirName = it->storeDirName;
-                segDataVec.push_back(segData);
+                segDataMap[maxResCoorStr] = segData;
                 coorList.push_back(it->storeDirName);
             }
 
             QString result_relpath = "";
-            requestForSeg(relPath, coorList, result_relpath);
-            getApp2TracingResult();
-            autoCorrectMissing();
+            if (requestForSeg(relPath, coorList, result_relpath)){
+                getApp2TracingResult(segDataMap, result_relpath);
+                fliterTip(segDataMap);
+                myServer->mutex.lock();
+                autoCorrectMissing(segDataMap);
+                myServer->mutex.unlock();
+            }
 
+            // 清理资源
+            reply->deleteLater();
+            tipInfoMap.clear();
             return;
         }
 
@@ -1731,6 +1845,46 @@ void CollDetection::filterTip(vector<NeuronSWC>& markPoints){
         string gridKey = gridKeyQ.toStdString();
         if(wholeGrid2SegIDMap.find(gridKey) == wholeGrid2SegIDMap.end() || wholeGrid2SegIDMap[gridKey].size() != 1){
             iter = markPoints.erase(iter);
+        }else{
+            iter++;
+        }
+    }
+}
+
+void CollDetection::fliterTip(map<QString, MissingForSegData>& segDataMap){
+    map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
+
+    auto iter = segDataMap.begin();
+    while(iter != segDataMap.end()){
+        QString coorStr = iter->first;
+        XYZ coor = qstringToXYZ(coorStr);
+        float xLabel = coor.x;
+        float yLabel = coor.y;
+        float zLabel = coor.z;
+        QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
+        string gridKey = gridKeyQ.toStdString();
+        if(wholeGrid2SegIDMap.find(gridKey) == wholeGrid2SegIDMap.end() || wholeGrid2SegIDMap[gridKey].size() != 1){
+            iter = segDataMap.erase(iter);
+        }else{
+            iter++;
+        }
+    }
+}
+
+void CollDetection::fliterCrossing(){
+    map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(myServer->segments);
+
+    auto iter = crossingInfoMap.begin();
+    while(iter != crossingInfoMap.end()){
+        QString coorStr = iter->first;
+        XYZ coor = qstringToXYZ(coorStr);
+        float xLabel = coor.x;
+        float yLabel = coor.y;
+        float zLabel = coor.z;
+        QString gridKeyQ = QString::number(xLabel) + "_" + QString::number(yLabel) + "_" + QString::number(zLabel);
+        string gridKey = gridKeyQ.toStdString();
+        if(wholeGrid2SegIDMap.find(gridKey) == wholeGrid2SegIDMap.end() || wholeGrid2SegIDMap[gridKey].size() != 1){
+            iter = crossingInfoMap.erase(iter);
         }else{
             iter++;
         }
@@ -1796,6 +1950,7 @@ bool CollDetection::requestForSeg(QString relPath, vector<QString> coorList, QSt
         if (json_error.error == QJsonParseError::NoError) {
             if (doucment.isObject()){
                 QJsonObject obj = doucment.object();
+                qDebug() << obj;
                 QJsonObject responseObj = obj.value("response").toObject();
                 QString status = responseObj.value("status").toString();
                 QString message = responseObj.value("message").toString();
@@ -1812,12 +1967,430 @@ bool CollDetection::requestForSeg(QString relPath, vector<QString> coorList, QSt
     }
 }
 
-void CollDetection::getApp2TracingResult(){
+void CollDetection::getApp2TracingResult(map<QString, MissingForSegData>& segDataMap, QString relpath){
 
+    QString segImageDirPath = segDirPath + "/" + relpath;
+
+    for (auto it = segDataMap.begin(); it != segDataMap.end(); it++){
+        MissingForSegData segData = it->second;
+        QString imagePath = segImageDirPath + "/" + it->second.storeDirName + ".v3dpbd";
+
+        PARA_APP2 p = PARA_APP2();
+        p.inimg_file = imagePath;
+        LocationSimple ls;
+        ls.x = segData.centerCoor.x + 1;
+        ls.y = segData.centerCoor.y + 1;
+        ls.z = segData.centerCoor.z + 1;
+        p.landmarks.append(ls);
+        ls.x = segData.edgeCoor.x + 1;
+        ls.y = segData.edgeCoor.y + 1;
+        ls.z = segData.edgeCoor.z + 1;
+        p.landmarks.append(ls);
+
+        if (proc_app2(p)){
+            QString trace_swc_path = segImageDirPath + "/" + it->second.storeDirName + "_trace.swc";
+            writeESWC_file(trace_swc_path, p.result);
+            V_NeuronSWC_list trace_list = NeuronTree__2__V_NeuronSWC_list(p.result);
+            if (trace_list.seg.size() < 2){
+                continue;
+            }
+            float x_ratio, y_ratio, z_ratio;
+            x_ratio = y_ratio = z_ratio = 2;
+            XYZ centerCoorSubResGlobal = qstringToXYZ(it->second.storeDirName);
+            XYZ startCoorSubRes = XYZ(centerCoorSubResGlobal.x - 16, centerCoorSubResGlobal.y - 16, centerCoorSubResGlobal.z - 16);
+            vector<V_NeuronSWC> maxResSegVec = convertLocal2Global(trace_list, x_ratio, y_ratio, z_ratio, startCoorSubRes);
+
+            XYZ centerCoorMaxResGlobal = convertLocal2Global(centerCoorSubResGlobal,  x_ratio, y_ratio, z_ratio, XYZ(0, 0, 0));
+            XYZ edgeCoorMaxResGlobal = convertLocal2Global(segData.edgeCoor, x_ratio, y_ratio, z_ratio, startCoorSubRes);
+            V_NeuronSWC addedSeg = extractAddedSeg(maxResSegVec, edgeCoorMaxResGlobal, edgeCoorMaxResGlobal);
+
+            if (addedSeg.row.size() > 0){
+                double dist1 = distance(addedSeg.row[0].x, edgeCoorMaxResGlobal.x, addedSeg.row[0].y, edgeCoorMaxResGlobal.y, addedSeg.row[0].z, edgeCoorMaxResGlobal.z);
+                double dist2 = distance(addedSeg.row[addedSeg.row.size() - 1].x, edgeCoorMaxResGlobal.x, addedSeg.row[addedSeg.row.size() - 1].y, edgeCoorMaxResGlobal.y, addedSeg.row[addedSeg.row.size() - 1].z, edgeCoorMaxResGlobal.z);
+                if (dist1 > dist2){
+                    XYZ addedPoint = segData.maxResCoor;
+                    V_NeuronSWC_unit unit;
+                    unit.type = segData.type;
+                    unit.r = 1;
+                    unit.x = addedPoint.x;
+                    unit.y = addedPoint.y;
+                    unit.z = addedPoint.z;
+                    unit.n = addedSeg.row.size() + 1;
+                    unit.parent = -1;
+                    addedSeg.row.push_back(unit);
+                    addedSeg.row[addedSeg.row.size() - 2].parent = addedSeg.row[addedSeg.row.size() - 1].n;
+                    for (auto rowIt = addedSeg.row.begin(); rowIt != addedSeg.row.end(); rowIt++){
+                        //                    rowIt->type = segData.type;
+                        rowIt->type = 5;
+                    }
+                    it->second.addedSeg = addedSeg;
+                }
+            }
+        }
+    }
 }
 
-void CollDetection::autoCorrectMissing(){
+vector<V_NeuronSWC> CollDetection::convertLocal2Global(V_NeuronSWC_list& inputSegList, float x_ratio, float y_ratio, float z_ratio, XYZ startCoor){
+    vector<V_NeuronSWC> segVec;
+    for (auto it = inputSegList.seg.begin(); it != inputSegList.seg.end(); it++){
+        V_NeuronSWC seg = *it;
+        for (auto rowIt = seg.row.begin(); rowIt != seg.row.end(); rowIt++){
+            rowIt->x += startCoor.x;
+            rowIt->y += startCoor.y;
+            rowIt->z += startCoor.z;
+            rowIt->x *= x_ratio;
+            rowIt->y *= y_ratio;
+            rowIt->z *= z_ratio;
+        }
+        segVec.push_back(seg);
+    }
+    return segVec;
+}
 
+XYZ CollDetection::convertLocal2Global(XYZ inputCoor, float x_ratio, float y_ratio, float z_ratio, XYZ startCoor){
+    inputCoor.x += startCoor.x;
+    inputCoor.y += startCoor.y;
+    inputCoor.z += startCoor.z;
+    inputCoor.x *= x_ratio;
+    inputCoor.y *= y_ratio;
+    inputCoor.z *= z_ratio;
+    return inputCoor;
+}
+
+V_NeuronSWC CollDetection::extractAddedSeg(vector<V_NeuronSWC>& maxResSegVec, XYZ edgeCoorMaxResGlobal, XYZ centerCoorMaxResGlobal){
+    double max_dist = 0;
+    int index = -1;
+    int rowIndex = -1;
+    float x = edgeCoorMaxResGlobal.x;
+    float y = edgeCoorMaxResGlobal.y;
+    float z = edgeCoorMaxResGlobal.z;
+    for (auto it = maxResSegVec.begin(); it != maxResSegVec.end(); it++){
+        for (auto rowIt = it->row.begin(); rowIt != it->row.end(); rowIt++){
+            double dist = distance(rowIt->x, x, rowIt->y, y, rowIt->z, z);
+            if (dist > max_dist){
+                max_dist = dist;
+                index = it - maxResSegVec.begin();
+                rowIndex = rowIt - it->row.begin();
+            }
+        }
+    }
+
+    XYZ maxDistCoor = maxResSegVec[index].row[rowIndex];
+    if (distance(centerCoorMaxResGlobal.x, maxDistCoor.x, centerCoorMaxResGlobal.y, maxDistCoor.y, centerCoorMaxResGlobal.z, maxDistCoor.z) < 6){
+        return V_NeuronSWC();
+    }
+
+    return maxResSegVec[index];
+}
+
+void CollDetection::autoCorrectMissing(map<QString, MissingForSegData>& segDataMap){
+    QStringList msgList;
+
+    for (auto it = segDataMap.begin(); it != segDataMap.end(); it++) {
+        V3DLONG point_size = myServer->segments.nrows();
+        proto::SwcDataV1 addSwcData;
+        V_NeuronSWC seg = it->second.addedSeg;
+
+        if (seg.row.size() == 0){
+            continue;
+        }
+
+        for (int i=0; i<seg.row.size(); i++) {
+            proto::SwcNodeInternalDataV1 swcNodeInternalData;
+            swcNodeInternalData.set_n(point_size + i + 1);
+            if(i == seg.row.size()-1)
+                swcNodeInternalData.set_parent(-1);
+            else
+                swcNodeInternalData.set_parent(point_size + i + 2);
+            swcNodeInternalData.set_x(seg.row[i].x);
+            swcNodeInternalData.set_y(seg.row[i].y);
+            swcNodeInternalData.set_z(seg.row[i].z);
+            swcNodeInternalData.set_radius(seg.row[i].r);
+            swcNodeInternalData.set_type(seg.row[i].type);
+            swcNodeInternalData.set_mode(seg.row[i].creatmode);
+
+            auto* newData = addSwcData.add_swcdata();
+            newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+        }
+
+        proto::CreateSwcNodeDataResponse response;
+        if(!WrappedCall::addSwcNodeData(myServer->swcUuid, addSwcData, response, myServer->cachedUserData)){
+            QString msg = "/WARN_AddSwcNodeDataError:server";
+            emit myServer->clientSendMsgs({msg});
+            return;
+        }
+
+        auto uuids = response.creatednodesuuid();
+        for(int i=0; i<seg.row.size(); i++){
+            seg.row[i].uuid = uuids.Get(i);
+        }
+
+        myServer->segments.append(seg);
+
+        reverseSeg(seg);
+        int firstSegID = -1;
+        int secondSegID = -1;
+        int index = myServer->segments.seg.size() - 1;
+        for(int i = 0; i < myServer->segments.seg.size(); i++){
+            V_NeuronSWC tmpSeg =  myServer->segments.seg[i];
+            for(int j = 0; j < tmpSeg.row.size(); j++){
+                if(fabs(tmpSeg.row[j].x - seg.row[0].x) < 1e-5 && fabs(tmpSeg.row[j].y - seg.row[0].y) < 1e-5 &&
+                    fabs(tmpSeg.row[j].z - seg.row[0].z) < 1e-5 && index != i){
+                    firstSegID = i;
+                }
+                if(fabs(tmpSeg.row[j].x - seg.row[seg.row.size() - 1].x) < 1e-5 && fabs(tmpSeg.row[j].y - seg.row[seg.row.size() - 1].y) < 1e-5 &&
+                    fabs(tmpSeg.row[j].z - seg.row[seg.row.size() - 1].z) < 1e-5 && index != i){
+                    secondSegID = i;
+                }
+            }
+        }
+
+        qDebug() << "firstSegID: "<< firstSegID << "secondSegID: " << secondSegID;
+        vector<V_NeuronSWC> connectedSegs;
+        bool isBegin = true;
+        if(firstSegID != -1){
+            connectedSegs.push_back(myServer->segments.seg[firstSegID]);
+        }
+        if(secondSegID != -1){
+            connectedSegs.push_back(myServer->segments.seg[secondSegID]);
+        }
+
+        if(firstSegID!=-1 && connectedSegs.size()==1){
+            isBegin = true;
+        }
+        if(secondSegID!=-1 && connectedSegs.size()==1){
+            isBegin = false;
+        }
+
+        QStringList addMsgList;
+        addMsgList.append(QString("0 server %1 %2 %3 %4").arg(0).arg(123).arg(123).arg(123));
+        addMsgList += V_NeuronSWCToSendMSG(seg);
+        addMsgList += "$";
+        for(auto connectedSegs_it = connectedSegs.begin(); connectedSegs_it != connectedSegs.end(); connectedSegs_it++){
+            addMsgList += V_NeuronSWCToSendMSG(*connectedSegs_it);
+            addMsgList += "$";
+        }
+
+        QString msg=QString("/drawline_norm:"+addMsgList.join(","));
+        msgList.append(msg);
+    }
+
+    qDebug() << msgList;
+    emit myServer->clientSendMsgs(msgList);
+}
+
+vector<V_NeuronSWC> CollDetection::getCrossingCorrectedSegs(){
+    vector<V_NeuronSWC> tobeAddedSegs;
+    for (auto it = crossingInfoMap.begin(); it != crossingInfoMap.end(); it++) {
+        CrossingInfo crossingInfo = it->second;
+        if (!crossingInfo.isAbleCorrect) {
+            continue;
+        }
+        pair<FiberCoorData, FiberCoorData> fiberCoorDataPair;
+        FiberCoorData fiberCoorData;
+        fiberCoorData.segID = crossingInfo.coor2SegIndexPair.first.second;
+        fiberCoorData.rangePair = crossingInfo.coor2RowIndexRangePair.first.second;
+        fiberCoorData.coorVec = crossingInfo.fiberCoorInfoPair.first.second;
+        fiberCoorDataPair.first = fiberCoorData;
+        fiberCoorData.segID = crossingInfo.coor2SegIndexPair.second.second;
+        fiberCoorData.rangePair = crossingInfo.coor2RowIndexRangePair.second.second;
+        fiberCoorData.coorVec = crossingInfo.fiberCoorInfoPair.second.second;
+        fiberCoorDataPair.second = fiberCoorData;
+
+
+        myServer->segments.seg[fiberCoorDataPair.first.segID].to_be_deleted = true;
+        myServer->segments.seg[fiberCoorDataPair.second.segID].to_be_deleted = true;
+        auto tobeRemovedSegFirst = myServer->segments.seg[fiberCoorDataPair.first.segID];
+        auto tobeRemovedSegSecond = myServer->segments.seg[fiberCoorDataPair.second.segID];
+
+        // 截取前面一段和后面一段
+        vector<V_NeuronSWC_unit> frontCoorVecFirst(tobeRemovedSegFirst.row.begin(), tobeRemovedSegFirst.row.begin() + fiberCoorDataPair.first.rangePair.first);
+        vector<V_NeuronSWC_unit> frontCoorVecSecond(tobeRemovedSegSecond.row.begin(), tobeRemovedSegSecond.row.begin() + fiberCoorDataPair.second.rangePair.first);
+        vector<V_NeuronSWC_unit> backCoorVecSecond(tobeRemovedSegSecond.row.begin() + fiberCoorDataPair.second.rangePair.second + 1, tobeRemovedSegSecond.row.end());
+        vector<V_NeuronSWC_unit> backCoorVecFirst(tobeRemovedSegFirst.row.begin() + fiberCoorDataPair.first.rangePair.second + 1, tobeRemovedSegFirst.row.end());
+
+        fiberCoorDataPair.first.addedSeg =  tobeRemovedSegFirst;
+        fiberCoorDataPair.second.addedSeg =  tobeRemovedSegSecond;
+        // 前面一段 + 纠正段 + 后面一段
+        fiberCoorDataPair.first.addedSeg.row = frontCoorVecFirst;
+        for (auto coorIt = fiberCoorDataPair.first.coorVec.begin(); coorIt != fiberCoorDataPair.first.coorVec.end(); coorIt++){
+            V_NeuronSWC_unit unit;
+            unit.x = coorIt->x;
+            unit.y = coorIt->y;
+            unit.z = coorIt->z;
+            unit.r = 1;
+            fiberCoorDataPair.first.addedSeg.row.push_back(unit);
+        }
+        fiberCoorDataPair.first.addedSeg.row.insert(fiberCoorDataPair.first.addedSeg.row.end(), backCoorVecSecond.begin(), backCoorVecSecond.end());
+
+        fiberCoorDataPair.second.addedSeg.row = frontCoorVecSecond;
+        for (auto coorIt = fiberCoorDataPair.second.coorVec.begin(); coorIt != fiberCoorDataPair.second.coorVec.end(); coorIt++){
+            V_NeuronSWC_unit unit;
+            unit.x = coorIt->x;
+            unit.y = coorIt->y;
+            unit.z = coorIt->z;
+            unit.r = 1;
+            fiberCoorDataPair.second.addedSeg.row.push_back(unit);
+        }
+        fiberCoorDataPair.second.addedSeg.row.insert(fiberCoorDataPair.second.addedSeg.row.end(), backCoorVecFirst.begin(), backCoorVecFirst.end());
+
+        // 设置n、parent、type
+        int n = 1;
+        for (auto unitIt = fiberCoorDataPair.first.addedSeg.row.begin(); unitIt != fiberCoorDataPair.first.addedSeg.row.end(); unitIt++){
+            unitIt->type = fiberCoorDataPair.first.addedSeg.row[0].type;
+            unitIt->n = n++;
+            unitIt->parent = n;
+        }
+        fiberCoorDataPair.first.addedSeg.row[fiberCoorDataPair.first.addedSeg.row.size() - 1].parent = -1;
+        n = 1;
+        for (auto unitIt = fiberCoorDataPair.second.addedSeg.row.begin(); unitIt != fiberCoorDataPair.second.addedSeg.row.end(); unitIt++){
+            unitIt->type = fiberCoorDataPair.second.addedSeg.row[0].type;
+            unitIt->n = n++;
+            unitIt->parent = n;
+        }
+        fiberCoorDataPair.second.addedSeg.row[fiberCoorDataPair.second.addedSeg.row.size() - 1].parent = -1;
+
+        tobeAddedSegs.push_back(fiberCoorDataPair.first.addedSeg);
+        tobeAddedSegs.push_back(fiberCoorDataPair.second.addedSeg);
+    }
+    return tobeAddedSegs;
+}
+
+void CollDetection::autoCorrectCrossing(vector<V_NeuronSWC> addedSegs){
+    // 删线
+    QStringList delResult;
+    proto::SwcDataV1 delSwcData;
+    int count = 0;
+    std::vector<V_NeuronSWC>::iterator iter = myServer->segments.seg.begin();
+    while (iter != myServer->segments.seg.end())
+        if (iter->to_be_deleted){
+            delResult += V_NeuronSWCToSendMSG(*iter);
+            delResult.push_back("$");
+
+            for(int j = 0; j < iter->row.size(); j++){
+                proto::SwcNodeInternalDataV1 swcNodeInternalData;
+                swcNodeInternalData.set_x(iter->row[j].x);
+                swcNodeInternalData.set_y(iter->row[j].y);
+                swcNodeInternalData.set_z(iter->row[j].z);
+                swcNodeInternalData.set_radius(iter->row[j].r);
+                swcNodeInternalData.set_type(iter->row[j].type);
+                swcNodeInternalData.set_mode(iter->row[j].creatmode);
+
+                auto* newData = delSwcData.add_swcdata();
+                newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+                newData->mutable_base()->set_uuid(iter->row[j].uuid);
+            }
+            iter = myServer->segments.seg.erase(iter);
+        }
+        else
+            ++iter;
+
+    if(delSwcData.swcdata_size() > 0){
+        proto::DeleteSwcNodeDataResponse response;
+        WrappedCall::deleteSwcNodeData(myServer->swcUuid, delSwcData, response, myServer->cachedUserData);
+    }
+
+    //最后的1表示多条线
+    delResult.insert(0, QString("%1 server correct_crossing %2 %3 %4").arg(0).arg(count).arg(123).arg(1));
+    if(count != 0){
+        QString msg = QString("/delline_norm:" + delResult.join(","));
+        //        qDebug()<<"removeErrorSegs: "<<msg;
+        emit myServer->clientSendMsgs({msg});
+    }
+
+    QStringList msgList;
+
+    for (auto it = addedSegs.begin(); it != addedSegs.end(); it++) {
+        V3DLONG point_size = myServer->segments.nrows();
+        proto::SwcDataV1 addSwcData;
+        V_NeuronSWC seg = *it;
+
+        if (seg.row.size() == 0){
+            continue;
+        }
+
+        for (int i=0; i<seg.row.size(); i++) {
+            proto::SwcNodeInternalDataV1 swcNodeInternalData;
+            swcNodeInternalData.set_n(point_size + i + 1);
+            if(i == seg.row.size()-1)
+                swcNodeInternalData.set_parent(-1);
+            else
+                swcNodeInternalData.set_parent(point_size + i + 2);
+            swcNodeInternalData.set_x(seg.row[i].x);
+            swcNodeInternalData.set_y(seg.row[i].y);
+            swcNodeInternalData.set_z(seg.row[i].z);
+            swcNodeInternalData.set_radius(seg.row[i].r);
+            swcNodeInternalData.set_type(seg.row[i].type);
+            swcNodeInternalData.set_mode(seg.row[i].creatmode);
+
+            auto* newData = addSwcData.add_swcdata();
+            newData->mutable_swcnodeinternaldata()->CopyFrom(swcNodeInternalData);
+        }
+
+        proto::CreateSwcNodeDataResponse response;
+        if(!WrappedCall::addSwcNodeData(myServer->swcUuid, addSwcData, response, myServer->cachedUserData)){
+            QString msg = "/WARN_AddSwcNodeDataError:server";
+            emit myServer->clientSendMsgs({msg});
+            return;
+        }
+
+        auto uuids = response.creatednodesuuid();
+        for(int i=0; i<seg.row.size(); i++){
+            seg.row[i].uuid = uuids.Get(i);
+        }
+
+        myServer->segments.append(seg);
+
+        reverseSeg(seg);
+        int firstSegID = -1;
+        int secondSegID = -1;
+        int index = myServer->segments.seg.size() - 1;
+        for(int i = 0; i < myServer->segments.seg.size(); i++){
+            V_NeuronSWC tmpSeg =  myServer->segments.seg[i];
+            for(int j = 0; j < tmpSeg.row.size(); j++){
+                if(fabs(tmpSeg.row[j].x - seg.row[0].x) < 1e-5 && fabs(tmpSeg.row[j].y - seg.row[0].y) < 1e-5 &&
+                    fabs(tmpSeg.row[j].z - seg.row[0].z) < 1e-5 && index != i){
+                    firstSegID = i;
+                }
+                if(fabs(tmpSeg.row[j].x - seg.row[seg.row.size() - 1].x) < 1e-5 && fabs(tmpSeg.row[j].y - seg.row[seg.row.size() - 1].y) < 1e-5 &&
+                    fabs(tmpSeg.row[j].z - seg.row[seg.row.size() - 1].z) < 1e-5 && index != i){
+                    secondSegID = i;
+                }
+            }
+        }
+
+        qDebug() << "firstSegID: "<< firstSegID << "secondSegID: " << secondSegID;
+        vector<V_NeuronSWC> connectedSegs;
+        bool isBegin = true;
+        if(firstSegID != -1){
+            connectedSegs.push_back(myServer->segments.seg[firstSegID]);
+        }
+        if(secondSegID != -1){
+            connectedSegs.push_back(myServer->segments.seg[secondSegID]);
+        }
+
+        if(firstSegID!=-1 && connectedSegs.size()==1){
+            isBegin = true;
+        }
+        if(secondSegID!=-1 && connectedSegs.size()==1){
+            isBegin = false;
+        }
+
+        QStringList addMsgList;
+        addMsgList.append(QString("0 server %1 %2 %3 %4").arg(0).arg(123).arg(123).arg(123));
+        addMsgList += V_NeuronSWCToSendMSG(seg);
+        addMsgList += "$";
+        for(auto connectedSegs_it = connectedSegs.begin(); connectedSegs_it != connectedSegs.end(); connectedSegs_it++){
+            addMsgList += V_NeuronSWCToSendMSG(*connectedSegs_it);
+            addMsgList += "$";
+        }
+
+        QString msg=QString("/drawline_norm:"+addMsgList.join(","));
+        msgList.append(msg);
+    }
+
+    qDebug() << msgList;
+    emit myServer->clientSendMsgs(msgList);
 }
 
 void CollDetection::handleBranchingPoints(vector<NeuronSWC>& brainchingPoints, int& count){
@@ -2059,40 +2632,70 @@ void CollDetection::handleCrossing(QJsonArray& infos){
                     }
                     if (obj.contains("data")&&objCode=="200") {
                         QJsonValue value = obj.value("data");
-                        if (value.isArray()) {  // Version 的 value 是数组
-                            QJsonArray array = value.toArray();
-                            int nSize = array.size();
+                        if (value.isObject()) {  // Version 的 value 是数组
+                            QJsonObject resData = value.toObject();
+                            QJsonArray fiberPredictedResultListJA = resData.value("fiberPredictedResultList").toArray();
+                            int nSize = fiberPredictedResultListJA.size();
                             for (int i = 0; i < nSize; ++i) {
-                                QJsonValue mapValue = array.at(i);
-                                if (mapValue.isObject()) {
-                                    QJsonObject info = mapValue.toObject();
-                                    float x,y,z;
+                                QJsonValue fiberPredictedResultVal = fiberPredictedResultListJA.at(i);
+                                if (fiberPredictedResultVal.isObject()) {
+                                    QJsonObject fiberPredictedResultJO = fiberPredictedResultVal.toObject();
+                                    pair<pair<QString, vector<XYZ>>, pair<QString, vector<XYZ>>> pairVal;
                                     int y_pred;
-                                    if (info.contains("coors")) {
-                                        QJsonValue listValue = info.value("coors");
-                                        if (listValue.isArray()) {
-                                            QJsonArray listArray = listValue.toArray();
-                                            QJsonValue xValue = listArray.at(0);
-                                            QJsonValue yValue = listArray.at(1);
-                                            QJsonValue zValue = listArray.at(2);
-                                            x=xValue.toDouble();
-                                            y=yValue.toDouble();
-                                            z=zValue.toDouble();
+                                    float x, y, z;
+                                    QString centerCoorStrRep;
+                                    if (fiberPredictedResultJO.contains("fiberCoorInfoList")) {
+                                        QJsonValue fiberCoorInfoListJV = fiberPredictedResultJO.value("fiberCoorInfoList");
+                                        if (fiberCoorInfoListJV.isArray()) {
+                                            QJsonArray fiberCoorInfoListJA = fiberCoorInfoListJV.toArray();
+                                            vector<XYZ> fiberCoorList;
+                                            for (int j = 0; j < fiberCoorInfoListJA.size(); j++){
+                                                QJsonObject fiberCoorInfoJO = fiberCoorInfoListJA.at(j).toObject();
+                                                QJsonObject coorJO = fiberCoorInfoJO.value("coor").toObject();
+                                                QJsonArray fiberCoorListJA = fiberCoorInfoJO.value("fiberCoorList").toArray();
+                                                XYZ centerCoor = XYZ(coorJO.value("x").toDouble(),
+                                                                     coorJO.value("y").toDouble(),
+                                                                     coorJO.value("z").toDouble());
+                                                QString centerCoorStr = QString::number(centerCoor.x) + "_" + QString::number(centerCoor.y) + "_" + QString::number(centerCoor.z);
+                                                if (j == 0) {
+                                                    x = centerCoor.x;
+                                                    y = centerCoor.y;
+                                                    z = centerCoor.z;
+                                                    centerCoorStrRep = centerCoorStr;
+                                                }
+
+                                                for (int p = 0; p < fiberCoorListJA.size(); p++){
+                                                    QJsonObject fiberCoorJO = fiberCoorListJA.at(p).toObject();
+                                                    XYZ fiberCoor = XYZ(fiberCoorJO.value("x").toDouble(),
+                                                                        fiberCoorJO.value("y").toDouble(),
+                                                                        fiberCoorJO.value("z").toDouble());
+                                                    fiberCoorList.push_back(fiberCoor);
+                                                }
+                                                if (j == 0) {
+                                                    pairVal.first = make_pair(centerCoorStr, fiberCoorList);
+                                                }
+                                                if (j == 1) {
+                                                    pairVal.second = make_pair(centerCoorStr, fiberCoorList);
+                                                }
+                                            }
                                         }
                                     }
-                                    if (info.contains("y_pred")) {
-                                        QJsonValue predValue = info.value("y_pred");
+                                    if (fiberPredictedResultJO.contains("y_pred")) {
+                                        QJsonValue predValue = fiberPredictedResultJO.value("y_pred");
                                         y_pred = predValue.toInt();
-                                        if(y_pred == 0)
-                                            qDebug()<<i<<": "<<y_pred;
-
                                     }
-                                    if(y_pred==0){
+                                    if (y_pred == 2) {
+                                        crossingInfoMap[centerCoorStrRep].fiberCoorInfoPair = pairVal;
+                                        if (y_pred != 2) {
+                                            crossingInfoMap[centerCoorStrRep].isAbleCorrect = false;
+                                        }
+                                    }
+                                    if (y_pred == 0) {
                                         NeuronSWC s;
-                                        s.x=x;
-                                        s.y=y;
-                                        s.z=z;
-                                        s.type=18;
+                                        s.x = x;
+                                        s.y = y;
+                                        s.z = z;
+                                        s.type = 18;
                                         markPoints.push_back(s);
                                     }
                                 }
@@ -2105,6 +2708,22 @@ void CollDetection::handleCrossing(QJsonArray& infos){
         else
         {
             std::cerr<<"handle crossing error!";
+        }
+
+        if (isAutoCorrect) {
+            fliterCrossing();
+            auto tobeAddedSegs = getCrossingCorrectedSegs();
+            myServer->mutex.lock();
+            autoCorrectCrossing(tobeAddedSegs);
+            myServer->mutex.unlock();
+
+            //清理资源
+            crossingInfoMap.clear();
+            reply->deleteLater();
+            QFile::remove(fileSavePath);
+            file->close();
+            file->deleteLater();
+            return;
         }
 
         QString tobeSendMsg=QString("/WARN_CrossingError:server,");

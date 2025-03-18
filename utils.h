@@ -78,6 +78,7 @@ int findnearest(const CellAPO &m,const QList<CellAPO> &markers);
 
 void init();
 void stringToXYZ(string xyz, float& x, float& y, float& z);
+XYZ qstringToXYZ(QString xyz);
 void getSegmentsForOthersDetect(V_NeuronSWC_list& last1MinSegments, V_NeuronSWC_list& segmentsForOthersDetect, V_NeuronSWC_list segments);
 void getSegmentsForMissingDetect(V_NeuronSWC_list& last3MinSegments, V_NeuronSWC_list& segmentsForMissingDetect, V_NeuronSWC_list segments);
 void reverseSeg(V_NeuronSWC& seg);

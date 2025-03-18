@@ -51,21 +51,25 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     timerForDetectWhole = new QTimer(this);
     timerForUpdateNParentInfo = new QTimer(this);
 
-    Config::getInstance().initialize("config.json");
+    Config::getInstance().initialize("config_test.json");
     Config::getInstance().readConfig();
 
-    serverIP = Config::getInstance().getConfig(Config::ConfigItem::eServerIP);
+    dbmsServerIP = Config::getInstance().getConfig(Config::ConfigItem::dbmsServerIP);
     dbmsServerPort = Config::getInstance().getConfig(Config::ConfigItem::dbmsServerPort);
+    brainServerIP = Config::getInstance().getConfig(Config::ConfigItem::brainServerIP);
     brainServerPort = Config::getInstance().getConfig(Config::ConfigItem::brainServerPort);
+    superuserServerIP = Config::getInstance().getConfig(Config::ConfigItem::superuserServerIP);
     superuserServerPort = Config::getInstance().getConfig(Config::ConfigItem::superuserServerPort);
+    neuronfiberSegServerIP = Config::getInstance().getConfig(Config::ConfigItem::neuronfiberSegServerIP);
+    neuronfiberSegServerPort = Config::getInstance().getConfig(Config::ConfigItem::neuronfiberSegServerPort);
     apiVersion = Config::getInstance().getConfig(Config::ConfigItem::apiVersion);
     redisIp = Config::getInstance().getConfig(Config::ConfigItem::redisServerIP);
 //    std::cout<<serverIP<<" "<<dbmsServerPort<<" "<<brainServerPort<<" "<<apiVersion<<" "<<redisIp<<endl;
 
-    detectUtil=new CollDetection(this, serverIP, brainServerPort, superuserServerPort, this);
+    detectUtil=new CollDetection(this, brainServerIP, superuserServerIP, neuronfiberSegServerIP, brainServerPort, superuserServerPort, neuronfiberSegServerPort, this);
 //    string serverIP = "114.117.165.134";
 //    string serverPort = "14251";
-    auto endPoint = serverIP + ":" + dbmsServerPort;
+    auto endPoint = dbmsServerIP + ":" + dbmsServerPort;
     RpcCall::getInstance().initialize(endPoint);
     RpcCall::ApiVersion = apiVersion;
     connectToDBMS();
@@ -119,14 +123,17 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     tip_points_bin_path = Prefix+"/"+AnoName+"_detected_tip_points.bin";
     crossing_points_bin_path = Prefix+"/"+AnoName+"_detected_crossing_points.bin";
 
-    if(filesystem::exists(branching_points_bin_path.toStdString()))
+    if(filesystem::exists(branching_points_bin_path.toStdString())){
         detectUtil->detectedBranchingPoints = loadUnorderedSetFromBinaryFile(branching_points_bin_path.toStdString());
-    if(filesystem::exists(tip_points_bin_path.toStdString()))
-        detectUtil->detectedTipPoints = loadUnorderedSetFromBinaryFile(tip_points_bin_path.toStdString());
-    if(filesystem::exists(crossing_points_bin_path.toStdString()))
-        detectUtil->detectedCrossingPoints = loadSetOfSetsFromBinaryFile(crossing_points_bin_path.toStdString());
+    }
+    if(filesystem::exists(tip_points_bin_path.toStdString())){
+        //        detectUtil->detectedTipPoints = loadUnorderedSetFromBinaryFile(tip_points_bin_path.toStdString());
+    }
+    if(filesystem::exists(crossing_points_bin_path.toStdString())){
+        //        detectUtil->detectedCrossingPoints = loadSetOfSetsFromBinaryFile(crossing_points_bin_path.toStdString());
+    }
 
-//    for(auto it = detectUtil->detectedBranchingPoints.begin(); it != detectUtil->detectedBranchingPoints.end(); it++){
+//    for(auto it = detectUtil->detectedTipPoints.begin(); it != detectUtil->detectedTipPoints.end(); it++){
 //        std::cout<<*it<<" ";
 //    }
 //    std::cout<<endl;
@@ -303,7 +310,7 @@ void CollServer::reneWalAndSync()
 //        writeAPO_file(Prefix+"/"+AnoName+".ano.apo",markers);
 
         saveUnorderedSetToBinaryFile(detectUtil->detectedBranchingPoints, branching_points_bin_path.toStdString());
-        saveUnorderedSetToBinaryFile(detectUtil->detectedBranchingPoints, tip_points_bin_path.toStdString());
+        saveUnorderedSetToBinaryFile(detectUtil->detectedTipPoints, tip_points_bin_path.toStdString());
         saveSetOfSetsToBinaryFile(detectUtil->detectedCrossingPoints, crossing_points_bin_path.toStdString());
         // 延迟析构对象
         deleteLater();
@@ -425,7 +432,7 @@ void CollServer::startTimerForDetectWhole(){
 }
 
 void CollServer::startTimerForDetectTip(){
-    timerForDetectTip->start(24*60*60*1000);
+    timerForDetectTip->start(3*60*1000);
 }
 
 void CollServer::startTimerForDetectBranching(){

@@ -73,10 +73,14 @@ public:
     bool isSomaExists;
     XYZ somaCoordinate;
 
-    string serverIP;
+    string dbmsServerIP;
     string dbmsServerPort;
+    string brainServerIP;
     string brainServerPort;
+    string superuserServerIP;
     string superuserServerPort;
+    string neuronfiberSegServerIP;
+    string neuronfiberSegServerPort;
     string apiVersion;
 
     CachedProtoData cachedUserData;

@@ -44,83 +44,23 @@ bool saveSWC_file_app2(string swc_file, vector<MyMarker*> & outmarkers, list<str
     return true;
 }
 
-bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versionStr)
+bool proc_app2(PARA_APP2 &p)
 {
-  //  bool b_menu = true;
-    bool b_dofunc = false;
-    if (!p.p4dImage || !p.p4dImage->valid())
+    QString infile = p.inimg_file;
+    p.p4dImage = new Image4DSimple;
+    p.p4dImage->loadImage((char *)(qPrintable(infile)), false);
+//    p.p4dImage = callback.loadImage((char *)(qPrintable(infile) ));
+    if (!p.p4dImage || !p.p4dImage->valid()) return false;
+    else
     {
-        if (p.inimg_file.isEmpty()) return false;
-        
-        b_dofunc = true;
-        
-        //in this case try to read the image files
-        QString infile = p.inimg_file;
-        p.p4dImage = callback.loadImage((char *)(qPrintable(infile) ));
-        if (!p.p4dImage || !p.p4dImage->valid()) return false;
-        else
-        {
-            p.xc0 = p.yc0 = p.zc0 = 0;
-            p.xc1 = p.p4dImage->getXDim()-1;
-            p.yc1 = p.p4dImage->getYDim()-1;
-            p.zc1 = p.p4dImage->getZDim()-1;
-        }
-        
-        vector<MyMarker> file_inmarkers; 
-        if(!p.inmarker_file.isEmpty()) file_inmarkers = readMarker_file(string(qPrintable(p.inmarker_file)));
-
-        LocationSimple t;
-        for(int i = 0; i < file_inmarkers.size(); i++)
-        {
-            t.x = file_inmarkers[i].x;
-            t.y = file_inmarkers[i].y;
-            t.z = file_inmarkers[i].z;
-            if(t.x<p.xc0+1 || t.x>p.xc1+1 || t.y<p.yc0+1 || t.y>p.yc1+1 || t.z<p.zc0+1 || t.z>p.zc1+1)
-            {
-                if(i==0)
-                {
-                    v3d_msg("The first marker is invalid.",p.b_menu);
-                    return false;
-                }
-                else continue;
-            }
-            p.landmarks.push_back(t);
-        }
-    }
-
-    if(p.landmarks.size() < 2 && p.b_intensity ==1)
-    {
-       v3d_msg("You have to select at least two markers if using high intensity background option.",p.b_menu);
-       return false;
+        p.xc0 = p.yc0 = p.zc0 = 0;
+        p.xc1 = p.p4dImage->getXDim()-1;
+        p.yc1 = p.p4dImage->getYDim()-1;
+        p.zc1 = p.p4dImage->getZDim()-1;
     }
 
     int i;
     list<string>::iterator it;
-    
-    //these info should also be output to the swc file. need to add later. Noted by PHC, 121124
-    list<string> infostring;
-    string tmpstr; QString qtstr;
-    tmpstr =  qPrintable( qtstr.prepend("##Vaa3D-Neuron-APP2 ").append(versionStr) ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.channel).prepend("#channel = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.bkg_thresh).prepend("#bkg_thresh = ") ); infostring.push_back(tmpstr);
-
-    tmpstr =  qPrintable( qtstr.setNum(p.length_thresh).prepend("#length_thresh = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.SR_ratio).prepend("#SR_ratio = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.is_gsdt).prepend("#is_gsdt = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.is_break_accept).prepend("#is_gap = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.cnn_type).prepend("#cnn_type = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.b_256cube).prepend("#b_256cube = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.b_RadiusFrom2D).prepend("#b_radiusFrom2D = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.b_resample).prepend("#b_resample = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.b_intensity).prepend("#b_intensity = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.b_brightfiled).prepend("#b_brightfiled = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.xc0).prepend("#xc0 = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.xc1).prepend("#xc1 = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.yc0).prepend("#yc0 = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.yc1).prepend("#yc1 = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.zc0).prepend("#zc0 = ") ); infostring.push_back(tmpstr);
-    tmpstr =  qPrintable( qtstr.setNum(p.zc1).prepend("#zc1 = ") ); infostring.push_back(tmpstr);
-
     v3d_msg("start to preprocessing.\n", 0);
     
     QElapsedTimer timer1;
@@ -161,7 +101,7 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
     }
     else
     {
-        v3d_msg("Somehow invalid volume box info is detected. Ignore it. But check your Vaa3D program.");
+        qDebug() << ("Somehow invalid volume box info is detected. Ignore it. But check your Vaa3D program.");
         return false;
     }
     
@@ -207,11 +147,6 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
             datatype = V3D_UINT8;
         }
         
-        printf("x = %ld  ", in_sz[0]);
-        printf("y = %ld  ", in_sz[1]);
-        printf("z = %ld  ", in_sz[2]);
-        printf("c = %ld\n", in_sz[3]);
-        
         if (p.b_256cube)
         {
             if (in_sz[0]<=256 && in_sz[1]<=256 && in_sz[2]<=256)
@@ -242,9 +177,6 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
                 if (MM<in_sz[2]) MM=in_sz[2];
                 dfactor_xy = dfactor_z = MM / 256.0;
             }
-            
-            printf("dfactor_xy=%5.3f\n", dfactor_xy);
-            printf("dfactor_z=%5.3f\n", dfactor_z);
             
             if (dfactor_z>1 || dfactor_xy>1)
             {
@@ -282,15 +214,11 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
         }
         else
             p.bkg_thresh = 0;
-        
-        tmpstr =  qPrintable( qtstr.setNum(p.bkg_thresh).prepend("#autoset #bkg_thresh = ") ); infostring.push_back(tmpstr);
     }
     else if (p.b_brightfiled)
     {
         p.bkg_thresh = 255 - p.bkg_thresh;
     }
-
-
 
     float * phi = 0;
     vector<MyMarker> inmarkers;
@@ -309,10 +237,6 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
     }
     qint64 etime1 = timer1.elapsed();
     qDebug() << " **** neuron preprocessing takes [" << etime1 << " milliseconds]";
-    
-    
-    for (it=infostring.begin();it!=infostring.end();it++)
-        cout << *it <<endl;
     
     v3d_msg("start neuron tracing for the preprocessed image.\n", 0);
     
@@ -523,16 +447,6 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
     
     if(1)
     {
-        QString rootposstr="", tmps;
-        tmps.setNum(int(inmarkers[0].x+0.5)).prepend("_x"); rootposstr += tmps;
-        tmps.setNum(int(inmarkers[0].y+0.5)).prepend("_y"); rootposstr += tmps;
-        tmps.setNum(int(inmarkers[0].z+0.5)).prepend("_z"); rootposstr += tmps;
-        //QString outswc_file = callback.getImageName(curwin) + rootposstr + "_app2.swc";
-        QString outswc_file;
-        if(!p.outswc_file.isEmpty())
-            outswc_file = p.outswc_file;
-        else
-            outswc_file = QString(p.p4dImage->getFileName()) + rootposstr + "_app2.swc";
               
         for(i = 0; i < outswc.size(); i++) //add scaling 121127, PHC //add cutbox offset 121202, PHC
         {
@@ -604,80 +518,18 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
         if(p.b_brightfiled)
         {
             for(V3DLONG i = 0; i < p.p4dImage->getTotalUnitNumberPerChannel(); i++)
-                pOriginalData[i] = 255 - pOriginalData[i];
-
+                pOriginalData[i] = 255 - pOriginalData[i]; 
         }
-        //prepare the output comments for neuron info in the swc file
-       
-        tmpstr =  qPrintable( qtstr.setNum(etime1).prepend("#neuron preprocessing time (milliseconds) = ") ); infostring.push_back(tmpstr);
-        tmpstr =  qPrintable( qtstr.setNum(etime2).prepend("#neuron tracing time (milliseconds) = ") ); infostring.push_back(tmpstr);
-        saveSWC_file(outswc_file.toStdString(), outswc, infostring);
 
-        if(outswc.size()>10)
-        {
-
-        //call sort_swc function
-
-            V3DPluginArgItem arg;
-            V3DPluginArgList input_resample;
-            V3DPluginArgList input_sort;
-            V3DPluginArgList output;
-
-            arg.type = "random";std::vector<char*> arg_input_resample;
-            std:: string fileName_Qstring(outswc_file.toStdString());char* fileName_string =  new char[fileName_Qstring.length() + 1]; strcpy(fileName_string, fileName_Qstring.c_str());
-            arg_input_resample.push_back(fileName_string);
-			arg.p = (void *) & arg_input_resample; input_resample<< arg;
-            arg.type = "random";std::vector<char*> arg_resample_para; arg_resample_para.push_back("10");arg.p = (void *) & arg_resample_para; input_resample << arg;
-            arg.type = "random";std::vector<char*> arg_output;arg_output.push_back(fileName_string); arg.p = (void *) & arg_output; output<< arg;
-            QString full_plugin_name_resample = "resample_swc";
-            QString func_name_resample = "resample_swc";
-            if(p.b_resample)
-                callback.callPluginFunc(full_plugin_name_resample,func_name_resample,input_resample,output);
-            arg.type = "random";std::vector<char*> arg_input_sort;
-            arg_input_sort.push_back(fileName_string);
-            arg.p = (void *) & arg_input_sort; input_sort<< arg;
-            arg.type = "random";std::vector<char*> arg_sort_para; arg_sort_para.push_back("0");arg.p = (void *) & arg_sort_para; input_sort << arg;
-            QString full_plugin_name_sort = "sort_neuron_swc";
-            QString func_name_sort = "sort_swc";
-            callback.callPluginFunc(full_plugin_name_sort,func_name_sort, input_sort,output);
-            
-            vector<MyMarker*> temp_out_swc = readSWC_file(outswc_file.toStdString());
-            saveSWC_file_app2(outswc_file.toStdString(), temp_out_swc, infostring);
-        }
-        //v3d_msg(QString("The tracing uses %1 ms (%2 ms for preprocessing and %3 for tracing). Now you can drag and drop the generated swc fle [%4] into Vaa3D."
-        //                ).arg(etime1+etime2).arg(etime1).arg(etime2).arg(outswc_file), p.b_menu);
-        
-        if (0) //by PHC 120909
-        {
-//            try
-//            {
-//                NeuronTree nt = readSWC_file(outswc_file);
-//                callback.setSWC(curwin, nt);
-//                callback.open3DWindow(curwin);
-//                callback.getView3DControl(curwin)->updateWithTriView();
-//            }
-//            catch(...)
-//            {
-//                return false;
-//            }
-        }
+        p.result = swc_convert(outswc);
     }
-    else
-    {
-//        NeuronTree nt = swc_convert(outswc);
-//        callback.setSWC(curwin, nt);
-//        callback.open3DWindow(curwin);
-//        callback.getView3DControl(curwin)->updateWithTriView();
-    }
+
     //release memory
     if(phi){delete [] phi; phi = 0;}
     for(V3DLONG i = 0; i < outtree.size(); i++) delete outtree[i];
     outtree.clear();
-    
-    if (b_dofunc)
-    {
-        if (p.p4dImage) {delete p.p4dImage; p.p4dImage=NULL;}
-    }
+
+    if (p.p4dImage) {delete p.p4dImage; p.p4dImage = nullptr;}
     
     return true;
 }

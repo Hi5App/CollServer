@@ -422,6 +422,14 @@ void stringToXYZ(string xyz, float& x, float& y, float& z){
     z = xyzstrs[2].toFloat();
 }
 
+XYZ qstringToXYZ(QString xyz){
+    QStringList xyzstrs = xyz.split("_");
+    float x = xyzstrs[0].toFloat();
+    float y = xyzstrs[1].toFloat();
+    float z = xyzstrs[2].toFloat();
+    return XYZ(x, y, z);
+}
+
 void getSegmentsForOthersDetect(V_NeuronSWC_list& last1MinSegments, V_NeuronSWC_list& segmentsForOthersDetect, V_NeuronSWC_list segments){
     map<string, set<size_t>> wholeGrid2SegIDMap = getWholeGrid2SegIDMap(segments);
 

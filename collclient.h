@@ -70,6 +70,8 @@ public:
     //get soma pos
     void getSomaPos(const QString msg);//获取soma点的坐标
 
+    void switchAutoCorrectionState(const QString msg);//更换autocorrection状态
+
     //消除quality_control marker
     void removeQCMarker(QList<CellAPO>& markers);
 

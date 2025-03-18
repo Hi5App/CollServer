@@ -395,7 +395,6 @@ public:
 	void loadImage(const char* filename);
 	void loadImage(const char* filename, bool b_useMylib);
     void loadImage_slice(char filename[], bool b_useMyLib, V3DLONG zsliceno);
-	bool saveImage(const char filename[]);
 
 	bool createImage(V3DLONG mysz0, V3DLONG mysz1, V3DLONG mysz2, V3DLONG mysz3, ImagePixelType mytype);
     void createBlankImage(V3DLONG imgsz0, V3DLONG imgsz1, V3DLONG imgsz2, V3DLONG imgsz3, int imgdatatype);
