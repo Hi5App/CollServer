@@ -1772,6 +1772,7 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
         }
 
         if(isAutoCorrect){
+            qint64 preTimeStamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
             vector<TipCoorPredictedResult> missingPart = getMissingPart(coorResults);
             vector<QString> coorList;
             map<QString, MissingForSegData> segDataMap;
@@ -1787,7 +1788,14 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
 
             QString result_relpath = "";
             if (requestForSeg(relPath, coorList, result_relpath)){
+                qint64 preTimeStamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
                 getApp2TracingResult(segDataMap, result_relpath);
+                qint64 postTimeStamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
+                float consumedTime = (postTimeStamp - preTimeStamp) / 1000.0;
+                // 使用 QString 进行格式化
+                QString consumedTime_ = QString::number(consumedTime, 'f', 3);
+                qDebug() << "consumed_time_app2: " << consumedTime_;
+
                 fliterTip(segDataMap);
                 myServer->mutex.lock();
                 autoCorrectMissing(segDataMap);
@@ -1797,6 +1805,12 @@ void CollDetection::handleTip(vector<NeuronSWC>& tipPoints){
             // 清理资源
             reply->deleteLater();
             tipInfoMap.clear();
+
+            qint64 postTimeStamp = QDateTime::currentDateTime().toMSecsSinceEpoch();
+            float consumedTime = (postTimeStamp - preTimeStamp) / 1000.0;
+            // 使用 QString 进行格式化
+            QString consumedTime_ = QString::number(consumedTime, 'f', 3);
+            qDebug() << "consumed_time_sum: " << consumedTime_;
             return;
         }
 
