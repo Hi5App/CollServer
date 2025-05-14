@@ -22,37 +22,37 @@ QTimer CollClient::timerforupdatemsg;
 CollClient:: CollClient(qintptr handle, CollServer* curServer, QObject *parent):QTcpSocket(parent){
     setSocketDescriptor(handle);
     myServer=curServer;
-    m_HeartBeatTimer = new QTimer(this);
-    m_HeartBeatTimer->setInterval(15000);
-    connect(m_HeartBeatTimer,&QTimer::timeout,this,[this]() {
-        proto::UserOnlineHeartBeatNotification notification;
-        notification.mutable_metainfo()->set_apiversion(RpcCall::ApiVersion);
-        auto* userInfo = notification.mutable_userverifyinfo();
-        userInfo->set_username(cachedUserData.UserName);
-        userInfo->set_usertoken(cachedUserData.UserToken);
-        notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
-        proto::UserOnlineHeartBeatResponse response;
-        grpc::ClientContext context;
-        auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
-        if(status.ok()) {
-            cachedUserData.UserName = response.userverifyinfo().username();
-            cachedUserData.UserToken = response.userverifyinfo().usertoken();
-            cachedUserData.OnlineStatus = true;
-        }else {
-            qDebug()<<"Error" + QString::fromStdString(status.error_message());
-        }
-    });
+//    m_HeartBeatTimer = new QTimer(this);
+//    m_HeartBeatTimer->setInterval(15000);
+//    connect(m_HeartBeatTimer,&QTimer::timeout,this,[this]() {
+//        proto::UserOnlineHeartBeatNotification notification;
+//        notification.mutable_metainfo()->set_apiversion(RpcCall::ApiVersion);
+//        auto* userInfo = notification.mutable_userverifyinfo();
+//        userInfo->set_username(cachedUserData.UserName);
+//        userInfo->set_usertoken(cachedUserData.UserToken);
+//        notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
+//        proto::UserOnlineHeartBeatResponse response;
+//        grpc::ClientContext context;
+//        auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
+//        if(status.ok()) {
+//            cachedUserData.UserName = response.userverifyinfo().username();
+//            cachedUserData.UserToken = response.userverifyinfo().usertoken();
+//            cachedUserData.OnlineStatus = true;
+//        }else {
+//            qDebug()<<"Error" + QString::fromStdString(status.error_message());
+//        }
+//    });
 
-    m_OnlineStatusTimer = new QTimer(this);
-    m_OnlineStatusTimer->setInterval(30000);
-    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[this]() {
-        if(!cachedUserData.OnlineStatus) {
-            qDebug()<<"Error, Timeout! You may have disconnected from server!";
-            QString msg = "/WARN_DisconnectError:server";
-            sendmsgs({msg});
-        }
-        cachedUserData.OnlineStatus = false;
-    });
+//    m_OnlineStatusTimer = new QTimer(this);
+//    m_OnlineStatusTimer->setInterval(30000);
+//    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[this]() {
+//        if(!cachedUserData.OnlineStatus) {
+//            qDebug()<<"Error, Timeout! You may have disconnected from server!";
+//            QString msg = "/WARN_DisconnectError:server";
+//            sendmsgs({msg});
+//        }
+//        cachedUserData.OnlineStatus = false;
+//    });
 
 //    如果一分钟内没有登陆好，则断开连接
     QTimer::singleShot(60*1000,this,[this]{

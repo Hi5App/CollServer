@@ -111,6 +111,7 @@ signals:
 
 public slots:
     void detectWholeAtStart();
+    // 检测多分叉、邻近二分叉
     void detectOthers();
     void detectLoops();
     void detectTips();

@@ -74,34 +74,34 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
     RpcCall::ApiVersion = apiVersion;
     connectToDBMS();
 
-    m_HeartBeatTimer = new QTimer(this);
-    m_HeartBeatTimer->setInterval(15000);
-    connect(m_HeartBeatTimer,&QTimer::timeout,this,[this]() {
-        proto::UserOnlineHeartBeatNotification notification;
-        notification.mutable_metainfo()->set_apiversion(RpcCall::ApiVersion);
-        auto* userInfo = notification.mutable_userverifyinfo();
-        userInfo->set_username(cachedUserData.UserName);
-        userInfo->set_userpassword(cachedUserData.Password);
-        notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
-        proto::UserOnlineHeartBeatResponse response;
-        grpc::ClientContext context;
-        auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
-        if(status.ok()) {
-            cachedUserData.UserName = response.userverifyinfo().username();
-            cachedUserData.OnlineStatus = true;
-        }else {
-            qDebug()<<"Error" + QString::fromStdString(status.error_message());
-        }
-    });
+//    m_HeartBeatTimer = new QTimer(this);
+//    m_HeartBeatTimer->setInterval(15000);
+//    connect(m_HeartBeatTimer,&QTimer::timeout,this,[this]() {
+//        proto::UserOnlineHeartBeatNotification notification;
+//        notification.mutable_metainfo()->set_apiversion(RpcCall::ApiVersion);
+//        auto* userInfo = notification.mutable_userverifyinfo();
+//        userInfo->set_username(cachedUserData.UserName);
+//        userInfo->set_userpassword(cachedUserData.Password);
+//        notification.set_heartbeattime(std::chrono::system_clock::now().time_since_epoch().count());
+//        proto::UserOnlineHeartBeatResponse response;
+//        grpc::ClientContext context;
+//        auto status = RpcCall::getInstance().Stub()->UserOnlineHeartBeatNotifications(&context,notification,&response);
+//        if(status.ok()) {
+//            cachedUserData.UserName = response.userverifyinfo().username();
+//            cachedUserData.OnlineStatus = true;
+//        }else {
+//            qDebug()<<"Error" + QString::fromStdString(status.error_message());
+//        }
+//    });
 
-    m_OnlineStatusTimer = new QTimer(this);
-    m_OnlineStatusTimer->setInterval(30000);
-    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[this]() {
-        if(!cachedUserData.OnlineStatus) {
-            qDebug()<<"Error, Timeout! server may have disconnected from server!";
-        }
-        cachedUserData.OnlineStatus = false;
-    });
+//    m_OnlineStatusTimer = new QTimer(this);
+//    m_OnlineStatusTimer->setInterval(30000);
+//    connect(m_OnlineStatusTimer,&QTimer::timeout,this,[this]() {
+//        if(!cachedUserData.OnlineStatus) {
+//            qDebug()<<"Error, Timeout! server may have disconnected from server!";
+//        }
+//        cachedUserData.OnlineStatus = false;
+//    });
 
     qRegisterMetaType<qintptr>("qintptr");
 
@@ -127,10 +127,10 @@ CollServer::CollServer(QString port,QString project,QString image,QString neuron
         detectUtil->detectedBranchingPoints = loadUnorderedSetFromBinaryFile(branching_points_bin_path.toStdString());
     }
     if(filesystem::exists(tip_points_bin_path.toStdString())){
-        //        detectUtil->detectedTipPoints = loadUnorderedSetFromBinaryFile(tip_points_bin_path.toStdString());
+        detectUtil->detectedTipPoints = loadUnorderedSetFromBinaryFile(tip_points_bin_path.toStdString());
     }
     if(filesystem::exists(crossing_points_bin_path.toStdString())){
-        //        detectUtil->detectedCrossingPoints = loadSetOfSetsFromBinaryFile(crossing_points_bin_path.toStdString());
+        detectUtil->detectedCrossingPoints = loadSetOfSetsFromBinaryFile(crossing_points_bin_path.toStdString());
     }
 
 //    for(auto it = detectUtil->detectedTipPoints.begin(); it != detectUtil->detectedTipPoints.end(); it++){
