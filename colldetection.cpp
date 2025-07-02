@@ -1,20 +1,16 @@
-﻿#ifdef _WIN32
-#include <Windows.h>
-#endif
-#include "colldetection.h"
+﻿#include "colldetection.h"
 #include "coll_server.h"
-#include "sort_swc.h"
-#include <iostream>
-#include <vector>
-#include <QHttpMultiPart>
-#include "detect_crossing/utilities.h"
-#include "detect_crossing/SwcReader.h"
-#include <filesystem>
 #include "detect_crossing/CrossingDetect.h"
 #include "detect_crossing/ResultWriter.h"
-#include "service/RpcCall.h"
+#include "detect_crossing/SwcReader.h"
+#include "detect_crossing/utilities.h"
 #include "service/WrappedCall.h"
-#include "grpcpp/grpcpp.h"
+#include "sort_swc.h"
+#include <QHttpMultiPart>
+#include <filesystem>
+#include <iostream>
+#include <vector>
+
 
 XYZ CollDetection::maxRes = XYZ(0, 0, 0);
 XYZ CollDetection::subMaxRes;

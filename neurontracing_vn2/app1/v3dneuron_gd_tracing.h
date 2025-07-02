@@ -104,26 +104,31 @@ template <class T> bool median_filter_3d(T ***p3d, V3DLONG sz[3], double r)
 				V3DLONG totalsample = 0;
 				for (k=-R;k<=R;k++)
 				{
-					cz = V3DLONG(kk+k); if (cz<0 || cz>=sz2) continue;
-					curr_k = double(k)*k;
-					for (j=-R;j<=R;j++)
-					{
-						cy = V3DLONG(jj+j); if (cy<0 || cy>=sz1) continue;
-						if ((curr_j = double(j)*j+curr_k) > r2)
-							continue;
-						
-						for (i=-R;i<=R;i++)
-						{
-							cx = V3DLONG(ii+i); if (cx<0 || cx>=sz0) continue;
-							if ((curr_i = double(i)*i+curr_j) > r2)
-								continue;
-							
-							totalsample += 1;
-							
-							myvector.push_back(p3d[cz][cy][cx]);
-						}
-					}
-				}
+                                  cz = (V3DLONG)(kk + k);
+                                  if (cz < 0 || cz >= sz2)
+                                    continue;
+                                  curr_k = double(k) * k;
+                                  for (j = -R; j <= R; j++) {
+                                    cy = (V3DLONG)(jj + j);
+                                    if (cy < 0 || cy >= sz1)
+                                      continue;
+                                    if ((curr_j = double(j) * j + curr_k) > r2)
+                                      continue;
+
+                                    for (i = -R; i <= R; i++) {
+                                      cx = (V3DLONG)(ii + i);
+                                      if (cx < 0 || cx >= sz0)
+                                        continue;
+                                      if ((curr_i = double(i) * i + curr_j) >
+                                          r2)
+                                        continue;
+
+                                      totalsample += 1;
+
+                                      myvector.push_back(p3d[cz][cy][cx]);
+                                    }
+                                  }
+                                }
 				
 				// using default comparison (operator <):
 				sort(myvector.begin(), myvector.end());

@@ -141,8 +141,8 @@ public:
                                                // this represents a destination
 public:
    MatrixType () : DataLossOK(false) {}
-   MatrixType (int pi) : attribute(pi), DataLossOK(false) {}
-   MatrixType (int pi, bool dlok) : attribute(pi), DataLossOK(dlok) {}
+   MatrixType (int i) : attribute(i), DataLossOK(false) {}
+   MatrixType (int i, bool dlok) : attribute(i), DataLossOK(dlok) {}
    MatrixType (const MatrixType& mt)
       : attribute(mt.attribute), DataLossOK(mt.DataLossOK) {}
    void operator=(const MatrixType& mt)
@@ -162,10 +162,10 @@ public:
       { return ( attribute & ~mt.attribute & Mask ) == 0; }
    bool operator<(MatrixType mt) const         // for MS Visual C++ 4
       { return ( attribute & ~mt.attribute & Mask ) != 0; }
-   bool operator==(MatrixType pt) const
-      { return (attribute == pt.attribute); }
-   bool operator!=(MatrixType pt) const
-      { return (attribute != pt.attribute); }
+   bool operator==(MatrixType t) const
+      { return (attribute == t.attribute); }
+   bool operator!=(MatrixType t) const
+      { return (attribute != t.attribute); }
    bool operator!() const { return (attribute & Valid) == 0; }
    MatrixType i() const;                       ///< type of inverse
    MatrixType t() const;                       ///< type of transpose
@@ -354,31 +354,31 @@ public:
    virtual Real maximum_absolute_value() const;
    Real MaximumAbsoluteValue() const { return maximum_absolute_value(); }
    virtual Real maximum_absolute_value1(int& i) const;
-   Real MaximumAbsoluteValue1(int& pi) const
-      { return maximum_absolute_value1(pi); }
+   Real MaximumAbsoluteValue1(int& i) const
+      { return maximum_absolute_value1(i); }
    virtual Real maximum_absolute_value2(int& i, int& j) const;
-   Real MaximumAbsoluteValue2(int& pi, int& pj) const
-      { return maximum_absolute_value2(pi,pj); }
+   Real MaximumAbsoluteValue2(int& i, int& j) const
+      { return maximum_absolute_value2(i,j); }
    virtual Real minimum_absolute_value() const;
    Real MinimumAbsoluteValue() const { return minimum_absolute_value(); }
    virtual Real minimum_absolute_value1(int& i) const;
-   Real MinimumAbsoluteValue1(int& pi) const
-      { return minimum_absolute_value1(pi); }
+   Real MinimumAbsoluteValue1(int& i) const
+      { return minimum_absolute_value1(i); }
    virtual Real minimum_absolute_value2(int& i, int& j) const;
-   Real MinimumAbsoluteValue2(int& pi, int& pj) const
-      { return minimum_absolute_value2(pi,pj); }
+   Real MinimumAbsoluteValue2(int& i, int& j) const
+      { return minimum_absolute_value2(i,j); }
    virtual Real maximum() const;
    Real Maximum() const { return maximum(); }
    virtual Real maximum1(int& i) const;
-   Real Maximum1(int& pi) const { return maximum1(pi); }
+   Real Maximum1(int& i) const { return maximum1(i); }
    virtual Real maximum2(int& i, int& j) const;
-   Real Maximum2(int& pi, int& pj) const { return maximum2(pi,pj); }
+   Real Maximum2(int& i, int& j) const { return maximum2(i,j); }
    virtual Real minimum() const;
    Real Minimum() const { return minimum(); }
    virtual Real minimum1(int& i) const;
-   Real Minimum1(int& pi) const { return minimum1(pi); }
+   Real Minimum1(int& i) const { return minimum1(i); }
    virtual Real minimum2(int& i, int& j) const;
-   Real Minimum2(int& pi, int& pj) const { return minimum2(pi,pj); }
+   Real Minimum2(int& i, int& j) const { return minimum2(i,j); }
    virtual Real trace() const;
    Real Trace() const { return trace(); }
    Real norm1() const;
@@ -446,7 +446,6 @@ public:
 /// The classes for matrices that can contain data are derived from this.
 class GeneralMatrix : public BaseMatrix         // declarable matrix types
 {
-   virtual GeneralMatrix* Image() const;        // copy of matrix
 protected:
    int tag_val;                                 // shows whether can reuse
    int nrows_val, ncols_val;                    // dimensions
@@ -464,15 +463,10 @@ protected:
    void Negate();                               // change sign
    void ReverseElements();                      // internal reverse of elements
    void ReverseElements(GeneralMatrix*);        // reverse order of elements
-   void operator=(Real);                        // set matrix to constant
    Real* GetStore();                            // get store or copy
    GeneralMatrix* BorrowStore(GeneralMatrix*, MatrixType);
                                                 // temporarily access store
    void GetMatrix(const GeneralMatrix*);        // used by = and initialise
-   void Eq(const BaseMatrix&, MatrixType);      // used by =
-   void Eq(const GeneralMatrix&);               // version with no conversion
-   void Eq(const BaseMatrix&, MatrixType, bool);// used by <<
-   void Eq2(const BaseMatrix&, MatrixType);     // cut down version of Eq
    int search(const BaseMatrix*) const;
    virtual GeneralMatrix* Transpose(TransposedMatrix*, MatrixType);
    void CheckConversion(const BaseMatrix&);     // check conversion OK
@@ -483,12 +477,17 @@ protected:
       { store = 0; storage = 0; nrows_val = 0; ncols_val = 0; tag_val = -1;}
              // CleanUp when the data array has already been deleted
    void PlusEqual(const GeneralMatrix& gm);
+   void SP_Equal(const GeneralMatrix& gm);
    void MinusEqual(const GeneralMatrix& gm);
    void PlusEqual(Real f);
    void MinusEqual(Real f);
    void swap(GeneralMatrix& gm);                // swap values
 public:
    GeneralMatrix* Evaluate(MatrixType mt=MatrixTypeUnSp);
+   void Eq(const BaseMatrix&, MatrixType);      // used by =
+   void Eq(const GeneralMatrix&);               // version with no conversion
+   void Eq(const BaseMatrix&, MatrixType, bool);// used by <<
+   void Eq2(const BaseMatrix&, MatrixType);     // cut down version of Eq
    virtual MatrixType type() const = 0;         // type of a matrix
    MatrixType Type() const { return type(); }
    int Nrows() const { return nrows_val; }      // get dimensions
@@ -502,6 +501,7 @@ public:
    Real* data() { return store; }
    const Real* data() const { return store; }
    const Real* const_data() const { return store; }
+   void operator=(Real);                        // set matrix to constant
    virtual ~GeneralMatrix();                    // delete store if set
    void tDelete();                              // delete if tag_val permits
    bool reuse();                                // true if tag_val allows reuse
@@ -512,10 +512,10 @@ public:
    bool is_zero() const;                        // test matrix has all zeros
    bool IsZero() const { return is_zero(); }    // test matrix has all zeros
    void Release() { tag_val=1; }                // del store after next use
-   void Release(int pt) { tag_val=pt; }           // del store after t accesses
+   void Release(int t) { tag_val=t; }           // del store after t accesses
    void ReleaseAndDelete() { tag_val=0; }       // delete matrix after use
    void release() { tag_val=1; }                // del store after next use
-   void release(int pt) { tag_val=pt; }           // del store after t accesses
+   void release(int t) { tag_val=t; }           // del store after t accesses
    void release_and_delete() { tag_val=0; }     // delete matrix after use
    void operator<<(const double*);              // assignment from an array
    void operator<<(const float*);               // assignment from an array
@@ -525,6 +525,7 @@ public:
    void inject(const GeneralMatrix&);           // copy stored els only
    void Inject(const GeneralMatrix& GM) { inject(GM); }
    void operator+=(const BaseMatrix&);
+   void SP_eq(const BaseMatrix&);
    void operator-=(const BaseMatrix&);
    void operator*=(const BaseMatrix&);
    void operator|=(const BaseMatrix&);
@@ -578,6 +579,7 @@ public:
    MatrixInput operator<<(int f);
 //   ReturnMatrix Reverse() const;                // reverse order of elements
    void cleanup();                              // to clear store
+   virtual GeneralMatrix* Image() const;        // copy of matrix
 
    friend class Matrix;
    friend class SquareMatrix;
@@ -624,7 +626,6 @@ public:
 /// The usual rectangular matrix.
 class Matrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    Matrix() {}
    ~Matrix() {}
@@ -667,10 +668,15 @@ public:
    Real maximum2(int& i, int& j) const;
    Real minimum2(int& i, int& j) const;
    void operator+=(const Matrix& M) { PlusEqual(M); }
+   void SP_eq(const Matrix& M) { SP_Equal(M); }
    void operator-=(const Matrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::Add(f); }
    void operator-=(Real f) { GeneralMatrix::Add(-f); }
    void swap(Matrix& gm) { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    friend Real dotproduct(const Matrix& A, const Matrix& B);
    NEW_DELETE(Matrix)
 };
@@ -678,7 +684,6 @@ public:
 /// Square matrix.
 class SquareMatrix : public Matrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    SquareMatrix() {}
    ~SquareMatrix() {}
@@ -700,17 +705,21 @@ public:
    void resize(const GeneralMatrix& A);
    void ReSize(const GeneralMatrix& A) { resize(A); }
    void operator+=(const Matrix& M) { PlusEqual(M); }
+   void SP_eq(const Matrix& M) { SP_Equal(M); }
    void operator-=(const Matrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::Add(f); }
    void operator-=(Real f) { GeneralMatrix::Add(-f); }
    void swap(SquareMatrix& gm) { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(SquareMatrix)
 };
 
 /// Rectangular matrix for use with Numerical Recipes in C.
 class nricMatrix : public Matrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
    Real** row_pointer;                          // points to rows
    void MakeRowPointer();                       // build rowpointer
    void DeleteRowPointer();
@@ -742,17 +751,21 @@ public:
    void cleanup();                                // to clear store
    void MiniCleanUp();
    void operator+=(const Matrix& M) { PlusEqual(M); }
+   void SP_eq(const Matrix& M) { SP_Equal(M); }
    void operator-=(const Matrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::Add(f); }
    void operator-=(Real f) { GeneralMatrix::Add(-f); }
    void swap(nricMatrix& gm);
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(nricMatrix)
 };
 
 /// Symmetric matrix.
 class SymmetricMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    SymmetricMatrix() {}
    ~SymmetricMatrix() {}
@@ -788,17 +801,21 @@ public:
    void resize(const GeneralMatrix& A);
    void ReSize(const GeneralMatrix& A) { resize(A); }
    void operator+=(const SymmetricMatrix& M) { PlusEqual(M); }
+   void SP_eq(const SymmetricMatrix& M) { SP_Equal(M); }
    void operator-=(const SymmetricMatrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::Add(f); }
    void operator-=(Real f) { GeneralMatrix::Add(-f); }
    void swap(SymmetricMatrix& gm) { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(SymmetricMatrix)
 };
 
 /// Upper triangular matrix.
 class UpperTriangularMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    UpperTriangularMatrix() {}
    ~UpperTriangularMatrix() {}
@@ -836,18 +853,22 @@ public:
    void resize_keep(int);
    MatrixBandWidth bandwidth() const;
    void operator+=(const UpperTriangularMatrix& M) { PlusEqual(M); }
+   void SP_eq(const UpperTriangularMatrix& M) { SP_Equal(M); }
    void operator-=(const UpperTriangularMatrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::operator+=(f); }
    void operator-=(Real f) { GeneralMatrix::operator-=(f); }
    void swap(UpperTriangularMatrix& gm)
       { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(UpperTriangularMatrix)
 };
 
 /// Lower triangular matrix.
 class LowerTriangularMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    LowerTriangularMatrix() {}
    ~LowerTriangularMatrix() {}
@@ -884,18 +905,22 @@ public:
    void ReSize(const GeneralMatrix& A) { resize(A); }
    MatrixBandWidth bandwidth() const;
    void operator+=(const LowerTriangularMatrix& M) { PlusEqual(M); }
+   void SP_eq(const LowerTriangularMatrix& M) { SP_Equal(M); }
    void operator-=(const LowerTriangularMatrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::operator+=(f); }
    void operator-=(Real f) { GeneralMatrix::operator-=(f); }
    void swap(LowerTriangularMatrix& gm)
       { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(LowerTriangularMatrix)
 };
 
 /// Diagonal matrix.
 class DiagonalMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    DiagonalMatrix() {}
    ~DiagonalMatrix() {}
@@ -941,18 +966,22 @@ public:
    MatrixBandWidth bandwidth() const;
 //   ReturnMatrix Reverse() const;                // reverse order of elements
    void operator+=(const DiagonalMatrix& M) { PlusEqual(M); }
+   void SP_eq(const DiagonalMatrix& M) { SP_Equal(M); }
    void operator-=(const DiagonalMatrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::operator+=(f); }
    void operator-=(Real f) { GeneralMatrix::operator-=(f); }
    void swap(DiagonalMatrix& gm)
       { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(DiagonalMatrix)
 };
 
 /// Row vector.
 class RowVector : public Matrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    RowVector() { nrows_val = 1; }
    ~RowVector() {}
@@ -996,18 +1025,22 @@ public:
       { store = 0; storage = 0; nrows_val = 1; ncols_val = 0; tag_val = -1; }
    // friend ReturnMatrix GetMatrixRow(Matrix& A, int row);
    void operator+=(const Matrix& M) { PlusEqual(M); }
+   void SP_eq(const Matrix& M) { SP_Equal(M); }
    void operator-=(const Matrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::Add(f); }
    void operator-=(Real f) { GeneralMatrix::Add(-f); }
    void swap(RowVector& gm)
       { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(RowVector)
 };
 
 /// Column vector.
 class ColumnVector : public Matrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    ColumnVector() { ncols_val = 1; }
    ~ColumnVector() {}
@@ -1045,11 +1078,16 @@ public:
       { store = 0; storage = 0; nrows_val = 0; ncols_val = 1; tag_val = -1; }
 //   ReturnMatrix Reverse() const;                // reverse order of elements
    void operator+=(const Matrix& M) { PlusEqual(M); }
+   void SP_eq(const Matrix& M) { SP_Equal(M); }
    void operator-=(const Matrix& M) { MinusEqual(M); }
+   void operator+=(const BaseMatrix& M) { GeneralMatrix::operator+=(M); }
+   void SP_eq(const BaseMatrix& M) { GeneralMatrix::SP_eq(M); }
+   void operator-=(const BaseMatrix& M) { GeneralMatrix::operator-=(M); }
    void operator+=(Real f) { GeneralMatrix::Add(f); }
    void operator-=(Real f) { GeneralMatrix::Add(-f); }
    void swap(ColumnVector& gm)
       { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(ColumnVector)
 };
 
@@ -1063,7 +1101,6 @@ class CroutMatrix : public GeneralMatrix
    bool sing;
    void ludcmp();
    void get_aux(CroutMatrix&);                  // for copying indx[] etc
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    CroutMatrix(const BaseMatrix&);
    CroutMatrix() : indx(0), d(true), sing(true) {}
@@ -1087,6 +1124,7 @@ public:
    const int* const_data_indx() const { return indx; }
    bool even_exchanges() const { return d; }
    void swap(CroutMatrix& gm);
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(CroutMatrix)
 };
 
@@ -1095,7 +1133,6 @@ public:
 /// Band matrix.
 class BandMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 protected:
    void CornerClear() const;                    // set unused elements to zero
    short SimpleAddOK(const GeneralMatrix* gm);
@@ -1132,9 +1169,9 @@ public:
    Real maximum_absolute_value() const
       { CornerClear(); return GeneralMatrix::maximum_absolute_value(); }
    Real minimum_absolute_value() const
-      { int pi, pj; return GeneralMatrix::minimum_absolute_value2(pi, pj); }
-   Real maximum() const { int pi, pj; return GeneralMatrix::maximum2(pi, pj); }
-   Real minimum() const { int pi, pj; return GeneralMatrix::minimum2(pi, pj); }
+      { int i, j; return GeneralMatrix::minimum_absolute_value2(i, j); }
+   Real maximum() const { int i, j; return GeneralMatrix::maximum2(i, j); }
+   Real minimum() const { int i, j; return GeneralMatrix::minimum2(i, j); }
    void GetRow(MatrixRowCol&);
    void GetCol(MatrixRowCol&);
    void GetCol(MatrixColX&);
@@ -1160,13 +1197,13 @@ public:
       // cannot find the copy in GeneralMatrix
    void operator<<(const BaseMatrix& X) { GeneralMatrix::operator<<(X); }
    void swap(BandMatrix& gm);
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(BandMatrix)
 };
 
 /// Upper triangular band matrix.
 class UpperBandMatrix : public BandMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    UpperBandMatrix() {}
    ~UpperBandMatrix() {}
@@ -1199,13 +1236,13 @@ public:
 #endif
    void swap(UpperBandMatrix& gm)
       { BandMatrix::swap((BandMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(UpperBandMatrix)
 };
 
 /// Lower triangular band matrix.
 class LowerBandMatrix : public BandMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    LowerBandMatrix() {}
    ~LowerBandMatrix() {}
@@ -1238,13 +1275,13 @@ public:
 #endif
    void swap(LowerBandMatrix& gm)
       { BandMatrix::swap((BandMatrix&)gm); }
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(LowerBandMatrix)
 };
 
 /// Symmetric band matrix.
 class SymmetricBandMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;                // copy of matrix
    void CornerClear() const;                    // set unused elements to zero
    short SimpleAddOK(const GeneralMatrix* gm);
 public:
@@ -1274,9 +1311,9 @@ public:
    Real maximum_absolute_value() const
       { CornerClear(); return GeneralMatrix::maximum_absolute_value(); }
    Real minimum_absolute_value() const
-      { int pi, pj; return GeneralMatrix::minimum_absolute_value2(pi, pj); }
-   Real maximum() const { int pi, pj; return GeneralMatrix::maximum2(pi, pj); }
-   Real minimum() const { int pi, pj; return GeneralMatrix::minimum2(pi, pj); }
+      { int i, j; return GeneralMatrix::minimum_absolute_value2(i, j); }
+   Real maximum() const { int i, j; return GeneralMatrix::maximum2(i, j); }
+   Real minimum() const { int i, j; return GeneralMatrix::minimum2(i, j); }
    Real trace() const;
    LogAndSign log_determinant() const;
    void GetRow(MatrixRowCol&);
@@ -1299,6 +1336,7 @@ public:
    void operator<<(const int* r);               // will give error
    void operator<<(const BaseMatrix& X) { GeneralMatrix::operator<<(X); }
    void swap(SymmetricBandMatrix& gm);
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(SymmetricBandMatrix)
 };
 
@@ -1313,7 +1351,6 @@ class BandLUMatrix : public GeneralMatrix
    int m1,m2;                                   // lower and upper
    void ludcmp();
    void get_aux(BandLUMatrix&);                 // for copying indx[] etc
-   GeneralMatrix* Image() const;                // copy of matrix
 public:
    BandLUMatrix(const BaseMatrix&);
    BandLUMatrix()
@@ -1341,6 +1378,7 @@ public:
    bool even_exchanges() const { return d; }
    MatrixBandWidth bandwidth() const;
    void swap(BandLUMatrix& gm);
+   GeneralMatrix* Image() const;                // copy of matrix
    NEW_DELETE(BandLUMatrix)
 };
 
@@ -1349,7 +1387,6 @@ public:
 /// Identity matrix.
 class IdentityMatrix : public GeneralMatrix
 {
-   GeneralMatrix* Image() const;          // copy of matrix
 public:
    IdentityMatrix() {}
    ~IdentityMatrix() {}
@@ -1385,6 +1422,7 @@ public:
 //   ReturnMatrix Reverse() const;                // reverse order of elements
    void swap(IdentityMatrix& gm)
       { GeneralMatrix::swap((GeneralMatrix&)gm); }
+   GeneralMatrix* Image() const;          // copy of matrix
    NEW_DELETE(IdentityMatrix)
 };
 
@@ -1408,6 +1446,7 @@ public:
    void operator=(const GenericMatrix&);
    void operator=(const BaseMatrix&);
    void operator+=(const BaseMatrix&);
+   void SP_eq(const BaseMatrix&);
    void operator-=(const BaseMatrix&);
    void operator*=(const BaseMatrix&);
    void operator|=(const BaseMatrix&);
@@ -1675,7 +1714,7 @@ class InvertedMatrix : public NegatedMatrix
 public:
    ~InvertedMatrix() {}
    SolvedMatrix operator*(const BaseMatrix&) const;       // inverse(A) * B
-   ScaledMatrix operator*(Real pt) const { return BaseMatrix::operator*(pt); }
+   ScaledMatrix operator*(Real t) const { return BaseMatrix::operator*(t); }
    friend class BaseMatrix;
    GeneralMatrix* Evaluate(MatrixType mt=MatrixTypeUnSp);
    MatrixBandWidth bandwidth() const;
@@ -1780,6 +1819,7 @@ public:
    GeneralMatrix* Evaluate(MatrixType mt=MatrixTypeUnSp);
    void operator=(const BaseMatrix&);
    void operator+=(const BaseMatrix&);
+   void SP_eq(const BaseMatrix&);
    void operator-=(const BaseMatrix&);
    void operator=(const GetSubMatrix& m) { operator=((const BaseMatrix&)m); }
    void operator<<(const BaseMatrix&);

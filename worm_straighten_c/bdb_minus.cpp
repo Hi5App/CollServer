@@ -24,11 +24,7 @@ Peng, H, Ruan, Z., Atasoy, D., and Sternson, S. (2010) “Automatic reconstructi
 // Last update: 2008-04-02: add the resampling cutplane function
 #include "bdb_minus.h"
 #include "../basic_c_fun/volimg_proc.h"
-//the folowing conditional compilation is added by PHC, 2010-05-20
-#if defined (_MSC_VER)
-#include "../basic_c_fun/vcdiff.h"
-#else
-#endif
+// the folowing conditional compilation is added by PHC, 2010-05-20
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -481,14 +477,18 @@ bool point_bdb_minus_2d_localwinmass_bl(unsigned char ** inimg_data2d, V3DLONG i
 			//image force
 			int b_use_M_term=1;
 			M_term.x = M_term.y = 0;
-			V3DLONG x0 = V3DLONG(mCoord_in.at(j).x - radius_x + 0.5);
-			x0 = (x0<0)?0:x0;
-			V3DLONG x1 = V3DLONG(mCoord_in.at(j).x + radius_x + 0.5);
-			x1 = (x1>=(inimg_sz0-1))?(inimg_sz0-1):x1;
-			V3DLONG y0 = V3DLONG(mCoord_in.at(j).y - radius_y + 0.5);
-			y0 = (y0<0)?0:y0;
-			V3DLONG y1 = V3DLONG(mCoord_in.at(j).y + radius_y + 0.5);
-			y1 = (y1>=(inimg_sz1-1))?(inimg_sz1-1):y1;
+                        V3DLONG x0 =
+                            (V3DLONG)(mCoord_in.at(j).x - radius_x + 0.5);
+                        x0 = (x0<0)?0:x0;
+                        V3DLONG x1 =
+                            (V3DLONG)(mCoord_in.at(j).x + radius_x + 0.5);
+                        x1 = (x1>=(inimg_sz0-1))?(inimg_sz0-1):x1;
+                        V3DLONG y0 =
+                            (V3DLONG)(mCoord_in.at(j).y - radius_y + 0.5);
+                        y0 = (y0<0)?0:y0;
+                        V3DLONG y1 =
+                            (V3DLONG)(mCoord_in.at(j).y + radius_y + 0.5);
+                        y1 = (y1>=(inimg_sz1-1))?(inimg_sz1-1):y1;
 			//	cout << "x0 "<< x0 << ' ' << x1 << " y0 " << ' ' << y0 <<  ' ' << y1 << endl;
 			V3DLONG ix, iy;
 			double tmpval;
@@ -862,8 +862,9 @@ bool straight_nearestfill(UINT8_TYPE * invol1d, V3DLONG *insz, int szlen,
 	outdims[0] = cutPlaneNum;
 	outdims[2] = nz;
 	outdims[3] = nc;
-	outvol1d = new _ELEMENT_GRAPH_UBYTE [V3DLONG(OutWid)*cutPlaneNum*nz*nc];
-	if (!outvol1d)
+        outvol1d =
+            new _ELEMENT_GRAPH_UBYTE[(V3DLONG)(OutWid)*cutPlaneNum * nz * nc];
+        if (!outvol1d)
 	{
 		printf("Fail to allocate memory for the straightened object. Do nothing.\n");
 		if (outdims) {delete []outdims; outdims=0;}

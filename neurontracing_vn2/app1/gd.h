@@ -795,9 +795,12 @@ bool point_bdb_minus_3d_localwinmass_prior_withGraphOrder(unsigned char*** img3d
 		{
 			if (root_id != -1)
 				printf("==================== detect a non-unique root!\n");
-			root_id = V3DLONG(mCoord[j].n);
-			printf("==================== nchild of root [%ld, id=%ld] = %ld\n", j, V3DLONG(mCoord[j].n), V3DLONG(mCoord[j].nchild));
-		}
+                        root_id = (V3DLONG)(mCoord[j].n);
+                        printf("==================== nchild of root [%ld, "
+                               "id=%ld] = %ld\n",
+                               j, (V3DLONG)(mCoord[j].n),
+                               (V3DLONG)(mCoord[j].nchild));
+                }
 	}
 	//also create a children list
 	vector < vector < V3DLONG > > childrenList; childrenList.clear();

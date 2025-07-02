@@ -286,11 +286,11 @@ V_NeuronSWC_list trace_one_pt_to_N_points_shortestdist(unsigned char ****p4d, V3
 		trace_bounding_box.x1 = sz[0]-1;
 		trace_bounding_box.y1 = sz[1]-1;
 		trace_bounding_box.z1 = sz[2]-1;
-		printf("set z1=%ld\n", V3DLONG(trace_bounding_box.z1));
-	}
-	printf("z1=%ld\n", V3DLONG(trace_bounding_box.z1));
-	
-	float *pxp = 0, *pyp=0, *pzp=0;
+                printf("set z1=%ld\n", (V3DLONG)(trace_bounding_box.z1));
+        }
+        printf("z1=%ld\n", (V3DLONG)(trace_bounding_box.z1));
+
+        float *pxp = 0, *pyp=0, *pzp=0;
 	if (n_end_nodes>0)
 	{
 		pxp = &(px[0]);
@@ -875,15 +875,22 @@ bool proj_trace_mergeAllClosebyNeuronNodes(V_NeuronSWC_list & tracedNeuron)
 		printf("seg=%ld\n", seg_id);
 		for (j=0; j<slength; j++)
 		{
-			printf("j=%ld key=%ld mapped row=%ld node=%ld x=%5.3f y=%5.3f z=%5.3f parent=%ld\n", j, V3DLONG(subject_swc.row.at(j).n), subject_index_map[V3DLONG(subject_swc.row.at(j).n)], V3DLONG(subject_swc.row.at(j).n), subject_swc.row.at(j).x, subject_swc.row.at(j).y, subject_swc.row.at(j).z, V3DLONG(subject_swc.row.at(j).parent));
-		}
+                  printf("j=%ld key=%ld mapped row=%ld node=%ld x=%5.3f "
+                         "y=%5.3f z=%5.3f parent=%ld\n",
+                         j, (V3DLONG)(subject_swc.row.at(j).n),
+                         subject_index_map[(V3DLONG)(subject_swc.row.at(j).n)],
+                         (V3DLONG)(subject_swc.row.at(j).n),
+                         subject_swc.row.at(j).x, subject_swc.row.at(j).y,
+                         subject_swc.row.at(j).z,
+                         (V3DLONG)(subject_swc.row.at(j).parent));
+                }
 		printf("\n\n");
 		
 		for (j=0; j<slength; j++)
 		{
 			V3DLONG c = j;
-			V3DLONG p =  V3DLONG(subject_swc.row.at(j).parent);
-			if (p<0) continue;
+                        V3DLONG p = (V3DLONG)(subject_swc.row.at(j).parent);
+                        if (p<0) continue;
 			else p = subject_index_map[p];
 			
 			//printf("c0=%ld p0=%ld c=%ld p=%ld\n", c0, p0, c, p);
@@ -1032,11 +1039,16 @@ bool filterThinSegmentsInImage(unsigned char ****p4d, V3DLONG sz[4], V_NeuronSWC
 		for (V3DLONG iu = 0; iu<mUnit.size(); iu++)
 		{
 			V_NeuronSWC_unit & u = mUnit.at(iu);
-			//p3d[V3DLONG(u.z)][V3DLONG(u.y)][V3DLONG(u.x)] = 0;
-			
-			if (u.r<=1 && u.parent>=0)
-			//	p3d[V3DLONG(u.z)][V3DLONG(u.y)][V3DLONG(u.x)] = 0;
-			setBlockAveValue(p3d, sz[0], sz[1], sz[2], u.x, u.y, u.z, sp_downsample_step, sp_downsample_step, sp_downsample_step/myzthickness, 0);
+                        // p3d[(V3DLONG)(u.z)][(V3DLONG)(u.y)][(V3DLONG)(u.x)] =
+                        // 0;
+
+                        if (u.r<=1 && u.parent>=0)
+                          //	p3d[(V3DLONG)(u.z)][(V3DLONG)(u.y)][(V3DLONG)(u.x)]
+                          //= 0;
+                          setBlockAveValue(
+                              p3d, sz[0], sz[1], sz[2], u.x, u.y, u.z,
+                              sp_downsample_step, sp_downsample_step,
+                              sp_downsample_step / myzthickness, 0);
 		}
 	}
 
@@ -1074,22 +1086,29 @@ bool filterNodesByFindingBestCovers(unsigned char ****p4d, V3DLONG sz[4],
 	V3DLONG i,j,k,n,m;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define NODE_FROM_XYZ(x,y,z) 	(V3DLONG((z+.5)-zmin)/zstep*ny*nx + V3DLONG((y+.5)-ymin)/ystep*nx + V3DLONG((x+.5)-xmin)/xstep)
-#define NODE_TO_XYZ(j, x,y,z) \
-{ \
-z = (j)/(nx*ny); 		y = ((j)-V3DLONG(z)*nx*ny)/nx; 	x = ((j)-V3DLONG(z)*nx*ny-V3DLONG(y)*nx); \
-x = xmin+(x)*xstep; 	y = ymin+(y)*ystep; 			z = zmin+(z)*zstep; \
-}
+#define NODE_FROM_XYZ(x, y, z)                                                 \
+        ((V3DLONG)((z + .5) - zmin) / zstep * ny * nx +                        \
+         (V3DLONG)((y + .5) - ymin) / ystep * nx +                             \
+         (V3DLONG)((x + .5) - xmin) / xstep)
+#define NODE_TO_XYZ(j, x, y, z)                                                \
+        {                                                                      \
+          z = (j) / (nx * ny);                                                 \
+          y = ((j) - (V3DLONG)(z) * nx * ny) / nx;                             \
+          x = ((j) - (V3DLONG)(z) * nx * ny - (V3DLONG)(y) * nx);              \
+          x = xmin + (x) * xstep;                                              \
+          y = ymin + (y) * ystep;                                              \
+          z = zmin + (z) * zstep;                                              \
+        }
 #define NODE_FROM_IJK(i,j,k) 	((k)*ny*nx+(j)*nx+(i))
 #define X_I(i)				 	(xmin+(i)*xstep)
 #define Y_I(i)				 	(ymin+(i)*ystep)
 #define Z_I(i)				 	(zmin+(i)*zstep)
-	
-#define X_SI(i)				 	(V3DLONG(((i)-xmin)/xstep))
-#define Y_SI(i)				 	(V3DLONG(((i)-ymin)/ystep))
-#define Z_SI(i)				 	(V3DLONG(((i)-zmin)/zstep))
-	
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#define X_SI(i) ((V3DLONG)(((i) - xmin) / xstep))
+#define Y_SI(i) ((V3DLONG)(((i) - ymin) / ystep))
+#define Z_SI(i) ((V3DLONG)(((i) - zmin) / zstep))
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define SET_ALLELEMENTS_ZEROS(pp, pplen) \
 { \
@@ -1128,12 +1147,12 @@ for (V3DLONG ppi=0; ppi<pplen; ppi++) pp[ppi] = 0; \
 		for (V3DLONG iu = 0; iu<mUnit.size(); iu++)
 		{
 			V_NeuronSWC_unit & u = mUnit.at(iu);
-			
-			V3DLONG curnx = X_SI(V3DLONG(u.x));
-			V3DLONG curny = Y_SI(V3DLONG(u.y));
-			V3DLONG curnz = Z_SI(V3DLONG(u.z));
-			
-			V3DLONG i0 = curnx - u.r/xstep; PUT_IN_RANGE(0, i0, nx-1);
+
+                        V3DLONG curnx = X_SI((V3DLONG)(u.x));
+                        V3DLONG curny = Y_SI((V3DLONG)(u.y));
+                        V3DLONG curnz = Z_SI((V3DLONG)(u.z));
+
+                        V3DLONG i0 = curnx - u.r/xstep; PUT_IN_RANGE(0, i0, nx-1);
 			V3DLONG	i1 = curnx + u.r/xstep; PUT_IN_RANGE(0, i1, nx-1);
 			V3DLONG j0 = curny - u.r/ystep; PUT_IN_RANGE(0, j0, ny-1);
 			V3DLONG	j1 = curny + u.r/ystep; PUT_IN_RANGE(0, j1, ny-1);
@@ -1162,12 +1181,12 @@ for (V3DLONG ppi=0; ppi<pplen; ppi++) pp[ppi] = 0; \
 		for (V3DLONG iu = 0; iu<mUnit.size(); iu++)
 		{
 			V_NeuronSWC_unit & u = mUnit.at(iu);
-			
-			V3DLONG curnx = X_SI(V3DLONG(u.x));
-			V3DLONG curny = Y_SI(V3DLONG(u.y));
-			V3DLONG curnz = Z_SI(V3DLONG(u.z));
 
-			if ( u.n != maxid_img_3d[curnz][curny][curnx] )
+                        V3DLONG curnx = X_SI((V3DLONG)(u.x));
+                        V3DLONG curny = Y_SI((V3DLONG)(u.y));
+                        V3DLONG curnz = Z_SI((V3DLONG)(u.z));
+
+                        if ( u.n != maxid_img_3d[curnz][curny][curnx] )
 			{
 				u.x = X_I(curnx);
 				u.y = Y_I(curny);
@@ -1330,27 +1349,34 @@ vector<LocationSimple> find_valid_tip_via_ignore_short_branches(vector< vector<V
 	printf("total leaf nodes = [%ld], branching nodes = [%ld]\n", leafArray.size(), branchPointArray.size());
 	for (j=0;j<leafArray.size();j++)
 	{
-		V3DLONG ci = leafArray.at(j); 
-		//printf("ini ci=%ld nchild=%ld cp=%ld\n", ci, V3DLONG(mUnit.at(ci).nchild), V3DLONG(mUnit.at(ci).parent));
-		V3DLONG cnodes = 0;
+		V3DLONG ci = leafArray.at(j);
+                // printf("ini ci=%ld nchild=%ld cp=%ld\n", ci,
+                // (V3DLONG)(mUnit.at(ci).nchild),
+                // (V3DLONG)(mUnit.at(ci).parent));
+                V3DLONG cnodes = 0;
 		double tlen = 0, tsum = 0;
 		while (mUnit.at(ci).nchild<2 && mUnit.at(ci).parent>=0 && cnodes<tnodes)
 		{
 			V_NeuronSWC_unit & curnode = mUnit.at(ci);
-			V3DLONG cp = V3DLONG(mUnit.at(ci).parent);
-			V_NeuronSWC_unit & curpnode = mUnit.at(cp);
+                        V3DLONG cp = (V3DLONG)(mUnit.at(ci).parent);
+                        V_NeuronSWC_unit & curpnode = mUnit.at(cp);
 			if (ci==cp) {cnodes=tnodes; break;} //why this happens?
 			tlen += sqrt(distL2square(curnode, curpnode));
-			tsum += imap[V3DLONG(curnode.z)*sz[0]*sz[1] + V3DLONG(curnode.y)*sz[0] + V3DLONG(curnode.x)];
-			cnodes++;
+                        tsum += imap[(V3DLONG)(curnode.z) * sz[0] * sz[1] +
+                                     (V3DLONG)(curnode.y) * sz[0] +
+                                     (V3DLONG)(curnode.x)];
+                        cnodes++;
 			ci = cp;
 		}
 		
 		if (cnodes<tnodes)
 		{
 			V_NeuronSWC_unit & curpnode = mUnit.at(ci);
-			double curd = dmap[V3DLONG(curpnode.z)*sz[0]*sz[1] + V3DLONG(curpnode.y)*sz[0] + V3DLONG(curpnode.x)];
-			if (tlen > 5 &&         // the path is "long" enough
+                        double curd =
+                            dmap[(V3DLONG)(curpnode.z) * sz[0] * sz[1] +
+                                 (V3DLONG)(curpnode.y) * sz[0] +
+                                 (V3DLONG)(curpnode.x)];
+                        if (tlen > 5 &&         // the path is "long" enough
 				tlen > 2.0*curd &&  // the path is significantly long
 				curd >=2 &&         // the path is long with repsect a significant branching point
 				tsum/tlen > 20      // the path is bright
@@ -1410,9 +1436,11 @@ bool condense_branches(vector< vector<V_NeuronSWC_unit> >& mmUnit, unsigned char
 		
 		if (curnode.nchild!=0)
 			continue;
-		
-		double cur_dval = dmap[V3DLONG(curnode.z)*sz[0]*sz[1] + V3DLONG(curnode.y)*sz[0] + V3DLONG(curnode.x)];
-		double cur_searchr = transformDval2SR(cur_dval);
+
+                double cur_dval =
+                    dmap[(V3DLONG)(curnode.z) * sz[0] * sz[1] +
+                         (V3DLONG)(curnode.y) * sz[0] + (V3DLONG)(curnode.x)];
+                double cur_searchr = transformDval2SR(cur_dval);
 
 		int method_code=1;
 		if (method_code==1)
@@ -1430,8 +1458,11 @@ bool condense_branches(vector< vector<V_NeuronSWC_unit> >& mmUnit, unsigned char
 					break;
 				}
 				curnode.x = x, curnode.y = y, curnode.z = z;
-				cur_dval = dmap[V3DLONG(curnode.z)*sz[0]*sz[1] + V3DLONG(curnode.y)*sz[0] + V3DLONG(curnode.x)];
-				cur_searchr = transformDval2SR(cur_dval);
+                                cur_dval =
+                                    dmap[(V3DLONG)(curnode.z) * sz[0] * sz[1] +
+                                         (V3DLONG)(curnode.y) * sz[0] +
+                                         (V3DLONG)(curnode.x)];
+                                cur_searchr = transformDval2SR(cur_dval);
 			}
 		}		
 		else  
@@ -1488,9 +1519,12 @@ V3DLONG pruning_covered_leaf_single_cover(vector< vector<V_NeuronSWC_unit> >& mm
 		{
 			if (root_id!=-1)
 				printf("==================== detect a non-unique root!\n");
-			root_id = V3DLONG(mUnit[j].n);
-			printf("==================== nchild of root [%ld, id=%ld] = %ld\n", j, V3DLONG(mUnit[j].n), V3DLONG(mUnit[j].nchild));
-		}
+                        root_id = (V3DLONG)(mUnit[j].n);
+                        printf("==================== nchild of root [%ld, "
+                               "id=%ld] = %ld\n",
+                               j, (V3DLONG)(mUnit[j].n),
+                               (V3DLONG)(mUnit[j].nchild));
+                }
 	}
 
 	V3DLONG nleafdelete;
@@ -1517,10 +1551,14 @@ V3DLONG pruning_covered_leaf_single_cover(vector< vector<V_NeuronSWC_unit> >& mm
 			j = i; 
 			V_NeuronSWC_unit & curnode = mUnit[i]; 
 			
-			double cur_margin = curnode.r; 
-			//if (cur_margin > dmap[V3DLONG(curnode.z)*sz[0]*sz[1] + V3DLONG(curnode.y)*sz[0] + V3DLONG(curnode.x)]) cur_margin = dmap[V3DLONG(curnode.z)*sz[0]*sz[1] + V3DLONG(curnode.y)*sz[0] + V3DLONG(curnode.x)];
-			//cur_margin = 0;
-			while (tmpcnt<10) //to avoid loops
+			double cur_margin = curnode.r;
+                        // if (cur_margin >
+                        // dmap[(V3DLONG)(curnode.z)*sz[0]*sz[1] +
+                        // (V3DLONG)(curnode.y)*sz[0] + (V3DLONG)(curnode.x)])
+                        // cur_margin = dmap[(V3DLONG)(curnode.z)*sz[0]*sz[1] +
+                        // (V3DLONG)(curnode.y)*sz[0] + (V3DLONG)(curnode.x)];
+                        // cur_margin = 0;
+                        while (tmpcnt<10) //to avoid loops
 			{
 				tmpcnt++;
 				
@@ -1539,19 +1577,37 @@ V3DLONG pruning_covered_leaf_single_cover(vector< vector<V_NeuronSWC_unit> >& mm
 				
 				V_NeuronSWC_unit & curpnode = mUnit[pi_rownum]; 
 				double tmpd = sqrt(distL2square(curnode, curpnode));
-				double pi_radius = curpnode.r; 
-				//if (pi_radius < dmap[V3DLONG(curpnode.z)*sz[0]*sz[1] + V3DLONG(curpnode.y)*sz[0] + V3DLONG(curpnode.x)]) pi_radius = dmap[V3DLONG(curpnode.z)*sz[0]*sz[1] + V3DLONG(curpnode.y)*sz[0] + V3DLONG(curpnode.x)];
-				if (tmpd + cur_margin <= pi_radius ||  //stop when it is out of the control-range (defined by radius)
+				double pi_radius = curpnode.r;
+                                // if (pi_radius <
+                                // dmap[(V3DLONG)(curpnode.z)*sz[0]*sz[1] +
+                                // (V3DLONG)(curpnode.y)*sz[0] +
+                                // (V3DLONG)(curpnode.x)]) pi_radius =
+                                // dmap[(V3DLONG)(curpnode.z)*sz[0]*sz[1] +
+                                // (V3DLONG)(curpnode.y)*sz[0] +
+                                // (V3DLONG)(curpnode.x)];
+                                if (tmpd + cur_margin <= pi_radius ||  //stop when it is out of the control-range (defined by radius)
 					calculate_overlapping_ratio_n1(curnode, curpnode, imap,  sz, trace_z_thickness)>0.9)
 				{
 					//if (tmpcnt>1) printf("exit at decreasing r (j=%ld) and tmpcnt>=2. tmpcnt=%ld\n", j, tmpcnt);
 					curnode.nchild = -1;
 					mUnit[index_map[curnode.parent]].nchild--;
 					nleafdelete++;
-					
-					if (V3DLONG(mUnit[index_map[curnode.parent]].n)==root_id)
-						printf("root nchild after decreasing 1 = %ld cur node id =%ld, cur node parent=%ld\n", V3DLONG(mUnit[index_map[curnode.parent]].nchild), V3DLONG(curnode.n), V3DLONG(curnode.parent));
-					break; 
+
+                                        if ((V3DLONG)(mUnit
+                                                          [index_map
+                                                               [curnode.parent]]
+                                                              .n) == root_id)
+                                          printf(
+                                              "root nchild after decreasing 1 "
+                                              "= %ld cur node id =%ld, cur "
+                                              "node parent=%ld\n",
+                                              (V3DLONG)(mUnit[index_map
+                                                                  [curnode
+                                                                       .parent]]
+                                                            .nchild),
+                                              (V3DLONG)(curnode.n),
+                                              (V3DLONG)(curnode.parent));
+                                        break; 
 				}
 
 				j = pi_rownum; //continue
@@ -1629,9 +1685,10 @@ V3DLONG pruning_covered_leaf_multi_covers(vector< vector<V_NeuronSWC_unit> >& mm
 	for(i=0; i<tnodes; i++)
 	{
 		V_NeuronSWC_unit & curnode = mUnit[i];
-		b_pixelusedbynode_3d[V3DLONG(curnode.z)][V3DLONG(curnode.y)][V3DLONG(curnode.x)] = 1;
+                b_pixelusedbynode_3d[(V3DLONG)(curnode.z)][(V3DLONG)(curnode.y)]
+                                    [(V3DLONG)(curnode.x)] = 1;
 
-		double ndx   = mUnit[i].n;
+                double ndx   = mUnit[i].n;
 		index_map[ndx] = i; //map the neuron node'd id to row number
 	}
 	
@@ -1665,8 +1722,9 @@ V3DLONG pruning_covered_leaf_multi_covers(vector< vector<V_NeuronSWC_unit> >& mm
 					if (b_pixelusedbynode_3d[k][j][ii]==1) //then the list has not been created yet, so to create it
 					{
 						list<V3DLONG> mylist_n;
-						mylist_n.push_back(V3DLONG(curnode.n));  
-						cover_list.push_back(mylist_n);
+                                                mylist_n.push_back(
+                                                    (V3DLONG)(curnode.n));
+                                                cover_list.push_back(mylist_n);
 						index_map_pixelloc[k*nx*ny+j*nx+ii] = cover_list.size()-1;
 						b_pixelusedbynode_3d[k][j][ii]=2; //2 means the list has been created so next time no need to create it again
 					}
@@ -1677,8 +1735,11 @@ V3DLONG pruning_covered_leaf_multi_covers(vector< vector<V_NeuronSWC_unit> >& mm
 						for ( it=mylist_n.begin() ; it != mylist_n.end(); it++ )
 							if (curnode.r > mUnit[index_map[*it]].r)
 							{
-								mylist_n.insert(it, V3DLONG(curnode.n));
-								break;
+                                                          mylist_n.insert(
+                                                              it,
+                                                              (V3DLONG)(curnode
+                                                                            .n));
+                                                          break;
 							}
 						if (it==mylist_n.end()) //if the radius is smaller than any existing one, then insert at the end
 							mylist_n.insert(it, curnode.n);
@@ -1718,22 +1779,29 @@ V3DLONG pruning_covered_leaf_multi_covers(vector< vector<V_NeuronSWC_unit> >& mm
 				nleafdelete++;
 				continue;
 			}
-			
-			double cur_maxid = maxid_img_3d[V3DLONG(curnode.z)][V3DLONG(curnode.y)][V3DLONG(curnode.x)];
-			if (cur_maxid==curnode.n) //keep itself
+
+                        double cur_maxid = maxid_img_3d[(V3DLONG)(curnode.z)][(
+                            V3DLONG)(curnode.y)][(V3DLONG)(curnode.x)];
+                        if (cur_maxid==curnode.n) //keep itself
 				continue; 
 			
 			V_NeuronSWC_unit & curmnode = mUnit[index_map[cur_maxid]]; 
 			
 			if (curmnode.nchild<0) //if the best convering node has been removed, then do nothing
-				continue; 
-			
-			list<V3DLONG> & mylist_n = cover_list[ index_map_pixelloc[V3DLONG(curnode.z)*nx*ny+V3DLONG(curnode.y)*nx+V3DLONG(curnode.x)] ];
-			
-			double tmpd = sqrt(distL2square(curnode, curmnode));
-			
-			//printf("curnode (n=%ld) curmnode (n=%ld) index_map best = [%ld]\n", V3DLONG(curnode.n), V3DLONG(curmnode.n), V3DLONG(mUnit[index_map[*mylist_n.begin()]].n)); 
-			if (tmpd + curnode.r <= curmnode.r   //stop when it is out of the control-range (defined by radius)
+				continue;
+
+                        list<V3DLONG> &mylist_n = cover_list
+                            [index_map_pixelloc[(V3DLONG)(curnode.z) * nx * ny +
+                                                (V3DLONG)(curnode.y) * nx +
+                                                (V3DLONG)(curnode.x)]];
+
+                        double tmpd = sqrt(distL2square(curnode, curmnode));
+
+                        // printf("curnode (n=%ld) curmnode (n=%ld) index_map
+                        // best = [%ld]\n", (V3DLONG)(curnode.n),
+                        // (V3DLONG)(curmnode.n),
+                        // (V3DLONG)(mUnit[index_map[*mylist_n.begin()]].n));
+                        if (tmpd + curnode.r <= curmnode.r   //stop when it is out of the control-range (defined by radius)
 				//|| calculate_overlapping_ratio_n1(curnode, curmnode, imap,  sz, trace_z_thickness)>0.9 // stop if this node can be effectively covered by another single node
 				|| calculate_overlapping_ratio_n1(curnode, mUnit, index_map, mylist_n, imap,  sz, trace_z_thickness)>0.9 // stop if this node can be covered by several other nodes
 				)
@@ -1828,9 +1896,12 @@ V3DLONG pruning_covered_leaf_closebyfake_branches(vector< vector<V_NeuronSWC_uni
 		for(i=0; i<tnodes; i++)
 		{
 			V_NeuronSWC_unit & curnode = mUnit[i];
-			ind_pixelusedbynode_3d[V3DLONG(curnode.z)][V3DLONG(curnode.y)][V3DLONG(curnode.x)] = curnode.n+1; //use +1 so that the indexing will have no problem for the 0th node
-			
-			double ndx   = mUnit[i].n;
+                        ind_pixelusedbynode_3d[(V3DLONG)(curnode.z)][(
+                            V3DLONG)(curnode.y)][(V3DLONG)(curnode.x)] =
+                            curnode.n + 1; // use +1 so that the indexing will
+                                           // have no problem for the 0th node
+
+                        double ndx   = mUnit[i].n;
 			index_map[ndx] = i; //map the neuron node's id to row number
 		}
 		
@@ -1878,8 +1949,11 @@ V3DLONG pruning_covered_leaf_closebyfake_branches(vector< vector<V_NeuronSWC_uni
 			for (it=LeafArray.begin(), li=0; it!=LeafArray.end(); it++, li++)
 			{
 				i = it->id;
-				printf("li = %ld sz=%ld id=%ld ind=%ld leaf node id=%ld\n", li, it->attr, it->id, it->ind, V3DLONG(mUnit[it->id].n));
-			}
+                                printf("li = %ld sz=%ld id=%ld ind=%ld leaf "
+                                       "node id=%ld\n",
+                                       li, it->attr, it->id, it->ind,
+                                       (V3DLONG)(mUnit[it->id].n));
+                        }
 		}
 					   
 		//remove the unneeded neuron node
@@ -1896,14 +1970,19 @@ V3DLONG pruning_covered_leaf_closebyfake_branches(vector< vector<V_NeuronSWC_uni
 				
 				if (curnode.nchild!=0) //do not start from a non-leaf node or start from an already deleted node
 				{
-					printf("li=%ld [node id=%ld] is not a leaf node. sth wrong. Check!\n", li, V3DLONG(curnode.n));
-					continue;
+                                  printf("li=%ld [node id=%ld] is not a leaf "
+                                         "node. sth wrong. Check!\n",
+                                         li, (V3DLONG)(curnode.n));
+                                  continue;
 				}
 				
 				if (mUnit[index_map[curnodepathindex.back()]].nchild<=1) //that means the previous branching point has already no more than one branch left. thus should not delete any more
 				{
-					printf("li=%ld [node id=%ld] 's previous closest branching point is not long a branching point. Skip!\n", li, V3DLONG(curnode.n));
-					continue;
+                                  printf("li=%ld [node id=%ld] 's previous "
+                                         "closest branching point is not long "
+                                         "a branching point. Skip!\n",
+                                         li, (V3DLONG)(curnode.n));
+                                  continue;
 				}
 				
 				bool b_deletecurbranch = false;
@@ -1972,14 +2051,45 @@ V3DLONG pruning_covered_leaf_closebyfake_branches(vector< vector<V_NeuronSWC_uni
 												
 												for (V3DLONG tmpi=0; tmpi<dd; tmpi++)
 												{
-													if (p3d[V3DLONG(startz+stepz*tmpi+0.5)][V3DLONG(starty+stepy*tmpi+0.5)][V3DLONG(startx+stepx*tmpi+0.5)]<=imgTH)
-													{
-														b_allfg = false;
-														break;
-													}
-													
-													realdatavec.push_back(float(p3d[V3DLONG(startz+stepz*tmpi+0.5)][V3DLONG(starty+stepy*tmpi+0.5)][V3DLONG(startx+stepx*tmpi+0.5)]));
-													concavevec.push_back(float(fabs((1-tmpi/double(dd)))));
+                                                                                                  if (p3d[(
+                                                                                                          V3DLONG)(startz +
+                                                                                                                   stepz *
+                                                                                                                       tmpi +
+                                                                                                                   0.5)]
+                                                                                                         [(V3DLONG)(starty +
+                                                                                                                    stepy *
+                                                                                                                        tmpi +
+                                                                                                                    0.5)]
+                                                                                                         [(V3DLONG)(startx +
+                                                                                                                    stepx *
+                                                                                                                        tmpi +
+                                                                                                                    0.5)] <=
+                                                                                                      imgTH) {
+                                                                                                    b_allfg =
+                                                                                                        false;
+                                                                                                    break;
+                                                                                                  }
+
+                                                                                                  realdatavec
+                                                                                                      .push_back(float(p3d[(
+                                                                                                          V3DLONG)(startz +
+                                                                                                                   stepz *
+                                                                                                                       tmpi +
+                                                                                                                   0.5)][(
+                                                                                                          V3DLONG)(starty +
+                                                                                                                   stepy *
+                                                                                                                       tmpi +
+                                                                                                                   0.5)][(
+                                                                                                          V3DLONG)(startx +
+                                                                                                                   stepx *
+                                                                                                                       tmpi +
+                                                                                                                   0.5)]));
+                                                                                                  concavevec
+                                                                                                      .push_back(float(fabs(
+                                                                                                          (1 -
+                                                                                                           tmpi /
+                                                                                                               double(
+                                                                                                                   dd)))));
 												}
 												if (b_allfg==true)
 												{
@@ -2065,9 +2175,12 @@ V3DLONG pruning_branch_nodes(vector< vector<V_NeuronSWC_unit> >& mmUnit, unsigne
 		{
 			if (root_id!=-1)
 				printf("==================== detect a non-unique root!\n");
-			root_id = V3DLONG(mUnit[j].n);
-			printf("==================== nchild of root [%ld, id=%ld] = %ld\n", j, V3DLONG(mUnit[j].n), V3DLONG(mUnit[j].nchild));
-		}
+                        root_id = (V3DLONG)(mUnit[j].n);
+                        printf("==================== nchild of root [%ld, "
+                               "id=%ld] = %ld\n",
+                               j, (V3DLONG)(mUnit[j].n),
+                               (V3DLONG)(mUnit[j].nchild));
+                }
 	}
 	
 	//create a data structure to hold all nodes' children
@@ -2135,8 +2248,13 @@ V3DLONG pruning_branch_nodes(vector< vector<V_NeuronSWC_unit> >& mmUnit, unsigne
 			{
 				if (mUnit[index_map[pi]].nchild<=0) //this node's parent node already becomes a node to be removed or a leaf node (without child)
 				{
-					printf("potential breaking point detected [i=%ld pi=%ld pi's nchild=%ld]. Skip it.\n", i, pi, V3DLONG(mUnit[index_map[pi]].nchild));
-					continue;
+                                  printf(
+                                      "potential breaking point detected "
+                                      "[i=%ld pi=%ld pi's nchild=%ld]. Skip "
+                                      "it.\n",
+                                      i, pi,
+                                      (V3DLONG)(mUnit[index_map[pi]].nchild));
+                                  continue;
 				}
 			}
 			
@@ -2379,9 +2497,12 @@ V3DLONG pruning_artifacial_branches(vector< vector<V_NeuronSWC_unit> >& mmUnit, 
 		{
 			if (root_id!=-1)
 				printf("==================== detect a non-unique root!\n");
-			root_id = V3DLONG(mUnit[j].n);
-			printf("==================== nchild of root [%ld, id=%ld] = %ld\n", j, V3DLONG(mUnit[j].n), V3DLONG(mUnit[j].nchild));
-		}
+                        root_id = (V3DLONG)(mUnit[j].n);
+                        printf("==================== nchild of root [%ld, "
+                               "id=%ld] = %ld\n",
+                               j, (V3DLONG)(mUnit[j].n),
+                               (V3DLONG)(mUnit[j].nchild));
+                }
 	}
     
 	V3DLONG nleafdelete;
@@ -2444,9 +2565,14 @@ V3DLONG pruning_artifacial_branches(vector< vector<V_NeuronSWC_unit> >& mmUnit, 
                             mUnit[mypi].nchild--;
                             nleafdelete++;
 
-                            if (V3DLONG(mUnit[mypi].n)==root_id)
-                                printf("root nchild after decreasing 1 = %ld cur node id =%ld, cur node parent=%ld\n", V3DLONG(mUnit[index_map[curnode.parent]].nchild), V3DLONG(curnode.n), V3DLONG(curnode.parent));
-                            
+                            if ((V3DLONG)(mUnit[mypi].n) == root_id)
+                              printf("root nchild after decreasing 1 = %ld cur "
+                                     "node id =%ld, cur node parent=%ld\n",
+                                     (V3DLONG)(mUnit[index_map[curnode.parent]]
+                                                   .nchild),
+                                     (V3DLONG)(curnode.n),
+                                     (V3DLONG)(curnode.parent));
+
                             k = mypi;
                         }
                         break;

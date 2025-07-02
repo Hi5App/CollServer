@@ -108,12 +108,9 @@ void BaseException::AddInt(int value)
 
 void Tracer::PrintTrace()
 {
-    //commented 20131029 by PHC to avoid OSX 10.9 building error
-    /*
    cout << "\n";
    for (Tracer* et = last; et; et=et->previous)
       cout << "  * " << et->entry << "\n";
-     */
 }
 
 void Tracer::AddTrace()
@@ -228,13 +225,10 @@ Tracer* Tracer::last;               // will be set to zero
 
 void Terminate()
 {
-   //20131029, by PHC for OSX 10.9 building
-    /*
    cout << "\n\nThere has been an exception with no handler - exiting";
    const char* what = BaseException::what();
    if (what) cout << what << "\n";
-   */
-    exit(1);
+   exit(1);
 }
 
 

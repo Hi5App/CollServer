@@ -908,7 +908,7 @@ bool straight_nearestfill(UINT8_TYPE * invol1d, V3DLONG *insz, int szlen,
   outdims[2] = nz;
   outdims[3] = nc;
 
-  outvol1d = new UBYTE [V3DLONG(OutWid)*cutPlaneNum*nz*nc];
+  outvol1d = new UBYTE[(V3DLONG)(OutWid)*cutPlaneNum * nz * nc];
   if (!outvol1d)
   {
     printf("Fail to allocate memory for the straightened object. Do nothing.\n");
@@ -971,13 +971,13 @@ bool straight_nearestfill(UINT8_TYPE * invol1d, V3DLONG *insz, int szlen,
 		continue;
 	  }
 
-      V3DLONG cpx0 = V3DLONG(floor(curpx)), cpx1 = V3DLONG(ceil(curpx));
-      V3DLONG cpy0 = V3DLONG(floor(curpy)), cpy1 = V3DLONG(ceil(curpy));
+          V3DLONG cpx0 = (V3DLONG)(floor(curpx)), cpx1 = (V3DLONG)(ceil(curpx));
+          V3DLONG cpy0 = (V3DLONG)(floor(curpy)), cpy1 = (V3DLONG)(ceil(curpy));
 
-      double w0x0y = (cpx1-curpx)*(cpy1-curpy);
-      double w0x1y = (cpx1-curpx)*(curpy-cpy0);
-      double w1x0y = (curpx-cpx0)*(cpy1-curpy);
-      double w1x1y = (curpx-cpx0)*(curpy-cpy0);
+          double w0x0y = (cpx1 - curpx) * (cpy1 - curpy);
+          double w0x1y = (cpx1 - curpx) * (curpy - cpy0);
+          double w1x0y = (curpx - cpx0) * (cpy1 - curpy);
+          double w1x1y = (curpx - cpx0) * (curpy - cpy0);
 
 	  for (i=0;i<nz; i++)
 	  {

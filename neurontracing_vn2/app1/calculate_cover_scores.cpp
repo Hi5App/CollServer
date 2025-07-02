@@ -18,33 +18,42 @@ double calculate_overlapping_ratio_n1(const V_NeuronSWC_unit & n1, const V_Neuro
 	double n1_totalsample = 0, n2_includedsample = 0, n1_totalpixel=0;
 	for (k=-R/trace_z_thickness;k<=R/trace_z_thickness;k++)
 	{
-		cz = V3DLONG(n1z+k+0.5); if (cz<0 || cz>=sz[2]) continue;
-		curr_k = double(k)*k;
-		for (j=-R;j<=R;j++)
-		{
-			cy = V3DLONG(n1y+j+0.5); if (cy<0 || cy>=sz[1]) continue;
-			if ((curr_j = double(j)*j+curr_k) > r12)
-				continue;
-			
-			for (i=-R;i<=R;i++)
-			{
-				cx = V3DLONG(n1x+i+0.5); if (cx<0 || cx>=sz[0]) continue;
-				if ((curr_i = double(i)*i+curr_j) > r12)
-					continue;
-				
-				n1_totalpixel += 1;
-				n1_totalsample += imap[cz][cy][cx];
-				if ((cz-n2.z)*(cz-n2.z)+(cy-n2.y)*(cy-n2.y)+(cx-n2.x)*(cx-n2.x) <= r22)
-					n2_includedsample += imap[cz][cy][cx];
-			}
-		}
-	}
+          cz = (V3DLONG)(n1z + k + 0.5);
+          if (cz < 0 || cz >= sz[2])
+            continue;
+          curr_k = double(k) * k;
+          for (j = -R; j <= R; j++) {
+            cy = (V3DLONG)(n1y + j + 0.5);
+            if (cy < 0 || cy >= sz[1])
+              continue;
+            if ((curr_j = double(j) * j + curr_k) > r12)
+              continue;
+
+            for (i = -R; i <= R; i++) {
+              cx = (V3DLONG)(n1x + i + 0.5);
+              if (cx < 0 || cx >= sz[0])
+                continue;
+              if ((curr_i = double(i) * i + curr_j) > r12)
+                continue;
+
+              n1_totalpixel += 1;
+              n1_totalsample += imap[cz][cy][cx];
+              if ((cz - n2.z) * (cz - n2.z) + (cy - n2.y) * (cy - n2.y) +
+                      (cx - n2.x) * (cx - n2.x) <=
+                  r22)
+                n2_includedsample += imap[cz][cy][cx];
+            }
+          }
+        }
 	
 	if (n1_totalpixel==0)
 	{
 		v3d_msg("total # sample is 0. This means radius is wrong. Should never see this!!! Check data and program. \n", 0);
-		printf("total pixel=%ld, R=%ld n1.r=%5.3f n1x=%5.3f n1y=%5.3f n1z=%5.3f sz[0]=%ld sz[1]=%ld sz[2]=%ld ", V3DLONG(n1_totalpixel), R, n1.r, n1x, n1y, n1z, sz[0], sz[1], sz[2]);
-		return 1; //return 1 because this means this n1 node should be eleminated anyway
+                printf("total pixel=%ld, R=%ld n1.r=%5.3f n1x=%5.3f n1y=%5.3f "
+                       "n1z=%5.3f sz[0]=%ld sz[1]=%ld sz[2]=%ld ",
+                       (V3DLONG)(n1_totalpixel), R, n1.r, n1x, n1y, n1z, sz[0],
+                       sz[1], sz[2]);
+                return 1; //return 1 because this means this n1 node should be eleminated anyway
 	}
 	
 	return (n1_totalsample<=0) ? 1.0 : (n2_includedsample/n1_totalsample);
@@ -68,48 +77,56 @@ double calculate_overlapping_ratio_n1(const V_NeuronSWC_unit & n1, vector<V_Neur
 	//for (k=-R/trace_z_thickness;k<=R/trace_z_thickness;k++)
 	for (k=-R;k<=R;k++)
 	{
-		cz = V3DLONG(n1z+k+0.5); if (cz<0 || cz>=sz[2]) continue;
-		curr_k = double(k)*k;
-		for (j=-R;j<=R;j++)
-		{
-			cy = V3DLONG(n1y+j+0.5); if (cy<0 || cy>=sz[1]) continue;
-			if ((curr_j = double(j)*j+curr_k) > r12)
-				continue;
-			
-			for (i=-R;i<=R;i++)
-			{
-				cx = V3DLONG(n1x+i+0.5); if (cx<0 || cx>=sz[0]) continue;
-				if ((curr_i = double(i)*i+curr_j) > r12)
-					continue;
-				
-				n1_totalpixel += 1;
-				n1_totalsample += imap[cz][cy][cx];
-				
-				list<V3DLONG>::iterator it = mylist_n.begin();
-				for ( it=mylist_n.begin() ; it != mylist_n.end(); it++ )
-				{
-					V_NeuronSWC_unit & n2 = mUnit[index_map[*it]];
-					if (n2.n == n1.n) //the same node, then skip
-						continue;
-					if (n2.nchild<0) //then n2 has already be labeled to be removed. then it should not participate computation
-						continue;
-					
-					if ((cz-n2.z)*(cz-n2.z)+(cy-n2.y)*(cy-n2.y)+(cx-n2.x)*(cx-n2.x) <= n2.r*n2.r)
-					{
-						n2_includedsample += imap[cz][cy][cx];
-						break;
-					}
-				}
-				
-			}
-		}
-	}
+          cz = (V3DLONG)(n1z + k + 0.5);
+          if (cz < 0 || cz >= sz[2])
+            continue;
+          curr_k = double(k) * k;
+          for (j = -R; j <= R; j++) {
+            cy = (V3DLONG)(n1y + j + 0.5);
+            if (cy < 0 || cy >= sz[1])
+              continue;
+            if ((curr_j = double(j) * j + curr_k) > r12)
+              continue;
+
+            for (i = -R; i <= R; i++) {
+              cx = (V3DLONG)(n1x + i + 0.5);
+              if (cx < 0 || cx >= sz[0])
+                continue;
+              if ((curr_i = double(i) * i + curr_j) > r12)
+                continue;
+
+              n1_totalpixel += 1;
+              n1_totalsample += imap[cz][cy][cx];
+
+              list<V3DLONG>::iterator it = mylist_n.begin();
+              for (it = mylist_n.begin(); it != mylist_n.end(); it++) {
+                V_NeuronSWC_unit &n2 = mUnit[index_map[*it]];
+                if (n2.n == n1.n) // the same node, then skip
+                  continue;
+                if (n2.nchild <
+                    0) // then n2 has already be labeled to be removed. then it
+                       // should not participate computation
+                  continue;
+
+                if ((cz - n2.z) * (cz - n2.z) + (cy - n2.y) * (cy - n2.y) +
+                        (cx - n2.x) * (cx - n2.x) <=
+                    n2.r * n2.r) {
+                  n2_includedsample += imap[cz][cy][cx];
+                  break;
+                }
+              }
+            }
+          }
+        }
 	
 	if (n1_totalpixel==0)
 	{
 		v3d_msg("total # sample is 0. This means radius is wrong. Should never see this!!! Check data and program. \n", 0);
-		printf("total pixel=%ld, R=%ld n1.r=%5.3f n1x=%5.3f n1y=%5.3f n1z=%5.3f sz[0]=%ld sz[1]=%ld sz[2]=%ld ", V3DLONG(n1_totalpixel), R, n1.r, n1x, n1y, n1z, sz[0], sz[1], sz[2]);
-		return 1; //return 1 because this means this n1 node should be eleminated anyway
+                printf("total pixel=%ld, R=%ld n1.r=%5.3f n1x=%5.3f n1y=%5.3f "
+                       "n1z=%5.3f sz[0]=%ld sz[1]=%ld sz[2]=%ld ",
+                       (V3DLONG)(n1_totalpixel), R, n1.r, n1x, n1y, n1z, sz[0],
+                       sz[1], sz[2]);
+                return 1; //return 1 because this means this n1 node should be eleminated anyway
 	}
 	
 	return (n1_totalsample<=0) ? 1.0 : (n2_includedsample/n1_totalsample);

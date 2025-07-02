@@ -149,34 +149,34 @@ bool writeAPO_file(const QString& filename, const QList <CellAPO> & listCell)
 	{
 		//then save
 		p_pt = (CellAPO *)(&(listCell.at(i)));
-//		fprintf(fp, "%ld, %s, %s,%s, %ld,%ld,%ld, %5.3f,%5.3f,%5.3f,%5.3f,%5.3f,,,,%d,%d,%d\n",  
-        fprintf(fp, "%ld, %s, %s,%s, %5.3f,%5.3f,%5.3f, %5.3f,%5.3f,%5.3f,%5.3f,%5.3f,,,,%d,%d,%d\n", //change from V3DLONG type to float, 20121212, by PHC
-				p_pt->n, //i+1,
+//		fprintf(fp, "%ld, %s, %s,%s, %ld,%ld,%ld, %5.3f,%5.3f,%5.3f,%5.3f,%5.3f,,,,%d,%d,%d\n",
+                fprintf(
+                    fp,
+                    "%ld, %s, %s,%s, %5.3f,%5.3f,%5.3f, "
+                    "%5.3f,%5.3f,%5.3f,%5.3f,%5.3f,,,,%d,%d,%d\n", // change
+                                                                   // from
+                                                                   // V3DLONG
+                                                                   // type to
+                                                                   // float,
+                                                                   // 20121212,
+                                                                   // by PHC
+                    p_pt->n, // i+1,
 
-				qPrintable(p_pt->orderinfo),
-				qPrintable(p_pt->name),
-				qPrintable(p_pt->comment),
+                    qPrintable(p_pt->orderinfo), qPrintable(p_pt->name),
+                    qPrintable(p_pt->comment),
 
-                //change from V3DLONG type to float, 20121212, by PHC
-//				V3DLONG(p_pt->z+0.5),
-//				V3DLONG(p_pt->x+0.5),
-//				V3DLONG(p_pt->y+0.5),
-				p_pt->z,
-				p_pt->x,
-				p_pt->y,
-                
-				p_pt->pixmax,
-				p_pt->intensity,
-				p_pt->sdev,
-				p_pt->volsize,
-				p_pt->mass,
-				//the three strings here are reserved for other annotations
-				//now with three color fields
-				p_pt->color.r,
-				p_pt->color.g,
-				p_pt->color.b
-		);
-	}
+                    // change from V3DLONG type to float, 20121212, by PHC
+                    //				(V3DLONG)(p_pt->z+0.5),
+                    //				(V3DLONG)(p_pt->x+0.5),
+                    //				(V3DLONG)(p_pt->y+0.5),
+                    p_pt->z, p_pt->x, p_pt->y,
+
+                    p_pt->pixmax, p_pt->intensity, p_pt->sdev, p_pt->volsize,
+                    p_pt->mass,
+                    // the three strings here are reserved for other annotations
+                    // now with three color fields
+                    p_pt->color.r, p_pt->color.g, p_pt->color.b);
+        }
 
 	fclose(fp);
 #ifndef DISABLE_V3D_MSG

@@ -627,16 +627,19 @@ bool proc_app2(V3DPluginCallback2 &callback, PARA_APP2 &p, const QString & versi
             std:: string fileName_Qstring(outswc_file.toStdString());char* fileName_string =  new char[fileName_Qstring.length() + 1]; strcpy(fileName_string, fileName_Qstring.c_str());
             arg_input_resample.push_back(fileName_string);
 			arg.p = (void *) & arg_input_resample; input_resample<< arg;
-            arg.type = "random";std::vector<char*> arg_resample_para; arg_resample_para.push_back("10");arg.p = (void *) & arg_resample_para; input_resample << arg;
+            arg.type = "random";std::vector<char*> arg_resample_para; 
+            char resample_val[] = "10";
+            arg_resample_para.push_back(resample_val);
+            arg.p = (void *) & arg_resample_para; input_resample << arg;
             arg.type = "random";std::vector<char*> arg_output;arg_output.push_back(fileName_string); arg.p = (void *) & arg_output; output<< arg;
             QString full_plugin_name_resample = "resample_swc";
             QString func_name_resample = "resample_swc";
             if(p.b_resample)
                 callback.callPluginFunc(full_plugin_name_resample,func_name_resample,input_resample,output);
             arg.type = "random";std::vector<char*> arg_input_sort;
-            arg_input_sort.push_back(fileName_string);
+            arg_input_sort.push_back(fileName_string); // fileName_string is already a char*
             arg.p = (void *) & arg_input_sort; input_sort<< arg;
-            arg.type = "random";std::vector<char*> arg_sort_para; arg_sort_para.push_back("0");arg.p = (void *) & arg_sort_para; input_sort << arg;
+            arg.type = "random";std::vector<char*> arg_sort_para; char sort_val[] = "0"; arg_sort_para.push_back(sort_val);arg.p = (void *) & arg_sort_para; input_sort << arg;
             QString full_plugin_name_sort = "sort_neuron_swc";
             QString func_name_sort = "sort_swc";
             callback.callPluginFunc(full_plugin_name_sort,func_name_sort, input_sort,output);

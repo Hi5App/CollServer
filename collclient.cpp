@@ -1,19 +1,18 @@
-﻿#ifdef _WIN32
-#include <Windows.h>
-#endif
+﻿#include <Windows.h>
 #include "collclient.h"
-#include "coll_server.h"
-#include "utils.h"
-#include <cmath>
-#include <sort_swc.h>
-#include <analyze.h>
-#include <Message/Request.pb.h>
-#include "service/RpcCall.h"
-#include "service/WrappedCall.h"
-#include "grpcpp/grpcpp.h"
 #include "FileIo/AnoIo.hpp"
 #include "FileIo/ApoIo.hpp"
 #include "FileIo/SwcIo.hpp"
+#include "coll_server.h"
+#include "grpcpp/grpcpp.h"
+#include "service/RpcCall.h"
+#include "service/WrappedCall.h"
+#include "utils.h"
+#include <Message/Request.pb.h>
+#include <analyze.h>
+#include <cmath>
+#include <sort_swc.h>
+
 
 extern QFile* logfile;
 

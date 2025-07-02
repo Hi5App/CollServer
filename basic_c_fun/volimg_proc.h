@@ -969,44 +969,48 @@ template <class T> bool downsample3dimg_1dpt(T * & img, V3DLONG * sz, double dfa
 	{
 		for (V3DLONG k=0;k<cur_sz2;k++)
 		{
-			//V3DLONG k2low=V3DLONG(floor(k*dfactor)), k2high=V3DLONG(floor((k+1)*dfactor-1));
-			V3DLONG k2low=k, k2high=k; //do not downsampling z, 070927
-			if (k2high>sz[2]-1) k2high = sz[2]-1;
-			V3DLONG kw = k2high - k2low + 1;
+                  // V3DLONG k2low=(V3DLONG)(floor(k*dfactor)),
+                  // k2high=(V3DLONG)(floor((k+1)*dfactor-1));
+                  V3DLONG k2low = k, k2high = k; // do not downsampling z,
+                                                 // 070927
+                  if (k2high > sz[2] - 1)
+                    k2high = sz[2] - 1;
+                  V3DLONG kw = k2high - k2low + 1;
 
-			for (V3DLONG j=0;j<cur_sz1;j++)
-			{
-				//V3DLONG j2low=V3DLONG(floor(j*dfactor)), j2high=V3DLONG(floor((j+1)*dfactor-1));
-				V3DLONG j2low=V3DLONG(floor(j*dfactor)); V3DLONG j2high=V3DLONG(floor((j+1)*dfactor-1));
-				if (j2high>sz[1]-1) j2high = sz[1]-1;
-				V3DLONG jw = j2high - j2low + 1;
+                  for (V3DLONG j = 0; j < cur_sz1; j++) {
+                    // V3DLONG j2low=(V3DLONG)(floor(j*dfactor)),
+                    // j2high=(V3DLONG)(floor((j+1)*dfactor-1));
+                    V3DLONG j2low = (V3DLONG)(floor(j * dfactor));
+                    V3DLONG j2high = (V3DLONG)(floor((j + 1) * dfactor - 1));
+                    if (j2high > sz[1] - 1)
+                      j2high = sz[1] - 1;
+                    V3DLONG jw = j2high - j2low + 1;
 
-				for (V3DLONG i=0;i<cur_sz0;i++)
-				{
-					//V3DLONG i2low=V3DLONG(floor(i*dfactor)), i2high=V3DLONG(floor((i+1)*dfactor-1));
-					V3DLONG i2low=V3DLONG(floor(i*dfactor)); V3DLONG i2high=V3DLONG(floor((i+1)*dfactor-1));
-					if (i2high>sz[0]-1) i2high = sz[0]-1;
-					V3DLONG iw = i2high - i2low + 1;
+                    for (V3DLONG i = 0; i < cur_sz0; i++) {
+                      // V3DLONG i2low=(V3DLONG)(floor(i*dfactor)),
+                      // i2high=(V3DLONG)(floor((i+1)*dfactor-1));
+                      V3DLONG i2low = (V3DLONG)(floor(i * dfactor));
+                      V3DLONG i2high = (V3DLONG)(floor((i + 1) * dfactor - 1));
+                      if (i2high > sz[0] - 1)
+                        i2high = sz[0] - 1;
+                      V3DLONG iw = i2high - i2low + 1;
 
-					double cubevolume = double(kw) * jw * iw;
-					//cout<<cubevolume <<" ";
+                      double cubevolume = double(kw) * jw * iw;
+                      // cout<<cubevolume <<" ";
 
-					double s=0.0;
-					for (V3DLONG k1=k2low;k1<=k2high;k1++)
-					{
-						for (V3DLONG j1=j2low;j1<=j2high;j1++)
-						{
-							for (V3DLONG i1=i2low;i1<=i2high;i1++)
-							{
-								s += in_tmp4d[c][k1][j1][i1];
-							}
-						}
-					}
+                      double s = 0.0;
+                      for (V3DLONG k1 = k2low; k1 <= k2high; k1++) {
+                        for (V3DLONG j1 = j2low; j1 <= j2high; j1++) {
+                          for (V3DLONG i1 = i2low; i1 <= i2high; i1++) {
+                            s += in_tmp4d[c][k1][j1][i1];
+                          }
+                        }
+                      }
 
-					out_tmp4d[c][k][j][i] = (T)(s/cubevolume);
-				}
-			}
-		}
+                      out_tmp4d[c][k][j][i] = (T)(s / cubevolume);
+                    }
+                  }
+                }
 	}
 
 	//delete temprary 4d pointers
@@ -1055,7 +1059,10 @@ template <class T> bool reslice_Z(T * & invol1d, V3DLONG * sz, double xy_rez, do
 
   V3DLONG xlen_out = sz[0];
   V3DLONG ylen_out = sz[1];
-  V3DLONG zlen_out = V3DLONG((double(sz[2]) * z_rez)/xy_rez + 0.5); //if use ceil() then rish having no value at the border //remove sz[2]-1 on 100831, by PHC
+  V3DLONG zlen_out =
+      (V3DLONG)((double(sz[2]) * z_rez) / xy_rez +
+                0.5); // if use ceil() then rish having no value at the border
+                      // //remove sz[2]-1 on 100831, by PHC
   double z_rez_new = xy_rez;
   V3DLONG clen_out = sz[3];
 
@@ -1352,8 +1359,12 @@ template <class T> void twopoints_lineprofile_3dimg(T *** img, V3DLONG sz0, V3DL
 
 	double dx=x2-x1, dy=y2-y1, dz=z2-z1;
 	double len = sqrt(dx*dx+dy*dy+dz*dz);
-	profile_len = 1 + V3DLONG(len + 0.5); //+1 because there is at least one element in the profile, which is the starting point (x1,y1,z1)
-	try
+        profile_len =
+            1 +
+            (V3DLONG)(len +
+                      0.5); //+1 because there is at least one element in the
+                            //profile, which is the starting point (x1,y1,z1)
+        try
 	{
 		profile = new T [profile_len];
 	}
@@ -1378,11 +1389,14 @@ template <class T> void twopoints_lineprofile_3dimg(T *** img, V3DLONG sz0, V3DL
 			curpy=(curpy<0)?0:curpy; curpy=(curpy>=sz1-1)?sz1-1:curpy;
 			curpz=(curpz<0)?0:curpz; curpz=(curpz>=sz2-1)?sz2-1:curpz;
 
-			cpx0 = V3DLONG(floor(curpx)); cpx1 = V3DLONG(ceil(curpx));
-			cpy0 = V3DLONG(floor(curpy)); cpy1 = V3DLONG(ceil(curpy));
-			cpz0 = V3DLONG(floor(curpz)); cpz1 = V3DLONG(ceil(curpz));
+                        cpx0 = (V3DLONG)(floor(curpx));
+                        cpx1 = (V3DLONG)(ceil(curpx));
+                        cpy0 = (V3DLONG)(floor(curpy));
+                        cpy1 = (V3DLONG)(ceil(curpy));
+                        cpz0 = (V3DLONG)(floor(curpz));
+                        cpz1 = (V3DLONG)(ceil(curpz));
 
-			if (cpz0==cpz1)
+                        if (cpz0==cpz1)
 			{
 				if (cpy0==cpy1)
 				{

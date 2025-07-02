@@ -55,10 +55,6 @@ Peng, H, Ruan, Z., Atasoy, D., and Sternson, S. (2010) “Automatic reconstructi
 #define __STACKUTIL__
 
 //the folowing conditional compilation is added by PHC, 2010-05-20
-#if defined (_MSC_VER)
-#include "../basic_c_fun/vcdiff.h"
-#else
-#endif
 
 extern "C" {
 #include "tiffio.h"

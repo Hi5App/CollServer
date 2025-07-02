@@ -427,11 +427,13 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 	for (V3DLONG i = 0; i < in_swc.row.size(); i++)
 	{
 		V_NeuronSWC_unit& cur_node = in_swc.row[i];
-		Node_Link & nodelink = link_map[V3DLONG(cur_node.n)];
-		cur_node.nchild = nodelink.nlink;
-		//qDebug("#%d nlink = %d, in %d, out %d", V3DLONG(cur_node.n), nodelink.nlink, nodelink.in_link.size(), nodelink.out_link.size());
-	
-		//if (cur_node.nchild >= 3) cout << cur_node.n << " " << i << endl;
+                Node_Link &nodelink = link_map[(V3DLONG)(cur_node.n)];
+                cur_node.nchild = nodelink.nlink;
+                // qDebug("#%d nlink = %d, in %d, out %d",
+                // (V3DLONG)(cur_node.n), nodelink.nlink,
+                // nodelink.in_link.size(), nodelink.out_link.size());
+
+                //if (cur_node.nchild >= 3) cout << cur_node.n << " " << i << endl;
 		indices.push_back(i);
 	}
 
@@ -477,9 +479,9 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 			}
 
 			V_NeuronSWC_unit& cur_node = in_swc.row[indices[i]];
-			Node_Link& nodelink = link_map[V3DLONG(cur_node.n)];
+                        Node_Link &nodelink = link_map[(V3DLONG)(cur_node.n)];
 
-			//if (cur_node.nchild <= 0)
+                        //if (cur_node.nchild <= 0)
 			//{	
 			//	cout << " -- processed node found, ID: " << cur_node.n << ", i = " << i << endl;
 			//	continue; //skip removed point
@@ -495,8 +497,9 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 				istart = indices[i];
 				//cout << "starting index: " << istart << " nlink: " << nodelink.nlink << " in_link: " << nodelink.in_link.size() << " out_link: " << nodelink.out_link.size() << endl;
 				if (0)
-                    qDebug("start from #%d", V3DLONG(cur_node.n));
-				break; //find a start point
+                                  qDebug("start from #%d",
+                                         (V3DLONG)(cur_node.n));
+                                break; //find a start point
 			}
 		}
 		if (istart < 0) //not find a start point
@@ -534,10 +537,10 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 		for (V3DLONG n = 1; inext >= 0; ++n)
 		{
 			V_NeuronSWC_unit& cur_node = in_swc.row[inext];
-			Node_Link& nodelink = link_map[V3DLONG(cur_node.n)];
-			//qDebug("	link #%d", V3DLONG(cur_node.n));
+                        Node_Link &nodelink = link_map[(V3DLONG)(cur_node.n)];
+                        // qDebug("	link #%d", (V3DLONG)(cur_node.n));
 
-			V_NeuronSWC_unit new_node = cur_node;
+                        V_NeuronSWC_unit new_node = cur_node;
 			new_node.n = n;
 			new_node.parent = n + 1; // link order as original order ==> this is why in V_NeuronSWC the order is reversed
 			new_seg.row.push_back(new_node); // This is where all those critical nodes duplicate.
@@ -554,10 +557,13 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 				new_seg.branchingProfile.y = cur_node.y;
 				new_seg.branchingProfile.z = cur_node.z;
 				new_seg.branchingProfile.isBranch = true;*/
-				
-				//qDebug("decompose_V_NeuronSWC_segs: segment end at root #%d", V3DLONG(cur_node.n));
-				//cout << cur_node.n << " " << cur_node.nchild << " " << nodelink.in_link.size() << " " << nodelink.out_link.size() << endl;
-				--cur_node.nchild;
+
+                                // qDebug("decompose_V_NeuronSWC_segs: segment
+                                // end at root #%d", (V3DLONG)(cur_node.n));
+                                // cout << cur_node.n << " " << cur_node.nchild
+                                // << " " << nodelink.in_link.size() << " " <<
+                                // nodelink.out_link.size() << endl;
+                                --cur_node.nchild;
 				if (cur_node.nchild == 0)
 				{
 					//++removedCount;
@@ -581,9 +587,12 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 				new_seg.branchingProfile.ID = branchID;
 				new_seg.branchingProfile.isBranch = true;*/
 
-				//qDebug("decompose_V_NeuronSWC_segs: segment end at branch #%d", V3DLONG(cur_node.n));
-				//cout << cur_node.n << " " << cur_node.nchild << " " << nodelink.in_link.size() << " " << nodelink.out_link.size() << endl;
-				cur_node.nchild --;
+                                // qDebug("decompose_V_NeuronSWC_segs: segment
+                                // end at branch #%d", (V3DLONG)(cur_node.n));
+                                // cout << cur_node.n << " " << cur_node.nchild
+                                // << " " << nodelink.in_link.size() << " " <<
+                                // nodelink.out_link.size() << endl;
+                                cur_node.nchild --;
 				if (cur_node.nchild == 0)
 				{
 					//++removedCount;
@@ -603,20 +612,21 @@ vector <V_NeuronSWC> decompose_V_NeuronSWC(V_NeuronSWC & in_swc, bool& isSuccess
 			}
 			else if (n>1 && inext==istart)  // i_left point (a loop) ///////////
 			{
-				//qDebug("decompose_V_NeuronSWC_segs: segment end at branch #%d", V3DLONG(cur_node.n));
-				//cout << inext << " " << cur_node.nchild << " " << nodelink.in_link.size() << " " << nodelink.out_link.size() << endl;
-				cur_node.nchild --;
-				if (cur_node.nchild == 0)
-				{
-					//++removedCount;
-					indices.erase(find(indices.begin(), indices.end(), inext));
-					break; //over, a simple segment
-				}
-				else if (cur_node.nchild < 0)
-				{
-					//++removedCount;
-					break; //over, a simple segment
-				}
+                          // qDebug("decompose_V_NeuronSWC_segs: segment end at
+                          // branch #%d", (V3DLONG)(cur_node.n)); cout << inext
+                          // << " " << cur_node.nchild << " " <<
+                          // nodelink.in_link.size() << " " <<
+                          // nodelink.out_link.size() << endl;
+                          cur_node.nchild--;
+                          if (cur_node.nchild == 0) {
+                            //++removedCount;
+                            indices.erase(
+                                find(indices.begin(), indices.end(), inext));
+                            break; // over, a simple segment
+                          } else if (cur_node.nchild < 0) {
+                            //++removedCount;
+                            break; // over, a simple segment
+                          }
 			}
 			else  //(nodelink.nlink==2)   // path node ///////////////////////////////////////////////
 			{
@@ -1020,26 +1030,29 @@ V_NeuronSWC join_segs_in_V_NeuronSWC_list(V_NeuronSWC_list & swc_list, V3DLONG s
 		}
 
 		//save a temp swc file
-//		char fname[128];
-//		sprintf(fname, "/Users/pengh/temp/testaaa%d.swc", k);
-//		FILE * fp = fopen(fname, "wt");
-//		if (fp)
-//		{
-//			fprintf(fp, "#name %s\n", fname);
-//			fprintf(fp, "#comment %s\n", "jointed neuron");
-//
-//			fprintf(fp, "#n,type,x,y,z,radius,parent\n");
-//			for (V3DLONG i=0;i<out_swc.row.size();i++)
-//			{
-//				V_NeuronSWC_unit v = out_swc.row.at(i);
-//				fprintf(fp, "%ld %ld %5.3f %5.3f %5.3f %5.3f %ld\n", V3DLONG(v.data[0]), V3DLONG(v.data[1]), v.data[2], v.data[3], v.data[4], v.data[5], V3DLONG(v.data[6]));
-//			}
-//
-//			fclose(fp);
-//		}
-
-
-	}
+                //		char fname[128];
+                //		sprintf(fname,
+                //"/Users/pengh/temp/testaaa%d.swc", k); 		FILE * fp =
+                //fopen(fname, "wt"); 		if (fp)
+                //		{
+                //			fprintf(fp, "#name %s\n", fname);
+                //			fprintf(fp, "#comment %s\n", "jointed
+                //neuron");
+                //
+                //			fprintf(fp,
+                //"#n,type,x,y,z,radius,parent\n"); 			for (V3DLONG
+                //i=0;i<out_swc.row.size();i++)
+                //			{
+                //				V_NeuronSWC_unit v =
+                //out_swc.row.at(i); 				fprintf(fp, "%ld %ld %5.3f %5.3f %5.3f
+                //%5.3f %ld\n", (V3DLONG)(v.data[0]), (V3DLONG)(v.data[1]),
+                //v.data[2], v.data[3], v.data[4], v.data[5],
+                //(V3DLONG)(v.data[6]));
+                //			}
+                //
+                //			fclose(fp);
+                //		}
+        }
 
 	out_swc.b_jointed = true; //091029 RZC
 	return out_swc;
@@ -1091,12 +1104,20 @@ bool join_two_V_NeuronSWC_old(V_NeuronSWC & destination_swc, V_NeuronSWC & subje
 			{
 				if (v.data[6]>=0) //non-root
 				{
-					if (ipos[V3DLONG(v.data[6])]<0) //if the parent overlap as well, then do no add
-					{
-						v.data[6] = sub_index_map[v.data[6]]; //if the overalp node is not a root (thus has its own parent, then inherit)
-						destination_swc.append(v); //in this case, still need to add this swc unit into the dest_swc
-					}
-				}
+                                  if (ipos[(V3DLONG)(v.data[6])] <
+                                      0) // if the parent overlap as well, then
+                                         // do no add
+                                  {
+                                    v.data[6] = sub_index_map
+                                        [v.data[6]]; // if the overalp node is
+                                                     // not a root (thus has its
+                                                     // own parent, then
+                                                     // inherit)
+                                    destination_swc.append(
+                                        v); // in this case, still need to add
+                                            // this swc unit into the dest_swc
+                                  }
+                                }
 				else //root
 				{
 					v.data[6] = destination_swc.row.at(ipos[i]).data[6]; //if the overlap node is a root for subject seg, then copy the parent in dest_swc
@@ -1184,8 +1205,8 @@ bool join_two_V_NeuronSWC_old(V_NeuronSWC & destination_swc, V_NeuronSWC & subje
 		for (i=0;i<newswc.row.size();i++) //now merge & update
 		{
 			v = newswc.row.at(i);
-			V3DLONG cur_parent = V3DLONG(v.parent);
-			V3DLONG mytmp = value_in_vector(overlap_root_array, cur_parent);
+                        V3DLONG cur_parent = (V3DLONG)(v.parent);
+                        V3DLONG mytmp = value_in_vector(overlap_root_array, cur_parent);
 			if (mytmp>=0)
 			{
 				qDebug()<<"cur node "<<v.n<< " cur parent "<<v.parent << "new parent " << des_rootnode_overlap_info.at(mytmp).at(0);
@@ -1211,8 +1232,12 @@ bool join_two_V_NeuronSWC_old(V_NeuronSWC & destination_swc, V_NeuronSWC & subje
 			for (i=0;i<destination_swc.row.size();i++)
 			{
 				v = destination_swc.row.at(i);
-				fprintf(fp, "%ld %ld %5.3f %5.3f %5.3f %5.3f %ld\n", V3DLONG(v.data[0]), V3DLONG(v.data[1]), v.data[2], v.data[3], v.data[4], v.data[5], V3DLONG(v.data[6]));
-			}
+                                fprintf(
+                                    fp, "%ld %ld %5.3f %5.3f %5.3f %5.3f %ld\n",
+                                    (V3DLONG)(v.data[0]), (V3DLONG)(v.data[1]),
+                                    v.data[2], v.data[3], v.data[4], v.data[5],
+                                    (V3DLONG)(v.data[6]));
+                        }
 
             fclose(fp);
 		}
@@ -1360,8 +1385,8 @@ map <V3DLONG,V3DLONG> unique_V_NeuronSWC_nodeindex(V_NeuronSWC & in_swc)
 	const V3DLONG n = in_swc.nrows();
 	for (V3DLONG i=0;i<n;i++)
 	{
-		index_map[V3DLONG(in_swc.row.at(i).data[0])]=i;
-	}
+          index_map[(V3DLONG)(in_swc.row.at(i).data[0])] = i;
+        }
 	return index_map;
 }
 
@@ -1401,17 +1426,16 @@ V_SWCNodes V_NeuronSWC::unique_nodes_info()
 
 	for (V3DLONG i=1;i<row.size();i++)
 	{
-		V3DLONG cur_nid = V3DLONG(row.at(i).n);
-		V_NeuronSWC_coord cur_ncoord = row.at(i).get_coord();
+          V3DLONG cur_nid = (V3DLONG)(row.at(i).n);
+          V_NeuronSWC_coord cur_ncoord = row.at(i).get_coord();
 
-		V3DLONG ind_nid = value_in_vector(res.nid_array, cur_nid);
-		V3DLONG ind_nccord = value_in_vector(res.ncoord_array, cur_ncoord);
-		if (ind_nid==ind_nccord && ind_nid>=0 && ind_nccord>=0)
-		{
-			res.nid_array.push_back(cur_nid);
-			res.ncoord_array.push_back(cur_ncoord);
-			res.nid_ipos_lut[cur_nid] = ind_nid;
-		}
+          V3DLONG ind_nid = value_in_vector(res.nid_array, cur_nid);
+          V3DLONG ind_nccord = value_in_vector(res.ncoord_array, cur_ncoord);
+          if (ind_nid == ind_nccord && ind_nid >= 0 && ind_nccord >= 0) {
+            res.nid_array.push_back(cur_nid);
+            res.ncoord_array.push_back(cur_ncoord);
+            res.nid_ipos_lut[cur_nid] = ind_nid;
+          }
 	}
 	return res;
 }
@@ -1424,9 +1448,9 @@ vector<V3DLONG> V_NeuronSWC::unique_nid()
 	res.push_back(row.at(0).n);
 	for (V3DLONG i=1;i<row.size();i++)
 	{
-		V3DLONG cur_nid = V3DLONG(row.at(i).n);
-		if (value_in_vector(res, cur_nid)<0)
-			res.push_back(cur_nid);
+          V3DLONG cur_nid = (V3DLONG)(row.at(i).n);
+          if (value_in_vector(res, cur_nid) < 0)
+            res.push_back(cur_nid);
 	}
 	return res;
 }

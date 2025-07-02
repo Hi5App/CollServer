@@ -522,23 +522,26 @@ void neuron_branch_tip_count(V3DLONG &n_branch, V3DLONG &n_tip, const V_NeuronSW
 	Link_Map_Iter it;
 	for (it=link_map.begin(); it!=link_map.end(); it++)
 	{
-//		const V_NeuronSWC_unit & cur_node = in_swc.row.at(i);
-//		Node_Link & nodelink = link_map[V3DLONG(cur_node.n)];
-		Node_Link & nodelink = (*it).second;
+          //		const V_NeuronSWC_unit & cur_node = in_swc.row.at(i);
+          //		Node_Link & nodelink = link_map[(V3DLONG)(cur_node.n)];
+          Node_Link &nodelink = (*it).second;
 
-        if(nodelink.nlink == 0) n_single++;
+          if (nodelink.nlink == 0)
+            n_single++;
 
-		if (nodelink.nlink == 1)
-			n_tip ++;
+          if (nodelink.nlink == 1)
+            n_tip++;
 
-        if (nodelink.nlink == 2) n_path++;// path point
+          if (nodelink.nlink == 2)
+            n_path++; // path point
 
-		if (nodelink.nlink >= 3)
-		{
-			n_branch ++;
-			//qDebug("branch #%d (%g %g %g) %d", V3DLONG(cur_node.n),cur_node.x,cur_node.y,cur_node.z, nodelink.nlink);
-		}
-	}
+          if (nodelink.nlink >= 3) {
+            n_branch++;
+            // qDebug("branch #%d (%g %g %g) %d",
+            // (V3DLONG)(cur_node.n),cur_node.x,cur_node.y,cur_node.z,
+            // nodelink.nlink);
+          }
+        }
 
     qDebug("cojoc: all:%d/link:%d/0:%d/1:%d/2:%d/3+:%d",in_swc.row.size(),link_map.size(),n_single,n_tip,n_path,n_branch);
 }

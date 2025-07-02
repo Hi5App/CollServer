@@ -235,8 +235,13 @@ double length_cubic_spline(parameterCubicSpline ** cparaArray, int arrayLen, V3D
 				printf("last_len=%10.4f\tcurve_len=%10.4f\t tstep=%10.4f\n", last_len_curvedSeg, len_curvedSeg, tstep);
 				last_len_curvedSeg = len_curvedSeg;
 				tstep /= 2.0;
-				nseg = V3DLONG(ceil(1.0/tstep)); //note that as I start from nseg=100, thus tstep=0.01, and thus even I continue divide by 2, nseg should always be integer
-			}	
+                                nseg = (V3DLONG)(ceil(
+                                    1.0 /
+                                    tstep)); // note that as I start from
+                                             // nseg=100, thus tstep=0.01, and
+                                             // thus even I continue divide by
+                                             // 2, nseg should always be integer
+                        }	
 		}
 
 		clen += len_curvedSeg;
@@ -520,9 +525,10 @@ bool interpolate_cubic_spline(parameterCubicSpline ** cparaArray, int arrayLen,
 	totalLen = slen[j] = len[j-1] + slen[j-1];
 	
 	//find out the respective t value for every point with the natural number distance (from the beginning of the cubic spline) on the spline curve
-	
-	cutPlaneNum = V3DLONG(floor(totalLen+1)); //so that set all cut-planes have 1-pixel spacing 
-	if (cutPlaneNum<=0)
+
+        cutPlaneNum = (V3DLONG)(floor(
+            totalLen + 1)); // so that set all cut-planes have 1-pixel spacing
+        if (cutPlaneNum<=0)
 	{
 		printf("This should never happen; check your data make sure it's correct; do nothing. \n");
 		if (len) {delete []len; len=0;}
@@ -670,9 +676,9 @@ bool interpolate_cubic_spline(parameterCubicSpline ** cparaArray, int arrayLen, 
 	totalLen = slen[j] = len[j-1] + slen[j-1];
 	
 	//find out the respective t value for every point with the natural number distance (from the beginning of the cubic spline) on the spline curve
-	
-	cutPlaneNum = V3DLONG(NPieces)*NPtsPerSeg; 
-	if (cutPlaneNum<=0)
+
+        cutPlaneNum = (V3DLONG)(NPieces)*NPtsPerSeg;
+        if (cutPlaneNum<=0)
 	{
 		printf("This should never happen; check your data make sure it's correct; do nothing. \n");
 		if (len) {delete []len; len=0;}

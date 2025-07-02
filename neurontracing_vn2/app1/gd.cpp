@@ -42,10 +42,7 @@ Peng, H, Ruan, Z., Atasoy, D., and Sternson, S. (2010) “Automatic reconstructi
 //110716: add in the mst option
 
 //the folowing conditional compilation is added by PHC, 2010-05-20
-#if defined (_MSC_VER)
-#include "../../v3d_main/basic_c_fun/vcdiff.h"
-#else
-#endif
+
 
 //#ifdef _WIN32
 //#define fabs(x) ((x<0)?-x:x)
@@ -458,14 +455,14 @@ char* find_shortest_path_graphimg(unsigned char ****img4d, V3DLONG sz[4], V3DLON
 	printf("bounding (%ld %ld %ld)--(%ld %ld %ld) in image (%ld x %ld x %ld)\n", bx0,by0,bz0, bx1,by1,bz1, sz[0],sz[1],sz[2]);
 	if (!img4d || sz[0]<=0 || sz[1]<=0 || sz[2]<=0 || sz[3]<=0 || !channelsToUse || nChannel<=0)
 	{
-		printf(s_error="Error happens: no image data or invalid parameters!\n"); 
+		printf("%s", s_error=(char*)"Error happens: no image data or invalid parameters!\n"); 
 		return s_error;
 	}
 	for (k=0;k<nChannel;k++)
 	{
 		if (channelsToUse[k]<0 || channelsToUse[k]>=sz[3])
 		{
-			printf(s_error="Error happens: the channelToUse parameters is not correct!\n"); 
+			printf("%s", s_error=(char*)"Error happens: the channelToUse parameters is not correct!\n"); 
 			return s_error;
 		}
 	}
@@ -474,7 +471,7 @@ char* find_shortest_path_graphimg(unsigned char ****img4d, V3DLONG sz[4], V3DLON
 	if ((bx0<0-dd || bx0>=dim0-dd || by0<0-dd || by0>=dim1-dd || bz0<0-dd || bz0>=dim2-dd)
 		|| (bx1<0-dd || bx1>=dim0-dd || by1<0-dd || by1>=dim1-dd || bz1<0-dd || bz1>=dim2-dd))
 	{
-		printf(s_error="Error happens: bounding box out of image bound!\n"); 
+		printf("%s", s_error=(char*)"Error happens: bounding box out of image bound!\n"); 
 		printf("inside z1=%ld\n", bz1);;
 		return s_error;
 	}
@@ -530,13 +527,13 @@ x = xmin+(x)*xstep; 	y = ymin+(y)*ystep; 			z = zmin+(z)*zstep; \
 	
 	if (NODE_XYZ_OUT_OF_BOUND(x0,y0,z0))
 	{
-		printf(s_error="Error happens: start_node out of bound! \n");
+		printf("%s", s_error=(char*)"Error happens: start_node out of bound! \n");
 		return s_error;
 	}
 	start_nodeind = NODE_FROM_XYZ(x0,y0,z0);
 	if (NODE_INDEX_OUT_OF_BOUND(start_nodeind))
 	{
-		printf(s_error="Error happens: start_node index out of range! \n");
+		printf("%s", s_error=(char*)"Error happens: start_node index out of range! \n");
 		if (end_nodeind) {delete []end_nodeind; end_nodeind=0;} //100520, by PHC
 		return s_error;
 	}
@@ -564,7 +561,7 @@ x = xmin+(x)*xstep; 	y = ymin+(y)*ystep; 			z = zmin+(z)*zstep; \
 	if (n_end_nodes>0 //for 1-to-N, not 1-to-image
 		&& n_end_outbound>=n_end_nodes)
 	{
-		printf(s_error="Error happens: all end_nodes out of bound! At least one end_node must be in bound.\n");
+		printf("%s", s_error=(char*)"Error happens: all end_nodes out of bound! At least one end_node must be in bound.\n");
 		if (end_nodeind) {delete []end_nodeind; end_nodeind=0;} //100520, by PHC
 		return s_error;
 	}
@@ -659,7 +656,7 @@ x = xmin+(x)*xstep; 	y = ymin+(y)*ystep; 			z = zmin+(z)*zstep; \
 	
 	if (n != edge_array.size())
 	{
-		printf(s_error="The number of edges is not consistent \n");
+		printf("%s", s_error=(char*)"The number of edges is not consistent \n");
 		if (end_nodeind) {delete []end_nodeind; end_nodeind=0;} //100520, by PHC
 		return s_error;
 	}
@@ -849,19 +846,19 @@ x = xmin+(x)*xstep; 	y = ymin+(y)*ystep; 			z = zmin+(z)*zstep; \
 				if (j==jj)
 				{
 					mUnit.clear();
-					printf(s_error="Error happens: this path is broken because a node has a self-link!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+					printf("%s", s_error=(char*)"Error happens: this path is broken because a node has a self-link!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 					break;
 				}
 				else if (j>=num_nodes)
 				{
 					mUnit.clear();
-					printf(s_error="Error happens: this node's parent has an index out of range!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+					printf("%s", s_error=(char*)"Error happens: this node's parent has an index out of range!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 					break;
 				}
 				else if (j<0) // should not be reached, because stop back trace at his child node
 				{
 					mUnit.clear();
-					printf(s_error="find the negative node, which should indicate the root has been over-reached."); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+					printf("%s", s_error=(char*)"find the negative node, which should indicate the root has been over-reached."); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 					break;
 				}
 				
@@ -924,13 +921,13 @@ char* find_shortest_path_graphimg(unsigned char ***img3d, V3DLONG dim0, V3DLONG 
 	printf("bounding (%ld %ld %ld)--(%ld %ld %ld) in image (%ld x %ld x %ld)\n", bx0,by0,bz0, bx1,by1,bz1, dim0,dim1,dim2);
 	if (!img3d || dim0<=0 || dim1<=0 || dim2<=0)
 	{
-		printf(s_error="Error happens: no image data!\n"); 
+		printf("%s", s_error=(char*)"Error happens: no image data!\n"); 
 		return s_error;
 	}
 	if ((bx0<0-dd || bx0>=dim0-dd || by0<0-dd || by0>=dim1-dd || bz0<0-dd || bz0>=dim2-dd)
 	   || (bx1<0-dd || bx1>=dim0-dd || by1<0-dd || by1>=dim1-dd || bz1<0-dd || bz1>=dim2-dd))
 	{
-		printf(s_error="Error happens: bounding box out of image bound!\n"); 
+		printf("%s", s_error=(char*)"Error happens: bounding box out of image bound!\n"); 
 		printf("inside z1=%ld\n", bz1);;
 		return s_error;
 	}
@@ -989,13 +986,13 @@ char* find_shortest_path_graphimg(unsigned char ***img3d, V3DLONG dim0, V3DLONG 
 		
 	if (NODE_XYZ_OUT_OF_BOUND(x0,y0,z0))
 	{
-		printf(s_error="Error happens: start_node out of bound! \n");
+		printf("%s", s_error=(char*)"Error happens: start_node out of bound! \n");
 		return s_error;
 	}
 	start_nodeind = NODE_FROM_XYZ(x0,y0,z0);
 	if (NODE_INDEX_OUT_OF_BOUND(start_nodeind))
 	{
-		printf(s_error="Error happens: start_node index out of range! \n");
+		printf("%s", s_error=(char*)"Error happens: start_node index out of range! \n");
 		if (end_nodeind) {delete []end_nodeind; end_nodeind=0;} //100520, by PHC
 		return s_error;
 	}
@@ -1023,7 +1020,7 @@ char* find_shortest_path_graphimg(unsigned char ***img3d, V3DLONG dim0, V3DLONG 
 	if (n_end_nodes>0 //for 1-to-N, not 1-to-image
 		&& n_end_outbound>=n_end_nodes)
 	{
-		printf(s_error="Error happens: all end_nodes out of bound! At least one end_node must be in bound.\n");
+		printf("%s", s_error=(char*)"Error happens: all end_nodes out of bound! At least one end_node must be in bound.\n");
 		if (end_nodeind) {delete []end_nodeind; end_nodeind=0;} //100520, by PHC
 		return s_error;
 	}
@@ -1142,7 +1139,7 @@ char* find_shortest_path_graphimg(unsigned char ***img3d, V3DLONG dim0, V3DLONG 
 
 	if (n != edge_array.size())
 	{
-		printf(s_error="The number of edges is not consistent \n");
+		printf("%s", s_error=(char*)"The number of edges is not consistent \n");
 		if (end_nodeind) {delete []end_nodeind; end_nodeind=0;} //100520, by PHC
 		return s_error;
 	}
@@ -1355,19 +1352,19 @@ char* find_shortest_path_graphimg(unsigned char ***img3d, V3DLONG dim0, V3DLONG 
 			if (j==jj)
 			{
 				mUnit.clear();
-				printf(s_error="Error happens: this path is broken because a node has a self-link!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+				printf("%s", s_error=(char*)"Error happens: this path is broken because a node has a self-link!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 				break;
 			}
 			else if (j>=num_nodes)
 			{
 				mUnit.clear();
-				printf(s_error="Error happens: this node's parent has an index out of range!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+				printf("%s", s_error=(char*)"Error happens: this node's parent has an index out of range!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 				break;
 			}
 			else if (j<0) // should not be reached, because stop back trace at his child node
 			{
 				mUnit.clear();
-				printf(s_error="find the negative node, which should indicate the root has been over-reached."); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+				printf("%s", s_error=(char*)"find the negative node, which should indicate the root has been over-reached."); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 				break;
 			}
 
@@ -1428,7 +1425,7 @@ char* find_shortest_path_graphpointset(V3DLONG n_all_nodes,
 	printf("sizeof(Weight) = %d, sizeof(Node) = %d \n", sizeof(Weight), sizeof(Node));
 	if (!xa || !ya || !za || !va || n_all_nodes<=0 || ind_startnode<0 || ind_startnode>=n_all_nodes)
 	{
-		printf(s_error="Error happens: no graph nodes's info was supplied in the input data!\n"); 
+		printf("%s", s_error=(char*)"Error happens: no graph nodes's info was supplied in the input data!\n"); 
 		return s_error;
 	}
 	V3DLONG n_end_outbound=0, n_end_nodes = 0;
@@ -1448,7 +1445,7 @@ char* find_shortest_path_graphpointset(V3DLONG n_all_nodes,
 	}
 	if (n_end_nodes0>0 && n_end_outbound>=n_end_nodes0) //n_end_nodes0>0 set the condition that this is not one-to-all-others
 	{
-		printf(s_error="Error happens: all end nodes' indexes are out the valid bound. Check your data. Do nothing!\n"); 
+		printf("%s", s_error=(char*)"Error happens: all end nodes' indexes are out the valid bound. Check your data. Do nothing!\n"); 
 		return s_error;
 	}
 	
@@ -1507,7 +1504,7 @@ char* find_shortest_path_graphpointset(V3DLONG n_all_nodes,
 	
 	if (n != edge_array.size())
 	{
-		printf(s_error="The number of edges is not consistent \n");
+		printf("%s", s_error=(char*)"The number of edges is not consistent \n");
 		return s_error;
 	}
 	V3DLONG num_edges = n; // back to undirectEdge for less memory consumption
@@ -1651,21 +1648,21 @@ char* find_shortest_path_graphpointset(V3DLONG n_all_nodes,
 				if (j==jj)
 				{
 					mUnit.clear();
-					printf(s_error="Error happens: this path is broken because a node has a self-link!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+					printf("%s", s_error=(char*)"Error happens: this path is broken because a node has a self-link!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 					break;
 				}
 				
 				if (j>=num_nodes)
 				{
 					mUnit.clear();
-					printf(s_error="Error happens: this node's parent has an index out of range!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+					printf("%s", s_error=(char*)"Error happens: this node's parent has an index out of range!"); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 					break;
 				}
 				
 				if (j<0) // should not be reached, because stop back trace at his child node
 				{
 					mUnit.clear();
-					printf(s_error="find the negative node, which should indicate the root has been reached over."); printf(" [j->p(j)] %ld->%ld \n", jj, j);
+					printf("%s", s_error=(char*)"find the negative node, which should indicate the root has been reached over."); printf(" [j->p(j)] %ld->%ld \n", jj, j);
 					break;
 				}
 				
@@ -1730,7 +1727,7 @@ char* bgl_shortest_path(Edge *edge_array, V3DLONG n_edges, Weight *weights, V3DL
     printf("num_vertices(g)=%ld  num_edges(g)=%ld \n", num_vertices(g), num_edges(g));
     if (n_nodes != num_vertices(g))
     {
-    	printf(s_error="ERROR to create graph: n_nodes != num_vertices(g) \n");
+    	printf("%s", s_error=(char*)"ERROR to create graph: n_nodes != num_vertices(g) \n");
     	return s_error;
     }
 //	//for debugging purpose
@@ -1783,7 +1780,7 @@ char* phc_shortest_path(Edge *edge_array, V3DLONG n_edges, Weight *weights, V3DL
 		start_nodeind<0 || start_nodeind>=n_nodes ||
 		!plist)
 	{
-		printf(s_error="Invalid parameters to phc_shortest_path(). do nothing\n");
+		printf("%s", s_error=(char*)"Invalid parameters to phc_shortest_path(). do nothing\n");
 		return s_error;
 	}
 
@@ -1792,14 +1789,14 @@ char* phc_shortest_path(Edge *edge_array, V3DLONG n_edges, Weight *weights, V3DL
 	DijkstraClass * p = new DijkstraClass;
 	if (!p)
     {
-		printf(s_error="Fail to allocate memory for DijkstraClass().\n");
+		printf("%s", s_error=(char*)"Fail to allocate memory for DijkstraClass().\n");
 		return s_error;
 	}
 	p->nnode = n_nodes;
 	p->allocatememory(p->nnode);
 	if (!(p->adjMatrix))
 	{
-		printf(s_error="Fail to assign value to the internal edge matrix.\n");
+		printf("%s", s_error=(char*)"Fail to assign value to the internal edge matrix.\n");
 		if (p) {delete p; p=0;}
 		return s_error;
 	}
@@ -1814,7 +1811,7 @@ char* phc_shortest_path(Edge *edge_array, V3DLONG n_edges, Weight *weights, V3DL
 						  minlevel, maxlevel);
 	if (s_error)
 	{
-		printf(s_error="Fail to assign value to the internal edge matrix.\n");
+		printf("%s", s_error=(char*)"Fail to assign value to the internal edge matrix.\n");
 		if (p) {delete p; p=0;}
 		return s_error;
 	}
@@ -1906,7 +1903,7 @@ char* copyEdgeSparseData2Adj(Edge *edge_array, V3DLONG n_edges, Weight *weights,
 	char* s_error=0;
 
 	if (!edge_array || n_edges<=0 || !weights || n_nodes<=0 || !adjMatrix)
-		{printf(s_error="the adjMatrix pointer or nnodes of copyEdgeSparseData2Adj() is invalid. Do nothing.\n");return s_error;}
+		{printf("%s", s_error=(char*)"the adjMatrix pointer or nnodes of copyEdgeSparseData2Adj() is invalid. Do nothing.\n");return s_error;}
 
 	for (V3DLONG i=0; i<n_edges; i++)
 	{
@@ -2474,7 +2471,7 @@ char* merge_back_traced_paths(vector< vector<V_NeuronSWC_unit> >& mmUnit)
 			else
 			{
 				mmUnit = all_segment;
-				printf(s_error="Error happens: n_same_node > lastn_same_node in merge_back_traced_paths() \n");
+				printf("%s", s_error=(char*)"Error happens: n_same_node > lastn_same_node in merge_back_traced_paths() \n");
 				return s_error;
 			}
 
